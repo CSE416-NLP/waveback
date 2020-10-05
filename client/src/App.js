@@ -1,11 +1,12 @@
 import React from 'react';
+import wavebackLogo from './img/WB Circle Logo V2.png';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Welcome to waveback :)
+          <img src={wavebackLogo} className="App-logo" alt="r" />
         </p>
         <a
           className="App-link"
