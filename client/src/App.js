@@ -1,24 +1,18 @@
 import React from 'react';
-import wavebackLogo from './img/WB Circle Logo V2.png';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import SplashScreen from './screens/SplashScreen';
+import AdminScreen from './screens/AdminScreen'
 
-function App() {
+const App = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          <img src={wavebackLogo} className="App-logo" alt="r" />
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={SplashScreen} />
+        <Route exact path="/admin" component={AdminScreen} />
+        <Redirect from="/:any" to={{ pathname: "/" }} />
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
 export default App;
