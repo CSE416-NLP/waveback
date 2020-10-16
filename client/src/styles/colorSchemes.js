@@ -26,15 +26,15 @@ export const COLOR_SCHEMES = {
         "primary": "#a03bff",       // Purple
         "secondary": "#ff39c3",     // Hot Neon Pink
         "tertiary": "#01c5ff",      // Blue Raspberry Blue
-        "accent": "#ffffff",        // White 
-        "background": "#010022",    // Deep Space Blue
+        "accent": "#010022",        // Deep Space Blue 
+        "background": "#ffffff",    // White
     },
     "1990s": {
         "primary": "#fbb114",       // Sandy Yellow
         "secondary": "#a48efa",     // Lavender Light Purple
         "tertiary": "#f26ede",      // Hot Pink
         "accent": "#0a1416",        // Very Dark Blue
-        "background": "#",          // Medium Blue
+        "background": "#01c9e2",    // Medium Blue
     },
     "2000s": {
         "primary": "#0060ff",       // PlayStation 2 Startup Screen Blue
