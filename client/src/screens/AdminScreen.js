@@ -20,7 +20,9 @@ const AdminScreen = (props) => {
       <p style={{ backgroundColor: "var(--accent)" }}>And clean behind your ears</p>
       <p style={{ backgroundColor: "var(--background)" }}>When will the SRS be graded? :(</p>
       {props.location.beter && <p>BETER ZENG HAHA</p>}
-      <Link to="/">Go back home</Link>
+      <div>
+        <Link to="/">Go back home</Link>
+      </div>
       <button onClick={() => changeStyle(styles.COLOR_SCHEME_1950S)}>1950s Color theme</button>
       <button onClick={() => changeStyle(styles.COLOR_SCHEME_1960S)}>1960s Color theme</button>
       <button onClick={() => changeStyle(styles.COLOR_SCHEME_1970S)}>1970s Color theme</button>
