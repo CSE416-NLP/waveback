@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { COLOR_SCHEMES } from './styles/colorSchemes'
 import "./styles/css/index.css"
 
+const handleLogin = () => {
+
+};
+
+const handleRegister = () => {
+
+};
+
 const Navbar = (props) => {
   const changeStyle = (style) => {
     document.documentElement.style.setProperty("--primary", style.primary);
@@ -43,7 +51,13 @@ const Navbar = (props) => {
             <option value={"2000s"}>2000s</option>
             <option value={"2010s"}>2010s</option>
         </select>
+
+        
+        <div onClick = {handleLogin} className = "navbar_item ripple">Login</div>
+        <div onClick = {handleRegister} className = "navbar_item ripple" >Create Account</div>
     </ul>
+
+
   );
 };
 

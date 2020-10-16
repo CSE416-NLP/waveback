@@ -3,7 +3,9 @@
   --secondary: #32c2e6; 
   --tertiary: #ffd200; 
   --accent: #111111; 
+  --button-transparent:  rgba(255,255,255, 0);
   --background: #ffedbe;
+  --hover-light: rgba(255,255,255, 0.7);
 }
 
 html, body, #root, #app, #app>div {
@@ -79,9 +81,74 @@ code {
 }
 
 .navbar_item {
+  background-color: var(--button-transparent);
   display: inline-block;
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  transition: 0.1s ease-in-out;
+}
+
+.navbar_item:hover {
+  cursor: pointer;
+  background-color: var(--hover-light);
+}
+/* -------------- wave effect taken from https://codeconvey.com/ripple-effect-on-button-click-css ------------- */
+
+@-webkit-keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: .4;
+  }
+  100% {
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+  }
+}
+ 
+@keyframes ripple {
+  0% {
+      width: 0;
+      height: 0;
+      opacity: .4;
+  }
+  
+  100% {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+  }
+}
+
+.ripple:before {
+  overflow:hidden;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-color: gray;
+  visibility: hidden;
+  z-index: 2;
+}
+
+.ripple:not(:active):before {
+  overflow:hidden;
+  -webkit-animation: ripple 0.5s cubic-bezier(0, 0, 0.2, 1);
+          animation: ripple 0.5s cubic-bezier(0, 0, 0.2, 1);
+  -webkit-transition: visibility .5s step-end;
+  /* transition: visibility .4s step-end; */
+  transition: visibility .5s ease-out;
+}
+
+.ripple:active:before {
+  overflow:hidden;
+  visibility: visible;
 }
