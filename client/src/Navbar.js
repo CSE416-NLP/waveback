@@ -17,6 +17,9 @@ const Navbar = (props) => {
         <Link to="/">
             <li className="navbar_item"> Home </li>
         </Link>
+        <Link to="/admin">
+            <li className="navbar_item"> Admin </li>
+        </Link>
         <Link to="/Discover">
             <li className="navbar_item"> Discover </li>
         </Link>
