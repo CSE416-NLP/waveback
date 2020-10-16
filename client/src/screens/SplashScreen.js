@@ -1,7 +1,7 @@
 import React from 'react';
 import wavebackLogo from '../images/WB Circle Logo V2.png';
 import { Link } from 'react-router-dom';
-import '../css/index.css';
+import '../styles/css/index.css';
 
 const SplashScreen = (props) => {
     return (
