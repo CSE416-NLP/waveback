@@ -11,11 +11,11 @@ const LockedScreen = (props) => {
     return (
         <div className="App">
             <p>Can only get here from clicking link, not directly from url. Try setting the theme in admin and then coming back here!</p>
-            <p style={{ backgroundColor: "var(--primary)" }}>This is primary</p>
-            <p style={{ backgroundColor: "var(--secondary)" }}>This is secondary</p>
-            <p style={{ backgroundColor: "var(--tertiary)" }}>This is tertiary</p>
-            <p style={{ backgroundColor: "var(--accent)" }}>This is accent</p>
-            <p style={{ backgroundColor: "var(--background)" }}>This is background</p>
+            <div style={{ backgroundColor: "var(--primary)", height: "75px" }}>This is primary</div>
+            <div style={{ backgroundColor: "var(--secondary)", height: "75px" }}>This is secondary</div>
+            <div style={{ backgroundColor: "var(--tertiary)", height: "75px" }}>This is tertiary</div>
+            <div style={{ backgroundColor: "var(--accent)", height: "75px" }}>This is accent</div>
+            <div style={{ backgroundColor: "var(--background)", height: "75px" }}>This is background</div>
             <Link to="/">Go back home</Link>
         </div>
     );
