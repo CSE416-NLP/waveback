@@ -8,6 +8,8 @@
 
 html, body, #root, #app, #app>div {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
