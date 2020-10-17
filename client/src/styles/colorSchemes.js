@@ -40,14 +40,14 @@ export const COLOR_SCHEMES = {
         "primary": "#0060ff",       // PlayStation 2 Startup Screen Blue
         "secondary": "#8f6fe1",     // Light Pastel Lavender
         "tertiary": "#4b3a78",      // Dark Dull Purple
-        "accent": "#eaab00",        // Yellow-ish Gold
-        "background": "#191919",    // Very Dark Gray
+        "accent": "#191919",        // Very Dark Gray
+        "background": "#eaab00",    // Yellow-ish Gold
     },
     "2010s": {
         "primary": "#44a9ad",       // Shallow Pool Water Teal
         "secondary": "#0a2f4f",     // Navy Blue
         "tertiary": "#7d4900",      // Rusty Orange 
-        "accent": "#ffffff",        // White
-        "background": "#242424",    // Dark Slate Gray
+        "accent": "#242424",        // Dark Slate Gray
+        "background": "#ffffff",    // White
     }
 }

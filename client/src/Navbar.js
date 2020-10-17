@@ -1,32 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { COLOR_SCHEMES } from './styles/colorSchemes'
+
 import "./styles/css/index.css"
+import wavebackCircleLogo from './images/WB Circle Logo V2.png';
+import tempProfileImage from './images/temporary profile image.png';
 
-const handleLogin = () => {
-
-};
-
-const handleRegister = () => {
-
-};
 
 const Navbar = (props) => {
-  const changeStyle = (style) => {
-    document.documentElement.style.setProperty("--primary", style.primary);
-    document.documentElement.style.setProperty("--secondary", style.secondary);
-    document.documentElement.style.setProperty("--tertiary", style.tertiary);
-    document.documentElement.style.setProperty("--accent", style.accent);
-    document.documentElement.style.setProperty("--background", style.background);
-  }
 
   return (
     <ul className="navbar">
         <Link to="/">
-            <li className="navbar_item"> Home </li>
-        </Link>
-        <Link to="/admin">
-            <li className="navbar_item"> Admin </li>
+            <li className="navbar_item"> <img src={wavebackCircleLogo} className="App-logo-navbar" alt="r" /> </li>
         </Link>
         <Link to="/Discover">
             <li className="navbar_item"> Discover </li>
@@ -38,23 +23,8 @@ const Navbar = (props) => {
             <li className="navbar_item"> Playlists </li>
         </Link>
         <Link to="/Profile">
-            <li className="navbar_item"> Profile </li>
+            <li className="navbar_item"> <img src={tempProfileImage} className="App-logo-navbar" alt="r" /> </li>
         </Link>
-        <select onChange={(e) => {
-            changeStyle(COLOR_SCHEMES[e.target.value])
-        }}>
-            <option value={"1950s"}>1950s</option>
-            <option value={"1960s"}>1960s</option>
-            <option value={"1970s"}>1970s</option>
-            <option value={"1980s"}>1980s</option>
-            <option value={"1990s"}>1990s</option>
-            <option value={"2000s"}>2000s</option>
-            <option value={"2010s"}>2010s</option>
-        </select>
-
-        
-        <div onClick = {handleLogin} className = "navbar_item ripple">Login</div>
-        <div onClick = {handleRegister} className = "navbar_item ripple" >Create Account</div>
     </ul>
 
 
