@@ -79,20 +79,25 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   margin: 0;
   padding: 0;
-  overflow: none;
+  height: 6.5%;
   background-color: #333;
   text-align: center;
 }
 
 .App-logo-navbar {
-  height: 30px;
+  height: 58px;
+}
+
+.navbar_link {
+  text-decoration: none;
 }
 
 .navbar_item {
   background-color: var(--button-transparent);
-  display: inline-block;
+  display: flex;
   color: white;
   text-align: center;
   padding: 11px 120px;
