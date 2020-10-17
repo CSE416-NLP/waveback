@@ -8,6 +8,10 @@
   --hover-light: rgba(255,255,255, 0.7);
 }
 
+#root {
+  overflow: hidden;
+}
+
 html, body, #root, #app, #app>div {
   height: 100%;
   display: flex;
@@ -72,7 +76,9 @@ code {
 }
 
 .navbar {
-  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   margin: 0;
   padding: 0;
   overflow: none;
@@ -90,6 +96,7 @@ code {
   color: white;
   text-align: center;
   padding: 11px 120px;
+  margin: 0 -120px;
   text-decoration: none;
   transition: 0.1s ease-in-out;
   font-size: 30px;
