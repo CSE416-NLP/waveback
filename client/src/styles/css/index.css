@@ -198,6 +198,18 @@ code {
 
 #gsbBottom { height: 100px; }
 
+.generateInput {
+  font-size: 18px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.addLocationButton {
+  text-align: center;
+  margin-left: 2%;
+  font-size: 24px;
+}
+
 /* -------------- wave effect taken from https://codeconvey.com/ripple-effect-on-button-click-css ------------- */
 
 @-webkit-keyframes ripple {

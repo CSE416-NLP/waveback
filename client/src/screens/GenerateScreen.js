@@ -2,26 +2,58 @@ import React, { useState } from 'react';
 import "../styles/css/index.css"
 
 const GenerateScreen = (props) => {
+  const [rowState, setRows] = useState([{
+    location: "",
+    startYear: "",
+    endYear: "",
+  }]);
+
+  const addEntryRow = () => {
+    let rowCopy = [...rowState];
+    rowCopy.push({
+      location: "",
+      startYear: "",
+      endYear: "",
+    });
+    setRows(rowCopy);
+  }
+
+  const addInfo = (index, type, event) => {
+    let rowCopy = [...rowState];
+    rowCopy[index][type] = event.target.value;
+    setRows(rowCopy);
+  }
+
   return (
-    <div class="generateScreen">
+    <div className="generateScreen">
 
-      <div class="generateScreenTitleText">bring back the sounds of...</div>
+      <div className="generateScreenTitleText">bring back the sounds of...</div>
 
-      <div class="generateScreenModules">
-        <p class="generateScreenText">Add Location</p>
-        <p align="center" class="generateScreenBox" id="gsbLeft"></p>
+      <div className="generateScreenModules">
+        <p className="generateScreenText">Add Locations
+          <button className="addLocationButton" onClick={addEntryRow}>+</button>
+        </p>
+        <p align="center" className="generateScreenBox" id="gsbLeft">
+          {rowState.map((row, index) =>
+          <p>
+            <input size="27" value={row.location} className="generateInput addLocation" onChange={(e) => addInfo(index, "location", e)} />
+            <input size="6" value={row.startYear} className="generateInput addStartYear" onChange={(e) => addInfo(index, "startYear", e)} />
+            <input size="6" value={row.endYear} className="generateInput addEndYear" onChange={(e) => addInfo(index, "endYear", e)} />
+          </p>
+          )}
+        </p>
       </div>
 
-      <div class="generateScreenModules">
+      <div className="generateScreenModules">
         <div>
-          <p class="generateScreenText">Add Genre</p>
-          <p align="center" class="generateScreenBox" id="gsbRight"></p>
+          <p className="generateScreenText">Add Genre</p>
+          <p align="center" className="generateScreenBox" id="gsbRight"></p>
         </div>
         <div>
-          <p class="generateScreenText">Preferred Number of Songs</p>
-          <p align="center" class="generateScreenBox" id="gsbBottom"></p>
+          <p className="generateScreenText">Preferred Number of Songs</p>
+          <p align="center" className="generateScreenBox" id="gsbBottom"></p>
         </div>
-        <button class="generateButton">GENERATE!</button>
+        <button className="generateButton">GENERATE!</button>
       </div>
         
     </div>
