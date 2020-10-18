@@ -85,7 +85,7 @@ const LockedScreen = (props) => {
                 <button onClick={() => queryAPI("-tJYN-eG1zk")}>Play Queen</button>
                 <button onClick={() => queryAPI("-cmSCQbWxV0")}>Play Kanye</button>
                 <div>
-                    <input value={searchTerm} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." class="discoverSearch"></input>
+                    <input value={searchTerm} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." className="discoverSearch"></input>
                     <button onClick={() => onClickHandler(searchTerm)}>Query Data in Console</button>
                 </div>
 

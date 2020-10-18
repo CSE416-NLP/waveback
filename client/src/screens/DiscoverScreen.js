@@ -3,13 +3,13 @@ import "../styles/css/index.css"
 
 const DiscoverScreen = (props) => {
   return (
-    <div class="discoverScreen">
+    <div className="discoverScreen">
         <div>
-          <input type="text" placeholder="Search.." class="discoverSearch"></input>
-          <button type="submit" class="discoverSearch">{'>'}</button>
+          <input type="text" placeholder="Search.." className="discoverSearch"></input>
+          <button type="submit" className="discoverSearch">{'>'}</button>
         </div>
         <div>
-          <button type="button" class="scrollDownButton">v</button>
+          <button type="button" className="scrollDownButton">v</button>
           
         </div>
     </div>
