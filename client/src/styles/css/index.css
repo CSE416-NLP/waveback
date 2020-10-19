@@ -109,6 +109,7 @@ code {
 
 .navbar_item:hover {
   cursor: pointer;
+  color: black;
   background-color: var(--hover-light);
 }
 
@@ -194,19 +195,20 @@ code {
 }
 
 .generateButton:hover {
+  cursor: pointer;
   background-color: #bbbbbb;
   box-shadow: 3px 3px 5px #aaaaaa;
 }
 
 .generateLeftScroller {
   overflow-y: scroll;
-  height: 534px;
+  height: 100%;
 }
 
 .generateRightScroller {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 334px;
+  height: 100%;
 }
 
 #locationText1 {
@@ -252,6 +254,10 @@ code {
   margin-left: 1.5%;
   width: 40px;
   font-size: 32px;
+}
+
+.generateSquareButton:hover {
+  cursor: pointer;
 }
 
 #genreText1 {

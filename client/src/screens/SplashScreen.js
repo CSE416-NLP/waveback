@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import '../styles/css/index.css';
 import wavebackTextLogo from '../images/WB Text Logo 1.png';
 

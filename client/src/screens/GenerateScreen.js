@@ -61,16 +61,16 @@ const GenerateScreen = (props) => {
           <button className="generateSquareButton" onClick={subtractLocation}><VscDiffRemoved /></button>
         </p>
         <div align="center" className="generateScreenBox" id="gsbLeft">
-          <p className="generateLeftScroller">
+          <div className="generateLeftScroller">
             <i id="locationText1">Location</i><i id="locationText2">Year Start</i><i id="locationText3">Year End</i>
             {locationState.map((row, index) =>
-            <p>
+            <p key={index}>
               <input size="33" value={row.location} className="generateInput" onChange={(e) => addLocationInfo(index, "location", e)} />
               <input size="3"  maxLength="4" value={row.startYear} className="generateInput" onChange={(e) => addLocationInfo(index, "startYear", e)} />
               <input size="3" maxLength="4" value={row.endYear} className="generateInput" onChange={(e) => addLocationInfo(index, "endYear", e)} />
             </p>
             )}
-          </p> 
+          </div> 
         </div>
       </div>
 
@@ -90,13 +90,13 @@ const GenerateScreen = (props) => {
               <input size="20" className="generateInputGenre" />
             </p>
 
-            <p className="generateRightScroller">
+            <div className="generateRightScroller">
               {genreState.map((row, index) =>
-              <p>
+              <p key={index}>
                   <i className="genreList">beter zeng</i>
               </p>
               )}
-            </p>
+            </div>
 
           </div>
         </div>

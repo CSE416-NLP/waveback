@@ -1,9 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
-
-/*  This is really more of a testing file for playing around with the router 
-    but maybe you guys find it interesting to look at as something that can
-    be done.  */
 
 const LockedScreen = (props) => {
     // This is an example of only allowing the user to visit this page if some requirement is met
@@ -49,7 +44,7 @@ const LockedScreen = (props) => {
             });
     }
 
-    const parseTime = (ISO_8601_String) => {
+    // const parseTime = (ISO_8601_String) => {
         // Holy cow this is annoying, I give up for now
 
         // let regexString = "PT";
@@ -75,12 +70,11 @@ const LockedScreen = (props) => {
         //         seconds += parseInt(time)
         // }
         // console.log(seconds)
-    }
+    // }
 
     const [searchTerm, setSearch] = useState("");
     return (
         <div className="App" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
-            {/* <p>Can only get here from clicking link, not directly from url. Try setting the theme in admin and then coming back here!</p> */}
             <div>
                 <button onClick={() => queryAPI("-tJYN-eG1zk")}>Play Queen</button>
                 <button onClick={() => queryAPI("-cmSCQbWxV0")}>Play Kanye</button>
@@ -91,7 +85,7 @@ const LockedScreen = (props) => {
 
             </div>
             {data && <div style={{ flex: "1" }}>
-                <iframe src={"http://www.youtube.com/embed/" + data.id}
+                <iframe title="bideo" src={"http://www.youtube.com/embed/" + data.id}
                     width="100%" height="100%" frameBorder="0" allowFullScreen={true} />
             </div>}
             {data && <div>Duration: {data.contentDetails.duration} | VideoID: {data.id}</div>}

@@ -37,12 +37,9 @@
     "graphql-passport": "^0.6.3",
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1",
-    "materialize-css": "^1.0.0-rc.2",
     "mongoose": "^5.9.19",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
-    "react-icons": "^3.11.0",
-    "react-materialize": "^3.9.3",
     "validator": "^13.1.1",
     "xss-clean": "^0.1.1"
   }
