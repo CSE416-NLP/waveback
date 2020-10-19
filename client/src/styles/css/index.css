@@ -175,6 +175,12 @@ code {
   margin-top: -20px;
 }
 
+.generateScreenLine {
+  border-style: solid;
+  border-radius: 1px;
+  border-color: #555555;
+}
+
 .generateButton {
   padding-left: 20px;
   padding-right: 20px;
@@ -192,9 +198,42 @@ code {
   box-shadow: 3px 3px 5px #aaaaaa;
 }
 
+.generateLeftScroller {
+  overflow-y: scroll;
+  height: 534px;
+}
+
+.generateRightScroller {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 334px;
+}
+
+#locationText1 {
+  float: left;
+  margin-left: 13px;
+}
+
+#locationText2 {
+  margin-left: 275px;
+}
+
+#locationText3 {
+  float: right;
+  margin-right: 18px;
+}
+
 #gsbLeft { height: 550px; }
 
 #gsbRight { height: 350px; }
+
+#gsbRightVert { 
+  position: absolute;
+  height: 320px; 
+  width: 0px;
+  margin-left: 250px;
+  margin-top: 12px;
+}
 
 #gsbBottom { height: 100px; }
 
@@ -204,10 +243,36 @@ code {
   margin-right: 5px;
 }
 
-.addLocationButton {
+.generateSquareButton {
   text-align: center;
-  margin-left: 2%;
-  font-size: 24px;
+  background-color: white;
+  border-style: none;
+  float: right;
+  margin-right: 0.5%;
+  margin-left: 1.5%;
+  width: 40px;
+  font-size: 32px;
+}
+
+#genreText1 {
+  float: left;
+  margin-left: 10px;
+}
+
+.generateInputGenre {
+  font-size: 18px;
+  float: left;
+  margin-left: 10px;
+}
+
+.genreList {
+  text-align: center;
+}
+
+.genreLeft {
+  float: left;
+  width: 265px;
+  height: 345px;
 }
 
 /* -------------- wave effect taken from https://codeconvey.com/ripple-effect-on-button-click-css ------------- */

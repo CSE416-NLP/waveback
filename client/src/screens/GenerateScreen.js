@@ -1,27 +1,53 @@
 import React, { useState } from 'react';
+import { VscDiffAdded, VscDiffRemoved } from "react-icons/vsc";
 import "../styles/css/index.css"
 
 const GenerateScreen = (props) => {
-  const [rowState, setRows] = useState([{
+
+  const [locationState, setLocations] = useState([{
     location: "",
     startYear: "",
     endYear: "",
   }]);
 
-  const addEntryRow = () => {
-    let rowCopy = [...rowState];
-    rowCopy.push({
+  const [genreState, setGenres] = useState([{
+    genre: "",
+  }]);
+
+  const addLocation = () => {
+    let locationCopy = [...locationState];
+    locationCopy.push({
       location: "",
       startYear: "",
       endYear: "",
     });
-    setRows(rowCopy);
+    setLocations(locationCopy);
   }
 
-  const addInfo = (index, type, event) => {
-    let rowCopy = [...rowState];
+  const subtractLocation = () => {
+    let locationCopy = [...locationState];
+    locationCopy.pop();
+    setLocations(locationCopy);
+  }
+
+  const addLocationInfo = (index, type, event) => {
+    let rowCopy = [...locationState];
     rowCopy[index][type] = event.target.value;
-    setRows(rowCopy);
+    setLocations(rowCopy);
+  }
+
+  const addGenre = () => {
+    let genreCopy = [...genreState];
+    genreCopy.push({
+      genre: "",
+    });
+    setGenres(genreCopy);
+  }
+
+  const subtractGenre = () => {
+    let genreCopy = [...genreState];
+    genreCopy.pop();
+    setGenres(genreCopy);
   }
 
   return (
@@ -30,30 +56,59 @@ const GenerateScreen = (props) => {
       <div className="generateScreenTitleText">bring back the sounds of...</div>
 
       <div className="generateScreenModules">
-        <p className="generateScreenText">Add Locations
-          <button className="addLocationButton" onClick={addEntryRow}>+</button>
+        <p className="generateScreenText">Locations
+          <button className="generateSquareButton" onClick={addLocation}><VscDiffAdded /></button>
+          <button className="generateSquareButton" onClick={subtractLocation}><VscDiffRemoved /></button>
         </p>
-        <p align="center" className="generateScreenBox" id="gsbLeft">
-          {rowState.map((row, index) =>
-          <p>
-            <input size="27" value={row.location} className="generateInput addLocation" onChange={(e) => addInfo(index, "location", e)} />
-            <input size="6" value={row.startYear} className="generateInput addStartYear" onChange={(e) => addInfo(index, "startYear", e)} />
-            <input size="6" value={row.endYear} className="generateInput addEndYear" onChange={(e) => addInfo(index, "endYear", e)} />
-          </p>
-          )}
-        </p>
+        <div align="center" className="generateScreenBox" id="gsbLeft">
+          <p className="generateLeftScroller">
+            <i id="locationText1">Location</i><i id="locationText2">Year Start</i><i id="locationText3">Year End</i>
+            {locationState.map((row, index) =>
+            <p>
+              <input size="33" value={row.location} className="generateInput" onChange={(e) => addLocationInfo(index, "location", e)} />
+              <input size="3"  maxLength="4" value={row.startYear} className="generateInput" onChange={(e) => addLocationInfo(index, "startYear", e)} />
+              <input size="3" maxLength="4" value={row.endYear} className="generateInput" onChange={(e) => addLocationInfo(index, "endYear", e)} />
+            </p>
+            )}
+          </p> 
+        </div>
       </div>
 
       <div className="generateScreenModules">
         <div>
-          <p className="generateScreenText">Add Genre</p>
-          <p align="center" className="generateScreenBox" id="gsbRight"></p>
+          <p className="generateScreenText">Genres
+            <button className="generateSquareButton" onClick={addGenre}><VscDiffAdded /></button>
+            <button className="generateSquareButton" onClick={subtractGenre}><VscDiffRemoved /></button>
+          </p>
+
+          <div align="center" className="generateScreenBox" id="gsbRight">
+            <div align="center" className="generateScreenLine" id="gsbRightVert"></div>
+
+            <p className="genreLeft">
+              <i id="genreText1">Search for Genre</i>
+              <br></br><br></br>
+              <input size="20" className="generateInputGenre" />
+            </p>
+
+            <p className="generateRightScroller">
+              {genreState.map((row, index) =>
+              <p>
+                  <i className="genreList">beter zeng</i>
+              </p>
+              )}
+            </p>
+
+          </div>
         </div>
+
+
         <div>
           <p className="generateScreenText">Preferred Number of Songs</p>
           <p align="center" className="generateScreenBox" id="gsbBottom"></p>
         </div>
+
         <button className="generateButton">GENERATE!</button>
+
       </div>
         
     </div>
