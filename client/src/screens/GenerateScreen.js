@@ -13,8 +13,6 @@ const GenerateScreen = (props) => {
     genre: "",
   }]);
 
-  const [num_songs, setNum_songs] = useState(0);
-
   const addLocation = () => {
     let locationCopy = [...locationState];
     locationCopy.push({
@@ -53,19 +51,19 @@ const GenerateScreen = (props) => {
     setGenres(genreCopy);
   }
 
-  // const songIncrement1 = () => {
-  //   // let val = document.getElementById("songNumberInput").value;
-  //   // if (val == null) { document.getElementById("songNumberInput").value = 1; }
-  //   // else { document.getElementById("songNumberInput").value++; }
+  const [num_songs, setNum_songs] = useState(0);
 
-  // }
+  const handleIncrement = () => {
+    // console.log(num_songs);
+    num_songs ? setNum_songs(num_songs + 1) : setNum_songs(1);
+  }
+  const handleDecrement = () => (!num_songs || num_songs <= 0) ? setNum_songs(0) : setNum_songs(num_songs - 1)
+  
+  const handleChange = (value) => {
+    console.log(value);
+    setNum_songs(parseInt(value, 0)); 
+  }
 
-  // const songDecrement1 = () => {
-  //   // let val = document.getElementById("songNumberInput").value;
-  //   // if (val == null || val === 0) { document.getElementById("songNumberInput").value = "0"; }
-  //   // else { document.getElementById("songNumberInput").value--; }
-
-  // }
 
   return (
     <div className="generateScreen">
@@ -125,9 +123,9 @@ const GenerateScreen = (props) => {
         <div className="generateBottomArea">
           <p className="generateScreenText">Preferred Number of Songs</p>
           <div className="ui input maxSongInputArea">
-            <button className="ui grey icon button"><i className="angle left icon" onClick={(e) => setNum_songs(num_songs - 1)} ></i></button>
-            <input size="1" maxLength="2" id="songNumberInput" value={num_songs} onChange={(e) => setNum_songs(parseInt(e.target.value))} />
-            <button className="ui grey icon button"><i className="angle right icon" onClick={(e) => setNum_songs(num_songs + 1)}></i></button>
+            <button className="ui grey icon button"><i className="angle left icon" onClick={handleDecrement} ></i></button>
+            <input size="1" maxLength="2" id="songNumberInput" value={num_songs} onChange={(e) => handleChange(e.target.value)} />
+            <button className="ui grey icon button"><i className="angle right icon" onClick={handleIncrement}></i></button>
           </div>
         </div>
 
