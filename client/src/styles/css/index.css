@@ -38,9 +38,25 @@ code {
   text-align: center;
 }
 
-.App-logo {
+.appLogoBG {
+  position: relative;
   height: 35vmin;
+  top: -67px;
   pointer-events: none;
+  animation: appLogoWave 2.5s linear;
+  animation-iteration-count: 1;
+}
+
+.appLogoFG {
+  transform: scale(0.45);
+  position: absolute;
+  height: 35vmin;
+  top: 195px;
+  left: 23px;
+}
+
+.appLogoFG:hover {
+  filter: hue-rotate(50deg);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -50,7 +66,6 @@ code {
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -64,13 +79,28 @@ code {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.splashText {
+  font-weight: bold;
+  color: black;
+  background-color: var(--button-transparent);
+  text-align: center;
+  padding: 11px 120px;
+  margin: 0 -120px;
+  margin-top: 1%;
+  text-decoration: none;
+  transition: 0.1s ease-in-out;
+  font-size: 30px;
+}
+
+.splashText:hover {
+  cursor: pointer;
+  background-color: var(--hover-light);
+}
+
+.splashTestSelect {
+  color: black;
+  position: absolute;
+  margin-left: 85%;
 }
 
 .clickable:hover {
@@ -271,6 +301,33 @@ code {
 
 
 /* ANIMATIONS */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes appLogoWave {
+  0% {
+    transform: scaleY(0.1);
+  }
+  20% {
+    transform: scaleY(1.5);
+  }
+  40% {
+    transform: scaleY(1.25);
+  }
+  70% {
+    transform: scaleY(1.05);
+  }
+  100% {
+    transform: scaleY(1.0);
+  }
+}
+
 /* -------------- wave effect taken from https://codeconvey.com/ripple-effect-on-button-click-css ------------- */
 @-webkit-keyframes ripple {
   0% {
