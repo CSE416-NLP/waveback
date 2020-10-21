@@ -268,7 +268,30 @@ code {
   margin-top: 60px;
   margin-left: 20px;
 }
+/* Playlists Screen */
 
+.playlistScreen_container {
+  columns: 2 auto;
+}
+
+.playlistRow {
+  
+}
+
+.playlistInfo {
+  display: inline-block;
+}
+
+.playlist_art { 
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+}
+
+.playlist_description {
+  display: inline-block;
+  position: relative;
+}
 
 /* ANIMATIONS */
 /* -------------- wave effect taken from https://codeconvey.com/ripple-effect-on-button-click-css ------------- */
