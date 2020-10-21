@@ -1,3 +1,4 @@
+/* GENERAL STUFF */
 :root{
   --primary: #e81b23; 
   --secondary: #32c2e6; 
@@ -32,6 +33,7 @@ code {
     monospace;
 }
 
+/* SPLASH SCREEN */
 .App {
   text-align: center;
 }
@@ -75,6 +77,7 @@ code {
   cursor: pointer;
 }
 
+/* NAVBAR */
 .navbar {
   display: flex;
   flex-direction: row;
@@ -113,6 +116,7 @@ code {
   background-color: var(--hover-light);
 }
 
+/* DISCOVER SCREEN */
 .discoverScreen {
   text-align: center;
 }
@@ -125,6 +129,7 @@ code {
   font-size: 32px;
 }
 
+/* GENERATE SCREEN */
 .scrollDownButton {
   position: relative;
   top: 700px;
@@ -144,7 +149,8 @@ code {
 }
 
 .generateScreenTitleText {
-  margin-top: 10px;
+  margin-top: 60px;
+  margin-bottom: 40px;
   font-size: 72px;
   font-weight: bolder;
   text-align: center;
@@ -162,11 +168,12 @@ code {
 
 .generateScreenText {
   font-size: 24px;
+  margin-left: 18px;
   font-weight: bold;
 }
 
 .generateScreenBox {
-  border-style: solid;
+  border-style: none;
   border-radius: 2px;
   border-color: #555555;
   background-color: white;
@@ -176,84 +183,45 @@ code {
   margin-top: -20px;
 }
 
-.generateScreenLine {
-  border-style: solid;
-  border-radius: 1px;
-  border-color: #555555;
-}
-
-.generateButton {
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 28px;
-  border-radius: 1px;
-  border-style: solid;
-  border-color: black;
-  background-color: #dddddd;
-}
-
-.generateButton:hover {
-  cursor: pointer;
-  background-color: #bbbbbb;
-  box-shadow: 3px 3px 5px #aaaaaa;
-}
-
 .generateLeftScroller {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 100%;
 }
 
 .generateRightScroller {
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
 }
 
 #locationText1 {
   float: left;
-  margin-left: 13px;
+  margin-left: 19px;
 }
 
 #locationText2 {
-  margin-left: 275px;
+  margin-left: 260px;
 }
 
 #locationText3 {
   float: right;
-  margin-right: 18px;
+  margin-right: 55px;
 }
 
 #gsbLeft { height: 550px; }
 
-#gsbRight { height: 350px; }
-
-#gsbRightVert { 
-  position: absolute;
-  height: 320px; 
-  width: 0px;
-  margin-left: 250px;
-  margin-top: 12px;
-}
+#gsbRight { height: 300px; }
 
 #gsbBottom { height: 100px; }
 
 .generateInput {
   font-size: 18px;
-  margin-left: 5px;
-  margin-right: 5px;
 }
 
 .generateSquareButton {
-  text-align: center;
-  background-color: white;
-  border-style: none;
   float: right;
   margin-right: 0.5%;
   margin-left: 1.5%;
-  width: 40px;
-  font-size: 32px;
 }
 
 .generateSquareButton:hover {
@@ -262,7 +230,7 @@ code {
 
 #genreText1 {
   float: left;
-  margin-left: 10px;
+  margin-left: 18px;
 }
 
 .generateInputGenre {
@@ -273,6 +241,7 @@ code {
 
 .genreList {
   text-align: center;
+  font-size: 24px;
 }
 
 .genreLeft {
@@ -281,8 +250,27 @@ code {
   height: 345px;
 }
 
-/* -------------- wave effect taken from https://codeconvey.com/ripple-effect-on-button-click-css ------------- */
+.maxSongInputArea {
+  margin-left: 90px;
+}
 
+#songNumberInput {
+  margin-left: 2px;
+  margin-right: 5px;
+}
+
+.generateBottomArea {
+  margin-top: 50px;
+}
+
+.generateButtonBox {
+  margin-top: 60px;
+  margin-left: 20px;
+}
+
+
+/* ANIMATIONS */
+/* -------------- wave effect taken from https://codeconvey.com/ripple-effect-on-button-click-css ------------- */
 @-webkit-keyframes ripple {
   0% {
     width: 0;
