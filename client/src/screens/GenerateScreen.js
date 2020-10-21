@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import "../styles/css/index.css"
+import { Label } from 'semantic-ui-react'
 
 const GenerateScreen = (props) => {
-
-  // Location hooks
+  const [numSongs, setNumSongs] = useState(1);
+  const [lastSongInputValid, setLastSongInputValid] = useState(true);
   const [locationState, setLocations] = useState([{
     location: "",
     startYear: "",
     endYear: "",
+  }]);
+  const [genreState, setGenres] = useState([{
+    genre: "",
   }]);
 
   const addLocation = () => {
@@ -32,11 +36,6 @@ const GenerateScreen = (props) => {
     setLocations(rowCopy);
   }
 
-  // Genre hooks
-  const [genreState, setGenres] = useState([{
-    genre: "",
-  }]);
-
   const addGenre = () => {
     let genreCopy = [...genreState];
     if (document.getElementById("genreSearch").value.length > 0) {
@@ -53,13 +52,19 @@ const GenerateScreen = (props) => {
     setGenres(genreCopy);
   }
 
-  // Number of songs hooks
-  const [num_songs, setNum_songs] = useState(0);
-
-  const handleIncrement = () => num_songs ? setNum_songs(num_songs + 1) : setNum_songs(1);
-  const handleDecrement = () => (!num_songs || num_songs <= 0) ? setNum_songs(0) : setNum_songs(num_songs - 1)
-  const handleChange = (value) => { setNum_songs(parseInt(value, 0)); }
-
+  const changeNumSongs = (num) => {
+    if (isNaN(num)) {
+      setNumSongs("");
+      setLastSongInputValid(false)
+    } 
+    else if (num > 0 && num < 100) {
+      setNumSongs(parseInt(num))
+      setLastSongInputValid(true)
+    }
+    else {
+      setLastSongInputValid(false)
+    }
+  }
 
   return (
     <div className="generateScreen">
@@ -117,9 +122,14 @@ const GenerateScreen = (props) => {
         <div className="generateBottomArea">
           <p className="generateScreenText">Preferred Number of Songs</p>
           <div className="ui input maxSongInputArea">
-            <button className="ui grey icon button"><i className="angle left icon" onClick={handleDecrement} ></i></button>
-            <input size="1" maxLength="2" id="songNumberInput" value={num_songs} onChange={(e) => handleChange(e.target.value)} />
-            <button className="ui grey icon button"><i className="angle right icon" onClick={handleIncrement}></i></button>
+            <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs - 1)}>
+              <i className="angle left icon"/>
+            </button>
+              {!lastSongInputValid && <Label style={{position: "absolute", marginTop: "4em"}} pointing='above'>Please enter a value between 1-99</Label>}
+              <input id="songNumberInput" size="1" maxLength="3" value={numSongs} onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
+            <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs + 1)}>
+              <i className="angle right icon"/>
+            </button>
           </div>
         </div>
 

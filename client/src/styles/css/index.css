@@ -286,6 +286,7 @@ code {
 }
 
 #songNumberInput {
+  text-align: center;
   margin-left: 2px;
   margin-right: 5px;
 }
