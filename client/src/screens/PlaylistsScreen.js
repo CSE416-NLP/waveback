@@ -54,9 +54,9 @@ const PlaylistsScreen = (props) => {
           <Grid.Column>
             Prog Playlist!
           </Grid.Column>
-
         </Grid.Row>
-      </Grid.Column>
+
+      </Grid>
     </div>
 
   );
