@@ -3,14 +3,11 @@ import "../styles/css/index.css"
 
 const GenerateScreen = (props) => {
 
+  // Location hooks
   const [locationState, setLocations] = useState([{
     location: "",
     startYear: "",
     endYear: "",
-  }]);
-
-  const [genreState, setGenres] = useState([{
-    genre: "",
   }]);
 
   const addLocation = () => {
@@ -35,6 +32,11 @@ const GenerateScreen = (props) => {
     setLocations(rowCopy);
   }
 
+  // Genre hooks
+  const [genreState, setGenres] = useState([{
+    genre: "",
+  }]);
+
   const addGenre = () => {
     let genreCopy = [...genreState];
     if (document.getElementById("genreSearch").value.length > 0) {
@@ -51,18 +53,12 @@ const GenerateScreen = (props) => {
     setGenres(genreCopy);
   }
 
+  // Number of songs hooks
   const [num_songs, setNum_songs] = useState(0);
 
-  const handleIncrement = () => {
-    // console.log(num_songs);
-    num_songs ? setNum_songs(num_songs + 1) : setNum_songs(1);
-  }
+  const handleIncrement = () => num_songs ? setNum_songs(num_songs + 1) : setNum_songs(1);
   const handleDecrement = () => (!num_songs || num_songs <= 0) ? setNum_songs(0) : setNum_songs(num_songs - 1)
-  
-  const handleChange = (value) => {
-    console.log(value);
-    setNum_songs(parseInt(value, 0)); 
-  }
+  const handleChange = (value) => { setNum_songs(parseInt(value, 0)); }
 
 
   return (
@@ -88,6 +84,7 @@ const GenerateScreen = (props) => {
                 <div className="ui input">
                   <input size="4" maxLength="4" value={row.endYear} className="generateInput" onChange={(e) => addLocationInfo(index, "endYear", e)} />
                 </div>
+                <br></br><br></br>
               </div>
             )}
           </div>
@@ -102,11 +99,9 @@ const GenerateScreen = (props) => {
           </p>
 
           <div align="center" className="generateScreenBox" id="gsbRight">
-
             <div className="genreLeft">
               <i id="genreText1">Search for Genre</i>
               <div className="ui input"><input size="20" id="genreSearch" className="generateInputGenre" /></div>
-
             </div>
 
             <div className="generateRightScroller">
@@ -116,7 +111,6 @@ const GenerateScreen = (props) => {
                 </p>
               )}
             </div>
-
           </div>
         </div>
 

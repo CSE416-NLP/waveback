@@ -5,11 +5,13 @@ const DiscoverScreen = (props) => {
   return (
     <div className="discoverScreen">
         <div>
-          <input type="text" placeholder="Search.." className="discoverSearch"></input>
-          <button type="submit" className="discoverSearch">{'>'}</button>
+          <input placeholder="Search.." className="discoverSearch"></input>
+          <button type="submit" className="ui icon big button"><i className="search icon"></i></button>
         </div>
         <div>
-          <button type="button" className="scrollDownButton">v</button>
+          <div className="scrollDownButtonContainer">
+            <button type="button" className="fluid ui icon button huge scrollDownButton"><i className="angle double down icon"></i></button>
+          </div>
           
         </div>
     </div>

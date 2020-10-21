@@ -123,13 +123,21 @@ code {
 
 .discoverSearch {
   margin-top: 25px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 4px;
+  padding-bottom: 7px;
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
 }
 
-/* GENERATE SCREEN */
+.discoverSearchButton {
+  margin-bottom: 24px;
+}
+
+.scrollDownButtonContainer {
+  width: 600px;
+  margin: auto;
+}
+
 .scrollDownButton {
   position: relative;
   top: 700px;
@@ -138,16 +146,9 @@ code {
   padding-bottom: 10px;
   padding-left: 200px;
   font-size: 28px;
-  border-style: solid;
-  border-color: black;
-  background-color: #dddddd;
 }
 
-.scrollDownButton:hover {
-  background-color: #999999;
-  box-shadow: 5px 5px 5px #aaaaaa;
-}
-
+/* GENERATE SCREEN */
 .generateScreenTitleText {
   margin-top: 60px;
   margin-bottom: 40px;
