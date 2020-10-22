@@ -311,10 +311,14 @@ code {
 .playlistScreen_container {
   columns: 2 auto;
 }
-
+.playlistColumn {
+  display: flex;
+  flex-direction: row;
+}
+/* 
 .playlistRow {
   
-}
+} */
 
 .playlistInfo {
   display: inline-block;
@@ -328,7 +332,12 @@ code {
 
 .playlist_description {
   display: inline-block;
-  position: relative;
+  /* position: relative; */
+}
+
+.playlist {
+  display: flex;
+  flex-direction: row
 }
 
 /* ANIMATIONS */
