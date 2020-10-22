@@ -28,7 +28,7 @@ const SplashScreen = (props) => {
     return (
         <div className="App">
             <header className="App-header" style={{backgroundColor: "var(--background)"}}>
-                <p>
+                <p className="app_logo_container">
                     <img src={wavebackTextBG} className="appLogoBG" alt="r" />
                     <img src={wavebackTextFG} className="appLogoFG" alt="r" />     
                 </p>
@@ -37,11 +37,12 @@ const SplashScreen = (props) => {
                     <div onClick = {handleLogin} className="splashText ripple" style={{color: "var(--accent)"}}>login</div>
                     <div onClick = {handleRegister} className="splashText ripple" style={{color: "var(--accent)"}}>register</div>
                     <div onClick = {handleForgotPassword} className="splashText ripple" style={{color: "var(--accent)"}}>forgot password?</div>
+                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/admin", key: true })}>Go to admin</div>
+                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/test", key: true })}>Go to test</div>
                 </div>
                 
                 <div className="splashTestSelect">
-                    <span className="clickable" onClick={() => props.history.push({ pathname: "/admin", key: true })}>Go to admin</span>
-                    <span className="clickable" onClick={() => props.history.push({ pathname: "/test", key: true })}>Go to test</span>
+                    
                     <select onChange={(e) => {
                         changeStyle(COLOR_SCHEMES[e.target.value])
                     }}>
