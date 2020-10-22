@@ -24,40 +24,52 @@ const PlaylistsScreen = (props) => {
   }
 
   return (
-    <div className="playlistScreen">
-      <Grid columns='four'>
-        <Grid.Row className="playlistRow">
-          <Grid.Column>
-            <Image className="playlist_art" src='https://images-na.ssl-images-amazon.com/images/I/61LYfqeXUDL._AC_SX522_.jpg' />
-          </Grid.Column>
-          <GridColumn>
-            Wish You Were Here
-          </GridColumn>
-          <Grid.Column>
-            <Image className="playlist_art" src='https://images-na.ssl-images-amazon.com/images/I/81VcA8-kuZL._SX425_.jpg' />
-          </Grid.Column>
-          <Grid.Column>
-            To Pimp A Butterfly
-          </Grid.Column>
-        </Grid.Row>
+    // <div className="playlistScreen">
+    <Grid columns={2} divded>
+      <Grid.Row>
+        <Grid.Column>
+          <div className='playlist'>
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <div className='info'>
+              <h1>Jihu's Pee Pee</h1>
+              <p>Jihu's Pee Pee is really big</p>
+            </div>
+          </div>
+        </Grid.Column>
 
-        <Grid.Row className="playlistRow">
-          <Grid.Column>
-            <Image className="playlist_art" src="https://target.scene7.com/is/image/Target/GUEST_4992dc44-ec22-4252-b2a5-5d45a6d839b9" />
-          </Grid.Column>
-          <Grid.Column>
-            Jazz Playlist!
-          </Grid.Column>
-          <Grid.Column>
-            <Image className="playlist_art" src='https://images-na.ssl-images-amazon.com/images/I/616%2BEud1OqL._SX355_.jpg' />
-          </Grid.Column>
-          <Grid.Column>
-            Prog Playlist!
-          </Grid.Column>
-        </Grid.Row>
+        <Grid.Column>
+          <div className='playlist'>
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <div className='info'>
+              <h1>Jihu's Pee Pee</h1>
+              <p>Jihu's Pee Pee is really big</p>
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
 
-      </Grid>
-    </div>
+      <Grid.Row>
+        <Grid.Column>
+          <div className='playlist'>
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <div className='info'>
+              <h1>Jihu's Pee Pee</h1>
+              <p>Jihu's Pee Pee is really big</p>
+            </div>
+          </div>
+        </Grid.Column>
+
+        <Grid.Column>
+          <div className='playlist'>
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <div className='info'>
+              <h1>Jihu's Pee Pee</h1>
+              <p>Jihu's Pee Pee is really big</p>
+            </div>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
 
   );
 };
