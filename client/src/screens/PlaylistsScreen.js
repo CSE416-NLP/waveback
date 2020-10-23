@@ -29,7 +29,7 @@ const PlaylistsScreen = (props) => {
       <Grid.Row>
         <Grid.Column>
           <div className='playlist'>
-            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
             <div className='info'>
               <h1>Jihu's Pee Pee</h1>
               <p>Jihu's Pee Pee is really big</p>
@@ -39,7 +39,7 @@ const PlaylistsScreen = (props) => {
 
         <Grid.Column>
           <div className='playlist'>
-            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
             <div className='info'>
               <h1>Jihu's Pee Pee</h1>
               <p>Jihu's Pee Pee is really big</p>
@@ -51,7 +51,7 @@ const PlaylistsScreen = (props) => {
       <Grid.Row>
         <Grid.Column>
           <div className='playlist'>
-            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
             <div className='info'>
               <h1>Jihu's Pee Pee</h1>
               <p>Jihu's Pee Pee is really big</p>
@@ -61,7 +61,7 @@ const PlaylistsScreen = (props) => {
 
         <Grid.Column>
           <div className='playlist'>
-            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' />
+            <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
             <div className='info'>
               <h1>Jihu's Pee Pee</h1>
               <p>Jihu's Pee Pee is really big</p>

@@ -1,19 +1,92 @@
 import React from 'react';
 import "../styles/css/index.css"
+import { Grid } from 'semantic-ui-react'
 
 const DiscoverScreen = (props) => {
   return (
     <div className="discoverScreen">
-        <div>
-          <input placeholder="Search.." className="discoverSearch"></input>
-          <button type="submit" className="ui icon big button"><i className="search icon"></i></button>
-        </div>
-        <div>
-          <div className="scrollDownButtonContainer">
-            <button type="button" className="fluid ui icon button huge scrollDownButton"><i className="angle double down icon"></i></button>
-          </div>
-          
-        </div>
+      <div className="searchContainer ui input">
+        <input placeholder="Search.." size="40" className="discoverSearch"></input>
+        <button type="submit" className="ui icon big button"><i className="search icon"></i></button>
+      </div>
+
+      <div className="discoverPlaylistGrid">
+        <Grid columns={1} divded>
+          <Grid.Row>
+            <Grid.Column>
+              <div className='playlistDiscover'>
+                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <div className='info'>
+                  <h1>Jihu's Pee Pee</h1>
+                  <p>Jihu's Pee Pee is really big</p>
+                </div>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className='playlistDiscover'>
+                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <div className='info'>
+                  <h1>Jihu's Pee Pee</h1>
+                  <p>Jihu's Pee Pee is really big</p>
+                </div>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className='playlistDiscover'>
+                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <div className='info'>
+                  <h1>Jihu's Pee Pee</h1>
+                  <p>Jihu's Pee Pee is really big</p>
+                </div>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className='playlistDiscover'>
+                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <div className='info'>
+                  <h1>Jihu's Pee Pee</h1>
+                  <p>Jihu's Pee Pee is really big</p>
+                </div>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className='playlistDiscover'>
+                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <div className='info'>
+                  <h1>Jihu's Pee Pee</h1>
+                  <p>Jihu's Pee Pee is really big</p>
+                </div>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className='playlistDiscover'>
+                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <div className='info'>
+                  <h1>Jihu's Pee Pee</h1>
+                  <p>Jihu's Pee Pee is really big</p>
+                </div>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+
+      <div>
+        <div className="scrollDownButtonContainer">
+          <button type="button" className="fluid ui icon button huge scrollDownButton"><i className="angle double down icon"></i></button>
+        </div> 
+      </div>
+
     </div>
   );
 };

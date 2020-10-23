@@ -10,6 +10,7 @@ const changeStyle = (style) => {
     document.documentElement.style.setProperty("--tertiary", style.tertiary);
     document.documentElement.style.setProperty("--accent", style.accent);
     document.documentElement.style.setProperty("--background", style.background);
+    document.documentElement.style.setProperty("--hue", style.hue);
   }
 
 const handleLogin = () => {
@@ -29,20 +30,22 @@ const SplashScreen = (props) => {
         <div className="App">
             <header className="App-header" style={{backgroundColor: "var(--background)"}}>
                 <p className="app_logo_container">
-                    <img src={wavebackTextBG} className="appLogoBG" alt="r" />
-                    <img src={wavebackTextFG} className="appLogoFG" alt="r" />     
+                    <img src={wavebackTextBG} className="appLogoBG" alt="" />
+                    <img src={wavebackTextFG} className="appLogoFG" alt="" style={{filter: "hue-rotate(" + "var(--hue)" + ")"}}/>     
                 </p>
 
-                <div>
-                    <div onClick = {handleLogin} className="splashText ripple" style={{color: "var(--accent)"}}>login</div>
-                    <div onClick = {handleRegister} className="splashText ripple" style={{color: "var(--accent)"}}>register</div>
-                    <div onClick = {handleForgotPassword} className="splashText ripple" style={{color: "var(--accent)"}}>forgot password?</div>
-                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/admin", key: true })}>Go to admin</div>
-                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/test", key: true })}>Go to test</div>
+                <div className="splashLoginContainer" style={{backgroundColor: "var(--primary)", filter: "drop-shadow(7px 7px 2px var(--accent))"}}>
+                    <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
+                    <div className="ui input splashInputContainer"><input size="25" className="splashInput" placeholder="Username"/></div>
+                    <div className="ui input splashInputContainer"><input size="25" className="splashInput" placeholder="Email"/></div>
+                    <div className="splashTextSmall" onClick={handleForgotPassword}>Forgot Password?</div>
+                    <div><button className="ui grey huge button" onClick={handleLogin}>Log In</button></div>
+                    <div className="splashTextSmall" onClick={handleRegister}>Create Account</div>
                 </div>
                 
                 <div className="splashTestSelect">
-                    
+                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/admin", key: true })}>Go to admin</div>
+                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/test", key: true })}>Go to test</div>
                     <select onChange={(e) => {
                         changeStyle(COLOR_SCHEMES[e.target.value])
                     }}>
