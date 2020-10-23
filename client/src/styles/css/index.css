@@ -1,11 +1,11 @@
 /* GENERAL STUFF */
 :root{
-  --primary: #e81b23; 
-  --secondary: #32c2e6; 
-  --tertiary: #ffd200; 
-  --accent: #111111; 
+  --primary: #3aafa9; 
+  --secondary: #c5e1e0; 
+  --accent: #101a1e; 
+  --background: #feffff;
+  --hue: "0deg";
   --button-transparent:  rgba(255,255,255, 0);
-  --background: #ffedbe;
   --hover-light: rgba(255,255,255, 0.7);
 }
 
@@ -199,7 +199,6 @@ code {
 .scrollDownButtonContainer {
   position: absolute;
   display: none;
-
   width: 600px;
   filter: drop-shadow(3px 3px 6px #333333);
 }
@@ -217,13 +216,12 @@ code {
   vertical-align: top;
   display: inline-block;
   text-align: left;
-  margin-top: 30px;
-  margin-left: 190px;
+  margin-top: 1.5%;
+  margin-left: 11.25%;
 }
 
 .generateScreenText {
   font-size: 24px;
-  margin-left: 18px;
   font-weight: bold;
 }
 
@@ -263,9 +261,9 @@ code {
   margin-right: 55px;
 }
 
-#gsbLeft { height: 550px; }
+#gsbLeft { height: 400px; }
 
-#gsbRight { height: 300px; }
+#gsbRight { height: 400px; }
 
 #gsbBottom { height: 100px; }
 
@@ -305,26 +303,37 @@ code {
   height: 345px;
 }
 
+.generateDivider {
+  width: 80%;
+  margin-top: -0.5%;
+  margin-bottom: -3%;
+  margin-left: 10%;
+  align-items: center;
+  justify-content: center;
+}
+
 .maxSongInputArea {
-  margin-left: 90px;
+  margin: 0 auto;
+  width: 9%;
 }
 
 #songNumberInput {
   text-align: center;
-  margin-left: 2px;
-  margin-right: 5px;
+  margin-right: 2%;
 }
 
 .generateBottomArea {
-  margin-top: 50px;
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .generateButtonBox {
-  margin-top: 60px;
-  margin-left: 20px;
+  margin-top: 1.5%;
 }
-/* Playlists Screen */
 
+/* Playlists Screen */
 .playlistScreen_container {
   columns: 2 auto;
 }

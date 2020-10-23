@@ -7,7 +7,6 @@ import wavebackTextBG from '../images/waveback text bg.png';
 const changeStyle = (style) => {
     document.documentElement.style.setProperty("--primary", style.primary);
     document.documentElement.style.setProperty("--secondary", style.secondary);
-    document.documentElement.style.setProperty("--tertiary", style.tertiary);
     document.documentElement.style.setProperty("--accent", style.accent);
     document.documentElement.style.setProperty("--background", style.background);
     document.documentElement.style.setProperty("--hue", style.hue);
@@ -49,9 +48,9 @@ const SplashScreen = (props) => {
                     <select onChange={(e) => {
                         changeStyle(COLOR_SCHEMES[e.target.value])
                     }}>
+                        <option value={"Modern"}>Modern</option>
                         <option value={"Vintage"}>Vintage</option>
                         <option value={"Retro"}>Retro</option>
-                        <option value={"Modern"}>Modern</option>
                     </select>
                 </div>
             </header>

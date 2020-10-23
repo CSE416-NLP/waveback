@@ -60,15 +60,13 @@ export const COLOR_SCHEMES = {
     "Vintage": {
         "primary": "#e9713d",
         "secondary": "#ebae77",
-        "tertiary": "#479da2",
         "accent": "#15253f",
         "background": "#f8dd93",
         "hue": "225deg",
     },
     "Retro": {
         "primary": "#8b63b1",
-        "secondary": "#ca5ba8",
-        "tertiary": "#58aec8",
+        "secondary": "#CF6BB0",
         "accent": "#010022",
         "background": "#f6f9ff",
         "hue": "127deg",
@@ -76,7 +74,6 @@ export const COLOR_SCHEMES = {
     "Modern": {
         "primary": "#3aafa9",
         "secondary": "#c5e1e0",
-        "tertiary": "#2f6e6c",
         "accent": "#101a1e",
         "background": "#feffff",
         "hue": "0deg",

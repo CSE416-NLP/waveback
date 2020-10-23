@@ -67,27 +67,30 @@ const GenerateScreen = (props) => {
   }
 
   return (
-    <div className="generateScreen">
+    <div className="generateScreen" style={{backgroundColor: "var(--background)"}}>
       <div className="generateScreenTitleText" style={{color: "var(--accent)", textShadow: "3px 3px 0px var(--secondary)"}}>bring back the sounds of...</div>
 
-      <div className="generateScreenModules">
+      <div className="generateScreenModules" style={{backgroundColor: "var(--background)"}}>
         <p className="generateScreenText">Locations
-          <button className="ui primary icon button generateSquareButton" onClick={addLocation}><i className="plus circle icon"></i></button>
+          <button className="ui teal icon button generateSquareButton" onClick={addLocation}><i className="plus circle icon"></i></button>
           <button className="ui grey icon button generateSquareButton" onClick={subtractLocation}><i className="minus circle icon"></i></button>
         </p>
-        <div align="center" className="generateScreenBox" id="gsbLeft">
+        <div align="center" className="generateScreenBox" id="gsbLeft" style={{backgroundColor: "var(--background)"}}>
           <i id="locationText1">Location</i><i id="locationText2">Year Start</i><i id="locationText3">Year End</i>
           <div className="generateLeftScroller">
             {locationState.map((row, index) =>
               <div key={index}>
                 <div className="ui input">
-                  <input size="32" value={row.location} className="generateInput" onChange={(e) => addLocationInfo(index, "location", e)} />
+                  <input size="32" value={row.location} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
+                    onChange={(e) => addLocationInfo(index, "location", e)} />
                 </div>
                 <div className="ui input">
-                  <input size="4" maxLength="4" value={row.startYear} className="generateInput" onChange={(e) => addLocationInfo(index, "startYear", e)} />
+                  <input size="4" maxLength="4" value={row.startYear} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
+                    onChange={(e) => addLocationInfo(index, "startYear", e)} />
                 </div>
                 <div className="ui input">
-                  <input size="4" maxLength="4" value={row.endYear} className="generateInput" onChange={(e) => addLocationInfo(index, "endYear", e)} />
+                  <input size="4" maxLength="4" value={row.endYear} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
+                    onChange={(e) => addLocationInfo(index, "endYear", e)} />
                 </div>
                 <br></br><br></br>
               </div>
@@ -96,17 +99,17 @@ const GenerateScreen = (props) => {
         </div>
       </div>
 
-      <div className="generateScreenModules">
+      <div className="generateScreenModules" style={{backgroundColor: "var(--background)"}}>
         <div>
           <p className="generateScreenText">Genres
-          <button className="ui icon primary button generateSquareButton" onClick={addGenre}><i className="plus circle icon"></i></button>
+          <button className="ui icon teal button generateSquareButton" onClick={addGenre}><i className="plus circle icon"></i></button>
             <button className="ui icon grey button generateSquareButton" onClick={subtractGenre}><i className="minus circle icon"></i></button>
           </p>
 
-          <div align="center" className="generateScreenBox" id="gsbRight">
+          <div align="center" className="generateScreenBox" id="gsbRight" style={{backgroundColor: "var(--background)"}}>
             <div className="genreLeft">
               <i id="genreText1">Search for Genre</i>
-              <div className="ui input"><input size="20" id="genreSearch" className="generateInputGenre" /></div>
+              <div className="ui input"><input size="20" id="genreSearch" className="generateInputGenre" style={{backgroundColor: "var(--secondary)"}}/></div>
             </div>
 
             <div className="generateRightScroller">
@@ -118,24 +121,27 @@ const GenerateScreen = (props) => {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="generateBottomArea">
-          <p className="generateScreenText">Preferred Number of Songs</p>
+      <div className="generateDivider">
+        <div className="ui divider"></div>
+      </div>
+
+      <div className="generateBottomArea">
+          <p className="generateScreenText">Playlist Size</p>
           <div className="ui input maxSongInputArea">
             <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs - 1)}>
               <i className="angle left icon"/>
             </button>
               {!lastSongInputValid && <Label style={{position: "absolute", marginTop: "4em"}} pointing='above'>Please enter a value between 1-99</Label>}
-              <input id="songNumberInput" size="1" maxLength="3" value={numSongs} onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
+              <input id="songNumberInput" size="1" maxLength="3" value={numSongs} style={{backgroundColor: "var(--secondary)"}}
+                onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
             <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs + 1)}>
               <i className="angle right icon"/>
             </button>
           </div>
+          <div className="generateButtonBox"><button className="ui teal button massive generateButton">GENERATE!</button></div>
         </div>
-
-        <div className="generateButtonBox"><button className="ui primary button generateButton">GENERATE!</button></div>
-
-      </div>
 
     </div>
   );
