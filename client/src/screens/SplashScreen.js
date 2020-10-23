@@ -34,7 +34,7 @@ const SplashScreen = (props) => {
                     <img src={wavebackTextFG} className="appLogoFG" alt="" style={{filter: "hue-rotate(" + "var(--hue)" + ")"}}/>     
                 </p>
 
-                <div className="splashLoginContainer" style={{backgroundColor: "var(--primary)", filter: "drop-shadow(7px 7px 2px var(--accent))"}}>
+                <div className="splashLoginContainer" style={{backgroundColor: "var(--primary)"}}>
                     <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
                     <div className="ui input splashInputContainer"><input size="25" className="splashInput" placeholder="Username"/></div>
                     <div className="ui input splashInputContainer"><input size="25" className="splashInput" placeholder="Email"/></div>
@@ -49,13 +49,9 @@ const SplashScreen = (props) => {
                     <select onChange={(e) => {
                         changeStyle(COLOR_SCHEMES[e.target.value])
                     }}>
-                        <option value={"1950s"}>1950s</option>
-                        <option value={"1960s"}>1960s</option>
-                        <option value={"1970s"}>1970s</option>
-                        <option value={"1980s"}>1980s</option>
-                        <option value={"1990s"}>1990s</option>
-                        <option value={"2000s"}>2000s</option>
-                        <option value={"2010s"}>2010s</option>
+                        <option value={"Vintage"}>Vintage</option>
+                        <option value={"Retro"}>Retro</option>
+                        <option value={"Modern"}>Modern</option>
                     </select>
                 </div>
             </header>

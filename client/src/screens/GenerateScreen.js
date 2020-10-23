@@ -68,7 +68,7 @@ const GenerateScreen = (props) => {
 
   return (
     <div className="generateScreen">
-      <div className="generateScreenTitleText">bring back the sounds of...</div>
+      <div className="generateScreenTitleText" style={{color: "var(--accent)", textShadow: "3px 3px 0px var(--secondary)"}}>bring back the sounds of...</div>
 
       <div className="generateScreenModules">
         <p className="generateScreenText">Locations
