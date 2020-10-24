@@ -10,7 +10,7 @@ const changeStyle = (style) => {
     document.documentElement.style.setProperty("--accent", style.accent);
     document.documentElement.style.setProperty("--background", style.background);
     document.documentElement.style.setProperty("--hue", style.hue);
-  }
+}
 
 const handleLogin = () => {
     console.log("login");
@@ -35,8 +35,12 @@ const SplashScreen = (props) => {
 
                 <div className="splashLoginContainer" style={{backgroundColor: "var(--primary)"}}>
                     <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
-                    <div className="ui input splashInputContainer"><input size="25" className="splashInput" placeholder="Username"/></div>
-                    <div className="ui input splashInputContainer"><input size="25" className="splashInput" placeholder="Email"/></div>
+                    <div className="ui input splashInputContainer">
+                        <input size="25" className="splashInput" placeholder="Username" style={{backgroundColor: "var(--secondary)"}}/>
+                    </div>
+                    <div className="ui input splashInputContainer">
+                        <input size="25" className="splashInput" placeholder="Email" style={{backgroundColor: "var(--secondary)"}}/>
+                    </div>
                     <div className="splashTextSmall" onClick={handleForgotPassword}>Forgot Password?</div>
                     <div><button className="ui grey huge button" onClick={handleLogin}>Log In</button></div>
                     <div className="splashTextSmall" onClick={handleRegister}>Create Account</div>
