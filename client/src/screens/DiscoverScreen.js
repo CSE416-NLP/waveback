@@ -17,8 +17,8 @@ const DiscoverScreen = (props) => {
               <div className='playlistDiscover'>
                 <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
                 <div className='info'>
-                  <h1>Jihu's Pee Pee</h1>
-                  <p>Jihu's Pee Pee is really big</p>
+                  <h1>Nathan's Basketball Playlist</h1>
+                  <p>Playlist for Nathan's Basketball!</p>
                 </div>
               </div>
             </Grid.Column>
@@ -28,8 +28,8 @@ const DiscoverScreen = (props) => {
               <div className='playlistDiscover'>
                 <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
                 <div className='info'>
-                  <h1>Jihu's Pee Pee</h1>
-                  <p>Jihu's Pee Pee is really big</p>
+                  <h1>Retrogames</h1>
+                  <p>Tian's gaming playlist</p>
                 </div>
               </div>
             </Grid.Column>
