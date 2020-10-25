@@ -379,7 +379,7 @@ code {
 .playlist {
   display: flex;
   flex-direction: row;
-  border: solid black;
+  border: #333333;
   width: 90%;
   border-radius: 5px;
 
