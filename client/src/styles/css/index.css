@@ -33,6 +33,11 @@ code {
     monospace;
 }
 
+::placeholder { 
+  color: #555555 !important;
+  opacity: 1;
+}
+
 /* SPLASH SCREEN */
 .App {
   text-align: center;
@@ -48,21 +53,14 @@ code {
 .appLogoBG {
   position: relative;
   pointer-events: none;
-  animation: appLogoWaveIntro 2.5s linear;
-  animation-iteration-count: 1;
+  animation: appLogoWaveIntro 1.5s linear;
 }
 
 .appLogoFG {
   position: absolute;
+  pointer-events: none;
   margin-top: -0.5%;
-  transform: scale(0.98);
-  filter: hue-rotate(180deg);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo-spin {
-    animation: App-logo-spin infinite 1s linear;
-  }
+  transform: scale(0.87);
 }
 
 .App-header {
@@ -79,9 +77,22 @@ code {
 }
 
 .splashLoginContainer {
-  padding: 1%;
-  margin-top: 2%;
-  border-radius: 4%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.splashTextSubtitle {
+  width: 33%;
+  text-align: right;
+  margin-right: 3%;
+  font-style: italic;
+}
+
+.splashLoginBox {
+  padding: 2%;
+  border-radius: 2%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -102,7 +113,6 @@ code {
   text-align: center;
   margin: 5%;
   text-decoration: none;
-  transition: 0.1s ease-in-out;
 }
 
 .splashTextSmall {
@@ -205,12 +215,16 @@ code {
 }
 
 /* GENERATE SCREEN */
+.generateScreen {
+  height: 100%;
+}
 .generateScreenTitleText {
-  margin-top: 60px;
-  margin-bottom: 40px;
+  margin-top: 3.5%;
+  margin-bottom: 2.5%;
   font-size: 72px;
   font-weight: bolder;
-  text-align: center;;
+  text-align: center;
+  font-style: italic;
 }
 
 .generateScreenModules {
@@ -483,14 +497,11 @@ code {
   0% {
     transform: scaleY(0.1);
   }
-  20% {
-    transform: scaleY(1.5);
+  30% {
+    transform: scaleY(1.3);
   }
-  40% {
-    transform: scaleY(1.25);
-  }
-  70% {
-    transform: scaleY(1.05);
+  60% {
+    transform: scaleY(1.2);
   }
   100% {
     transform: scaleY(1.0);

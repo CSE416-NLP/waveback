@@ -33,17 +33,22 @@ const SplashScreen = (props) => {
                     <img src={wavebackTextFG} className="appLogoFG" alt="" style={{filter: "hue-rotate(" + "var(--hue)" + ")"}}/>     
                 </p>
 
-                <div className="splashLoginContainer" style={{backgroundColor: "var(--primary)"}}>
-                    <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
-                    <div className="ui input splashInputContainer">
-                        <input size="25" className="splashInput" placeholder="Username" style={{backgroundColor: "var(--secondary)"}}/>
+                <div className="splashLoginContainer" >
+                    <p className="splashTextSubtitle" style={{color: "var(--accent)"}}>
+                        waveback is a simple, yet powerful, playlist creation tool.<br></br>relive the sounds of the past like never before.
+                    </p>
+                    <div className="splashLoginBox" style={{backgroundColor: "var(--primary)"}}>
+                        <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
+                        <div className="ui input splashInputContainer">
+                            <input size="25" className="splashInput" placeholder="Username" style={{backgroundColor: "var(--secondary)"}}/>
+                        </div>
+                        <div className="ui input splashInputContainer">
+                            <input size="25" className="splashInput" placeholder="Password" style={{backgroundColor: "var(--secondary)"}}/>
+                        </div>
+                        <div className="splashTextSmall" onClick={handleForgotPassword}>Forgot Password?</div>
+                        <div><button className="ui black huge button" onClick={handleLogin}>Log In</button></div>
+                        <div className="splashTextSmall" onClick={handleRegister}>Create Account</div>
                     </div>
-                    <div className="ui input splashInputContainer">
-                        <input size="25" className="splashInput" placeholder="Password" style={{backgroundColor: "var(--secondary)"}}/>
-                    </div>
-                    <div className="splashTextSmall" onClick={handleForgotPassword}>Forgot Password?</div>
-                    <div><button className="ui grey huge button" onClick={handleLogin}>Log In</button></div>
-                    <div className="splashTextSmall" onClick={handleRegister}>Create Account</div>
                 </div>
                 
                 <div className="splashTestSelect">

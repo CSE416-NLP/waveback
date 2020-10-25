@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, TextArea } from 'semantic-ui-react'
+import { Form, TextArea } from 'semantic-ui-react'
 import "../styles/css/index.css"
 
 var previousClickedText = undefined;
@@ -10,7 +10,7 @@ const ProfileScreen = (props) => {
   const setSelectedTab = (clickedText, tab) => {
     // Highlight selected tab's text and deselect the others.
     clickedText.style.fontWeight = "bold";
-    if (previousClickedText != undefined) { previousClickedText.style.fontWeight = "normal"; }
+    if (previousClickedText !== undefined) { previousClickedText.style.fontWeight = "normal"; }
     previousClickedText = clickedText;
     // Set state of the currently selected tab.
     let currentTabCopy = [...currentTab];
@@ -19,7 +19,7 @@ const ProfileScreen = (props) => {
   }
 
   let tabComponent;
-  if (currentTab == "profile") {
+  if (currentTab === "profile") {
     tabComponent = <div className="profileScreenMainContainer">
                     <p className="profileScreenSubText">Bio</p>
                     <Form><TextArea className="profileTextArea" rows={6} style={{backgroundColor: "var(--secondary)"}} placeholder="Tell us about yourself" /></Form>
@@ -32,26 +32,26 @@ const ProfileScreen = (props) => {
                     <div className="profileScreenSubText"><button className="ui teal button massive">Submit</button></div>
                   </div>;
   }
-  else if (currentTab == "friends") {
+  else if (currentTab === "friends") {
     tabComponent = undefined;
   }
   else {
     tabComponent = <div className="profileScreenMainContainer">
                     <p className="profileScreenSubText">Username</p>
-                    <div className="profileInputContainer">
-                      <Input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
+                    <div className="ui input profileInputContainer">
+                      <input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
                     </div>
                     <p className="profileScreenSubText">Email</p>
-                    <div className="profileInputContainer">
-                      <Input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
+                    <div className="ui input profileInputContainer">
+                      <input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
                     </div>
                     <p className="profileScreenSubText">New Password</p>
-                    <div className="profileInputContainer">
-                      <Input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
+                    <div className="ui input profileInputContainer">
+                      <input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
                     </div>
                     <p className="profileScreenSubText">Confirm New Password</p>
-                    <div className="profileInputContainer">
-                      <Input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
+                    <div className="ui input profileInputContainer">
+                      <input className="profileInput" style={{backgroundColor: "var(--secondary)"}}/><p className="profileAccountSubText">change</p>
                     </div>
                   </div>
   }

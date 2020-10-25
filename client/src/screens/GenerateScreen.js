@@ -72,7 +72,7 @@ const GenerateScreen = (props) => {
 
       <div className="generateScreenModules" style={{backgroundColor: "var(--background)"}}>
         <p className="generateScreenText">Locations
-          <button className="ui teal icon button generateSquareButton" onClick={addLocation}><i className="plus circle icon"></i></button>
+          <button className="ui black icon button generateSquareButton" onClick={addLocation}><i className="plus circle icon"></i></button>
           <button className="ui grey icon button generateSquareButton" onClick={subtractLocation}><i className="minus circle icon"></i></button>
         </p>
         <div align="center" className="generateScreenBox" id="gsbLeft" style={{backgroundColor: "var(--background)"}}>
@@ -102,7 +102,7 @@ const GenerateScreen = (props) => {
       <div className="generateScreenModules" style={{backgroundColor: "var(--background)"}}>
         <div>
           <p className="generateScreenText">Genres
-          <button className="ui icon teal button generateSquareButton" onClick={addGenre}><i className="plus circle icon"></i></button>
+          <button className="ui icon black button generateSquareButton" onClick={addGenre}><i className="plus circle icon"></i></button>
             <button className="ui icon grey button generateSquareButton" onClick={subtractGenre}><i className="minus circle icon"></i></button>
           </p>
 
@@ -140,7 +140,7 @@ const GenerateScreen = (props) => {
               <i className="angle right icon"/>
             </button>
           </div>
-          <div className="generateButtonBox"><button className="ui teal button massive generateButton">GENERATE!</button></div>
+          <div className="generateButtonBox"><button className="ui black button massive generateButton">GENERATE!</button></div>
         </div>
 
     </div>
