@@ -33,7 +33,10 @@ const ProfileScreen = (props) => {
                   </div>;
   }
   else if (currentTab === "friends") {
-    tabComponent = undefined;
+    tabComponent = 
+    <div className="profileScreenMainContainer">
+
+    </div>
   }
   else {
     tabComponent = <div className="profileScreenMainContainer">

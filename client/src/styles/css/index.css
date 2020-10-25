@@ -203,15 +203,24 @@ code {
 }
 
 .discoverPlaylistGrid {
+  height: 90%;
+  margin: 0 auto;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .scrollDownButtonContainer {
+  width: 100%;
+  top: 92%;
   position: absolute;
-  display: none;
-  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scrollDownButton {
   filter: drop-shadow(3px 3px 6px #333333);
+  width: 30%;
 }
 
 /* GENERATE SCREEN */

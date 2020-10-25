@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../styles/css/index.css"
-import { Grid, GridColumn, Image } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 const PlaylistsScreen = (props) => {
 

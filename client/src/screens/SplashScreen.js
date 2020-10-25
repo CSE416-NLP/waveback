@@ -30,7 +30,7 @@ const SplashScreen = (props) => {
             <header className="App-header" style={{backgroundColor: "var(--background)"}}>
                 <p className="app_logo_container">
                     <img src={wavebackTextBG} className="appLogoBG" alt="" />
-                    <img src={wavebackTextFG} className="appLogoFG" alt="" style={{filter: "hue-rotate(" + "var(--hue)" + ")"}}/>     
+                    <img src={wavebackTextFG} className="appLogoFG" alt="" style={{filter: "hue-rotate(var(--hue))"}}/>     
                 </p>
 
                 <div className="splashLoginContainer" >

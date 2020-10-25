@@ -10,6 +10,12 @@ const DiscoverScreen = (props) => {
         <button type="submit" className="ui icon big button"><i className="search icon"></i></button>
       </div>
 
+      <div className="scrollDownButtonContainer">
+        <div className="scrollDownButton">
+          <button type="button" className="fluid ui icon button huge"><i className="angle double down icon"></i></button>
+        </div> 
+      </div>
+
       <div className="discoverPlaylistGrid">
         <Grid columns={1} divded>
           <Grid.Row>
@@ -28,8 +34,8 @@ const DiscoverScreen = (props) => {
               <div className='playlistDiscover'>
                 <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
                 <div className='info'>
-                  <h1>Retrogames</h1>
-                  <p>Tian's gaming playlist</p>
+                  <h1>wahoo</h1>
+                  <p>Tian's wahoo playlist</p>
                 </div>
               </div>
             </Grid.Column>
@@ -70,21 +76,15 @@ const DiscoverScreen = (props) => {
           <Grid.Row>
             <Grid.Column>
               <div className='playlistDiscover'>
-                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/689243098488111383/769750957985890324/Capture.PNG' alt=""/>
                 <div className='info'>
-                  <h1>Jihu's Pee Pee</h1>
-                  <p>Jihu's Pee Pee is really big</p>
+                  <h1>The last playlist</h1>
+                  <p>ha ha yeah wahoo</p>
                 </div>
               </div>
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
-
-      <div>
-        <div className="scrollDownButtonContainer">
-          <button type="button" className="fluid ui icon button huge scrollDownButton"><i className="angle double down icon"></i></button>
-        </div> 
       </div>
 
     </div>

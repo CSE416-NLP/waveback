@@ -8,7 +8,7 @@ const Navbar = (props) => {
   return (
     <ul className="navbar">
         <Link className="navbar_link" to="/">
-            <li className="navbar_item"> <img src={wavebackCircleLogo} style={{filter: "hue-rotate(" + "var(--hue)" + ")"}} className="App-logo-navbar" alt="r" /> </li>
+            <li className="navbar_item"> <img src={wavebackCircleLogo} style={{filter: "hue-rotate(var(--hue))"}} className="App-logo-navbar" alt="r" /> </li>
         </Link>
         <Link className="navbar_link" to="/discover">
             <li className="navbar_item"> Discover </li>
