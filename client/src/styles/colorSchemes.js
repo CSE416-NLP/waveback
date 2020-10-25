@@ -71,7 +71,7 @@ export const COLOR_SCHEMES = {
         "background": "#f6f9ff",
         "hue": "127deg",
     },
-    "Modern": {
+    "Default": {
         "primary": "#3aafa9",
         "secondary": "#c5e1e0",
         "accent": "#101a1e",

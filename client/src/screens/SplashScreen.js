@@ -52,7 +52,7 @@ const SplashScreen = (props) => {
                     <select onChange={(e) => {
                         changeStyle(COLOR_SCHEMES[e.target.value])
                     }}>
-                        <option value={"Modern"}>Modern</option>
+                        <option value={"Default"}>Default</option>
                         <option value={"Vintage"}>Vintage</option>
                         <option value={"Retro"}>Retro</option>
                     </select>
