@@ -39,7 +39,7 @@ const SplashScreen = (props) => {
                         <input size="25" className="splashInput" placeholder="Username" style={{backgroundColor: "var(--secondary)"}}/>
                     </div>
                     <div className="ui input splashInputContainer">
-                        <input size="25" className="splashInput" placeholder="Email" style={{backgroundColor: "var(--secondary)"}}/>
+                        <input size="25" className="splashInput" placeholder="Password" style={{backgroundColor: "var(--secondary)"}}/>
                     </div>
                     <div className="splashTextSmall" onClick={handleForgotPassword}>Forgot Password?</div>
                     <div><button className="ui grey huge button" onClick={handleLogin}>Log In</button></div>
