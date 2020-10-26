@@ -7,13 +7,7 @@ const DiscoverScreen = (props) => {
     <div className="discoverScreen">
       <div className="searchContainer ui input">
         <input placeholder="Search.." size="40" className="discoverSearch"></input>
-        <button type="submit" className="ui icon big button"><i className="search icon"></i></button>
-      </div>
-
-      <div className="scrollDownButtonContainer">
-        <div className="scrollDownButton">
-          <button type="button" className="fluid ui icon button huge"><i className="angle double down icon"></i></button>
-        </div> 
+        <button type="submit" className="ui icon black big button"><i className="search icon"></i></button>
       </div>
 
       <div className="discoverPlaylistGrid">

@@ -34,7 +34,7 @@ code {
 }
 
 ::placeholder { 
-  color: #555555 !important;
+  color: #777777 !important;
   opacity: 1;
 }
 
@@ -207,20 +207,6 @@ code {
   margin: 0 auto;
   overflow-y: scroll;
   overflow-x: hidden;
-}
-
-.scrollDownButtonContainer {
-  width: 100%;
-  top: 92%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.scrollDownButton {
-  filter: drop-shadow(3px 3px 6px #333333);
-  width: 30%;
 }
 
 /* GENERATE SCREEN */
@@ -461,6 +447,19 @@ code {
   padding-right: 12%;
 }
 
+.profileScreenMainContainerFriends {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 90%;
+  padding: 3%;
+  padding-right: 12%;
+}
+
+.friendSearchContainer {
+  margin: auto;
+}
+
 .profileScreenSubText {
   font-weight: bold;
   margin-top: 5%;
@@ -490,6 +489,19 @@ code {
 .profileAccountSubText:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.profileScreenScrollContainer {
+  height: 90%;
+  margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.profileScreenFriend {
+  display: flex;
+  margin-top: 1%;
+  margin-left: 4%;
 }
 
 /* ANIMATIONS */
