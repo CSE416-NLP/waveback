@@ -39,25 +39,44 @@ const ProfileScreen = (props) => {
         <input placeholder="Search for a friend..." style={{backgroundColor: "var(--secondary)"}} size="50" className="discoverSearch"></input>
         <button type="submit" className="ui icon black big button"><i className="search icon"></i></button>
       </div>
-      
       <div className="profileScreenScrollContainer">
         <Grid columns={2} divded>
           <Grid.Row>
             <Grid.Column>
               <div className='profileScreenFriend'>
                 <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
-                <div className='info'>
-                  <h1>Nathan's Basketball Playlist</h1>
-                  <p>Playlist for Nathan's Basketball!</p>
+                <div className='profileFriendInfo'>
+                  <h1>Steve Jobs</h1>
+                  <p>aaaaaaaaaaaaaaa</p>
                 </div>
               </div>
             </Grid.Column>
             <Grid.Column>
               <div className='profileScreenFriend'>
-                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
-                <div className='info'>
-                  <h1>wahoo</h1>
-                  <p>Tian's wahoo playlist</p>
+                <img className="playlist_art" src='https://i.imgur.com/bJK5vsQ.png' alt=""/>
+                <div className='profileFriendInfo'>
+                  <h1>Beter Zeng</h1>
+                  <p>bbbbbbbbbbbbbbb</p>
+                </div>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className='profileScreenFriend'>
+                <img className="playlist_art" src='https://i.imgur.com/bJK5vsQ.png' alt=""/>
+                <div className='profileFriendInfo'>
+                  <h1>Paul Fodor</h1>
+                  <p>snip</p>
+                </div>
+              </div>
+            </Grid.Column>
+            <Grid.Column>
+              <div className='profileScreenFriend'>
+                <img className="playlist_art" src='https://i.imgur.com/GUxXLET.jpg' alt=""/>
+                <div className='profileFriendInfo'>
+                  <h1>The Mckilla Gorilla</h1>
+                  <p>imagine grading the SRS LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL</p>
                 </div>
               </div>
             </Grid.Column>
@@ -66,18 +85,18 @@ const ProfileScreen = (props) => {
             <Grid.Column>
               <div className='profileScreenFriend'>
                 <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
-                <div className='info'>
-                  <h1>Nathan's Basketball Playlist</h1>
-                  <p>Playlist for Nathan's Basketball!</p>
+                <div className='profileFriendInfo'>
+                  <h1>Saransh</h1>
+                  <p>is an alcoholic</p>
                 </div>
               </div>
             </Grid.Column>
             <Grid.Column>
               <div className='profileScreenFriend'>
-                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
-                <div className='info'>
+                <img className="playlist_art" src='https://i.imgur.com/bJK5vsQ.png' alt=""/>
+                <div className='profileFriendInfo'>
                   <h1>wahoo</h1>
-                  <p>Tian's wahoo playlist</p>
+                  <p>imma luigi numbah one</p>
                 </div>
               </div>
             </Grid.Column>
@@ -85,29 +104,9 @@ const ProfileScreen = (props) => {
           <Grid.Row>
             <Grid.Column>
               <div className='profileScreenFriend'>
-                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
-                <div className='info'>
-                  <h1>Nathan's Basketball Playlist</h1>
-                  <p>Playlist for Nathan's Basketball!</p>
-                </div>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div className='profileScreenFriend'>
-                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
-                <div className='info'>
-                  <h1>wahoo</h1>
-                  <p>Tian's wahoo playlist</p>
-                </div>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <div className='profileScreenFriend'>
-                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/689243098488111383/769750957985890324/Capture.PNG' alt=""/>
-                <div className='info'>
-                  <h1>aaaaaa</h1>
+                <img className="playlist_art" src='https://i.imgur.com/GUxXLET.jpg' alt=""/>
+                <div className='profileFriendInfo'>
+                  <h1>aaaaaaffffffffffffffffffffffffffffffeeeeeeeeeeeeff</h1>
                   <p>aaaaaaaaaaaa</p>
                 </div>
               </div>
@@ -115,9 +114,9 @@ const ProfileScreen = (props) => {
             <Grid.Column>
               <div className='profileScreenFriend'>
                 <img className="playlist_art" src='https://cdn.discordapp.com/attachments/689243098488111383/769750957985890324/Capture.PNG' alt=""/>
-                <div className='info'>
-                  <h1>The last playlist</h1>
-                  <p>ha ha yeah wahoo</p>
+                <div className='profileFriendInfo'>
+                  <h1>robbie economou</h1>
+                  <p>(914) 217 7980 - call for a sexy time</p>
                 </div>
               </div>
             </Grid.Column>

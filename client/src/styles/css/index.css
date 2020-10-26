@@ -504,6 +504,11 @@ code {
   margin-left: 4%;
 }
 
+.profileFriendInfo {
+  width: 60%;
+  overflow-wrap: break-word;
+}
+
 /* ANIMATIONS */
 @keyframes App-logo-spin {
   from {
