@@ -5,7 +5,7 @@
   --accent: #101a1e; 
   --background: #feffff;
   --hue: "0deg";
-  --buttonColor: "teal";
+  --buttonColor: teal;
   --button-transparent:  rgba(255,255,255, 0);
   --hover-light: rgba(255,255,255, 0.7);
 }
