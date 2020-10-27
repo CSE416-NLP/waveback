@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLOR_SCHEMES } from '../styles/colorSchemes'
+import { COLOR_SCHEMES } from '../styles/ColorSchemes'
 
 import "../styles/css/index.css"
 
@@ -9,6 +9,7 @@ const changeStyle = (style) => {
   document.documentElement.style.setProperty("--accent", style.accent);
   document.documentElement.style.setProperty("--background", style.background);
   document.documentElement.style.setProperty("--hue", style.hue);
+  document.documentElement.style.setProperty("--buttonColor", style.buttonColor);
 }
 
 const AdminScreen = (props) => {
@@ -18,8 +19,8 @@ const AdminScreen = (props) => {
       <select onChange={(e) => {
           changeStyle(COLOR_SCHEMES[e.target.value])
       }}>
-          <option value={"Default"}>Default</option>
-          <option value={"Vintage"}>Vintage</option>
+          <option value={"Modern"}>Modern</option>
+          <option value={"Old-School"}>Old-School</option>
           <option value={"Retro"}>Retro</option>
           
       </select>

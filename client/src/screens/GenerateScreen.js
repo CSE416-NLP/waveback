@@ -72,8 +72,12 @@ const GenerateScreen = (props) => {
 
       <div className="generateScreenModules" style={{backgroundColor: "var(--background)"}}>
         <p className="generateScreenText">Locations
-          <button className="ui black icon button generateSquareButton" onClick={addLocation}><i className="plus circle icon"></i></button>
-          <button className="ui grey icon button generateSquareButton" onClick={subtractLocation}><i className="minus circle icon"></i></button>
+          <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui icon button generateSquareButton" onClick={addLocation}>
+            <i className="plus circle icon"></i>
+          </button>
+          <button style={{color: "var(--background)"}} className="ui grey icon button generateSquareButton" onClick={subtractLocation}>
+            <i className="minus circle icon"></i>
+          </button>
         </p>
         <div align="center" className="generateScreenBox" id="gsbLeft" style={{backgroundColor: "var(--background)"}}>
           <i id="locationText1">Location</i><i id="locationText2">Year Start</i><i id="locationText3">Year End</i>
@@ -102,16 +106,18 @@ const GenerateScreen = (props) => {
       <div className="generateScreenModules" style={{backgroundColor: "var(--background)"}}>
         <div>
           <p className="generateScreenText">Genres
-          <button className="ui icon black button generateSquareButton" onClick={addGenre}><i className="plus circle icon"></i></button>
-            <button className="ui icon grey button generateSquareButton" onClick={subtractGenre}><i className="minus circle icon"></i></button>
+          <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui icon button generateSquareButton" onClick={addGenre}>
+            <i className="plus circle icon"></i>
+          </button>
+            <button style={{color: "var(--background)"}} className="ui icon grey button generateSquareButton" onClick={subtractGenre}>
+              <i className="minus circle icon"></i>
+            </button>
           </p>
-
           <div align="center" className="generateScreenBox" id="gsbRight" style={{backgroundColor: "var(--background)"}}>
             <div className="genreLeft">
               <i id="genreText1">Search for Genre</i>
               <div className="ui input"><input size="20" id="genreSearch" className="generateInputGenre" style={{backgroundColor: "var(--secondary)"}}/></div>
             </div>
-
             <div className="generateRightScroller">
               {genreState.map((row, index) =>
                 <p key={index}>
@@ -140,7 +146,9 @@ const GenerateScreen = (props) => {
               <i className="angle right icon"/>
             </button>
           </div>
-          <div className="generateButtonBox"><button className="ui black button massive generateButton">GENERATE!</button></div>
+          <div className="generateButtonBox">
+            <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}}  className="ui button massive generateButton">GENERATE!</button>
+          </div>
         </div>
 
     </div>

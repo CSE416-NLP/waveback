@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Header, Icon, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react';
 import "../styles/css/index.css"
-import { COLOR_SCHEMES } from '../styles/colorSchemes'
+import { COLOR_SCHEMES } from '../styles/ColorSchemes'
 
 var previousClickedTabName = undefined;
 
@@ -52,7 +52,9 @@ const ProfileScreen = (props) => {
     <div className="profileScreenMainContainerFriends">
       <div className="friendSearchContainer ui input">
         <input placeholder="Search for a friend..." style={{backgroundColor: "var(--secondary)"}} size="50" className="discoverSearch"></input>
-        <button type="submit" className="ui icon black big button"><i className="search icon"></i></button>
+        <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} type="submit" className="ui icon big button">
+          <i className="search icon"></i>
+        </button>
       </div>
       <div className="profileScreenScrollContainer">
         <Grid columns={2} divded>
@@ -174,7 +176,9 @@ const ProfileScreen = (props) => {
             onClose={() => setSignOutModalOpenState(false)}
             onOpen={() => setSignOutModalOpenState(true)}
             open={signOutOpenState}
-            size='small' trigger={<a className="profileOptionsButton"><button className="ui black massive button">Sign Out</button></a>}>
+            size='small' trigger={<a className="profileOptionsButton">
+              <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui massive button">Sign Out</button>
+            </a>}>
             <Header icon><Icon name='sign-out' />Sign Out</Header>
             <Modal.Content>
                 <div className="signOutText">
@@ -190,18 +194,18 @@ const ProfileScreen = (props) => {
       </div>
 
       <div className="dropdownChangeTheme">
-                    <Button.Group color="black">
-                        <Dropdown text='Theme' icon='theme' floating labeled button className='icon'>
+                    <Button.Group>
+                        <Dropdown style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} text='Theme' icon='theme' floating labeled button className='icon'>
                             <Dropdown.Menu>
                                 <Dropdown.Item
                                     label={{ color: 'teal', empty: true, circular: true }}
-                                    onClick={() => changeStyle(COLOR_SCHEMES["Default"])}
-                                    text="Default"
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Modern"])}
+                                    text="Modern"
                                 />
                                 <Dropdown.Item
                                     label={{ color: 'orange', empty: true, circular: true }}
-                                    onClick={() => changeStyle(COLOR_SCHEMES["Vintage"])}
-                                    text="Vintage"
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Old-School"])}
+                                    text="Old-School"
                                 />
                                 <Dropdown.Item
                                     label={{ color: 'purple', empty: true, circular: true }}

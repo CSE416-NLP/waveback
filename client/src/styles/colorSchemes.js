@@ -1,7 +1,7 @@
 // Store data relevant to color schemes and interface stylings.
 
 export const COLOR_SCHEMES = {
-    "Vintage": {
+    "Old-School": {
         "primary": "#e9713d",
         "secondary": "#eebc90",
         "accent": "#15253f",
@@ -17,7 +17,7 @@ export const COLOR_SCHEMES = {
         "hue": "127deg",
         "buttonColor": "purple",
     },
-    "Default": {
+    "Modern": {
         "primary": "#3aafa9",
         "secondary": "#c5e1e0",
         "accent": "#101a1e",

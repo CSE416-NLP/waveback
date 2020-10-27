@@ -7,7 +7,7 @@ const DiscoverScreen = (props) => {
     <div className="discoverScreen" style={{backgroundColor: "var(--background)"}}>
       <div className="searchContainer ui input">
         <input placeholder="Search.." size="40" className="discoverSearch" style={{backgroundColor: "var(--secondary)"}}></input>
-        <button type="submit" className="ui icon black big button"><i className="search icon"></i></button>
+        <button type="submit" style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui icon big button"><i className="search icon"></i></button>
       </div>
 
       <div className="discoverPlaylistGrid">

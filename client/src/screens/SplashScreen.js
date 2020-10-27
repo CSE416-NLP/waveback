@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Header, Icon, Dropdown } from 'semantic-ui-react'
-import { COLOR_SCHEMES } from '../styles/colorSchemes'
+import { COLOR_SCHEMES } from '../styles/ColorSchemes'
 import '../styles/css/index.css';
 import wavebackTextFG from '../images/waveback text fg.png';
 import wavebackTextBG from '../images/waveback text bg.png';
@@ -66,7 +66,9 @@ const SplashScreen = (props) => {
                                 <Button color='primary' onClick={() => handleRegister()}><Icon name='checkmark'/>Send Recovery Email</Button>
                             </Modal.Actions>
                         </Modal>
-                        <div><Button className="ui black huge button" onClick={handleLogin}>Log In</Button></div>
+                        <div>
+                            <Button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui huge button" onClick={handleLogin}>Log In</Button>
+                        </div>
                         <Modal 
                             basic 
                             onClose={() => setRegisterModalOpenState(false)}
@@ -92,18 +94,18 @@ const SplashScreen = (props) => {
                     <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/test", key: true })}>Go to test</div>
                 </div>
                 <div className="dropdownChangeTheme">
-                    <Button.Group color="black">
-                        <Dropdown text='Theme' icon='theme' floating labeled button className='icon'>
+                    <Button.Group>
+                        <Dropdown style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} text='Theme' icon='theme' floating labeled button className='icon'>
                             <Dropdown.Menu>
                                 <Dropdown.Item
                                     label={{ color: 'teal', empty: true, circular: true }}
-                                    onClick={() => changeStyle(COLOR_SCHEMES["Default"])}
-                                    text="Default"
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Modern"])}
+                                    text="Modern"
                                 />
                                 <Dropdown.Item
                                     label={{ color: 'orange', empty: true, circular: true }}
-                                    onClick={() => changeStyle(COLOR_SCHEMES["Vintage"])}
-                                    text="Vintage"
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Old-School"])}
+                                    text="Old-School"
                                 />
                                 <Dropdown.Item
                                     label={{ color: 'purple', empty: true, circular: true }}
