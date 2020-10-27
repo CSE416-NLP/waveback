@@ -4,7 +4,7 @@ import SplashScreen from './screens/SplashScreen';
 import DiscoverScreen from './screens/DiscoverScreen';
 import GenerateScreen from './screens/GenerateScreen';
 import PlaylistsScreen from './screens/PlaylistsScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import ProfileScreen from './screens/Profile/ProfileScreen';
 import AdminScreen from './screens/AdminScreen';
 import LockedScreen from './screens/LockedScreen';
 import ViewProfileScreen from './screens/ViewProfileScreen';
