@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Header, Icon, Button, Dropdown } from 'semantic-ui-react';
+import { Modal, Header, Icon, Button } from 'semantic-ui-react';
 import "../../styles/css/index.css"
-import { COLOR_SCHEMES } from '../../styles/ColorSchemes'
 import * as tabComponents from './TabComponents'
-
-const changeStyle = (style) => {
-  document.documentElement.style.setProperty("--primary", style.primary);
-  document.documentElement.style.setProperty("--secondary", style.secondary);
-  document.documentElement.style.setProperty("--accent", style.accent);
-  document.documentElement.style.setProperty("--background", style.background);
-  document.documentElement.style.setProperty("--hue", style.hue);
-  document.documentElement.style.setProperty("--buttonColor", style.buttonColor);
-}
+import ThemePicker from "../../UtilityComponents/ThemePicker"
 
 const handleSignOut = () => {
   console.log("sign out");
@@ -57,29 +48,8 @@ const ProfileScreen = (props) => {
         </div>
       </div>
 
-      <div className="dropdownChangeTheme">
-        <Button.Group>
-          <Dropdown style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} text='Theme' icon='theme' floating labeled button className='icon'>
-            <Dropdown.Menu>
-              <Dropdown.Item
-                label={{ color: 'teal', empty: true, circular: true }}
-                onClick={() => changeStyle(COLOR_SCHEMES["Modern"])}
-                text="Modern"
-              />
-              <Dropdown.Item
-                label={{ color: 'orange', empty: true, circular: true }}
-                onClick={() => changeStyle(COLOR_SCHEMES["Old-School"])}
-                text="Old-School"
-              />
-              <Dropdown.Item
-                label={{ color: 'purple', empty: true, circular: true }}
-                onClick={() => changeStyle(COLOR_SCHEMES["Retro"])}
-                text="Retro"
-              />
-            </Dropdown.Menu>
-          </Dropdown>
-        </Button.Group>
-      </div>
+      <ThemePicker />
+
       {tabMap[currentTab]}
     </div>
   );
