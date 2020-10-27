@@ -23,59 +23,137 @@ const PlaylistsScreen = (props) => {
     updatePlaylists(playlists.filter(item => item.name !== name));
   }
 
-
   return (
+    <div className="playlistScreen"  style={{backgroundColor: "var(--background)"}}>
+    <div className="playlistSearchContainer ui input">
+      <input placeholder="Search.." size="40" className="playlistSearch" style={{backgroundColor: "var(--secondary)"}}></input>
+      <button type="submit" style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui icon big button"><i className="search icon"></i></button>
+    </div>
     <div className="playlist_container">
-      <Grid columns={2} divded >
-
+      <Grid columns={3} divded>
         <Grid.Row className="playlist_row">
-
           <Grid.Column>
             <div className='playlist'>
               <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-              <div className='info'>
-                <h1>Jihu's Pee Pee</h1>
-                <p>Jihu's Pee Pee is really big</p>
-              </div>
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
             </div>
           </Grid.Column>
-
-
           <Grid.Column>
             <div className='playlist'>
               <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-              <div className='info'>
-                <h1>Jihu's Pee Pee</h1>
-                <p>Jihu's Pee Pee is really big</p>
-              </div>
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
             </div>
           </Grid.Column>
         </Grid.Row>
-
-        <Grid.Row>
+        <Grid.Row className="playlist_row">
           <Grid.Column>
             <div className='playlist'>
               <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-              <div className='info'>
-                <h1>Jihu's Pee Pee</h1>
-                <p>Jihu's Pee Pee is really big</p>
-              </div>
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
             </div>
           </Grid.Column>
-
           <Grid.Column>
             <div className='playlist'>
               <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-              <div className='info'>
-                <h1>Jihu's Pee Pee</h1>
-                <p>Jihu's Pee Pee is really big</p>
-              </div>
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row className="playlist_row">
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row className="playlist_row">
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row className="playlist_row">
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row className="playlist_row">
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <div className='playlist'>
+              <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+              <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
             </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    </div>
-
+    </div>  
+  </div>
 
   );
 };
