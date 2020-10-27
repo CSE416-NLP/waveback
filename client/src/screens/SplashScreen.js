@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Modal, Button, Header, Icon, Dropdown } from 'semantic-ui-react'
 import { COLOR_SCHEMES } from '../styles/colorSchemes'
 import '../styles/css/index.css';
 import wavebackTextFG from '../images/waveback text fg.png';
@@ -10,6 +11,7 @@ const changeStyle = (style) => {
     document.documentElement.style.setProperty("--accent", style.accent);
     document.documentElement.style.setProperty("--background", style.background);
     document.documentElement.style.setProperty("--hue", style.hue);
+    document.documentElement.style.setProperty("--buttonColor", style.buttonColor);
 }
 
 const handleLogin = () => {
@@ -20,11 +22,13 @@ const handleRegister = () => {
     console.log("register");
 };
 
-const handleForgotPassword = () => {
+const sendRecoveryEmail = () => {
     console.log("forgot password");
 }
 
 const SplashScreen = (props) => {
+    const [passwordOpenState, setPasswordModalOpenState] = useState(false);
+    const [registerOpenState, setRegisterModalOpenState] = useState(false);
     return (
         <div className="App">
             <header className="App-header" style={{backgroundColor: "var(--background)"}}>
@@ -45,23 +49,72 @@ const SplashScreen = (props) => {
                         <div className="ui input splashInputContainer">
                             <input size="25" className="splashInput" placeholder="Password" style={{backgroundColor: "var(--secondary)"}}/>
                         </div>
-                        <div className="splashTextSmall" onClick={handleForgotPassword}>Forgot Password?</div>
-                        <div><button className="ui black huge button" onClick={handleLogin}>Log In</button></div>
-                        <div className="splashTextSmall" onClick={handleRegister}>Create Account</div>
+                        <Modal 
+                            basic 
+                            onClose={() => setPasswordModalOpenState(false)}
+                            onOpen={() => setPasswordModalOpenState(true)}
+                            open={passwordOpenState}
+                            size='small' trigger={<div className="splashTextSmall">Forgot Password?</div>}>
+                            <Header icon><Icon name='question circle' />Password Recovery</Header>
+                            <Modal.Content>
+                                <div className="ui input recoverPasswordTextfield">
+                                    <input size="50" placeholder="Email" style={{backgroundColor: "var(--secondary)"}}/>
+                                </div>
+                            </Modal.Content>
+                            <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove'/>Close</Button>
+                                <Button color='primary' onClick={() => handleRegister()}><Icon name='checkmark'/>Send Recovery Email</Button>
+                            </Modal.Actions>
+                        </Modal>
+                        <div><Button className="ui black huge button" onClick={handleLogin}>Log In</Button></div>
+                        <Modal 
+                            basic 
+                            onClose={() => setRegisterModalOpenState(false)}
+                            onOpen={() => setRegisterModalOpenState(true)}
+                            open={registerOpenState}
+                            size='small' trigger={<div className="splashTextSmall">Create Account</div>}>
+                            <Header icon><Icon name='user plus' />Create New Account</Header>
+                            <Modal.Content>
+                                <div className="ui input registerTextfield"><input size="50" placeholder="Username" style={{backgroundColor: "var(--secondary)"}}/></div>
+                                <div className="ui input registerTextfield"><input size="50" placeholder="Email" style={{backgroundColor: "var(--secondary)"}}/></div>
+                                <div className="ui input registerTextfield"><input size="50" placeholder="Password" style={{backgroundColor: "var(--secondary)"}}/></div>
+                            </Modal.Content>
+                            <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                <Button inverted color='red' onClick={() => setRegisterModalOpenState(false)}><Icon name='remove'/>Close</Button>
+                                <Button color='primary' onClick={() => sendRecoveryEmail()}><Icon name='checkmark'/>Create Account</Button>
+                            </Modal.Actions>
+                        </Modal>
                     </div>
                 </div>
                 
                 <div className="splashTestSelect">
                     <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/admin", key: true })}>Go to admin</div>
                     <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/test", key: true })}>Go to test</div>
-                    <select onChange={(e) => {
-                        changeStyle(COLOR_SCHEMES[e.target.value])
-                    }}>
-                        <option value={"Default"}>Default</option>
-                        <option value={"Vintage"}>Vintage</option>
-                        <option value={"Retro"}>Retro</option>
-                    </select>
                 </div>
+                <div className="dropdownChangeTheme">
+                    <Button.Group color="black">
+                        <Dropdown text='Theme' icon='theme' floating labeled button className='icon'>
+                            <Dropdown.Menu>
+                                <Dropdown.Item
+                                    label={{ color: 'teal', empty: true, circular: true }}
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Default"])}
+                                    text="Default"
+                                />
+                                <Dropdown.Item
+                                    label={{ color: 'orange', empty: true, circular: true }}
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Vintage"])}
+                                    text="Vintage"
+                                />
+                                <Dropdown.Item
+                                    label={{ color: 'purple', empty: true, circular: true }}
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Retro"])}
+                                    text="Retro"
+                                />
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Button.Group>
+                </div>
+
             </header>
         </div>
     );

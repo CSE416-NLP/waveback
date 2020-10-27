@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { Form, TextArea, Grid } from 'semantic-ui-react'
+import { Form, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react'
 import "../styles/css/index.css"
+import { COLOR_SCHEMES } from '../styles/colorSchemes'
 
 var previousClickedTabName = undefined;
+
+const changeStyle = (style) => {
+  document.documentElement.style.setProperty("--primary", style.primary);
+  document.documentElement.style.setProperty("--secondary", style.secondary);
+  document.documentElement.style.setProperty("--accent", style.accent);
+  document.documentElement.style.setProperty("--background", style.background);
+  document.documentElement.style.setProperty("--hue", style.hue);
+  document.documentElement.style.setProperty("--buttonColor", style.buttonColor);
+}
 
 const ProfileScreen = (props) => {
   const [currentTab, setCurrentTab] = useState("profile");
@@ -158,10 +168,30 @@ const ProfileScreen = (props) => {
           </div>
       </div>
 
-      {/* TODO: Add switching inbetween tabs that also turns on and off the HTML for each tab. */}
-
+      <div className="dropdownChangeTheme">
+                    <Button.Group color="black">
+                        <Dropdown text='Theme' icon='theme' floating labeled button className='icon'>
+                            <Dropdown.Menu>
+                                <Dropdown.Item
+                                    label={{ color: 'teal', empty: true, circular: true }}
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Default"])}
+                                    text="Default"
+                                />
+                                <Dropdown.Item
+                                    label={{ color: 'orange', empty: true, circular: true }}
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Vintage"])}
+                                    text="Vintage"
+                                />
+                                <Dropdown.Item
+                                    label={{ color: 'purple', empty: true, circular: true }}
+                                    onClick={() => changeStyle(COLOR_SCHEMES["Retro"])}
+                                    text="Retro"
+                                />
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Button.Group>
+                </div>
       {tabComponent}
-
     </div>
   );
 };

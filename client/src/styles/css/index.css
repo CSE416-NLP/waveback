@@ -5,6 +5,7 @@
   --accent: #101a1e; 
   --background: #feffff;
   --hue: "0deg";
+  --buttonColor: "teal";
   --button-transparent:  rgba(255,255,255, 0);
   --hover-light: rgba(255,255,255, 0.7);
 }
@@ -136,6 +137,28 @@ code {
 
 .clickable:hover {
   cursor: pointer;
+}
+
+.recoverPasswordTextfield {
+  left: 22%;
+}
+
+.registerTextfield {
+  left: 22%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.recoverPasswordModalButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdownChangeTheme {
+  position: absolute;
+  left: 91%;
+  top: 92.5%;
 }
 
 /* NAVBAR */

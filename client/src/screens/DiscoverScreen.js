@@ -4,9 +4,9 @@ import { Grid } from 'semantic-ui-react'
 
 const DiscoverScreen = (props) => {
   return (
-    <div className="discoverScreen">
+    <div className="discoverScreen" style={{backgroundColor: "var(--background)"}}>
       <div className="searchContainer ui input">
-        <input placeholder="Search.." size="40" className="discoverSearch"></input>
+        <input placeholder="Search.." size="40" className="discoverSearch" style={{backgroundColor: "var(--secondary)"}}></input>
         <button type="submit" className="ui icon black big button"><i className="search icon"></i></button>
       </div>
 

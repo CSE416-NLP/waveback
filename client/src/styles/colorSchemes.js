@@ -3,17 +3,19 @@
 export const COLOR_SCHEMES = {
     "Vintage": {
         "primary": "#e9713d",
-        "secondary": "#ebae77",
+        "secondary": "#eebc90",
         "accent": "#15253f",
-        "background": "#f8dd93",
+        "background": "#fae8b7",
         "hue": "225deg",
+        "buttonColor": "brown",
     },
     "Retro": {
         "primary": "#8b63b1",
-        "secondary": "#CF6BB0",
+        "secondary": "#e09fcb",
         "accent": "#010022",
         "background": "#f6f9ff",
         "hue": "127deg",
+        "buttonColor": "purple",
     },
     "Default": {
         "primary": "#3aafa9",
@@ -21,5 +23,6 @@ export const COLOR_SCHEMES = {
         "accent": "#101a1e",
         "background": "#feffff",
         "hue": "0deg",
+        "buttonColor": "teal",
     },
 }
