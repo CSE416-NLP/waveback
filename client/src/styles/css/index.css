@@ -565,14 +565,55 @@ code {
 }
 
 .profileScreenFriend {
+  color: black;
   display: flex;
   margin-top: 1%;
   margin-left: 4%;
 }
 
+.profileScreenFriend:hover {
+  cursor: pointer;
+  background-color: #999999;
+}
 .profileFriendInfo {
   width: 60%;
   overflow-wrap: break-word;
+}
+
+/* VIEW PROFILE SCREEN */
+.viewProfileScreenContainer {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  padding: 3%;
+  padding-right: 12%;
+}
+
+.viewProfileScreenLabel {
+  margin-top: 2%;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: row;
+  border: #333333;
+  width: 90%;
+  border-radius: 5px;
+}
+
+.profilePicture{
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+}
+
+.profileName{
+  display: inline-block;
+  align-content: center;
+  justify-content: center;
+  margin: 5%;
 }
 
 /* ANIMATIONS */

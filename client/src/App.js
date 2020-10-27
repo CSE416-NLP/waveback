@@ -7,6 +7,7 @@ import PlaylistsScreen from './screens/PlaylistsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AdminScreen from './screens/AdminScreen';
 import LockedScreen from './screens/LockedScreen';
+import ViewProfileScreen from './screens/ViewProfileScreen';
 import Navbar from './Navbar';
 
 const App = (props) => {
@@ -21,6 +22,7 @@ const App = (props) => {
         <Route exact path="/profile" component={ProfileScreen} />
         <Route exact path="/admin" component={AdminScreen} />
         <Route exact path="/test" component={LockedScreen} />
+        <Route exact path="/profile/test" component={ViewProfileScreen} />
         <Redirect from="/:any" to={{ pathname: "/" }} />
       </Switch>
     </BrowserRouter>
