@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Modal, Form, Header, Icon, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react';
 import "../styles/css/index.css"
 import { COLOR_SCHEMES } from '../styles/ColorSchemes'
+import { Modal, Form, Header, Icon, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react';
+
 
 const changeStyle = (style) => {
     document.documentElement.style.setProperty("--primary", style.primary);
