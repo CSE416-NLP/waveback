@@ -1,18 +1,6 @@
-import React, { useState } from 'react';
-import { Modal, Form, Header, Icon, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react';
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import "../styles/css/index.css"
-import { COLOR_SCHEMES } from '../styles/ColorSchemes'
-import { Modal, Form, Header, Icon, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react';
-
-
-const changeStyle = (style) => {
-    document.documentElement.style.setProperty("--primary", style.primary);
-    document.documentElement.style.setProperty("--secondary", style.secondary);
-    document.documentElement.style.setProperty("--accent", style.accent);
-    document.documentElement.style.setProperty("--background", style.background);
-    document.documentElement.style.setProperty("--hue", style.hue);
-    document.documentElement.style.setProperty("--buttonColor", style.buttonColor);
-}
 
 const ViewProfileScreen = (props) => {
     return (
@@ -30,7 +18,7 @@ const ViewProfileScreen = (props) => {
             <p className="viewProfileScreenLabel">Favorite Artists</p>
             <div className="profileTextArea" style={{ backgroundColor: "var(--secondary)" }}>TWENTY PILOTS</div>
             <p className="viewProfileScreenLabel">My Playlists:</p>
-            <Grid columns={3} divded>
+            <Grid columns={3} divided>
                 <Grid.Row className="playlist_row">
                     <Grid.Column>
                         <div className='playlist'>

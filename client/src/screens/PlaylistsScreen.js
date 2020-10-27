@@ -3,25 +3,24 @@ import "../styles/css/index.css"
 import { Grid } from 'semantic-ui-react'
 
 const PlaylistsScreen = (props) => {
-
   const [playlists, updatePlaylists] = useState([{
     name: "",
     owner: "",
   }]);
 
-  const handleAddPlaylist = () => {
-    let playlists = [...playlists];
-    playlists.push({
-      name: "playlist",
-      owner: "",
-    })
-    updatePlaylists(playlists);
-  }
+  // const handleAddPlaylist = () => {
+  //   let playlists = [...playlists];
+  //   playlists.push({
+  //     name: "playlist",
+  //     owner: "",
+  //   })
+  //   updatePlaylists(playlists);
+  // }
 
-  const handleDeletePlaylist = (e) => {
-    let name = e.target.getAttribute("name");
-    updatePlaylists(playlists.filter(item => item.name !== name));
-  }
+  // const handleDeletePlaylist = (e) => {
+  //   let name = e.target.getAttribute("name");
+  //   updatePlaylists(playlists.filter(item => item.name !== name));
+  // }
 
   return (
     <div className="playlistScreen"  style={{backgroundColor: "var(--background)"}}>
@@ -30,7 +29,7 @@ const PlaylistsScreen = (props) => {
       <button type="submit" style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui icon big button"><i className="search icon"></i></button>
     </div>
     <div className="playlist_container">
-      <Grid columns={3} divded>
+      <Grid columns={3} divided>
         <Grid.Row className="playlist_row">
           <Grid.Column>
             <div className='playlist'>

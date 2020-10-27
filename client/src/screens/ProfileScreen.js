@@ -58,7 +58,7 @@ const ProfileScreen = (props) => {
           </button>
         </div>
         <div className="profileScreenScrollContainer">
-          <Grid columns={2} divded>
+          <Grid columns={2} divided>
             <Grid.Row>
               <Grid.Column>
                 <Link className='profileScreenFriend' to="/profile/test">
@@ -157,9 +157,9 @@ const ProfileScreen = (props) => {
             onClose={() => setSignOutModalOpenState(false)}
             onOpen={() => setSignOutModalOpenState(true)}
             open={signOutOpenState}
-            size='small' trigger={<a className="profileOptionsButton">
+            size='small' trigger={<div className="profileOptionsButton">
               <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui massive button">Sign Out</button>
-            </a>}>
+            </div>}>
             <Header icon><Icon name='sign-out' />Sign Out</Header>
             <Modal.Content>
               <div className="signOutText">
@@ -168,7 +168,7 @@ const ProfileScreen = (props) => {
             </Modal.Content>
             <Modal.Actions className="signOutModalButtonContainer">
               <Button inverted color='red' onClick={() => setSignOutModalOpenState(false)}><Icon name='remove' />No</Button>
-              <Button color='primary' onClick={() => handleSignOut()}><Icon name='checkmark' />Yes</Button>
+              <Button className="ui primary button" onClick={() => handleSignOut()}><Icon name='checkmark' />Yes</Button>
             </Modal.Actions>
           </Modal>
         </div>

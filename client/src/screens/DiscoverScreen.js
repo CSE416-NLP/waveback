@@ -11,7 +11,7 @@ const DiscoverScreen = (props) => {
       </div>
 
       <div className="discoverPlaylistGrid">
-        <Grid columns={1} divded>
+        <Grid columns={1} divided>
           <Grid.Row>
             <Grid.Column>
               <div className='playlistDiscover'>

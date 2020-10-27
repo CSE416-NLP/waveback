@@ -63,7 +63,7 @@ const SplashScreen = (props) => {
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
                                 <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove'/>Close</Button>
-                                <Button color='primary' onClick={() => handleRegister()}><Icon name='checkmark'/>Send Recovery Email</Button>
+                                <Button className="ui primary button" onClick={() => handleRegister()}><Icon name='checkmark'/>Send Recovery Email</Button>
                             </Modal.Actions>
                         </Modal>
                         <div>
@@ -83,7 +83,7 @@ const SplashScreen = (props) => {
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
                                 <Button inverted color='red' onClick={() => setRegisterModalOpenState(false)}><Icon name='remove'/>Close</Button>
-                                <Button color='primary' onClick={() => sendRecoveryEmail()}><Icon name='checkmark'/>Create Account</Button>
+                                <Button className="ui primary button" onClick={() => sendRecoveryEmail()}><Icon name='checkmark'/>Create Account</Button>
                             </Modal.Actions>
                         </Modal>
                     </div>
