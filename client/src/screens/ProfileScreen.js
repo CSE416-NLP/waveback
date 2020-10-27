@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react'
+import { Modal, Form, Header, Icon, TextArea, Grid, Button, Dropdown } from 'semantic-ui-react';
 import "../styles/css/index.css"
 import { COLOR_SCHEMES } from '../styles/colorSchemes'
 
@@ -14,8 +14,13 @@ const changeStyle = (style) => {
   document.documentElement.style.setProperty("--buttonColor", style.buttonColor);
 }
 
+const handleSignOut = () => {
+  console.log("sign out");
+}
+
 const ProfileScreen = (props) => {
   const [currentTab, setCurrentTab] = useState("profile");
+  const [signOutOpenState, setSignOutModalOpenState] = useState(false);
   
   const setSelectedTab = (clickedTabName, tab) => {
     // Highlight selected tab's text and deselect the others.
@@ -164,7 +169,23 @@ const ProfileScreen = (props) => {
           <p className="profileOptionsText" style={{color: "var(--accent)", fontWeight: "bold"}} onClick={(e) => setSelectedTab(e.target, "profile")}>My Profile</p>
           <p className="profileOptionsText" style={{color: "var(--accent)"}} onClick={(e) => setSelectedTab(e.target, "friends")}>My Friends</p>
           <p className="profileOptionsText" style={{color: "var(--accent)"}} onClick={(e) => setSelectedTab(e.target, "settings")}>My Account</p>
-          <a className="profileOptionsButton"><button className="ui black massive button">Sign Out</button></a>
+          <Modal 
+            basic 
+            onClose={() => setSignOutModalOpenState(false)}
+            onOpen={() => setSignOutModalOpenState(true)}
+            open={signOutOpenState}
+            size='small' trigger={<a className="profileOptionsButton"><button className="ui black massive button">Sign Out</button></a>}>
+            <Header icon><Icon name='sign-out' />Sign Out</Header>
+            <Modal.Content>
+                <div className="signOutText">
+                    <p>Are you sure you want to sign out?</p>
+                </div>
+            </Modal.Content>
+            <Modal.Actions className="signOutModalButtonContainer">
+                <Button inverted color='red' onClick={() => setSignOutModalOpenState(false)}><Icon name='remove'/>No</Button>
+                <Button color='primary' onClick={() => handleSignOut()}><Icon name='checkmark'/>Yes</Button>
+            </Modal.Actions>
+        </Modal>
           </div>
       </div>
 

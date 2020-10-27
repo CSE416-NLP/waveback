@@ -149,7 +149,20 @@ code {
   margin-bottom: 1%;
 }
 
+.signOutText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+}
+
 .recoverPasswordModalButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signOutModalButtonContainer {
   display: flex;
   align-items: center;
   justify-content: center;
