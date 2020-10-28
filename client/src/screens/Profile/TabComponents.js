@@ -32,7 +32,7 @@ export const MyFriends = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Link className='profileScreenFriend' to="/profile/test">
-                  <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+                  <img className="profilePicture" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
                   <div className='profileFriendInfo'>
                     <h1>Steve Jobs</h1>
                     <p>aaaaaaaaaaaaaaa</p>
@@ -41,7 +41,7 @@ export const MyFriends = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Link className='profileScreenFriend' to="/profile/test">
-                  <img className="playlist_art" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
+                  <img className="profilePicture" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
                   <div className='profileFriendInfo'>
                     <h1>Beter Zeng</h1>
                     <p>bbbbbbbbbbbbbbb</p>
@@ -52,7 +52,7 @@ export const MyFriends = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Link className='profileScreenFriend' to="/profile/test">
-                  <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+                  <img className="profilePicture" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
                   <div className='profileFriendInfo'>
                     <h1>Steve Jobs</h1>
                     <p>aaaaaaaaaaaaaaa</p>
@@ -61,7 +61,7 @@ export const MyFriends = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Link className='profileScreenFriend' to="/profile/test">
-                  <img className="playlist_art" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
+                  <img className="profilePicture" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
                   <div className='profileFriendInfo'>
                     <h1>Beter Zeng</h1>
                     <p>bbbbbbbbbbbbbbb</p>
@@ -72,7 +72,7 @@ export const MyFriends = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Link className='profileScreenFriend' to="/profile/test">
-                  <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+                  <img className="profilePicture" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
                   <div className='profileFriendInfo'>
                     <h1>Steve Jobs</h1>
                     <p>aaaaaaaaaaaaaaa</p>
@@ -81,7 +81,7 @@ export const MyFriends = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Link className='profileScreenFriend' to="/profile/test">
-                  <img className="playlist_art" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
+                  <img className="profilePicture" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
                   <div className='profileFriendInfo'>
                     <h1>Beter Zeng</h1>
                     <p>bbbbbbbbbbbbbbb</p>

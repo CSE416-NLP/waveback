@@ -8,6 +8,7 @@ import ProfileScreen from './screens/Profile/ProfileScreen';
 import AdminScreen from './screens/AdminScreen';
 import LockedScreen from './screens/LockedScreen';
 import ViewProfileScreen from './screens/ViewProfileScreen';
+import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './Navbar';
 
 const App = (props) => {
@@ -19,6 +20,7 @@ const App = (props) => {
         <Route exact path="/discover" component={DiscoverScreen} />
         <Route exact path="/generate" component={GenerateScreen} />
         <Route exact path="/playlists" component={PlaylistsScreen} />
+        <Route exact path="/playlists/playlist" component={PlaylistScreen}/>
         <Route exact path="/profile" component={ProfileScreen} />
         <Route exact path="/admin" component={AdminScreen} />
         <Route exact path="/test" component={LockedScreen} />
