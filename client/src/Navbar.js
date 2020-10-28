@@ -5,7 +5,7 @@ import wavebackCircleLogo from './images/WB Circle Logo V2.png';
 import jsonData from "./TestData.json";
 
 const Navbar = (props) => {
-    const currentUser = jsonData.Users[0];
+    const currentUser = props.user;
 
     return (
     <ul className="navbar">

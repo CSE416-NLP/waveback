@@ -80,12 +80,12 @@ code {
 .splashLoginContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .splashTextSubtitle {
-  width: 33%;
+  width: 39%;
   text-align: right;
   margin-right: 3%;
   font-style: italic;

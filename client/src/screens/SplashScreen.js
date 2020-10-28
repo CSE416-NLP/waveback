@@ -5,10 +5,6 @@ import wavebackTextFG from '../images/waveback text fg.png';
 import wavebackTextBG from '../images/waveback text bg.png';
 import ThemePicker from '../UtilityComponents/ThemePicker';
 
-const handleLogin = () => {
-    console.log("login");
-};
-
 const handleRegister = () => {
     console.log("register");
 };
@@ -20,6 +16,7 @@ const sendRecoveryEmail = () => {
 const SplashScreen = (props) => {
     const [passwordOpenState, setPasswordModalOpenState] = useState(false);
     const [registerOpenState, setRegisterModalOpenState] = useState(false);
+  
     return (
         <div className="App">
             <header className="App-header" style={{backgroundColor: "var(--background)"}}>
@@ -30,7 +27,7 @@ const SplashScreen = (props) => {
 
                 <div className="splashLoginContainer" >
                     <p className="splashTextSubtitle" style={{color: "var(--accent)"}}>
-                        waveback is a simple, yet powerful, playlist creation tool.<br></br>relive the sounds of the past like never before.
+                        waveback is a simple, yet powerful, playlist creation tool.<br/>relive the sounds of the past like never before.
                     </p>
                     <div className="splashLoginBox" style={{backgroundColor: "var(--primary)"}}>
                         <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
@@ -58,7 +55,7 @@ const SplashScreen = (props) => {
                             </Modal.Actions>
                         </Modal>
                         <div>
-                            <Button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui huge button" onClick={handleLogin}>Log In</Button>
+                            <Button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui huge button" onClick={props.handleLogin}>Log In</Button>
                         </div>
                         <Modal 
                             basic 
