@@ -624,19 +624,119 @@ code {
   align-items: center;
   height: 100%;
 }
-.playlistScreenLeftContainer {
+.playlistScreenLeftBox {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 12%;
-  width: 80%;
-  height: 80%;
-  margin-left: 10%;
+  height: 100%;
+  width: 30%;
+}
+.playlistScreenLeftContainer {
+  display: flex;
+  flex-direction: column;
+
+  /* justify-content: center; */
+  /* padding-right: 12%; */
+  height: 100%;
+  /* margin-left: 10%; */
   user-select: none;
-  filter: drop-shadow(5px 0px 0px #333333);
+  /* filter: drop-shadow(5px 0px 0px #333333); */
 }
 
+.playlistArt {
+  margin-left: 2%;
+  margin-top: 2.5%;
+  /* margin-top: -110%; */
+  /* margin-bottom: 100%;
+  justify-content: center;
+  align-content: center; */
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+}
+.playlistInfo {
+  display: inline-block;
+  /* align-content: center; */
+  /* justify-content: center; */
+  margin-left: 2%;
+}
 
+.playlistGenreLabel {
+  margin-top: 10%;
+  font-size: 32px;
+  text-align: left;
+  margin-left:4%;
+}
+
+.playlistGenreBox {
+  display:flex;
+  flex-direction: column;
+  
+  /* justify-content: center; */
+  border-color: black;
+  width: 70%;
+  height: 50%;
+  border: solid;
+  margin-left: 4%
+}
+
+.playlistGenreText {
+  
+  display: flex;
+  margin-top:4%;
+  justify-content: center;
+  font-size: 24px;
+  width: 100%;
+  height: min-content;
+  border-bottom: solid;
+  padding-bottom: 2%;
+}
+
+.playlistSongsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+}
+
+.playlistSongsBox {
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+  margin-left: 5%;
+  padding-left: 15%;
+  padding-top: 2%;
+  border-left: solid;
+  border-color: grey;
+}
+.playlistSongTitle {
+  display: inline-block;
+  width: 60%;
+}
+
+.playlistSongIcon {
+  display: inline-block;
+}
+.playlistSongArtist {
+  display: inline-block;
+  width: 20%;
+}
+
+.playlistSongDuration {
+  display: inline-block;
+  width: 20%;
+}
+
+.playlistSongBox {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.playlistSongBar {
+  border: solid;
+  display:inline-block;
+}
 /* ANIMATIONS */
 @keyframes App-logo-spin {
   from {

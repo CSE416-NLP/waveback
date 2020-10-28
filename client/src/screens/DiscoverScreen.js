@@ -15,8 +15,8 @@ const DiscoverScreen = (props) => {
           <Grid.Row>
             <Grid.Column>
               <div className='playlistDiscover'>
-                <img className="playlist_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
-                <div className='info'>
+                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt=""/>
+                <div className='playlists_info'>
                   <h1>Nathan's Basketball Playlist</h1>
                   <p>Playlist for Nathan's Basketball!</p>
                 </div>
