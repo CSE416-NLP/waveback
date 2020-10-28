@@ -29,6 +29,10 @@ const ViewProfileScreen = (props) => {
                         <div className="viewProfileTextArea" >{firstUser.favorite_genres}</div>
                         <p className="viewProfileScreenLabel">Favorite Artists</p>
                         <div className="viewProfileTextArea" >{firstUser.favorite_artists}</div>
+                        <div className="followButtonContainer">
+                            <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}}
+                            className="ui button massive followButton">Follow</button>
+                        </div>
                     </div>
                 </div>
 
