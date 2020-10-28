@@ -453,6 +453,10 @@ code {
   display: inline-block;
 }
 
+.playlistName {
+  text-align: left;
+}
+
 .playlists_art { 
   display: inline-block;
   height: 150px;
@@ -709,6 +713,7 @@ code {
   flex-direction: row;
   align-items: center;
   height: 100%;
+  padding: 2%;
 }
 .playlistScreenLeftBox {
   display: flex;
@@ -716,112 +721,152 @@ code {
   justify-content: center;
   height: 100%;
   width: 30%;
+  margin-right: 6%;
 }
 .playlistScreenLeftContainer {
   display: flex;
   flex-direction: column;
-
-  /* justify-content: center; */
-  /* padding-right: 12%; */
+  width: 100%;
   height: 100%;
-  /* margin-left: 10%; */
   user-select: none;
-  /* filter: drop-shadow(5px 0px 0px #333333); */
 }
 
 .playlistArt {
   margin-left: 2%;
   margin-top: 2.5%;
-  /* margin-top: -110%; */
-  /* margin-bottom: 100%;
-  justify-content: center;
-  align-content: center; */
-  display: inline-block;
   height: 200px;
   width: 200px;
 }
 .playlistInfo {
-  display: inline-block;
-  /* align-content: center; */
-  /* justify-content: center; */
   margin-left: 2%;
 }
 
+.playlistScreenInfo {
+  margin-left: 2%;
+  display: flex;
+}
+
+.playlistMetadata {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+
+.playlistTitle {
+  margin-left: 2%;
+  margin-top: 3%;
+  word-wrap: break-word;
+}
+
 .playlistGenreLabel {
-  margin-top: 10%;
+  margin-top: 18%;
   font-size: 32px;
-  text-align: left;
-  margin-left:4%;
+  text-align: center;
+  margin-bottom: 2%;
+}
+
+.playlistNumSongs {
+  margin-left: 2%;
+  margin-top: -4%;
 }
 
 .playlistGenreBox {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  
-  /* justify-content: center; */
-  border-color: black;
-  width: 70%;
+  margin-top: -2%;
+  border-style: none;
+  width: 100%;
   height: 50%;
-  border: solid;
-  margin-left: 4%
+  text-align: center;
 }
 
 .playlistGenreText {
-  
   display: flex;
-  margin-top:4%;
+  margin: 0 auto;
+  margin-top: 2%;
   justify-content: center;
+  align-items: center;
   font-size: 24px;
-  width: 100%;
-  height: min-content;
-  border-bottom: solid;
-  padding-bottom: 2%;
+  width: 60%;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #999999;
+  padding-top: 3%;
+  padding-bottom: 1%;
 }
 
 .playlistSongsContainer {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
   height: 100%;
 }
 
 .playlistSongsBox {
-  display: inline-block;
-  width: 80%;
-  height: 100%;
-  margin-left: 5%;
-  padding-left: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-align: center;
   padding-top: 2%;
-  border-left: solid;
-  border-color: grey;
 }
-.playlistSongTitle {
+.playlistSongTitleLabel, .playlistSongArtistLabel, .playlistSongDurationLabel {
   display: inline-block;
-  width: 60%;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.playlistSongTitle, .playlistSongDuration, .playlistSongArtist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .playlistSongIcon {
-  display: inline-block;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playlistSongIcon:hover {
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.playlistSongIcon:active {
+  cursor: pointer;
+  color: var(--buttonColor);
+}
+
+.playlistSongTitle {
+  text-align: left;
 }
 .playlistSongArtist {
-  display: inline-block;
-  width: 20%;
+  text-align: left;
 }
 
 .playlistSongDuration {
-  display: inline-block;
-  width: 20%;
+  text-align: start;
 }
 
 .playlistSongBox {
   display: flex;
-  flex-direction: column;
-
+  flex-direction: row;
+  align-items: center;
+  margin-top: 2%;
+  padding-right: 10%;
+  padding-left: 10%;
 }
 
 .playlistSongBar {
-  border: solid;
-  display:inline-block;
+  background-color: var(--secondary);
+  border: outset;
+  border-width: 1px;
+  padding: 1%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 /* ANIMATIONS */
 @keyframes App-logo-spin {

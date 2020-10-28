@@ -43,7 +43,7 @@ const ViewProfileScreen = (props) => {
                                             <div className='playlistInfo'>
                                                 <h2>{playlist.name}</h2>
                                                 <p className="playlistSubText">by {playlist.owner}</p>
-                                                <p className="playlistSubText">{playlist.songs.length} songs</p>
+                                                <p className="playlistSubText">{playlist.songs.length} song(s)</p>
                                             </div>
                                         </div>
                                     </Link>

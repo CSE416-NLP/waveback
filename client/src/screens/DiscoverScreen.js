@@ -24,9 +24,9 @@ const DiscoverScreen = (props) => {
                 <div className='playlists'>
                   <img className="playlists_art" src={playlist.picture} alt="" />
                   <div className='playlistInfo'>
-                    <h2>{playlist.name}</h2>
+                    <h2 className="playlistName">{playlist.name}</h2>
                     <p className="playlistSubTextDiscover">by {playlist.owner}</p>
-                    <p className="playlistSubTextDiscover">{playlist.songs.length} songs</p>
+                    <p className="playlistSubTextDiscover">{playlist.songs.length} song(s)</p>
                   </div>
                 </div>
               </Link>

@@ -22,9 +22,9 @@ const PlaylistsScreen = (props) => {
               <div className='playlists'>
                 <img className="playlists_art" src={playlist.picture} alt="" />
                   <div className='playlistInfo'>
-                    <h2>{playlist.name}</h2>
+                    <h2 className="playlistName">{playlist.name}</h2>
                     <p className="playlistSubText">by {playlist.owner}</p>
-                    <p className="playlistSubText">{playlist.songs.length} songs</p>
+                    <p className="playlistSubText">{playlist.songs.length} song(s)</p>
                   </div>
               </div>
               </Link>

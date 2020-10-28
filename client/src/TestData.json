@@ -153,7 +153,7 @@
         {
             "id": 2,
             "owner": "Wavebacker_1234",
-            "name": "Nathan's Workout Playlist",
+            "name": "Nathan's Eating Playlist",
             "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
             "songs": [
                 {
@@ -195,7 +195,7 @@
         {
             "id": 3,
             "owner": "Wavebacker_1234",
-            "name": "Nathan's Workout Playlist",
+            "name": "Nathan's Sleeping Playlist",
             "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
             "songs": [
                 {
@@ -219,14 +219,24 @@
                     "duration": 397
                 },
                 {
-                    "_id": 1,
+                    "_id": 2,
                     "song_id": "",
-                    "name": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
+                    "name": "2112",
+                    "artist": "Rush",
+                    "album": "2112",
+                    "genre": ["Rock"],
+                    "year": "1976",
+                    "duration": 1249
+                },
+                {
+                    "_id": 3,
+                    "song_id": "",
+                    "name": "bad guy",
+                    "artist": "Billie Eilish",
+                    "album": "When We All Fall Asleep, Where Do We Go?",
+                    "genre": ["Pop", "Electronic"],
+                    "year": "2019",
+                    "duration": 194
                 }
             ],
             "followers": "10",
@@ -237,7 +247,7 @@
         {
             "id": 4,
             "owner": "Wavebacker_1234",
-            "name": "Nathan's Workout Playlist",
+            "name": "Nathan's Walking Playlist",
             "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
             "songs": [
                 {
@@ -278,8 +288,8 @@
         },
         {
             "id": 5,
-            "owner": "Wavebacker_1234",
-            "name": "Nathan's Workout Playlist",
+            "owner": "FredRispoli_AAAAA",
+            "name": "there might be music in here",
             "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
             "songs": [
                 {
@@ -320,8 +330,8 @@
         },
         {
             "id": 6,
-            "owner": "Wavebacker_1234",
-            "name": "Nathan's Gaming Playlist",
+            "owner": "definitely not bon jovi",
+            "name": "Best of: Bon Jovi",
             "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
             "songs": [
                 {
@@ -414,8 +424,8 @@
         },
         {
             "id": 8,
-            "owner": "Wavebacker_1234",
-            "name": "Nathan's Workout Playlist",
+            "owner": " seriously don't",
+            "name": "do not open this playlist",
             "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
             "songs": [
                 {
@@ -427,26 +437,6 @@
                     "genre": ["Rock", "Jazz"],
                     "year": "1969",
                     "duration": 566
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "name": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "name": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
                 }
             ],
             "followers": "10",
