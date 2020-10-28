@@ -85,13 +85,14 @@ code {
 }
 
 .splashTextSubtitle {
-  width: 39%;
+  width: 40%;
   text-align: right;
   margin-right: 3%;
   font-style: italic;
 }
 
 .splashLoginBox {
+  width: 40%;
   padding: 2%;
   border-radius: 2%;
   display: flex;
