@@ -10,8 +10,8 @@ export const COLOR_SCHEMES = {
         "buttonColor": "brown",
     },
     "Retro": {
-        "primary": "#8b63b1",
-        "secondary": "#e09fcb",
+        "primary": "#9a77bb",
+        "secondary": "#ecc5e1",
         "accent": "#010022",
         "background": "#f6f9ff",
         "hue": "127deg",

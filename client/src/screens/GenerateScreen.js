@@ -93,15 +93,15 @@ const GenerateScreen = (props) => {
             {locationState.map((row, index) =>
               <div key={index}>
                 <div className="ui input">
-                  <input size="32" value={row.location} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
+                  <input value={row.location} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
                     onChange={(e) => addLocationInfo(index, "location", e)} />
                 </div>
                 <div className="ui input">
-                  <input size="4" maxLength="4" value={row.startYear} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
+                  <input maxLength="4" value={row.startYear} className="generateInputSmall" style={{backgroundColor: "var(--secondary)"}} 
                     onChange={(e) => addLocationInfo(index, "startYear", e)} />
                 </div>
                 <div className="ui input">
-                  <input size="4" maxLength="4" value={row.endYear} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
+                  <input maxLength="4" value={row.endYear} className="generateInputSmall" style={{backgroundColor: "var(--secondary)"}} 
                     onChange={(e) => addLocationInfo(index, "endYear", e)} />
                 </div>
                 <br></br><br></br>

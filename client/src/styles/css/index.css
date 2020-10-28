@@ -80,18 +80,19 @@ code {
 .splashLoginContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .splashTextSubtitle {
-  width: 33%;
+  width: 40%;
   text-align: right;
   margin-right: 3%;
   font-style: italic;
 }
 
 .splashLoginBox {
+  width: 40%;
   padding: 2%;
   border-radius: 2%;
   display: flex;
@@ -213,6 +214,10 @@ code {
   background-color: var(--hover-light);
 }
 
+.userProfilePicture {
+  border-radius: 50%;
+}
+
 /* DISCOVER SCREEN */
 .discoverScreen {
   text-align: center;
@@ -263,8 +268,15 @@ code {
   vertical-align: top;
   display: inline-block;
   text-align: left;
+  overflow: hidden;
   margin-top: 1.5%;
-  margin-left: 11.25%;
+  margin-left: 10.15%;
+  margin-bottom: 1%;
+  height: 53vmin;
+  max-height: 53%;
+  width: 35%;
+  padding: 0.5%;
+  border-style: outset;
 }
 
 .generateScreenText {
@@ -272,50 +284,44 @@ code {
   font-weight: bold;
 }
 
-.generateScreenBox {
-  border-style: none;
-  border-radius: 2px;
-  border-color: #555555;
-  background-color: white;
-  width: 550px;
-  display: inline-block;
-  margin-left: 0px;
-  margin-top: -20px;
-}
-
 .generateLeftScroller {
   overflow-y: auto;
-  height: 100%;
+  height: 102%;
 }
 
 .generateRightScroller {
   overflow-y: auto;
-  overflow-x: hidden;
-  height: 100%;
+  height: 40vmin;
+  width: 40%;
+  border-style: inset;
 }
 
 #locationText1 {
   float: left;
-  margin-left: 19px;
+  margin-left: 3.5%;
 }
 
 #locationText2 {
-  margin-left: 260px;
+  margin-left: 48%;
 }
 
 #locationText3 {
   float: right;
-  margin-right: 55px;
+  margin-right: 11%;
 }
 
-#gsbLeft { height: 400px; }
-
-#gsbRight { height: 400px; }
-
-#gsbBottom { height: 100px; }
+#gsbRight { 
+  margin-right: -8%; 
+}
 
 .generateInput {
   font-size: 18px;
+  width: 21vw;
+}
+
+.generateInputSmall {
+  font-size: 18px;
+  width: 5vw;
 }
 
 .generateSquareButton {
@@ -351,10 +357,10 @@ code {
 }
 
 .generateDivider {
-  width: 80%;
+  width: 85%;
   margin-top: -0.5%;
   margin-bottom: -3%;
-  margin-left: 10%;
+  margin-left: 7.5%;
   align-items: center;
   justify-content: center;
 }
@@ -406,12 +412,12 @@ code {
 
 .playlists:hover {
   cursor: pointer;
-  background-color: #999999;
+  background-color: var(--secondary);
 }
 
 .playlists:active {
   cursor: pointer;
-  background-color: #666666;
+  background-color: var(--primary);
 }
 
 .playlists_row {
@@ -455,6 +461,18 @@ code {
 .playlistsSearch {
   text-align: center;
   font-size: 20px;
+}
+
+.playlistInfo {
+  color: var(--accent);
+  margin-left: 2%;
+}
+
+.playlistSubText {
+  margin-top: -5%;
+  margin-bottom: 5%;
+  font-size: 16px;
+  color: var(--accent);
 }
 
 /* PROFILE SCREEN */
@@ -508,6 +526,7 @@ code {
   flex-direction: column;
   width: 80%;
   padding: 3%;
+  padding-top: 1%;
   padding-right: 12%;
 }
 

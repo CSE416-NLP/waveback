@@ -7,7 +7,7 @@
             "email": "example@email.com",
             "password": "!@#%@#FSSDFQ2#",
             "date_created": "10-27-2020",
-            "profile_picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
+            "profile_picture": "https://avatars1.githubusercontent.com/u/8070602?s=400&u=04a237d00e863730e242370a7473c225210aec14&v=4",
             "playlists": [0, 1],
             "following": [1],
             "bio": "This is a bio. I was born at a very young age.",
@@ -15,7 +15,8 @@
             "favorite_genres": ["Jazz", "Blues", "Bluegrass"],
             "favorite_artists": ["Miles Davis", "Vulfpeck", "Roy Hargrove"],
             "favorite_songs": ["Strasbourg St. Denis", "Funky Duck"],
-            "visible": true
+            "visible": true,
+            "theme": "Retro"
         },
         {
             "_id": 1,
@@ -24,7 +25,7 @@
             "email": "example.email@email.net",
             "password": "5tE@%#U358u7",
             "date_created": "10-27-2020",
-            "profile_picture": "https://www.writeups.org/wp-content/uploads/Space-Ghost-cartoon.jpg",
+            "profile_picture": "https://avatars0.githubusercontent.com/u/33044565?s=460&u=5f0ef1187b1a0f5659a0a67e4f5fea8be1ffdce4&v=4",
             "playlists": [1],
             "following": [1],
             "bio": "I was born in the wrong generation",
@@ -32,7 +33,8 @@
             "favorite_genres": ["Classical", "Electronic"],
             "favorite_artists": ["Cardi B", "Duke Ellington"],
             "favorite_songs": ["WAP", "Just WAP", "Seriously just WAP"],
-            "visible": true
+            "visible": true,
+            "theme": "Modern"
         }
     ],
     "Playlists": [

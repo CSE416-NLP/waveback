@@ -5,22 +5,7 @@ import jsonData from "../TestData.json";
 import { Link } from "react-router-dom"
 
 const PlaylistsScreen = (props) => { 
-  console.log(jsonData.Playlists);
   const [playlists, updatePlaylists] = useState(jsonData.Playlists);
-
-  // const handleAddPlaylist = () => {
-  //   let playlists = [...playlists];
-  //   playlists.push({
-  //     name: "playlist",
-  //     owner: "",
-  //   })
-  //   updatePlaylists(playlists);
-  // }
-
-  // const handleDeletePlaylist = (e) => {
-  //   let name = e.target.getAttribute("name");
-  //   updatePlaylists(playlists.filter(item => item.name !== name));
-  // }
 
   const columns = 3;
   return (
@@ -36,7 +21,11 @@ const PlaylistsScreen = (props) => {
               <Link to={{ pathname: "/playlists/playlist/" + playlist.id, playlist: playlist}}>
               <div className='playlists'>
                 <img className="playlists_art" src={playlist.picture} alt="" />
-                  <div className='info'><h1>{playlist.name}</h1><p>Owner: {playlist.owner}</p><p>Number of songs: {playlist.songs.length}</p></div>
+                  <div className='playlistInfo'>
+                    <h2>{playlist.name}</h2>
+                    <p className="playlistSubText">by {playlist.owner}</p>
+                    <p className="playlistSubText">{playlist.songs.length} songs</p>
+                  </div>
               </div>
               </Link>
             </Grid.Column>

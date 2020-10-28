@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import jsonData from "./TestData.json"
+import { COLOR_SCHEMES } from './styles/ColorSchemes'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import SplashScreen from './screens/SplashScreen';
 import DiscoverScreen from './screens/DiscoverScreen';
@@ -12,15 +14,35 @@ import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './Navbar';
 
 const App = (props) => {
+  const [user, setUser] = useState(jsonData.Users[0])
+
+  useEffect(() => {
+    let theme = COLOR_SCHEMES[user.theme]
+    document.documentElement.style.setProperty("--primary", theme.primary);
+    document.documentElement.style.setProperty("--secondary", theme.secondary);
+    document.documentElement.style.setProperty("--accent", theme.accent);
+    document.documentElement.style.setProperty("--background", theme.background);
+    document.documentElement.style.setProperty("--hue", theme.hue);
+    document.documentElement.style.setProperty("--buttonColor", theme.buttonColor);
+  }, [user])
+
+  const handleLogin = () => {
+    console.log("login");
+    if (user === jsonData.Users[0])
+      setUser(jsonData.Users[1])
+    else
+      setUser(jsonData.Users[0])
+  };
+
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar user={user} />
       <Switch>
-        <Route exact path="/" component={SplashScreen} />
+        <Route exact path="/" render={(props) => <SplashScreen handleLogin={handleLogin}/>} />
         <Route exact path="/discover" component={DiscoverScreen} />
         <Route exact path="/generate" component={GenerateScreen} />
         <Route exact path="/playlists" component={PlaylistsScreen} />
-        <Route exact path="/playlists/playlist/:id" component={PlaylistScreen}/>
+        <Route exact path="/playlists/playlist/:id" component={PlaylistScreen} />
         <Route exact path="/profile" component={ProfileScreen} />
         <Route exact path="/admin" component={AdminScreen} />
         <Route exact path="/test" component={LockedScreen} />
