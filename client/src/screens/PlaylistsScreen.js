@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import "../styles/css/index.css"
-import { Grid } from 'semantic-ui-react'
+import "../styles/css/index.css";
+import { Grid } from 'semantic-ui-react';
+import jsonData from "../TestData.json";
+import { Link } from "react-router-dom"
 
-const PlaylistsScreen = (props) => {
-  const [playlists, updatePlaylists] = useState([{
-    name: "",
-    owner: "",
-  }]);
+const PlaylistsScreen = (props) => { 
+  console.log(jsonData.Playlists);
+  const [playlists, updatePlaylists] = useState(jsonData.Playlists);
 
   // const handleAddPlaylist = () => {
   //   let playlists = [...playlists];
@@ -22,6 +22,7 @@ const PlaylistsScreen = (props) => {
   //   updatePlaylists(playlists.filter(item => item.name !== name));
   // }
 
+  const columns = 3;
   return (
     <div className="playlistsScreen" style={{ backgroundColor: "var(--background)" }}>
       <div className="playlistsSearchContainer ui input">
@@ -29,72 +30,20 @@ const PlaylistsScreen = (props) => {
         <button type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui icon big button"><i className="search icon"></i></button>
       </div>
       <div className="playlists_container">
-        <Grid columns={3} divided>
-          <Grid.Row className="playlists_row">
-            <Grid.Column>
+        <Grid columns={columns} divided>
+          {playlists.map((playlist, index) => (
+            <Grid.Column width={Math.floor(16 / columns)} key={index}>
+              <Link to={{ pathname: "/playlists/playlist/" + playlist.id, playlist: playlist}}>
               <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
+                <img className="playlists_art" src={playlist.picture} alt="" />
+                  <div className='info'><h1>{playlist.name}</h1><p>Owner: {playlist.owner}</p><p>Number of songs: {playlist.songs.length}</p></div>
               </div>
+              </Link>
             </Grid.Column>
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row className="playlists_row">
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row className="playlists_row">
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div className='playlists'>
-                <img className="playlists_art" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='info'><h1>Jihu's Pee Pee</h1><p>Jihu's Pee Pee is really big</p></div>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-
+          ))}
         </Grid>
       </div>
     </div>
-
   );
 };
 

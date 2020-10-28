@@ -10,7 +10,7 @@ const handleSignOut = () => {
 
 const tabMap = {
   "Profile": <tabComponents.MyProfile />,
-  "Friends": <tabComponents.MyFriends />,
+  "Following": <tabComponents.Following />,
   "Settings": <tabComponents.MyAccount />,
 }
 
@@ -24,7 +24,7 @@ const ProfileScreen = (props) => {
       <div className="profileScreenOptions" style={{ backgroundColor: "var(--background)" }}>
         <div className="profileScreenLeftContainer" style={{ backgroundColor: "var(--secondary)", filter: "drop-shadow(5px 0px 0px var(--accent))" }}>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab==="Profile" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Profile")}>My Profile</p>
-          <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab==="Friends" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Friends")}>My Friends</p>
+          <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab==="Following" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Following")}>Following</p>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab==="Settings" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Settings")}>My Account</p>
           <Modal
             basic

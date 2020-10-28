@@ -20,7 +20,7 @@ const App = (props) => {
         <Route exact path="/discover" component={DiscoverScreen} />
         <Route exact path="/generate" component={GenerateScreen} />
         <Route exact path="/playlists" component={PlaylistsScreen} />
-        <Route exact path="/playlists/playlist" component={PlaylistScreen}/>
+        <Route exact path="/playlists/playlist/:id" component={PlaylistScreen}/>
         <Route exact path="/profile" component={ProfileScreen} />
         <Route exact path="/admin" component={AdminScreen} />
         <Route exact path="/test" component={LockedScreen} />

@@ -79,12 +79,7 @@ const SplashScreen = (props) => {
                         </Modal>
                     </div>
                 </div>
-                
-                <div className="splashTestSelect">
-                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/admin", key: true })}>Go to admin</div>
-                    <div className="splashText ripple" onClick={() => props.history.push({ pathname: "/test", key: true })}>Go to test</div>
-                </div>
-                
+
                 <ThemePicker />
 
             </header>
