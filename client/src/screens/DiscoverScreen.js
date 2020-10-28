@@ -6,8 +6,8 @@ import jsonData from "../TestData.json";
 
 const DiscoverScreen = (props) => {
   const [playlists, updatePlaylists] = useState(jsonData.Playlists);
-  console.log(playlists);
   const columns = 2;
+
   return (
     <div className="discoverScreen" style={{ backgroundColor: "var(--background)" }}>
       <div className="searchContainer ui input">
@@ -25,8 +25,8 @@ const DiscoverScreen = (props) => {
                   <img className="playlists_art" src={playlist.picture} alt="" />
                   <div className='playlistInfo'>
                     <h2>{playlist.name}</h2>
-                    <p className="playlistSubText">by {playlist.owner}</p>
-                    <p className="playlistSubText">{playlist.songs.length} songs</p>
+                    <p className="playlistSubTextDiscover">by {playlist.owner}</p>
+                    <p className="playlistSubTextDiscover">{playlist.songs.length} songs</p>
                   </div>
                 </div>
               </Link>

@@ -22,7 +22,7 @@ const ProfileScreen = (props) => {
     <div className="profileScreen" style={{ backgroundColor: "var(--background)" }}>
 
       <div className="profileScreenOptions" style={{ backgroundColor: "var(--background)" }}>
-        <div className="profileScreenLeftContainer" style={{ backgroundColor: "var(--secondary)", filter: "drop-shadow(5px 0px 0px var(--accent))" }}>
+        <div className="profileScreenLeftContainer" style={{ backgroundColor: "var(--secondary)" }}>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab==="Profile" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Profile")}>My Profile</p>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab==="Following" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Following")}>Following</p>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab==="Settings" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Settings")}>My Account</p>

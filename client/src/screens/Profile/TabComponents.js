@@ -76,12 +76,12 @@ export const MyAccount = (props) => {
       </div>
       <p className="profileScreenSubText">New Password</p>
       <div className="ui input profileInputContainer">
-        <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }} />
+        <input disabled className="profileInput" style={{ backgroundColor: "var(--secondary)" }} />
         <p className="profileAccountSubText">change</p>
       </div>
       <p className="profileScreenSubText">Confirm New Password</p>
       <div className="ui input profileInputContainer">
-        <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }} />
+        <input disabled className="profileInput" style={{ backgroundColor: "var(--secondary)" }} />
         <p className="profileAccountSubText">change</p>
       </div>
     </div>
