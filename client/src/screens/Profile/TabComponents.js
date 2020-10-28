@@ -11,23 +11,26 @@ export const MyProfile = (props) => {
     <div className="profileScreenMainContainer">
       <p className="profileScreenSubText">Bio</p>
       <Form>
-        <TextArea className="profileTextArea" rows={6} style={{ backgroundColor: "var(--secondary)" }} placeholder="Tell us about yourself" defaultValue={currentUser.bio}/>
+        <TextArea className="profileTextArea" rows={6} style={{ backgroundColor: "var(--secondary)" }} placeholder="Tell us about yourself" defaultValue={currentUser.bio} />
       </Form>
       <p className="profileScreenSubText">Location</p>
       <Form>
-        <TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} placeholder="Where do you call home?" defaultValue={currentUser.location}/>
+        <TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} placeholder="Where do you call home?" defaultValue={currentUser.location} />
       </Form>
       <p className="profileScreenSubText">Favorite Genres</p>
-      <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_genres}/></Form>
+      <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_genres} /></Form>
       <p className="profileScreenSubText">Favorite Artists</p>
-      <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_artists}/></Form>
+      <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_artists} /></Form>
       <p className="profileScreenSubText">Favorite Songs</p>
-      <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_songs}/></Form>
+      <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_songs} /></Form>
     </div>
   )
 }
 
 export const Following = (props) => {
+  const users = jsonData.Users;
+  const columns = 2;
+  console.log(users);
   return (
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">
@@ -37,68 +40,20 @@ export const Following = (props) => {
         </button>
       </div>
       <div className="profileScreenScrollContainer">
-        <Grid columns={2} divided>
-          <Grid.Row>
-            <Grid.Column>
-              <Link className='profileScreenFollowing' to="/profile/test">
-                <img className="profilePicture" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
+        <Grid columns={columns} divided>
+          {users.map((user, index) => (
+            <Grid.Column width={Math.floor(16 / columns)} key={index}>
+              <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
+
+                <img className="profilePicture" src={user.profile_picture} alt="" />
                 <div className='profileFollowingInfo'>
-                  <h1>Steve Jobs</h1>
-                  <p>aaaaaaaaaaaaaaa</p>
+                  <h2>{user.username}</h2>
                 </div>
               </Link>
             </Grid.Column>
-            <Grid.Column>
-              <Link className='profileScreenFollowing' to="/profile/test">
-                <img className="profilePicture" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
-                <div className='profileFollowingInfo'>
-                  <h1>Beter Zeng</h1>
-                  <p>This is one that has a lot of detailed information regarding various things such as length, genre, and maybe something else</p>
-                </div>
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Link className='profileScreenFollowing' to="/profile/test">
-                <img className="profilePicture" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='profileFollowingInfo'>
-                  <h1>Steve Jobs</h1>
-                  <p>aaaaaaaaaaaaaaa</p>
-                </div>
-              </Link>
-            </Grid.Column>
-            <Grid.Column>
-              <Link className='profileScreenFollowing' to="/profile/test">
-                <img className="profilePicture" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
-                <div className='profileFollowingInfo'>
-                  <h1>Beter Zeng</h1>
-                  <p>bbbbbbbbbbbbbbb</p>
-                </div>
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Link className='profileScreenFollowing' to="/profile/test">
-                <img className="profilePicture" src='https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png' alt="" />
-                <div className='profileFollowingInfo'>
-                  <h1>Steve Jobs</h1>
-                  <p>aaaaaaaaaaaaaaa</p>
-                </div>
-              </Link>
-            </Grid.Column>
-            <Grid.Column>
-              <Link className='profileScreenFollowing' to="/profile/test">
-                <img className="profilePicture" src='https://i.imgur.com/bJK5vsQ.png' alt="" />
-                <div className='profileFollowingInfo'>
-                  <h1>Beter Zeng</h1>
-                  <p>bbbbbbbbbbbbbbb</p>
-                </div>
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
+          ))}
         </Grid>
+
       </div>
     </div>
   )
@@ -111,12 +66,12 @@ export const MyAccount = (props) => {
     <div className="profileScreenMainContainer">
       <p className="profileScreenSubText">Username</p>
       <div className="ui input profileInputContainer">
-        <input disabled className="profileInput" style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.username}/>
+        <input disabled className="profileInput" style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.username} />
         <p className="profileAccountSubText">change</p>
       </div>
       <p className="profileScreenSubText">Email</p>
       <div className="ui input profileInputContainer">
-        <input disabled className="profileInput" style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.email}/>
+        <input disabled className="profileInput" style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.email} />
         <p className="profileAccountSubText">change</p>
       </div>
       <p className="profileScreenSubText">New Password</p>

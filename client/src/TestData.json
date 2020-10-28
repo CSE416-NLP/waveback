@@ -35,6 +35,24 @@
             "favorite_songs": ["WAP", "Just WAP", "Seriously just WAP"],
             "visible": true,
             "theme": "Modern"
+        },
+        {
+            "_id": 2,
+            "admin": false,
+            "username": "Richard_McKenna",
+            "email": "richard.email@gmail.net",
+            "password": "5tE@%#U358u7",
+            "date_created": "10-27-2020",
+            "profile_picture": "https://avatars0.githubusercontent.com/u/33044565?s=460&u=5f0ef1187b1a0f5659a0a67e4f5fea8be1ffdce4&v=4",
+            "playlists": [2, 3],
+            "following": [1],
+            "bio": "I teach CSE 416",
+            "location": "Long Island, NY, USA",
+            "favorite_genres": ["Classical", "Electronic"],
+            "favorite_artists": ["Pink Floyd", "Duke Ellington"],
+            "favorite_songs": ["Shine on you Crazy Diamond", "Just WAP", "Seriously just WAP"],
+            "visible": true,
+            "theme": "Modern"
         }
     ],
     "Playlists": [
@@ -84,7 +102,7 @@
             "id": 1,
             "owner": "Wavebacker_1234",
             "name": "Nathan's Gaming Playlist",
-            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
+            "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
             "songs": [
                 {
                     "_id": 0,
@@ -220,7 +238,7 @@
             "id": 4,
             "owner": "Wavebacker_1234",
             "name": "Nathan's Workout Playlist",
-            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
+            "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
             "songs": [
                 {
                     "_id": 0,
@@ -260,6 +278,142 @@
         },
         {
             "id": 5,
+            "owner": "Wavebacker_1234",
+            "name": "Nathan's Workout Playlist",
+            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
+            "songs": [
+                {
+                    "_id": 0,
+                    "song_id": "",
+                    "name": "The Court of the Crimson King",
+                    "artist": "King Crimson",
+                    "album": "In the Court of the Crimson King",
+                    "genre": ["Rock", "Jazz"],
+                    "year": "1969",
+                    "duration": 566
+                },
+                {
+                    "_id": 1,
+                    "song_id": "",
+                    "name": "Wolf Totem",
+                    "artist": "The Hu",
+                    "album": "The Gereg",
+                    "genre": ["Metal", "Folk"],
+                    "year": "2018",
+                    "duration": 397
+                },
+                {
+                    "_id": 1,
+                    "song_id": "",
+                    "name": "Wolf Totem",
+                    "artist": "The Hu",
+                    "album": "The Gereg",
+                    "genre": ["Metal", "Folk"],
+                    "year": "2018",
+                    "duration": 397
+                }
+            ],
+            "followers": "10",
+            "date_created": "10-10-20",
+            "visibility": "followers",
+            "tags": ["Metal", "Rock", "Jazz"]
+        },
+        {
+            "id": 6,
+            "owner": "Wavebacker_1234",
+            "name": "Nathan's Gaming Playlist",
+            "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
+            "songs": [
+                {
+                    "_id": 0,
+                    "song_id": "",
+                    "name": "Through the Fire and the Flames",
+                    "artist": "Dragonforce",
+                    "album": "Inhuman Rampage",
+                    "genre": ["Rock"],
+                    "year": "2005",
+                    "duration": 444
+                },
+                {
+                    "_id": 1,
+                    "song_id": "",
+                    "name": "Song 2",
+                    "artist": "Blur",
+                    "album": "",
+                    "genre": ["Rock"],
+                    "year": "1997",
+                    "duration": 122
+                },
+                {
+                    "_id": 2,
+                    "song_id": "",
+                    "name": "Piano Sonata in A Minor",
+                    "artist": "Beethoven",
+                    "album": "",
+                    "genre": ["Classical"],
+                    "year": "1795",
+                    "duration": 1205
+                },
+                {
+                    "_id": 3,
+                    "song_id": "",
+                    "name": "Tik Tok",
+                    "artist": "Kesha",
+                    "album": "Album",
+                    "genre": ["Electronic", "Pop"],
+                    "year": "1009",
+                    "duration": 185
+                }
+            ],
+            "followers": "5",
+            "date_created": "11-15-19",
+            "visibility": "no-one",
+            "tags": ["gaming", "classical"]
+        },
+        {
+            "id": 7,
+            "owner": "Richard_McKenna",
+            "name": "Richard's Grading Playlist",
+            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
+            "songs": [
+                {
+                    "_id": 0,
+                    "song_id": "",
+                    "name": "The Court of the Crimson King",
+                    "artist": "King Crimson",
+                    "album": "In the Court of the Crimson King",
+                    "genre": ["Rock", "Jazz"],
+                    "year": "1969",
+                    "duration": 566
+                },
+                {
+                    "_id": 1,
+                    "song_id": "",
+                    "name": "Wolf Totem",
+                    "artist": "The Hu",
+                    "album": "The Gereg",
+                    "genre": ["Metal", "Folk"],
+                    "year": "2018",
+                    "duration": 397
+                },
+                {
+                    "_id": 1,
+                    "song_id": "",
+                    "name": "Wolf Totem",
+                    "artist": "The Hu",
+                    "album": "The Gereg",
+                    "genre": ["Metal", "Folk"],
+                    "year": "2018",
+                    "duration": 397
+                }
+            ],
+            "followers": "10",
+            "date_created": "10-10-20",
+            "visibility": "followers",
+            "tags": ["Metal", "Rock", "Jazz"]
+        },
+        {
+            "id": 8,
             "owner": "Wavebacker_1234",
             "name": "Nathan's Workout Playlist",
             "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
