@@ -11,6 +11,18 @@ const PlaylistScreen = (props) => {
     // const [playlist, updatePlaylist] = useState(props.history.location.playlist);
     const [playlist, updatePlaylist] = useState(jsonData.Playlists[3]);
     // console.log(playlist);
+
+    // Convert a time in seconds into minutes and seconds.
+    const secToFormattedTime = (seconds) => {
+        let m = Math.floor(seconds / 60);
+        let s = seconds %= 60;
+        return m + "m" + s + "s";
+    }
+
+    // Calculate the total duration of the playlist.
+    let duration = 0;
+    for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
+
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }}>
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
@@ -19,8 +31,13 @@ const PlaylistScreen = (props) => {
                         <img className="playlistArt" src={playlist.picture} alt="" />
                         <div className="playlistMetadata">
                             <h1 className="playlistTitle">{playlist.name}</h1>
-                            <p className="playlistNumSongs">{playlist.songs.length} song(s)</p>
+                            <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length > 1 ? "s" : ""}, {secToFormattedTime(duration)}</p>
+                            <p>PLAYLIST DESCRIPTION GOES HERE</p>
                         </div>
+                    </div>
+
+                    <div className="playlistPlayAllButton">
+                        <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui button massive">Play All</button>
                     </div>
 
                     <p className="playlistGenreLabel" style={{ color: "var(--accent)" }}>Genres</p>
@@ -37,16 +54,17 @@ const PlaylistScreen = (props) => {
                 <div className="playlistSongsBox">
                     <div className="playlistSongTitleLabel">Song Title</div>
                     <div className="playlistSongArtistLabel">Artist</div>
-                    <div className="playlistSongDurationLabel">Duration (sec)</div>
+                    <div className="playlistSongDurationLabel">Duration</div>
                 </div>
 
                 {playlist.songs.map((song, index) => (
                     <div className="playlistSongBox">
+                        <p className="songNumber">{index + 1}</p>
                         <Icon className="playlistSongIcon big" name="play circle outline"></Icon>
                         <div className="playlistSongBar">
                             <div className="playlistSongTitle">{song.name}</div>
                             <div className="playlistSongArtist">{song.artist}</div>
-                            <div className="playlistSongDuration">{song.duration}s</div>
+                            <div className="playlistSongDuration">{secToFormattedTime(song.duration)}</div>
                         </div>
                     </div>
                 ))}

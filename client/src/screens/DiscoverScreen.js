@@ -10,13 +10,18 @@ const DiscoverScreen = (props) => {
 
   return (
     <div className="discoverScreen" style={{ backgroundColor: "var(--background)" }}>
-      <div className="searchContainer ui input">
-        <input placeholder="Search.." size="40" className="discoverSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
-        <button type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui icon big button"><i className="search icon"></i></button>
+
+      <div className="discoverSearchContainer">
+        <p className="discoverTitleText">explore other users' creations</p>
+        <div className="ui input">
+          <input placeholder="Search.." size="40" className="discoverSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
+          <button type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="fluid ui icon big button">
+            <i className="search icon"></i>
+          </button>
+        </div>
       </div>
 
       <div className="discoverPlaylistGrid">
-
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
@@ -35,7 +40,7 @@ const DiscoverScreen = (props) => {
         </Grid>
       </div>
 
-    </div >
+    </div>
   );
 };
 

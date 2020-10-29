@@ -10,10 +10,17 @@ const PlaylistsScreen = (props) => {
   const columns = 3;
   return (
     <div className="playlistsScreen" style={{ backgroundColor: "var(--background)" }}>
+
       <div className="playlistsSearchContainer ui input">
-        <input placeholder="Search.." size="40" className="playlistsSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
-        <button type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui icon big button"><i className="search icon"></i></button>
+        <p className="discoverTitleText">my playlists</p>
+        <div className="ui input">
+          <input placeholder="Search.." size="40" className="playlistsSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
+          <button type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="fluid ui icon big button">
+            <i className="search icon"></i>
+          </button>
+        </div>
       </div>
+
       <div className="playlists_container">
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "./styles/css/index.css"
 import wavebackCircleLogo from './images/WB Circle Logo V2.png';
-import jsonData from "./TestData.json";
 
 const Navbar = (props) => {
     const currentUser = props.user;
