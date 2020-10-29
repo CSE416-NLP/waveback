@@ -23,6 +23,9 @@ export const MyProfile = (props) => {
       <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_artists} /></Form>
       <p className="profileScreenSubText">Favorite Songs</p>
       <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} defaultValue={currentUser.favorite_songs} /></Form>
+      <div className="profileScreenUpdateButton">
+        <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui huge button">Update</button>
+      </div>
     </div>
   )
 }

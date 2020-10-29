@@ -89,6 +89,7 @@ code {
   text-align: right;
   margin-right: 3%;
   font-style: italic;
+  user-select: none;
 }
 
 .splashLoginBox {
@@ -115,6 +116,7 @@ code {
   text-align: center;
   margin: 5%;
   text-decoration: none;
+  user-select: none;
 }
 
 .splashTextSmall {
@@ -271,6 +273,7 @@ code {
   font-weight: bolder;
   text-align: center;
   font-style: italic;
+  user-select: none;
 }
 
 .generateScreenModules {
@@ -292,6 +295,7 @@ code {
 .generateScreenText {
   font-size: 24px;
   font-weight: bold;
+  user-select: none;
 }
 
 .generateScreenBox {
@@ -319,15 +323,18 @@ code {
 #locationText1 {
   float: left;
   margin-left: 4.5%;
+  user-select: none;
 }
 
 #locationText2 {
   margin-left: 48%;
+  user-select: none;
 }
 
 #locationText3 {
   float: right;
   margin-right: 10%;
+  user-select: none;
 }
 
 #gsbRight { 
@@ -357,6 +364,7 @@ code {
 #genreText1 {
   float: left;
   margin-left: 18px;
+  user-select: none;
 }
 
 .generateInputGenre {
@@ -570,8 +578,13 @@ code {
 
 .profileScreenSubText {
   font-weight: bold;
-  margin-top: 5%;
+  margin-top: 4%;
+  margin-bottom: 1%;
   font-size: 18px;
+}
+
+.profileScreenUpdateButton {
+  margin-top: 3%;
 }
 
 .profileTextArea {
@@ -815,23 +828,26 @@ code {
 .playlistSongsBox {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   text-align: center;
   padding-top: 2%;
 }
 .playlistSongTitleLabel, .playlistSongArtistLabel, .playlistSongDurationLabel {
-  display: inline-block;
   font-size: 20px;
   font-style: italic;
 }
 
+.playlistSongTitleLabel { margin-left: 14%;}
+
+.playlistSongArtistLabel { margin-left: 33%;}
+
+.playlistSongDurationLabel { margin-left: 18%;}
+
 .playlistSongTitle, .playlistSongDuration, .playlistSongArtist {
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .playlistSongIcon {
+  padding-top: 0.2%;
   color: var(--accent);
   display: flex;
   align-items: center;
@@ -852,16 +868,18 @@ code {
   text-align: left;
 }
 .playlistSongArtist {
-  text-align: left;
+  position: absolute;
+  left: 70%;
+  transform: translate(-50%);
 }
 
 .playlistSongDuration {
-  text-align: start;
+  position: absolute;
+  right: 12.5%;
 }
 
 .playlistSongBox {
   display: flex;
-  flex-direction: row;
   align-items: center;
   margin-top: 2%;
   padding-right: 10%;
@@ -875,8 +893,6 @@ code {
   padding: 1%;
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 /* ANIMATIONS */
 @keyframes App-logo-spin {

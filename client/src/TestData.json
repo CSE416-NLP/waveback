@@ -16,7 +16,7 @@
             "favorite_artists": ["Miles Davis", "Vulfpeck", "Roy Hargrove"],
             "favorite_songs": ["Strasbourg St. Denis", "Funky Duck"],
             "visible": true,
-            "theme": "Retro"
+            "theme": "Modern"
         },
         {
             "_id": 1,
@@ -34,7 +34,7 @@
             "favorite_artists": ["Cardi B", "Duke Ellington"],
             "favorite_songs": ["WAP", "Just WAP", "Seriously just WAP"],
             "visible": true,
-            "theme": "Modern"
+            "theme": "Retro"
         },
         {
             "_id": 2,
@@ -52,7 +52,7 @@
             "favorite_artists": ["Pink Floyd", "Duke Ellington"],
             "favorite_songs": ["Shine on you Crazy Diamond", "Just WAP", "Seriously just WAP"],
             "visible": true,
-            "theme": "Modern"
+            "theme": "Old-School"
         }
     ],
     "Playlists": [

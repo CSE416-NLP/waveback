@@ -5,7 +5,7 @@ export const COLOR_SCHEMES = {
         "primary": "#e9713d",
         "secondary": "#eebc90",
         "accent": "#15253f",
-        "background": "#fae8b7",
+        "background": "#fcf0cf",
         "hue": "225deg",
         "buttonColor": "brown",
     },

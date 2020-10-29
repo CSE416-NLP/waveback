@@ -37,7 +37,7 @@ const PlaylistScreen = (props) => {
                 <div className="playlistSongsBox">
                     <div className="playlistSongTitleLabel">Song Title</div>
                     <div className="playlistSongArtistLabel">Artist</div>
-                    <div className="playlistSongDurationLabel">Duration</div>
+                    <div className="playlistSongDurationLabel">Duration (sec)</div>
                 </div>
 
                 {playlist.songs.map((song, index) => (
@@ -46,7 +46,7 @@ const PlaylistScreen = (props) => {
                         <div className="playlistSongBar">
                             <div className="playlistSongTitle">{song.name}</div>
                             <div className="playlistSongArtist">{song.artist}</div>
-                            <div className="playlistSongDuration">{song.duration}</div>
+                            <div className="playlistSongDuration">{song.duration}s</div>
                         </div>
                     </div>
                 ))}
