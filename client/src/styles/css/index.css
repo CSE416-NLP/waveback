@@ -764,7 +764,7 @@ code {
 
 .playlistPlayAllButton {
   margin: 0 auto;
-  margin-top: 13%;
+  margin-bottom: -7%;
 }
 
 .playlistArt {
@@ -805,6 +805,18 @@ code {
   font-size: 18px;
   margin-left: 2%;
   margin-top: -4%;
+}
+
+.playlistDescriptionText {
+  font-size: 16px;
+  margin-top: 1%;
+  margin-left: 4%;
+  margin-right: 3%;
+  text-align: left;
+  font-style: italic;
+  word-wrap: break-word;
+  height: 35%;
+  max-height: 175px;
 }
 
 .playlistGenreBox {
@@ -902,6 +914,7 @@ code {
 }
 
 .playlistSongBar {
+  font-size: 16px;
   background-color: var(--secondary);
   border: outset;
   border-width: 1px;

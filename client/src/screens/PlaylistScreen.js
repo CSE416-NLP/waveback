@@ -9,14 +9,15 @@ const PlaylistScreen = (props) => {
         console.log(props.history.location.playlist)
     }
     // const [playlist, updatePlaylist] = useState(props.history.location.playlist);
-    const [playlist, updatePlaylist] = useState(jsonData.Playlists[3]);
+    const [playlist, updatePlaylist] = useState(jsonData.Playlists[1]);
     // console.log(playlist);
 
     // Convert a time in seconds into minutes and seconds.
     const secToFormattedTime = (seconds) => {
         let m = Math.floor(seconds / 60);
         let s = seconds %= 60;
-        return m + "m" + s + "s";
+        s = (s < 10) ? (s = "0" + s) : s
+        return m + ":" + s;
     }
 
     // Calculate the total duration of the playlist.
@@ -32,14 +33,12 @@ const PlaylistScreen = (props) => {
                         <div className="playlistMetadata">
                             <h1 className="playlistTitle">{playlist.name}</h1>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length > 1 ? "s" : ""}, {secToFormattedTime(duration)}</p>
-                            <p>PLAYLIST DESCRIPTION GOES HERE</p>
                         </div>
                     </div>
-
+                    <p className="playlistDescriptionText">{playlist.description}</p>
                     <div className="playlistPlayAllButton">
                         <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui button massive">Play All</button>
                     </div>
-
                     <p className="playlistGenreLabel" style={{ color: "var(--accent)" }}>Genres</p>
                     <div className="playlistGenreBox">
                         <div className="playlistGenreText">{playlist.songs[0].genre + ""}</div>
