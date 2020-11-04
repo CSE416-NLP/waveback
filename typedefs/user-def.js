@@ -9,7 +9,7 @@ const typeDefs = gql`
     }
     extend type Query {
         getCurrentUser: User
-        testQuery: string
+        testQuery: String
     }
     extend type Mutation {
         login(username: String!, password: String!): User
