@@ -22,3 +22,9 @@ export const REGISTER = gql`
         }
     }
 `;
+
+export const LOGOUT = gql`
+	mutation Logout {
+		logout 
+	}
+`;

@@ -16,7 +16,6 @@ import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './Navbar';
 
 const App = (props) => {
-  // const [user, setUser] = useState(jsonData.Users[0])
   let user = null;
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
 
@@ -40,15 +39,7 @@ const App = (props) => {
       document.documentElement.style.setProperty("--hue", theme.hue);
       document.documentElement.style.setProperty("--buttonColor", theme.buttonColor);
     }
-  }, [user])
-
-  // const handleLogin = () => {
-  //   console.log("login");
-  //   if (user === jsonData.Users[0])
-  //     setUser(jsonData.Users[1])
-  //   else
-  //     setUser(jsonData.Users[0])
-  // };
+  }, [user]);
 
   return (
     <BrowserRouter>
@@ -59,7 +50,7 @@ const App = (props) => {
         <Route exact path="/generate" component={GenerateScreen} />
         <Route exact path="/playlists" component={PlaylistsScreen} />
         <Route exact path="/playlists/playlist/:id" component={PlaylistScreen} />
-        <Route exact path="/profile" component={ProfileScreen} />
+        <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
         <Route exact path="/admin" component={AdminScreen} />
         <Route exact path="/test" component={LockedScreen} />
         <Route exact path="/profile/:id" component={ViewProfileScreen} />
