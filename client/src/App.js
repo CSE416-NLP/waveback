@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { GET_DB_USER } from './cache/queries';
+import { useQuery } from '@apollo/react-hooks';
 import jsonData from "./TestData.json"
 import { COLOR_SCHEMES } from './styles/ColorSchemes'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
@@ -14,7 +16,19 @@ import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './Navbar';
 
 const App = (props) => {
-  const [user, setUser] = useState(jsonData.Users[0])
+  // const [user, setUser] = useState(jsonData.Users[0])
+  let user = null;
+  const { loading, error, data, refetch } = useQuery(GET_DB_USER);
+
+  if (error) { console.log(error); }
+  if (loading) { console.log("wawaweewa") }
+  if (data) {
+    let { getCurrentUser } = data;
+    if (getCurrentUser !== null) {
+      user = getCurrentUser;
+      console.log("user", user);
+    }
+  }
 
   useEffect(() => {
     let theme = COLOR_SCHEMES[user.theme]
@@ -26,19 +40,19 @@ const App = (props) => {
     document.documentElement.style.setProperty("--buttonColor", theme.buttonColor);
   }, [user])
 
-  const handleLogin = () => {
-    console.log("login");
-    if (user === jsonData.Users[0])
-      setUser(jsonData.Users[1])
-    else
-      setUser(jsonData.Users[0])
-  };
+  // const handleLogin = () => {
+  //   console.log("login");
+  //   if (user === jsonData.Users[0])
+  //     setUser(jsonData.Users[1])
+  //   else
+  //     setUser(jsonData.Users[0])
+  // };
 
   return (
     <BrowserRouter>
       <Navbar user={user} />
       <Switch>
-        <Route exact path="/" render={(props) => <SplashScreen handleLogin={handleLogin}/>} />
+        <Route exact path="/welcome" render={(props) => user ? <Redirect to="/discover" /> : <SplashScreen user={user} fetchUser={refetch} />} />
         <Route exact path="/discover" component={DiscoverScreen} />
         <Route exact path="/generate" component={GenerateScreen} />
         <Route exact path="/playlists" component={PlaylistsScreen} />

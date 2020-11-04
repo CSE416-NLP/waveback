@@ -4,10 +4,9 @@ import '../styles/css/index.css';
 import wavebackTextFG from '../images/waveback text fg.png';
 import wavebackTextBG from '../images/waveback text bg.png';
 import ThemePicker from '../UtilityComponents/ThemePicker';
+import e from 'express';
 
-const handleRegister = () => {
-    console.log("register");
-};
+
 
 const sendRecoveryEmail = () => {
     console.log("forgot password");
@@ -15,8 +14,56 @@ const sendRecoveryEmail = () => {
 
 const SplashScreen = (props) => {
     const [passwordOpenState, setPasswordModalOpenState] = useState(false);
+    
+    // Login hooks
+    const [loginInput, setLoginInput] = useState({ username: "", password: "" });
+    const [passwordFieldType, toggleShowPassword] = useState("password");
+    const [showLoginErr, displayLoginErrorMsg] = useState(false);
+    const LoginErrorMsg = "User with these credentials doesn't exist."
+
+    // Register hooks
     const [registerOpenState, setRegisterModalOpenState] = useState(false);
-  
+    const [registerInput, setRegisterInput] = useState({ username: "", email: "", password: ""});
+    const[registerPasswordFieldType, toggleShowRegisterPassword] = useState("password");
+    const [showRegisterErr, displayRegisterErrorMsg] = useState(false);
+    const RegisterErrorMsg = "Invalid Registration Credentials";
+
+    const updateLoginInput = (e) => {
+        const { name, value } = e.target;
+        const updated = {...loginInput, [name]: value };
+        displayLoginErrorMsg(false);
+        setLoginInput(updated);
+    }
+
+    const login = async (e) => {
+        const { data } = await props.login({ variables: { ...loginInput }});
+        if (data && data.login._id === null) {
+            displayLoginErrorMsg(true);
+        }
+        else if (data) {
+            props.fetchUser();
+        };
+    };
+
+    const updateRegisterInput = (e) => {
+        const { name, value } = e.target;
+        const updated = {...registerInput, [name]: value};
+        displayRegisterErrorMsg(false);
+        setRegisterInput(updated);
+    }
+
+    const CreateNewAccount = async () => {
+        const { data } = await props.register({ variables: { ...registerInput }});
+        if (data && data.register._id === null) {
+            displayRegisterErrorMsg(true);
+        }
+        else if (data) {
+            props.fetchUser();
+        };
+    }
+    const handleRegister = () => {
+        console.log("register");
+    };
     return (
         <div className="App">
             <header className="App-header" style={{backgroundColor: "var(--background)"}}>
