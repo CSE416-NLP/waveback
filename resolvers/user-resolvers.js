@@ -27,8 +27,8 @@ module.exports = {
             @returns {object} success: user object, failure: error message
         **/
         login: async (_, args, { res }) => {
-            const { email, password } = args;
-            const user = await User.findOne({ email: email });
+            const { username, password } = args;
+            const user = await User.findOne({ username: username });
 
             if (!user) {
                 return ({ msg: "User with that email not found." });

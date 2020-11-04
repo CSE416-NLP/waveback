@@ -4,7 +4,7 @@ import '../styles/css/index.css';
 import wavebackTextFG from '../images/waveback text fg.png';
 import wavebackTextBG from '../images/waveback text bg.png';
 import ThemePicker from '../UtilityComponents/ThemePicker';
-import { REGISTER } from '../cache/mutations';
+import { REGISTER, LOGIN } from '../cache/mutations';
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 
@@ -36,6 +36,7 @@ const SplashScreen = (props) => {
     }
 
     const login = async (e) => {
+        console.log("logging in with:", loginInput)
         const { data } = await props.login({ variables: { ...loginInput }});
         if (data && data.login._id === null) {
             displayLoginErrorMsg(true);
@@ -81,10 +82,10 @@ const SplashScreen = (props) => {
                     <div className="splashLoginBox" style={{backgroundColor: "var(--primary)"}}>
                         <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
                         <div className="ui input splashInputContainer">
-                            <input size="25" className="splashInput" placeholder="Username" style={{backgroundColor: "var(--secondary)"}}/>
+                            <input size="25" className="splashInput" placeholder="Username" style={{backgroundColor: "var(--secondary)"}} name="username" onChange={updateLoginInput}/>
                         </div>
                         <div className="ui input splashInputContainer">
-                            <input size="25" className="splashInput" placeholder="Password" style={{backgroundColor: "var(--secondary)"}}/>
+                            <input size="25" className="splashInput" placeholder="Password" style={{backgroundColor: "var(--secondary)"}} name="password" onChange={updateLoginInput}/>
                         </div>
                         <Modal 
                             basic 
@@ -104,7 +105,7 @@ const SplashScreen = (props) => {
                             </Modal.Actions>
                         </Modal>
                         <div>
-                            <Button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui huge button" onClick={props.handleLogin}>Log In</Button>
+                            <Button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui huge button" onClick={login}>Log In</Button>
                         </div>
                         <Modal 
                             basic 
@@ -140,5 +141,6 @@ const SplashScreen = (props) => {
 };
 
 export default compose(
-    graphql(REGISTER, { name: 'register' })
+    graphql(REGISTER, { name: 'register' }),
+    graphql(LOGIN, { name: 'login' })
   )(SplashScreen);
