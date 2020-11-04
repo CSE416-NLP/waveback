@@ -41,8 +41,8 @@ module.exports = {
 
             const accessToken = tokens.generateAccessToken(user);
             const refreshToken = tokens.generateRefreshToken(user);
-            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: "None", secure: true });
-            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: "None", secure: true })
+            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true});
+            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true })
             return user;
         },
         /**
@@ -50,16 +50,16 @@ module.exports = {
             @param {object} res - response object containing current access/refresh tokens
             @returns {object} success: user object, failure: error message
         **/
-        register: async (_, args) => {
+        register: async (_, args, { res }) => {
             const { username, email, password } = args;
             const email_exists = await User.findOne({ email: email });
-            if (username_exists) {
-                return ({ msg: "User with this username already exists. Please choose a new username." });
-            }
             if (email_exists) {
                 return ({ msg: "User with this email already exists. Please enter a new email." });
             }
             const username_exists = await User.findOne({ username: username });
+            if (username_exists) {
+                return ({ msg: "User with this username already exists. Please choose a new username." });
+            }
 
             const hashed_password = await bcrypt.hash(password, 10);
             const _id = new ObjectId();
@@ -73,8 +73,9 @@ module.exports = {
 
             const accessToken = tokens.generateAccessToken(user);
             const refreshToken = tokens.generateRefreshToken(user);
-            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: "None", secure: true });
-            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: "None", secure: true })
+            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true});
+            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true})
+
             return user;
         },
 

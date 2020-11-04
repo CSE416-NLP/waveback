@@ -4,9 +4,9 @@ import '../styles/css/index.css';
 import wavebackTextFG from '../images/waveback text fg.png';
 import wavebackTextBG from '../images/waveback text bg.png';
 import ThemePicker from '../UtilityComponents/ThemePicker';
-import e from 'express';
-
-
+import { REGISTER } from '../cache/mutations';
+import { graphql } from '@apollo/react-hoc';
+import { flowRight as compose } from 'lodash';
 
 const sendRecoveryEmail = () => {
     console.log("forgot password");
@@ -24,7 +24,7 @@ const SplashScreen = (props) => {
     // Register hooks
     const [registerOpenState, setRegisterModalOpenState] = useState(false);
     const [registerInput, setRegisterInput] = useState({ username: "", email: "", password: ""});
-    const[registerPasswordFieldType, toggleShowRegisterPassword] = useState("password");
+    const [registerPasswordFieldType, toggleShowRegisterPassword] = useState("password");
     const [showRegisterErr, displayRegisterErrorMsg] = useState(false);
     const RegisterErrorMsg = "Invalid Registration Credentials";
 
@@ -53,6 +53,7 @@ const SplashScreen = (props) => {
     }
 
     const CreateNewAccount = async () => {
+        console.log("Creating a new account with:", registerInput)
         const { data } = await props.register({ variables: { ...registerInput }});
         if (data && data.register._id === null) {
             displayRegisterErrorMsg(true);
@@ -64,6 +65,7 @@ const SplashScreen = (props) => {
     const handleRegister = () => {
         console.log("register");
     };
+
     return (
         <div className="App">
             <header className="App-header" style={{backgroundColor: "var(--background)"}}>
@@ -112,13 +114,19 @@ const SplashScreen = (props) => {
                             size='small' trigger={<div className="splashTextSmall">Create Account</div>}>
                             <Header icon><Icon name='user plus' />Create New Account</Header>
                             <Modal.Content>
-                                <div className="ui input registerTextfield"><input size="50" placeholder="Username" style={{backgroundColor: "var(--secondary)"}}/></div>
-                                <div className="ui input registerTextfield"><input size="50" placeholder="Email" style={{backgroundColor: "var(--secondary)"}}/></div>
-                                <div className="ui input registerTextfield"><input size="50" placeholder="Password" style={{backgroundColor: "var(--secondary)"}}/></div>
+                                <div className="ui input registerTextfield">
+                                    <input size="50" placeholder="Username" style={{backgroundColor: "var(--secondary)"}} name="username" onChange={updateRegisterInput}/>
+                                </div>
+                                <div className="ui input registerTextfield">
+                                    <input size="50" placeholder="Email" style={{backgroundColor: "var(--secondary)"}} name="email" onChange={updateRegisterInput}/>
+                                </div>
+                                <div className="ui input registerTextfield">
+                                    <input size="50" placeholder="Password" style={{backgroundColor: "var(--secondary)"}} name="password" onChange={updateRegisterInput}/>
+                                </div>
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
                                 <Button inverted color='red' onClick={() => setRegisterModalOpenState(false)}><Icon name='remove'/>Close</Button>
-                                <Button className="ui primary button" onClick={() => sendRecoveryEmail()}><Icon name='checkmark'/>Create Account</Button>
+                                <Button className="ui primary button" onClick={CreateNewAccount}><Icon name='checkmark'/>Create Account</Button>
                             </Modal.Actions>
                         </Modal>
                     </div>
@@ -131,4 +139,6 @@ const SplashScreen = (props) => {
     );
 };
 
-export default SplashScreen;
+export default compose(
+    graphql(REGISTER, { name: 'register' })
+  )(SplashScreen);

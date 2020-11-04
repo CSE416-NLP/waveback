@@ -20,8 +20,8 @@ const App = (props) => {
   let user = null;
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
 
-  if (error) { console.log(error); }
-  if (loading) { console.log("wawaweewa") }
+  if (error) { console.log("ERROR:\n", error); }
+  if (loading) { console.log("Loading...") }
   if (data) {
     let { getCurrentUser } = data;
     if (getCurrentUser !== null) {
@@ -31,13 +31,15 @@ const App = (props) => {
   }
 
   useEffect(() => {
-    let theme = COLOR_SCHEMES[user.theme]
-    document.documentElement.style.setProperty("--primary", theme.primary);
-    document.documentElement.style.setProperty("--secondary", theme.secondary);
-    document.documentElement.style.setProperty("--accent", theme.accent);
-    document.documentElement.style.setProperty("--background", theme.background);
-    document.documentElement.style.setProperty("--hue", theme.hue);
-    document.documentElement.style.setProperty("--buttonColor", theme.buttonColor);
+    if (user && user.theme) {
+      let theme = COLOR_SCHEMES[user.theme]
+      document.documentElement.style.setProperty("--primary", theme.primary);
+      document.documentElement.style.setProperty("--secondary", theme.secondary);
+      document.documentElement.style.setProperty("--accent", theme.accent);
+      document.documentElement.style.setProperty("--background", theme.background);
+      document.documentElement.style.setProperty("--hue", theme.hue);
+      document.documentElement.style.setProperty("--buttonColor", theme.buttonColor);
+    }
   }, [user])
 
   // const handleLogin = () => {
@@ -61,7 +63,7 @@ const App = (props) => {
         <Route exact path="/admin" component={AdminScreen} />
         <Route exact path="/test" component={LockedScreen} />
         <Route exact path="/profile/:id" component={ViewProfileScreen} />
-        <Redirect from="/:any" to={{ pathname: "/" }} />
+        <Redirect from={"/:any", "/" } to={{ pathname: "/welcome" }} />
       </Switch>
     </BrowserRouter>
   )

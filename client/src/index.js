@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-// import resolvers from './cache/resolvers';   // Uncomment when we have resolvers
+import resolvers from './cache/resolvers';   // Uncomment when we have resolvers
 import App from './App';
 import 'semantic-ui-css/semantic.min.css';
 import './styles/css/index.css';
@@ -16,7 +16,7 @@ const client = new ApolloClient({
   uri: SERVER_LOCAL_DOMAIN,
   credentials: 'include',
   cache: cache,
-  // resolvers    // Uncomment when we have resolvers
+  resolvers    // Uncomment when we have resolvers
 });
 
 ReactDOM.render(
