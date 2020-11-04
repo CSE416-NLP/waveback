@@ -8,10 +8,6 @@ import { flowRight as compose } from 'lodash';
 import { LOGOUT } from '../../cache/mutations';
 import { Redirect } from 'react-router-dom';
 
-const handleSignOut = () => {
-  console.log("sign out");
-}
-
 const tabMap = {
   "Profile": <tabComponents.MyProfile />,
   "Following": <tabComponents.Following />,
@@ -40,15 +36,12 @@ const ProfileScreen = (props) => {
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Profile" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Profile")}>My Profile</p>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Following" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Following")}>Following</p>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Settings" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Settings")}>My Account</p>
-          <Modal
-            basic
-            onClose={() => setSignOutModalOpenState(false)}
-            onOpen={() => setSignOutModalOpenState(true)}
-            open={signOutOpenState}
-            size='small' trigger={<div className="profileOptionsButton">
-              <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui massive button">Sign Out</button>
-            </div>}>
-            <Header icon><Icon name='sign-out' />Sign Out</Header>
+          <Modal basic size='small' open={signOutOpenState} trigger={<div className="profileOptionsButton"
+            onClose={() => setSignOutModalOpenState(false)} onOpen={() => setSignOutModalOpenState(true)}
+          >
+            <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui massive button">Sign Out</button>
+          </div>}>
+            <Header icon><Icon name='sign-out'/>Sign Out</Header>
             <Modal.Content>
               <div className="signOutText">
                 <p>Are you sure you want to sign out?</p>

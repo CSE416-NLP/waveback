@@ -9,35 +9,35 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 
 const sendRecoveryEmail = () => {
-    console.log("forgot password");
+    console.log("Sending recovery email");
 }
 
 const SplashScreen = (props) => {
     const [passwordOpenState, setPasswordModalOpenState] = useState(false);
-    
+
     // Login hooks
     const [loginInput, setLoginInput] = useState({ username: "", password: "" });
-    const [passwordFieldType, toggleShowPassword] = useState("password");
+    const [passwordFieldType, setPasswordFieldType] = useState("password");
     const [showLoginErr, displayLoginErrorMsg] = useState(false);
     const LoginErrorMsg = "User with these credentials doesn't exist."
 
     // Register hooks
     const [registerOpenState, setRegisterModalOpenState] = useState(false);
-    const [registerInput, setRegisterInput] = useState({ username: "", email: "", password: ""});
-    const [registerPasswordFieldType, toggleShowRegisterPassword] = useState("password");
+    const [registerInput, setRegisterInput] = useState({ username: "", email: "", password: "" });
+    // const [registerPasswordFieldType, toggleShowRegisterPassword] = useState("password");
     const [showRegisterErr, displayRegisterErrorMsg] = useState(false);
     const RegisterErrorMsg = "Invalid Registration Credentials";
 
     const updateLoginInput = (e) => {
         const { name, value } = e.target;
-        const updated = {...loginInput, [name]: value };
+        const updated = { ...loginInput, [name]: value };
         displayLoginErrorMsg(false);
         setLoginInput(updated);
     }
 
     const login = async (e) => {
         console.log("logging in with:", loginInput)
-        const { data } = await props.login({ variables: { ...loginInput }});
+        const { data } = await props.login({ variables: { ...loginInput } });
         if (data && data.login._id === null) {
             displayLoginErrorMsg(true);
         }
@@ -48,14 +48,14 @@ const SplashScreen = (props) => {
 
     const updateRegisterInput = (e) => {
         const { name, value } = e.target;
-        const updated = {...registerInput, [name]: value};
+        const updated = { ...registerInput, [name]: value };
         displayRegisterErrorMsg(false);
         setRegisterInput(updated);
     }
 
     const CreateNewAccount = async () => {
         console.log("Creating a new account with:", registerInput)
-        const { data } = await props.register({ variables: { ...registerInput }});
+        const { data } = await props.register({ variables: { ...registerInput } });
         if (data && data.register._id === null) {
             displayRegisterErrorMsg(true);
         }
@@ -63,32 +63,39 @@ const SplashScreen = (props) => {
             props.fetchUser();
         };
     }
-    const handleRegister = () => {
-        console.log("register");
-    };
+
+    const toggleShowPassword = () => {
+        console.log("changing password vis")
+        if (passwordFieldType === "password")
+            setPasswordFieldType("text")
+        else
+            setPasswordFieldType("password")
+    }
 
     return (
         <div className="App">
-            <header className="App-header" style={{backgroundColor: "var(--background)"}}>
+            <header className="App-header" style={{ backgroundColor: "var(--background)" }}>
                 <p className="app_logo_container">
                     <img src={wavebackTextBG} className="appLogoBG" alt="" />
-                    <img src={wavebackTextFG} className="appLogoFG" alt="" style={{filter: "hue-rotate(var(--hue))"}}/>     
+                    <img src={wavebackTextFG} className="appLogoFG" alt="" style={{ filter: "hue-rotate(var(--hue))" }} />
                 </p>
 
                 <div className="splashLoginContainer" >
-                    <p className="splashTextSubtitle" style={{color: "var(--accent)"}}>
-                        waveback is a simple, yet powerful, playlist creation tool.<br/>relive the sounds of the past like never before.
+                    <p className="splashTextSubtitle" style={{ color: "var(--accent)" }}>
+                        waveback is a simple, yet powerful, playlist creation tool.<br />relive the sounds of the past like never before.
                     </p>
-                    <div className="splashLoginBox" style={{backgroundColor: "var(--primary)"}}>
-                        <div className="splashText" style={{color: "var(--accent)"}}>Sign In</div>
+                    <div className="splashLoginBox" style={{ backgroundColor: "var(--primary)" }}>
+                        <div className="splashText" style={{ color: "var(--accent)" }}>Sign In</div>
                         <div className="ui input splashInputContainer">
-                            <input size="25" className="splashInput" placeholder="Username" style={{backgroundColor: "var(--secondary)"}} name="username" onChange={updateLoginInput}/>
+                            <input size="25" className="splashInput" placeholder="Username" style={{ backgroundColor: "var(--secondary)" }} name="username" onChange={updateLoginInput} />
                         </div>
                         <div className="ui input splashInputContainer">
-                            <input size="25" className="splashInput" placeholder="Password" style={{backgroundColor: "var(--secondary)"}} name="password" onChange={updateLoginInput}/>
+                            <input size="25" className="splashInput" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
+                                type={passwordFieldType} name="password" onChange={updateLoginInput} />
+                            <Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />
                         </div>
-                        <Modal 
-                            basic 
+                        <Modal
+                            basic
                             onClose={() => setPasswordModalOpenState(false)}
                             onOpen={() => setPasswordModalOpenState(true)}
                             open={passwordOpenState}
@@ -96,19 +103,19 @@ const SplashScreen = (props) => {
                             <Header icon><Icon name='question circle' />Password Recovery</Header>
                             <Modal.Content>
                                 <div className="ui input recoverPasswordTextfield">
-                                    <input size="50" placeholder="Email" style={{backgroundColor: "var(--secondary)"}}/>
+                                    <input size="50" placeholder="Email" style={{ backgroundColor: "var(--secondary)" }} />
                                 </div>
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove'/>Close</Button>
-                                <Button className="ui primary button" onClick={() => handleRegister()}><Icon name='checkmark'/>Send Recovery Email</Button>
+                                <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove' />Close</Button>
+                                <Button className="ui primary button"><Icon name='checkmark' />Send Recovery Email</Button>
                             </Modal.Actions>
                         </Modal>
                         <div>
-                            <Button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui huge button" onClick={login}>Log In</Button>
+                            <Button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui huge button" onClick={login}>Log In</Button>
                         </div>
-                        <Modal 
-                            basic 
+                        <Modal
+                            basic
                             onClose={() => setRegisterModalOpenState(false)}
                             onOpen={() => setRegisterModalOpenState(true)}
                             open={registerOpenState}
@@ -116,18 +123,21 @@ const SplashScreen = (props) => {
                             <Header icon><Icon name='user plus' />Create New Account</Header>
                             <Modal.Content>
                                 <div className="ui input registerTextfield">
-                                    <input size="50" placeholder="Username" style={{backgroundColor: "var(--secondary)"}} name="username" onChange={updateRegisterInput}/>
+                                    <input size="50" placeholder="Username" style={{ backgroundColor: "var(--secondary)" }} name="username" onChange={updateRegisterInput} />
                                 </div>
                                 <div className="ui input registerTextfield">
-                                    <input size="50" placeholder="Email" style={{backgroundColor: "var(--secondary)"}} name="email" onChange={updateRegisterInput}/>
+                                    <input size="50" placeholder="Email" style={{ backgroundColor: "var(--secondary)" }} name="email" onChange={updateRegisterInput} />
                                 </div>
-                                <div className="ui input registerTextfield">
-                                    <input size="50" placeholder="Password" style={{backgroundColor: "var(--secondary)"}} name="password" onChange={updateRegisterInput}/>
+                                <div className="ui input registerTextfield" style={{ alignContent: "baseline" }}>
+                                    <input size="50" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
+                                        type={passwordFieldType} name="password" onChange={updateRegisterInput} />
+                                    <Icon style={{ marginLeft: "10px", marginTop: "5px", color: "white", fontSize: "15pt"}} onClick={() => toggleShowPassword()} 
+                                        name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />
                                 </div>
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                <Button inverted color='red' onClick={() => setRegisterModalOpenState(false)}><Icon name='remove'/>Close</Button>
-                                <Button className="ui primary button" onClick={CreateNewAccount}><Icon name='checkmark'/>Create Account</Button>
+                                <Button inverted color='red' onClick={() => setRegisterModalOpenState(false)}><Icon name='remove' />Close</Button>
+                                <Button className="ui primary button" onClick={CreateNewAccount}><Icon name='checkmark' />Create Account</Button>
                             </Modal.Actions>
                         </Modal>
                     </div>
@@ -143,4 +153,4 @@ const SplashScreen = (props) => {
 export default compose(
     graphql(REGISTER, { name: 'register' }),
     graphql(LOGIN, { name: 'login' })
-  )(SplashScreen);
+)(SplashScreen);
