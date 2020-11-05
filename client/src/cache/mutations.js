@@ -51,8 +51,8 @@ export const LOGOUT = gql`
 `;
 
 export const UPDATEUSERPROFILE = gql`
-    mutation UpdateUserProfile($_id: String!, $bio: String, $location: String, $favoriteGenres: [String], $favoriteArtists: [String], $favoriteSongs: [String]) {
-        updateUserProfile(_id: $_id, bio: $bio, location: $location, favoriteGenres: $favoriteGenres, favoriteArtists: $favoriteArtists, favoriteSongs: $favoriteSongs)
+    mutation UpdateUserProfile($_id: String!, $bio: String, $location: String, $favoriteGenres: [String], $favoriteArtists: [String], $favoriteSongs: [String], $profilePicture: String) {
+        updateUserProfile(_id: $_id, bio: $bio, location: $location, favoriteGenres: $favoriteGenres, favoriteArtists: $favoriteArtists, favoriteSongs: $favoriteSongs, profilePicture: $profilePicture)
     }
 `;
 

@@ -22,7 +22,7 @@ const Following = (props) => {
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
               <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
 
-                <img className="profilePicture" src={user.profile_picture} alt="" />
+                <img className="profilePicture" src={user.profilePicture} alt="" />
                 <div className='profileFollowingInfo'>
                   <h2>{user.username}</h2>
                 </div>
