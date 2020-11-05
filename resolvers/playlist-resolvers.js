@@ -10,7 +10,7 @@ module.exports = {
         getAllPlaylists: async (_, __, { req }) => {
             const _id = new ObjectId(req.userId);
             if (!_id) { return ([]) };
-            const playlists = await Playlist.find({ user: _id });
+            const playlists = await Playlist.find({ owner: _id });
             if (playlists) return playlists;
         },
 

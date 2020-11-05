@@ -2,7 +2,8 @@ const { gql } = require("apollo-server");
 // const GraphQLJSON = require('graphql-type-json');
 
 const typeDefs = gql `
-
+    scalar Date
+    
     type Playlist {
         _id: String!
         key: Int!
@@ -15,6 +16,7 @@ const typeDefs = gql `
         visibility: String!
         tags: [String]
         duration: Int
+        createdAt: Date
     }
     type Song {
         _id: String!
