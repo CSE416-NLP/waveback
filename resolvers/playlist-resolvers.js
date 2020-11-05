@@ -42,22 +42,20 @@ module.exports = {
         addPlaylist: async(_, args) => {
             const { playlist } = args;
             const objectId = new ObjectId();
-            let { key, owner, name } = playlist;
-            const visibility = owner.defaultVisibility;
-            var date = new Date();
+            let { key, owner, name, picture, description, songs, followers, date_created, visibility, tags, duration } = playlist;
             const newPlaylist = new Playlist({
                 _id: objectId,
                 key: key,
                 owner: owner,
                 name: name,
-                picture: "",
-                description: "",
-                songs: [],
-                followers: 0,
-                date_created: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+                picture: picture,
+                description: description,
+                songs: songs,
+                followers: followers,
+                date_created: date_created,
                 visibility: visibility,
-                tags: [],
-                duration: 0
+                tags: tags,
+                duration: duration
             })
             
             const updated = newPlaylist.save();

@@ -5,9 +5,9 @@ import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
     console.log(props)
-    if (props.history.location.playlist) {
-        console.log(props.history.location.playlist)
-    }
+    // if (props.history.location.playlist) {
+    //     console.log(props.history.location.playlist)
+    // }
     // const [playlist, updatePlaylist] = useState(props.history.location.playlist);
     const [playlist, updatePlaylist] = useState(jsonData.Playlists[1]);
     // console.log(playlist);

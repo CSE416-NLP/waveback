@@ -41,6 +41,7 @@ const typeDefs = gql `
     input PlaylistInput {
         _id: String
         key: Int
+        owner: String
         name: String
         picture: String
         description: String
