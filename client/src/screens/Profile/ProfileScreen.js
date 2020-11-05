@@ -36,11 +36,12 @@ const ProfileScreen = (props) => {
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Profile" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Profile")}>My Profile</p>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Following" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Following")}>Following</p>
           <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Settings" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Settings")}>My Account</p>
-          <Modal basic size='small' open={signOutOpenState} trigger={<div className="profileOptionsButton"
+          <Modal basic size='small' open={signOutOpenState}
             onClose={() => setSignOutModalOpenState(false)} onOpen={() => setSignOutModalOpenState(true)}
-          >
-            <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui massive button">Sign Out</button>
-          </div>}>
+            trigger={
+              <div className="profileOptionsButton">
+                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui massive button">Sign Out</button>
+              </div>}>
             <Header icon><Icon name='sign-out'/>Sign Out</Header>
             <Modal.Content>
               <div className="signOutText">
