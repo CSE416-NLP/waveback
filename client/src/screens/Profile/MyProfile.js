@@ -12,7 +12,7 @@ const stringToArray = (str) => {
     for (let i = 0; i < len; i++) {
         splitString[i] = splitString[i].trim();
     }
-    if (splitString[len-1] == "") 
+    if (splitString[len-1] === "") 
         splitString.pop();
     return splitString;
 }

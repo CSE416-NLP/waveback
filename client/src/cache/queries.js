@@ -22,3 +22,34 @@ export const GET_DB_USER = gql`
         }
     }
 `;
+
+// ========== Playlist Queries ========== //
+
+export const GET_DB_PLAYLISTS = gql`
+    query GetDBPlaylists {
+        getAllPlaylists {
+            _id
+            key
+            owner
+            name
+            picture
+            description
+            songs {
+                _id
+                song_id
+                key
+                title
+                artist
+                album
+                genre
+                year
+                duration
+            }
+            followers
+            date_created
+            visibility
+            tags
+            duration
+        }
+    }
+`;

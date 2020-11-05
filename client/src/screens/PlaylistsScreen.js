@@ -5,7 +5,9 @@ import jsonData from "../TestData.json";
 import { Link } from "react-router-dom"
 
 const PlaylistsScreen = (props) => { 
-  const [playlists, updatePlaylists] = useState(jsonData.Playlists);
+  const currentUser = props.user;
+  console.log(currentUser);
+  const [playlists, updatePlaylists] = useState(currentUser.Playlists);
 
   const columns = 3;
   return (

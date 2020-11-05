@@ -13,7 +13,7 @@ const DiscoverScreen = (props) => {
 
   const changeFilterButtonText = () => {
     let filterTextStateCopy = filterTextState;
-    (filterTextStateCopy == "playlists") ? filterTextStateCopy = "songs" : filterTextStateCopy = "playlists";
+    (filterTextStateCopy === "playlists") ? filterTextStateCopy = "songs" : filterTextStateCopy = "playlists";
     changeFilterText(filterTextStateCopy);
   }
 

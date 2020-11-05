@@ -61,3 +61,17 @@ export const UPDATEUSERACCOUNT = gql`
         updateUserAccount(_id: $_id, username: $username, email: $email, password: $password)
     }
 `;
+
+// ========= Playlist Mutations ========== //
+
+export const ADD_PLAYLIST = gql`
+    mutation AddPlaylist($playlist: PlaylistInput!){
+        addPlaylist(playlist: $playlist)
+    }
+`;
+
+export const DELETE_PLAYLIST = gql`
+    mutation DeletePlaylist($_id: String!){
+        deletePlaylist(_id: $_id)
+    }
+`;
