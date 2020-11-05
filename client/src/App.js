@@ -46,9 +46,9 @@ const App = (props) => {
       <Navbar user={user} />
       <Switch>
         <Route exact path="/welcome" render={(props) => user ? <Redirect to="/discover" /> : <SplashScreen user={user} fetchUser={refetch} />} />
-        <Route exact path="/discover" component={DiscoverScreen} />
-        <Route exact path="/generate" component={GenerateScreen} />
-        <Route exact path="/playlists" component={PlaylistsScreen} />
+        <Route exact path="/discover" render={(props) => !user ? <Redirect to="/welcome" /> : <DiscoverScreen user={user} fetchUser={refetch} />} />
+        <Route exact path="/generate" render={(props) => !user ? <Redirect to="/welcome" /> : <GenerateScreen user={user} fetchUser={refetch} />} />
+        <Route exact path="/playlists" render={(props) => !user ? <Redirect to="/welcome" /> : <PlaylistScreen user={user} fetchUser={refetch} />} />
         <Route exact path="/playlists/playlist/:id" component={PlaylistScreen} />
         <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
         <Route exact path="/admin" component={AdminScreen} />
