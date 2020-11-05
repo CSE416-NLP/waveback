@@ -28,15 +28,16 @@ module.exports = {
         **/
         login: async (_, args, { res }) => {
             const { username, password } = args;
-            const user = await User.findOne({ username: username });
+            if (!username || !password)         // Check that both username and password were sent
+                return ({ username: "Must provide both username and password." })
 
-            if (!user) {
-                return ({ msg: "User with that email not found." });
-            }
+            const user = await User.findOne({ username: username });
+            if (!user)                          // Check that an account with the sent username exists
+                return ({ username: "Account with that username not found." });
 
             const valid = await bcrypt.compare(password, user.password);
-            if (!valid) {
-                return ({ msg: "Invalid Password." });
+            if (!valid) {                       // Check that the password sent matches the stored hashed password
+                return ({ username: "Password does not match." });
             }
 
             const accessToken = tokens.generateAccessToken(user);
@@ -52,13 +53,17 @@ module.exports = {
         **/
         register: async (_, args, { res }) => {
             const { username, email, password } = args;
-            const email_exists = await User.findOne({ email: email });
-            if (email_exists) {
-                return ({ msg: "User with this email already exists. Please enter a new email." });
-            }
+            if (!username || !email || !password)
+                return ({ username: "Must provide a username, email, and password" })
+            
             const username_exists = await User.findOne({ username: username });
             if (username_exists) {
-                return ({ msg: "User with this username already exists. Please choose a new username." });
+                return ({ username: "Account with this username already exists. Please choose a new username." });
+            }
+            
+            const email_exists = await User.findOne({ email: email });
+            if (email_exists) {
+                return ({ username: "Account with this email already exists. Please enter a new email." });
             }
 
             const hashed_password = await bcrypt.hash(password, 10);

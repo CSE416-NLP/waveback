@@ -2,21 +2,21 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
     type User {
-        _id: String!
-        username: String!
-        email: String!
-        password: String!
+        _id: String
+        username: String
+        email: String
+        password: String
         admin: Boolean
         profilePicture: String
-        playlists: [String]!
-        following: [String]!
+        playlists: [String]
+        following: [String]
         bio: String
         location: String
         favoriteGenres: [String]
         favoriteArtists: [String]
         favoriteSongs: [String]
-        defaultVisibility: String!
-        theme: String!
+        defaultVisibility: String
+        theme: String
     }
     extend type Query {
         getCurrentUser: User
