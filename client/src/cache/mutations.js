@@ -55,3 +55,9 @@ export const UPDATEUSERPROFILE = gql`
         updateUserProfile(_id: $_id, bio: $bio, location: $location, favoriteGenres: $favoriteGenres, favoriteArtists: $favoriteArtists, favoriteSongs: $favoriteSongs)
     }
 `;
+
+export const UPDATEUSERACCOUNT = gql`
+    mutation UpdateUserAccount($_id: String!, $username: String!, $email: String!, $password: String) {
+        updateUserAccount(_id: $_id, username: $username, email: $email, password: $password)
+    }
+`;

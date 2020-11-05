@@ -107,6 +107,21 @@ module.exports = {
             })
             if (saved) return true;
             else return false;
+        },
+
+        updateUserAccount: async (_, args) => {
+            let { _id, username, email, password } = args;
+            const objectId = new ObjectId(_id);
+            let saved = false;
+            if (password) {
+                const newPassword = await bcrypt.hash(password, 10);
+                saved = await User.updateOne({ _id: objectId }, { username: username, email: email, password: newPassword });
+            }
+            else {
+                saved = await User.updateOne({ _id: objectId }, { username: username, email: email });
+            }
+            if (saved) return true;
+            else return false;
         }
     }
 }
