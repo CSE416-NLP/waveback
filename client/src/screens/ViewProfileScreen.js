@@ -17,7 +17,7 @@ const ViewProfileScreen = (props) => {
             <div className="viewProfileScreenContainer" >
                 <div className="profileContainerLeft">
                     <div className="profileContainerTop">
-                        <img className="profilePicture" src={firstUser.profile_picture} alt="" />
+                        <img className="profilePicture" src={firstUser.profilePicture} alt="" />
                         <div className="profileName"><h1>{firstUser.username}</h1></div>    
                     </div>
                     <div className="viewProfileInfoBackground">

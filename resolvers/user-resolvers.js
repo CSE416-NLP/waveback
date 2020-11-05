@@ -82,7 +82,8 @@ module.exports = {
                 favoriteArtists: [],
                 favoriteSongs: [],
                 defaultVisibility: "public",
-                theme: "Modern"
+                theme: "Modern",
+                profilePicture: "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=",
             })
             const saved = await user.save();
 
@@ -104,11 +105,12 @@ module.exports = {
         },
 
         updateUserProfile: async (_, args) => {
-            let { _id, bio, location, favoriteGenres, favoriteArtists, favoriteSongs } = args;
+            let { _id, bio, location, favoriteGenres, favoriteArtists, favoriteSongs, profilePicture } = args;
             const objectId = new ObjectId(_id);
             const saved = await User.updateOne({ _id: objectId }, {
                 bio: bio, location: location, favoriteGenres: favoriteGenres,
-                favoriteArtists: favoriteArtists, favoriteSongs: favoriteSongs
+                favoriteArtists: favoriteArtists, favoriteSongs: favoriteSongs,
+                profilePicture: profilePicture,
             })
             if (saved) return true;
             else return false;

@@ -286,6 +286,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: right;
+  margin-right: 1%;
   width: 17%;
 }
 
@@ -297,7 +298,8 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14%;
+  width: 12%;
+  margin-left: 1%;
 }
 
 .discoverFilterText {
@@ -609,13 +611,43 @@ code {
   margin-top: 40%;
 }
 
+.myProfileScreen {
+  width: 78%;
+  display: flex;
+  justify-content: center;
+}
+
 .profileScreenMainContainer {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 70%;
   padding: 3%;
-  padding-top: 1%;
-  padding-right: 12%;
+}
+
+.profileScreenChangeAvatarContainer {
+  width: 40%;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.25%;
+}
+
+.myProfilePicture {
+  height: 200px;
+  width: 200px;
+  margin: 0 auto;
+  margin-bottom: -3%;
+  border-radius: 50%;
+}
+
+.changeProfileButton {
+  margin: 0 auto;
+  width: 60%;
+}
+
+.changeAvatarTextField {
+  left: 22%;
 }
 
 .profileScreenMainContainerFollowing {
@@ -654,17 +686,6 @@ code {
 
 .profileInput {
   width: 70%;
-}
-
-.profileAccountSubText {
-  margin-left: 3%;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.profileAccountSubText:hover {
-  cursor: pointer;
-  text-decoration: underline;
 }
 
 .profileScreenScrollContainer {

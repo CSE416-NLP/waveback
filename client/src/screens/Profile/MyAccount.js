@@ -29,25 +29,24 @@ const MyAccount = (props) => {
             <div className="ui input profileInputContainer">
                 <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }} 
                     value={username} onChange={(e) => setUsername(e.target.value)} />
-                <p className="profileAccountSubText" onClick={updateAccount}>change</p>
             </div>
             <p className="profileScreenSubText">Email</p>
             <div className="ui input profileInputContainer">
                 <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }} 
                     value={email} onChange={(e) => setEmail(e.target.value)} />
-                <p className="profileAccountSubText" onClick={updateAccount}>change</p>
             </div>
             <p className="profileScreenSubText">New Password</p>
             <div className="ui input profileInputContainer">
                 <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }}
                     value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                <p className="profileAccountSubText" onClick={updateAccount}>change</p>
             </div>
             <p className="profileScreenSubText">Confirm New Password</p>
             <div className="ui input profileInputContainer">
                 <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }}
                     value={confirmedNewPassword} onChange={(e) => setConfirmedNewPassword(e.target.value)} />
-                <p className="profileAccountSubText" onClick={updateAccount}>change</p>
+            </div>
+            <div className="profileScreenUpdateButton">
+                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui huge button" onClick={updateAccount}>Update</button>
             </div>
         </div>
     )

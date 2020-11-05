@@ -21,7 +21,7 @@ const Navbar = (props) => {
             <li className="navbar_item"> Playlists </li>
         </Link>
         <Link className="navbar_link" to="/profile">
-            <li className="navbar_item"><img src={currentUser ? currentUser.profile_picture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="App-logo-navbar userProfilePicture" alt="r" /></li>
+            <li className="navbar_item"><img src={currentUser ? currentUser.profilePicture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="App-logo-navbar userProfilePicture" alt="" /></li>
         </Link>
     </ul>
     );
