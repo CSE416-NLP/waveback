@@ -45,15 +45,15 @@ const App = (props) => {
     <BrowserRouter>
       <Navbar user={user} />
       <Switch>
-        <Route exact path="/welcome" render={(props) => user ? <Redirect to="/discover" /> : <SplashScreen user={user} fetchUser={refetch} />} />
-        <Route exact path="/discover" render={(props) => user ? <DiscoverScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/generate" render={(props) => user ? <GenerateScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/playlists/playlist/:id" component={PlaylistScreen} />
+        <Route exact path="/welcome" render={(props) => !user ? <SplashScreen user={user} fetchUser={refetch} /> : <Redirect to="/discover" /> } />
+        <Route exact path="/discover" render={(props) => user ? <DiscoverScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
+        <Route exact path="/generate" render={(props) => user ? <GenerateScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
+        <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
+        <Route exact path="/playlists/playlist/:id" render={(props) => user ? <PlaylistScreen /> : <Redirect to="/welcome"/>} />
         <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/admin" component={AdminScreen} />
+        <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome"/>} />
         <Route exact path="/test" component={LockedScreen} />
-        <Route exact path="/profile/:id" component={ViewProfileScreen} />
+        <Route exact path="/profile/:id" render={(props) => user ? <ViewProfileScreen /> : <Redirect to="/welcome"/>} />
         <Redirect from={"/:any", "/" } to={{ pathname: "/welcome" }} />
       </Switch>
     </BrowserRouter>

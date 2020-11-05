@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Header, Icon } from 'semantic-ui-react'
+import { Modal, Button, Header, Icon, Popup } from 'semantic-ui-react'
 import '../styles/css/index.css';
 import wavebackTextFG from '../images/waveback text fg.png';
 import wavebackTextBG from '../images/waveback text bg.png';
@@ -92,7 +92,9 @@ const SplashScreen = (props) => {
                         <div className="ui input splashInputContainer">
                             <input size="25" className="splashInput" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
                                 type={passwordFieldType} name="password" onChange={updateLoginInput} />
-                            <Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />
+                            <Popup content="Toggle password visibility"
+                                trigger={<Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'}/>}
+                            />
                         </div>
                         <Modal
                             basic
