@@ -46,7 +46,7 @@ export const GET_DB_PLAYLISTS = gql`
                 duration
             }
             followers
-            date_created
+            createdAt
             visibility
             tags
             duration

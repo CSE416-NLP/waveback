@@ -32,10 +32,6 @@ const playlistSchema = new Schema(
             type: Number,
             reqiured: true
         },
-        date_created: {
-            type: Date,
-            required: true
-        },
         visibility: {
             type: String,
             required: true
