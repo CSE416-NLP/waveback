@@ -12,14 +12,14 @@ const stringToArray = (str) => {
     for (let i = 0; i < len; i++) {
         splitString[i] = splitString[i].trim();
     }
-    if (splitString[len-1] === "") 
+    if (splitString[len - 1] === "")
         splitString.pop();
     return splitString;
 }
 
 const arrayToString = (array) => {
     let str = "";
-    for (let element of array) 
+    for (let element of array)
         str += element + ",";
     if (str.length >= 1 && str.charAt(str.length - 1) === ",")
         str = str.substring(0, str.length - 1);
@@ -45,15 +45,17 @@ const MyProfile = (props) => {
 
         setAvatarModalOpenState(false);
 
-        const updated = await props.updateuserprofile({ variables: { 
-            _id: currentUser._id, 
-            bio, 
-            location, 
-            favoriteGenres: parsedGenres, 
-            favoriteArtists: parsedArtists, 
-            favoriteSongs: parsedSongs, 
-            profilePicture: profilePicture,
-        } });
+        const updated = await props.updateuserprofile({
+            variables: {
+                _id: currentUser._id,
+                bio,
+                location,
+                favoriteGenres: parsedGenres,
+                favoriteArtists: parsedArtists,
+                favoriteSongs: parsedSongs,
+                profilePicture: profilePicture,
+            }
+        });
         if (updated) console.log("Saved successfully");
         else console.log("Error in saving");
         props.fetchUser();
@@ -87,26 +89,26 @@ const MyProfile = (props) => {
                 <img src={currentUser ? currentUser.profilePicture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="myProfilePicture" alt="r" />
                 <h2>{currentUser.username}</h2>
                 <Modal
-                basic
-                onClose={() => setAvatarModalOpenState(false)}
-                onOpen={() => setAvatarModalOpenState(true)}
-                open={avatarOpenState}
-                size='small'
-                trigger={<button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="changeProfileButton ui huge button">Change Avatar</button>}>
-                <Header icon><Icon name='user circle' />Update Avatar</Header>
-                <Modal.Content>
-                    <div className="ui input changeAvatarTextField">
-                        <input size="50" onChange={(e) => setProfilePicture(e.target.value)} placeholder="URL" style={{ backgroundColor: "var(--secondary)" }} />
-                    </div>
-                </Modal.Content>
-                <Modal.Actions className="recoverPasswordModalButtonContainer">
-                    <Button inverted color='red' onClick={(e) => setAvatarModalOpenState(false)}><Icon name='remove' />Close</Button>
-                    <Button className="ui primary button" onClick={updateProfile}><Icon name='checkmark'/>Update</Button>
-                </Modal.Actions>
-            </Modal>
+                    basic
+                    onClose={() => setAvatarModalOpenState(false)}
+                    onOpen={() => setAvatarModalOpenState(true)}
+                    open={avatarOpenState}
+                    size='small'
+                    trigger={<button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="changeProfileButton ui huge button">Change Avatar</button>}>
+                    <Header icon><Icon name='user circle' />Update Avatar</Header>
+                    <Modal.Content>
+                        <div className="ui input changeAvatarTextField">
+                            <input size="50" onChange={(e) => setProfilePicture(e.target.value)} placeholder="URL" style={{ backgroundColor: "var(--secondary)" }} />
+                        </div>
+                    </Modal.Content>
+                    <Modal.Actions className="recoverPasswordModalButtonContainer">
+                        <Button inverted color='red' onClick={(e) => setAvatarModalOpenState(false)}><Icon name='remove' />Close</Button>
+                        <Button className="ui primary button" onClick={updateProfile}><Icon name='checkmark' />Update</Button>
+                    </Modal.Actions>
+                </Modal>
             </div>
         </div>
-        
+
     )
 }
 export default compose

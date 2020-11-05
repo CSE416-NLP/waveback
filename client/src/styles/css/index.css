@@ -936,10 +936,14 @@ code {
 
 .playlistSongDurationLabel { margin-left: 21%;}
 
-.playlistSongTitle, .playlistSongDuration, .playlistSongArtist {
+.playlistSongTitle, .playlistSongDuration, .playlistSongArtist, .playlistSave {
   display: flex;
 }
 
+.playlistSave:hover {
+  cursor: pointer;
+  background-color: var(--hover-light);
+}
 .playlistSongIcon {
   padding-top: 0.2%;
   color: var(--accent);
@@ -961,6 +965,8 @@ code {
 .playlistSongTitle {
   text-align: left;
 }
+
+
 .playlistSongArtist {
   position: absolute;
   left: 70%;
@@ -997,7 +1003,15 @@ code {
   padding-top: 0.25%;
   padding-right: 0.75%;
 }
-
+/* 
+.playlistPictureModal {
+  width: 40%;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.25%;
+} */
 
 /* ANIMATIONS */
 @keyframes App-logo-spin {

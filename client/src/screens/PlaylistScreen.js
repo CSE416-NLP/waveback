@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { Icon } from 'semantic-ui-react';
+import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import "../styles/css/index.css"
+import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
 import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
-    // console.log(props)
+    const currentUser = props.user;
+    const playlist = props.location.playlist;
+    // console.log(playlist.picture === "");
     if (props.location.playlist) {
         console.log(props.location.playlist)
     }
-    const [playlist, updatePlaylist] = useState(props.location.playlist);
-    // const [playlist, updatePlaylist] = useState(jsonData.Playlists[1]);
-    // console.log(playlist);
-
+    // const [playlist, setPlaylist] = useState(props.location.playlist);
+    const [playlistName, setPlaylistName] = useState(playlist.name);
+    const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
+    const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : playlistPlaceholderPicture);
+    const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     // Convert a time in seconds into minutes and seconds.
     const secToFormattedTime = (seconds) => {
         let m = Math.floor(seconds / 60);
@@ -20,6 +24,20 @@ const PlaylistScreen = (props) => {
         return m + ":" + s;
     }
 
+    const updatePlaylist = async () => {
+        setPlaylistPictureOpenState(false);
+
+        const updated = await props.updatePlaylist({
+            variables: {
+                _id: currentUser._id,
+                playlistName
+            }
+        })
+
+        if (updated) console.log("Saved successfully");
+        else console.log("Error in saving");
+        props.fetchUser();
+    }
     // Calculate the total duration of the playlist.
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
@@ -29,15 +47,42 @@ const PlaylistScreen = (props) => {
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
                 <div className="playlistScreenLeftContainer" style={{ backgroundColor: "var(--secondary)", filter: "drop-shadow(5px 0px 0px var(--accent))" }}>
                     <div className="playlistScreenInfo">
-                        <img className="playlistArt" src={playlist.picture} alt="" />
+                        <Modal
+                            basic
+                            onClose={() => setPlaylistPictureOpenState(false)}
+                            onOpen={() => setPlaylistPictureOpenState(true)}
+                            open={playlistPictureOpenState}
+                            size='small'
+                            trigger={<img className="playlistArt" src={playlistPicture} alt="" />}>
+                            <Header icon><Icon name='user circle' />Update Playlist Picture</Header>
+                            <Modal.Content>
+                                <div className="ui input changeAvatarTextField">
+                                    <input size="50" onChange={(e) => setPlaylistPicture(e.target.value)} placeholder="URL" style={{ backgroundColor: "var(--secondary)" }} />
+                                </div>
+                            </Modal.Content>
+                            <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                <Button inverted color='red' onClick={(e) => setPlaylistPictureOpenState(false)}><Icon name='remove' />Close</Button>
+                                <Button className="ui primary button" onClick={updatePlaylist}><Icon name='checkmark' />Update</Button>
+                            </Modal.Actions>
+                        </Modal>
+
                         <div className="playlistMetadata">
-                            <h1 className="playlistTitle">{playlist.name}</h1>
+                            <form>
+                                <textarea className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
+                                    placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
+                            </form>
+                            <Icon className="playlistSave" name="save outline" onClick={updatePlaylist}></Icon>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length > 1 ? "s" : ""}, {secToFormattedTime(duration)}</p>
                         </div>
                     </div>
-                    <p className="playlistDescriptionText">{playlist.description}</p>
+
+                    <form>
+                        <textarea className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
+                            placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
+                    </form>
+                    
                     <div className="playlistPlayAllButton">
-                        <button style={{color: "var(--background)", backgroundColor: "var(--buttonColor"}} className="ui button massive">Play All</button>
+                        <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui button massive">Play All</button>
                     </div>
                     <p className="playlistGenreLabel" style={{ color: "var(--accent)" }}>Genres</p>
                     <div className="playlistGenreBox">
@@ -69,6 +114,7 @@ const PlaylistScreen = (props) => {
                 ))}
 
             </div>
+
         </div>
     );
 };
