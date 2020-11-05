@@ -8,6 +8,17 @@ export const GET_DB_USER = gql`
             _id
             username
             email
+            admin
+            profilePicture
+            playlists
+            following
+            bio
+            location
+            favoriteGenres
+            favoriteArtists
+            favoriteSongs
+            defaultVisibility
+            theme
         }
     }
 `;

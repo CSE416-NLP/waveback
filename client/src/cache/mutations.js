@@ -7,7 +7,18 @@ export const LOGIN = gql`
         login(username: $username, password: $password) {
             _id
             username
-            password
+            email
+            admin
+            profilePicture
+            playlists
+            following
+            bio
+            location
+            favoriteGenres
+            favoriteArtists
+            favoriteSongs
+            defaultVisibility
+            theme
         }
     }
 `;
@@ -18,7 +29,17 @@ export const REGISTER = gql`
             _id
             username
             email
-            password
+            admin
+            profilePicture
+            playlists
+            following
+            bio
+            location
+            favoriteGenres
+            favoriteArtists
+            favoriteSongs
+            defaultVisibility
+            theme
         }
     }
 `;

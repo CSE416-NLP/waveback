@@ -68,6 +68,16 @@ module.exports = {
                 username: username,
                 email: email,
                 password: hashed_password,
+                admin: false,
+                playlists: [],
+                following: [],
+                bio: "",
+                location: "",
+                favoriteGenres: [],
+                favoriteArtists: [],
+                favoriteSongs: [],
+                defaultVisibility: "public",
+                theme: "Modern"
             })
             const saved = await user.save();
 

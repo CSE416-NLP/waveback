@@ -6,6 +6,17 @@ const typeDefs = gql`
         username: String!
         email: String!
         password: String!
+        admin: Boolean
+        profilePicture: String
+        playlists: [String]!
+        following: [String]!
+        bio: String
+        location: String
+        favoriteGenres: [String]
+        favoriteArtists: [String]
+        favoriteSongs: [String]
+        defaultVisibility: String!
+        theme: String!
     }
     extend type Query {
         getCurrentUser: User
