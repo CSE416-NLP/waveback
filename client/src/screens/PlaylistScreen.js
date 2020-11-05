@@ -68,7 +68,7 @@ const PlaylistScreen = (props) => {
 
                         <div className="playlistMetadata">
                             <form>
-                                <textarea className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
+                                <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
                                     placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
                             </form>
                             <Icon className="playlistSave" name="save outline" onClick={updatePlaylist}></Icon>
@@ -80,7 +80,7 @@ const PlaylistScreen = (props) => {
                         <textarea className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
                             placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
                     </form>
-                    
+
                     <div className="playlistPlayAllButton">
                         <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui button massive">Play All</button>
                     </div>
