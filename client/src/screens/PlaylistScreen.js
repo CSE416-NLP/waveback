@@ -67,19 +67,15 @@ const PlaylistScreen = (props) => {
                         </Modal>
 
                         <div className="playlistMetadata">
-                            <form>
-                                <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
-                                    placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
-                            </form>
+                            <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
+                                placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
                             <Icon className="playlistSave" name="save outline" onClick={updatePlaylist}></Icon>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length > 1 ? "s" : ""}, {secToFormattedTime(duration)}</p>
                         </div>
                     </div>
 
-                    <form>
-                        <textarea className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
-                            placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
-                    </form>
+                    <textarea className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
+                        placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
 
                     <div className="playlistPlayAllButton">
                         <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui button massive">Play All</button>
