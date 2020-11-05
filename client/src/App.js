@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { GET_DB_USER } from './cache/queries';
 import { useQuery } from '@apollo/react-hooks';
-import jsonData from "./TestData.json"
 import { COLOR_SCHEMES } from './styles/ColorSchemes'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import SplashScreen from './screens/SplashScreen';

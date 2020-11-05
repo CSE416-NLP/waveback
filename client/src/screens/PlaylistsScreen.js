@@ -32,13 +32,12 @@ const PlaylistsScreen = props => {
   const createNewPlaylist = async () => {
     let newPlaylist = {
       key: playlists.length,
-      owner: props.user.username,
+      owner: props.user._id,
       name: "Unnamed Playlist",
       picture: "",
       description: "",
       songs: [],
       followers: 0,
-      date_created: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
       visibility: props.user.defaultVisibility,
       tags: [],
       duration: 0

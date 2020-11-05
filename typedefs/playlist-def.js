@@ -12,7 +12,6 @@ const typeDefs = gql `
         description: String
         songs: [Song]!
         followers: Int!
-        date_created: String!
         visibility: String!
         tags: [String]
         duration: Int
@@ -47,7 +46,6 @@ const typeDefs = gql `
         description: String
         songs: [SongInput]
         followers: Int
-        date_created: String
         visibility: String
         tags: [String]
         duration: Int

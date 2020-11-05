@@ -4,7 +4,7 @@ import "../styles/css/index.css"
 import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
-    console.log(props)
+    // console.log(props)
     // if (props.history.location.playlist) {
     //     console.log(props.history.location.playlist)
     // }

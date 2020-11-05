@@ -42,7 +42,7 @@ module.exports = {
         addPlaylist: async(_, args) => {
             const { playlist } = args;
             const objectId = new ObjectId();
-            let { key, owner, name, picture, description, songs, followers, date_created, visibility, tags, duration } = playlist;
+            let { key, owner, name, picture, description, songs, followers, visibility, tags, duration } = playlist;
             const newPlaylist = new Playlist({
                 _id: objectId,
                 key: key,
@@ -52,7 +52,6 @@ module.exports = {
                 description: description,
                 songs: songs,
                 followers: followers,
-                date_created: date_created,
                 visibility: visibility,
                 tags: tags,
                 duration: duration
