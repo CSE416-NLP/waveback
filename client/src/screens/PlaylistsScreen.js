@@ -37,6 +37,13 @@ const PlaylistsScreen = (props) => {
               </Link>
             </Grid.Column>
           ))}
+          <Grid.Column width={Math.floor(16 / columns)}>
+              <div className='createPlaylistButton'>
+                <button type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="fluid ui icon massive button">
+                  Create Playlist
+                </button>
+              </div>
+            </Grid.Column>
         </Grid>
       </div>
     </div>
