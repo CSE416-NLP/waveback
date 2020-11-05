@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import "../styles/css/index.css"
 import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
-import jsonData from "../TestData.json";
+import { graphql } from '@apollo/react-hoc';
+import { flowRight as compose } from 'lodash';
+import { UPDATE_PLAYLIST } from '../cache/mutations';
+
+// import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
     const currentUser = props.user;
     const playlist = props.location.playlist;
     // console.log(playlist.picture === "");
     if (props.location.playlist) {
-        console.log(props.location.playlist)
+        // console.log(props.location.playlist)
     }
     // const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
@@ -24,19 +28,21 @@ const PlaylistScreen = (props) => {
         return m + ":" + s;
     }
 
-    const updatePlaylist = async () => {
+    const handleUpdatePlaylist = async () => {
         setPlaylistPictureOpenState(false);
-
         const updated = await props.updatePlaylist({
             variables: {
                 _id: currentUser._id,
-                playlistName
+                playlistName,
+                playlistPicture,
+                playlistDescription,
+                // songs: songs,
             }
         })
 
-        if (updated) console.log("Saved successfully");
-        else console.log("Error in saving");
-        props.fetchUser();
+        if (updated) console.log("Updated successfully");
+        else console.log("Error in updating");
+        // props.fetchUser();
     }
     // Calculate the total duration of the playlist.
     let duration = 0;
@@ -62,14 +68,14 @@ const PlaylistScreen = (props) => {
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
                                 <Button inverted color='red' onClick={(e) => setPlaylistPictureOpenState(false)}><Icon name='remove' />Close</Button>
-                                <Button className="ui primary button" onClick={updatePlaylist}><Icon name='checkmark' />Update</Button>
+                                <Button className="ui primary button" onClick={handleUpdatePlaylist}><Icon name='checkmark' />Update</Button>
                             </Modal.Actions>
                         </Modal>
 
                         <div className="playlistMetadata">
                             <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
                                 placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
-                            <Icon className="playlistSave" name="save outline" onClick={updatePlaylist}></Icon>
+                            <Icon className="playlistSave" name="save outline" onClick={handleUpdatePlaylist}></Icon>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length > 1 ? "s" : ""}, {secToFormattedTime(duration)}</p>
                         </div>
                     </div>
@@ -115,4 +121,6 @@ const PlaylistScreen = (props) => {
     );
 };
 
-export default PlaylistScreen;
+export default compose
+    (graphql(UPDATE_PLAYLIST, { name: 'updatePlaylist' }))
+    (PlaylistScreen);

@@ -18,13 +18,13 @@ module.exports = {
             @param {object} args - a playlist id
             @returns {object} - a playlist on success and an empty object on failure 
         **/
-       getPlaylistById: async(_, args) => {
-           const { _id } = args;
-           const objectId = new ObjectId(_id);
-           const playlist = await Playlist.findOne({_id, objectId});
-           if (playlist) return playlist;
-           else return ({});
-       },
+        getPlaylistById: async (_, args) => {
+            const { _id } = args;
+            const objectId = new ObjectId(_id);
+            const playlist = await Playlist.findOne({ _id, objectId });
+            if (playlist) return playlist;
+            else return ({});
+        },
     },
     Mutation: {
         /**
@@ -32,14 +32,14 @@ module.exports = {
             @returns {string} the objectId of the song or an error message
         **/
 
-        addSong: async(_, args)  => {
+        addSong: async (_, args) => {
 
         },
         /**
             @param {object} args - an empty playlist object
             @returns {string} the objectId of the playlist or an error message
         **/
-        addPlaylist: async(_, args) => {
+        addPlaylist: async (_, args) => {
             const { playlist } = args;
             const objectId = new ObjectId();
             let { key, owner, name, picture, description, songs, followers, visibility, tags, duration } = playlist;
@@ -56,7 +56,7 @@ module.exports = {
                 tags: tags,
                 duration: duration
             })
-            
+
             const updated = newPlaylist.save();
             if (updated) return objectId;
             else return ("Couldn't add playlist");
@@ -65,13 +65,29 @@ module.exports = {
             @param {object} args - an playlist object
             @returns {boolean} - successful delete: true, failure: false
         **/
-       deletePlaylist: async (_, args) => {
-           const { _id } = args;
-           const objectId = new ObjectId(_id);
-           const deleted = await Playlist.deleteOne({_id: obkectId});
-           if (deleted) return true;
-           else return false;
-       }
+        deletePlaylist: async (_, args) => {
+            const { _id } = args;
+            const objectId = new ObjectId(_id);
+            const deleted = await Playlist.deleteOne({ _id: objectId });
+            if (deleted) return true;
+            else return false;
+        },
+        /**
+            @param {object} args - a playlist objectID, an array of songs, and a name
+            @returns {boolean} successful update: true, failure: false
+         **/
+        updatePlaylist: async(_,args) => {
+            let { _id, name, picture, description } = args;
+            const objectId = new ObjectId(_id);
 
+            // for (let i = 0; i < songs.length; i++) {
+            //     if (!songs[i]._id){
+            //         songs[i]._id = new ObjectId();
+            //     }
+            // }
+            const updated = await Playlist.updateOne({_id: objectId}, { name: name, picture: picture, description: description })
+            if (updated) return true;
+            else return false;
+        }
     }
 }

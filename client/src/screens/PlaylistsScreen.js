@@ -27,7 +27,6 @@ const PlaylistsScreen = props => {
   // const currentUser = props.user;
   // console.log(currentUser.playlists);
   // const [, setPlaylists] = useState(props.user.playlists ? currentUser.playlists : []);
-  var date = new Date();
 
   const createNewPlaylist = async () => {
     let newPlaylist = {

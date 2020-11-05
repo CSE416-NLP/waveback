@@ -36,6 +36,7 @@ const typeDefs = gql `
     extend type Mutation {
         addSong(song: SongInput!, _id: String!): String
         addPlaylist(playlist: PlaylistInput!): String
+        updatePlaylist(_id: String!, name: String, picture: String, description: String): Boolean
         deletePlaylist(_id: String!): Boolean
     }
 

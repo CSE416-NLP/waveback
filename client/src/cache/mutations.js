@@ -70,6 +70,11 @@ export const ADD_PLAYLIST = gql`
     }
 `;
 
+export const UPDATE_PLAYLIST = gql`
+    mutation UpdatePlaylist($_id: String!, $name: String, $picture: String, $description: String){
+        updatePlaylist(_id: $_id, name: $name, picture: $picture, description: $description)
+    }
+`;
 export const DELETE_PLAYLIST = gql`
     mutation DeletePlaylist($_id: String!){
         deletePlaylist(_id: $_id)
