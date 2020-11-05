@@ -26,6 +26,7 @@ const typeDefs = gql`
         login(username: String!, password: String!): User
         register(username: String!, email: String!, password: String!): User
         logout: Boolean!
+        updateUserProfile(_id: String!, bio: String, location: String, favoriteGenres: [String], favoriteArtists: [String], favoriteSongs: [String]): Boolean
     }
 `;
 

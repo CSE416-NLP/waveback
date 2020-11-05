@@ -49,3 +49,9 @@ export const LOGOUT = gql`
 		logout 
 	}
 `;
+
+export const UPDATEUSERPROFILE = gql`
+    mutation UpdateUserProfile($_id: String!, $bio: String, $location: String, $favoriteGenres: [String], $favoriteArtists: [String], $favoriteSongs: [String]) {
+        updateUserProfile(_id: $_id, bio: $bio, location: $location, favoriteGenres: $favoriteGenres, favoriteArtists: $favoriteArtists, favoriteSongs: $favoriteSongs)
+    }
+`;

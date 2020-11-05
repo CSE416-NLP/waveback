@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, Header, Icon, Button } from 'semantic-ui-react';
 import "../../styles/css/index.css"
-import * as tabComponents from './TabComponents'
+import MyProfile from "./MyProfile"
+import Following from "./Following"
+import MyAccount from "./MyAccount"
 import ThemePicker from "../../UtilityComponents/ThemePicker"
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
@@ -9,9 +11,9 @@ import { LOGOUT } from '../../cache/mutations';
 import { Redirect } from 'react-router-dom';
 
 const tabMap = {
-  "Profile": <tabComponents.MyProfile />,
-  "Following": <tabComponents.Following />,
-  "Settings": <tabComponents.MyAccount />,
+  "Profile": MyProfile,
+  "Following": Following,
+  "Settings": MyAccount,
 }
 
 const ProfileScreen = (props) => {
@@ -27,6 +29,11 @@ const ProfileScreen = (props) => {
       }
     }
   };
+
+  const renderTab = () => {
+    let TabElement = tabMap[currentTab];
+    return (<TabElement user={props.user} fetchUser={props.fetchUser}/>)
+  }
 
   return (
     <div className="profileScreen" style={{ backgroundColor: "var(--background)" }}>
@@ -58,7 +65,7 @@ const ProfileScreen = (props) => {
 
       <ThemePicker />
 
-      {tabMap[currentTab]}
+      {renderTab()}
     </div>
   );
 };

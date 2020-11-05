@@ -41,7 +41,7 @@ module.exports = {
 
             const accessToken = tokens.generateAccessToken(user);
             const refreshToken = tokens.generateRefreshToken(user);
-            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true});
+            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
             res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true })
             return user;
         },
@@ -83,8 +83,8 @@ module.exports = {
 
             const accessToken = tokens.generateAccessToken(user);
             const refreshToken = tokens.generateRefreshToken(user);
-            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true});
-            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true})
+            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
+            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true })
 
             return user;
         },
@@ -96,7 +96,17 @@ module.exports = {
             res.clearCookie("refresh-token");
             res.clearCookie("access-token");
             return true;
-        }
+        },
 
+        updateUserProfile: async (_, args) => {
+            let { _id, bio, location, favoriteGenres, favoriteArtists, favoriteSongs } = args;
+            const objectId = new ObjectId(_id);
+            const saved = await User.updateOne({ _id: objectId }, {
+                bio: bio, location: location, favoriteGenres: favoriteGenres,
+                favoriteArtists: favoriteArtists, favoriteSongs: favoriteSongs
+            })
+            if (saved) return true;
+            else return false;
+        }
     }
 }
