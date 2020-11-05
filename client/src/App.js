@@ -24,7 +24,7 @@ const App = (props) => {
     let { getCurrentUser } = data;
     if (getCurrentUser !== null) {
       user = getCurrentUser;
-      console.log("user", user);
+      // console.log("user", user);
     }
   }
 
@@ -48,7 +48,7 @@ const App = (props) => {
         <Route exact path="/discover" render={(props) => user ? <DiscoverScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
         <Route exact path="/generate" render={(props) => user ? <GenerateScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
         <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/playlists/playlist/:id" render={(props) => user ? <PlaylistScreen /> : <Redirect to="/welcome"/>} />
+        <Route exact path="/playlists/playlist/:id" render={(props) => user ? <PlaylistScreen  user={user} {...props}/> : <Redirect to="/welcome"/>} />
         <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
         <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome"/>} />
         <Route exact path="/test" component={LockedScreen} />

@@ -12,7 +12,7 @@ import * as mutations from '../cache/mutations';
 
 // import { useHistory } from "react-router-dom";
 const PlaylistsScreen = props => {
-
+  // console.log(props);
   let playlists = [];
   const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
   if (data) {
@@ -46,6 +46,7 @@ const PlaylistsScreen = props => {
 
     const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
     if (data.addPlaylist) {
+      console.log(data.addPlaylist);
       props.history.push({
         pathname: '/playlists/playlist/' + data.addPlaylist,
         playlist: {
@@ -75,7 +76,7 @@ const PlaylistsScreen = props => {
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link to={{ pathname: "/playlists/playlist/" + playlist.id, playlist: playlist }}>
+              <Link to={{ pathname: "/playlists/playlist/" + playlist._id, playlist: playlist, refreshList: refetch }}>
                 <div className='playlists'>
                   <img className="playlists_art" src={playlist.picture} alt="" />
                   <div className='playlistInfo'>

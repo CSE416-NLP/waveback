@@ -5,11 +5,11 @@ import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
     // console.log(props)
-    // if (props.history.location.playlist) {
-    //     console.log(props.history.location.playlist)
-    // }
-    // const [playlist, updatePlaylist] = useState(props.history.location.playlist);
-    const [playlist, updatePlaylist] = useState(jsonData.Playlists[1]);
+    if (props.location.playlist) {
+        console.log(props.location.playlist)
+    }
+    const [playlist, updatePlaylist] = useState(props.location.playlist);
+    // const [playlist, updatePlaylist] = useState(jsonData.Playlists[1]);
     // console.log(playlist);
 
     // Convert a time in seconds into minutes and seconds.
@@ -41,10 +41,10 @@ const PlaylistScreen = (props) => {
                     </div>
                     <p className="playlistGenreLabel" style={{ color: "var(--accent)" }}>Genres</p>
                     <div className="playlistGenreBox">
-                        <div className="playlistGenreText">{playlist.songs[0].genre + ""}</div>
+                        {/* <div className="playlistGenreText">{playlist.songs[0].genre + ""}</div>
                         <div className="playlistGenreText">{playlist.songs[1].genre + ""}</div>
                         <div className="playlistGenreText">{playlist.songs[2].genre + ""}</div>
-                        <div className="playlistGenreText">{playlist.songs[3].genre + ""}</div>
+                        <div className="playlistGenreText">{playlist.songs[3].genre + ""}</div> */}
                     </div>
                 </div>
             </div>
