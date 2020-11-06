@@ -47,7 +47,7 @@ const PlaylistsScreen = props => {
     if (data.addPlaylist) {
       console.log(data.addPlaylist);
       props.history.push({
-        pathname: '/playlists/playlist/' + data.addPlaylist,
+        pathname: '/playlist/' + data.addPlaylist,
         playlist: {
           _id: data.addPlaylist,
           ...newPlaylist
@@ -75,7 +75,7 @@ const PlaylistsScreen = props => {
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link to={{ pathname: "/playlists/playlist/" + playlist._id, playlist: playlist, refreshList: refetch }}>
+              <Link to={{ pathname: "/playlist/" + playlist._id, playlist: playlist, refreshList: refetch }}>
                 <div className='playlists'>
                   <img className="playlists_art" src={playlist.picture} alt="" />
                   <div className='playlistInfo'>
