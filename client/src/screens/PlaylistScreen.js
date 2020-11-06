@@ -48,6 +48,10 @@ const PlaylistScreen = (props) => {
         else console.log("Error in updating");
         // props.fetchUser();
     }
+
+    const deletePlaylist = async () => {
+        
+    }
     // Calculate the total duration of the playlist.
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
