@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
+import { useQuery } from '@apollo/react-hooks';
+// import { GET_DB_PLAYLISTS } from '../cache/queries';
+
 import "../styles/css/index.css"
 import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
 import { graphql } from '@apollo/react-hoc';
@@ -10,6 +13,8 @@ import { UPDATE_PLAYLIST } from '../cache/mutations';
 
 const PlaylistScreen = (props) => {
     const currentUser = props.user;
+    // const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
+
     const playlist = props.location.playlist;
     // console.log(playlist.picture === "");
     if (props.location.playlist) {
@@ -33,9 +38,9 @@ const PlaylistScreen = (props) => {
         const updated = await props.updatePlaylist({
             variables: {
                 _id: currentUser._id,
-                playlistName,
-                playlistPicture,
-                playlistDescription,
+                name: playlistName,
+                picture: playlistPicture,
+                description: playlistDescription,
                 // songs: songs,
             }
         })
