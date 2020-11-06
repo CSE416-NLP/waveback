@@ -35,17 +35,16 @@ const PlaylistScreen = (props) => {
 
     const handleUpdatePlaylist = async () => {
         setPlaylistPictureOpenState(false);
-        const updated = await props.updatePlaylist({
+        const { data } = await props.updatePlaylist({
             variables: {
-                _id: currentUser._id,
+                _id: playlist._id,
                 name: playlistName,
                 picture: playlistPicture,
                 description: playlistDescription,
                 // songs: songs,
             }
         })
-
-        if (updated) console.log("Updated successfully");
+        if (data && data.updatePlaylist) console.log("Updated successfully");
         else console.log("Error in updating");
         // props.fetchUser();
     }
