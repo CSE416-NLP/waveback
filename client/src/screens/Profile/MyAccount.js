@@ -46,7 +46,7 @@ const MyAccount = (props) => {
                     value={confirmedNewPassword} onChange={(e) => setConfirmedNewPassword(e.target.value)} />
             </div>
             <div className="profileScreenUpdateButton">
-                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui huge button" onClick={updateAccount}>Update</button>
+                <button className="clickButton ui huge button" onClick={updateAccount}>Update</button>
             </div>
         </div>
     )

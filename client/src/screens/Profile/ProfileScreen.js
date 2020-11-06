@@ -47,7 +47,7 @@ const ProfileScreen = (props) => {
             onClose={() => setSignOutModalOpenState(false)} onOpen={() => setSignOutModalOpenState(true)}
             trigger={
               <div className="profileOptionsButton">
-                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui massive button">Sign Out</button>
+                <button className="clickButton ui massive button">Sign Out</button>
               </div>}>
             <Header icon><Icon name='sign-out'/>Sign Out</Header>
             <Modal.Content>

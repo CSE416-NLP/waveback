@@ -94,7 +94,7 @@ const PlaylistScreen = (props) => {
                             <div className="playlistTitleDivider "><div class="ui divider"></div></div>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length == 1 ? "" : "s"}, {secToFormattedTime(duration)}</p>
                             <div className="playlistSave">
-                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
+                                <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
                                     <Icon className="large save outline"></Icon>
                                 </button>
                                 <Modal
@@ -103,7 +103,7 @@ const PlaylistScreen = (props) => {
                                     onOpen={() => setDeletePlaylistOpenState(true)}
                                     open={deletePlaylistOpenState}
                                     size='small'
-                                    trigger={<button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button">
+                                    trigger={<button className="clickButton playlistSaveButton ui button">
                                         <Icon className="large trash"></Icon>
                                     </button>}>
                                     <Header icon><Icon name='large trash' />Are you sure you want to delete this playlist?</Header>
@@ -122,7 +122,7 @@ const PlaylistScreen = (props) => {
                         placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
 
                     <div className="playlistPlayAllButton">
-                        <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui button massive">Play All</button>
+                        <button className="clickButton ui button massive">Play All</button>
                     </div>
                     <p className="playlistGenreLabel" style={{ color: "var(--accent)" }}>Genres</p>
                     <div className="playlistGenreBox">

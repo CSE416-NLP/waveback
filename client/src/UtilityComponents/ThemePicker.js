@@ -16,7 +16,7 @@ const ThemePicker = (props) => {
     return (
         <div className="dropdownChangeTheme">
             <Button.Group>
-                <Dropdown style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} text='Theme' icon='theme' floating labeled button className='icon'>
+                <Dropdown text='Theme' icon='theme' floating labeled button className='clickButton icon'>
                     <Dropdown.Menu>
                         <Dropdown.Item
                             label={{ color: 'teal', empty: true, circular: true }}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import "../styles/css/index.css";
-import { Grid } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import { Link } from "react-router-dom"
 import { GET_DB_PLAYLISTS } from '../cache/queries';
@@ -65,7 +65,7 @@ const PlaylistsScreen = props => {
         <p className="discoverTitleText">my playlists</p>
         <div className="ui input">
           <input placeholder="Search.." size="40" className="playlistsSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
-          <button type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="fluid ui icon big button">
+          <button type="submit" className="clickButton fluid ui icon big button">
             <i className="search icon"></i>
           </button>
         </div>
@@ -88,10 +88,10 @@ const PlaylistsScreen = props => {
             </Grid.Column>
           ))}
           <Grid.Column width={Math.floor(16 / columns)}>
-            <div className='createPlaylistButton'>
-              <button onClick={createNewPlaylist} type="submit" style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="fluid ui icon massive button">
+            <div className='createPlaylistButtonContainer'>
+              <Button onClick={createNewPlaylist} type="submit" className="clickButton fluid ui icon massive button">
                 Create Playlist
-                </button>
+                </Button>
             </div>
           </Grid.Column>
         </Grid>

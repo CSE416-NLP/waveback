@@ -108,7 +108,7 @@ const SplashScreen = (props) => {
                             </Modal.Actions>
                         </Modal>
                         <div>
-                            <Button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui huge button" onClick={login}>Log In</Button>
+                            <Button className="clickButton ui huge button" onClick={login}>Log In</Button>
                         </div>
                         <Modal
                             basic

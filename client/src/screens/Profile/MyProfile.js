@@ -82,7 +82,7 @@ const MyProfile = (props) => {
                 <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }}
                     value={favoriteSongs} onChange={(e) => setFavoriteSongs(e.target.value)} /></Form>
                 <div className="profileScreenUpdateButton">
-                    <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="ui huge button" onClick={updateProfile}>Update</button>
+                    <button className="clickButton ui huge button" onClick={updateProfile}>Update</button>
                 </div>
             </div>
             <div className="profileScreenChangeAvatarContainer">
@@ -94,7 +94,7 @@ const MyProfile = (props) => {
                     onOpen={() => setAvatarModalOpenState(true)}
                     open={avatarOpenState}
                     size='small'
-                    trigger={<button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="changeProfileButton ui huge button">Change Avatar</button>}>
+                    trigger={<button className="clickButton changeProfileButton ui huge button">Change Avatar</button>}>
                     <Header icon><Icon name='user circle' />Update Avatar</Header>
                     <Modal.Content>
                         <div className="ui input changeAvatarTextField">

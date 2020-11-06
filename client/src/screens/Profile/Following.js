@@ -12,7 +12,7 @@ const Following = (props) => {
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">
         <input placeholder="Search for a user..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"></input>
-        <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} type="submit" className="ui icon big button">
+        <button type="submit" className="clickButton ui icon big button">
           <i className="search icon"></i>
         </button>
       </div>
