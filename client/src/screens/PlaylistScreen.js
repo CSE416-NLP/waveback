@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
-// import { GET_DB_PLAYLISTS } from '../cache/queries';
+import { GET_DB_PLAYLISTS } from '../cache/queries';
 
 import "../styles/css/index.css"
 import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
@@ -13,7 +13,7 @@ import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 
 const PlaylistScreen = (props) => {
     const currentUser = props.user;
-    // const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
+    const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
 
     const playlist = props.location.playlist;
     // console.log(playlist.picture === "");
@@ -25,6 +25,7 @@ const PlaylistScreen = (props) => {
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : playlistPlaceholderPicture);
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
+    const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
     // Convert a time in seconds into minutes and seconds.
     const secToFormattedTime = (seconds) => {
         let m = Math.floor(seconds / 60);
@@ -50,8 +51,11 @@ const PlaylistScreen = (props) => {
     }
 
     const deletePlaylist = async () => {
-        props.deletePlaylist({variables: {_id: playlist._id}});
-        props.history.push({pathname: '/playlists'});
+        // console.log("wtf");
+        setDeletePlaylistOpenState(false);
+        props.deletePlaylist({ variables: { _id: playlist._id } });
+        props.history.push({ pathname: '/playlists' });
+        refetch();
     }
 
     // Calculate the total duration of the playlist.
@@ -90,12 +94,26 @@ const PlaylistScreen = (props) => {
                             <div className="playlistTitleDivider "><div class="ui divider"></div></div>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length == 1 ? "" : "s"}, {secToFormattedTime(duration)}</p>
                             <div className="playlistSave">
-                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button"  onClick={handleUpdatePlaylist}>
+                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
                                     <Icon className="large save outline"></Icon>
                                 </button>
-                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button"  onClick={deletePlaylist}>
-                                    <Icon className="large trash"></Icon>
-                                </button>
+                                <Modal
+                                    basic
+                                    onClose={() => setDeletePlaylistOpenState(false)}
+                                    onOpen={() => setDeletePlaylistOpenState(true)}
+                                    open={deletePlaylistOpenState}
+                                    size='small'
+                                    trigger={<button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button">
+                                        <Icon className="large trash"></Icon>
+                                    </button>}>
+                                    <Header icon><Icon name='large trash' />Are you sure you want to delete this playlist?</Header>
+                               
+                                    <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                        <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
+                                        <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>
+                                    </Modal.Actions>
+                                </Modal>
+
                             </div>
                         </div>
                     </div>
@@ -144,4 +162,4 @@ const PlaylistScreen = (props) => {
 export default compose(
     graphql(UPDATE_PLAYLIST, { name: 'updatePlaylist' }),
     graphql(DELETE_PLAYLIST, { name: "deletePlaylist" })
-    )(PlaylistScreen);
+)(PlaylistScreen);
