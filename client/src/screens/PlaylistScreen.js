@@ -7,7 +7,7 @@ import "../styles/css/index.css"
 import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
-import { UPDATE_PLAYLIST } from '../cache/mutations';
+import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 
 // import jsonData from "../TestData.json";
 
@@ -50,8 +50,10 @@ const PlaylistScreen = (props) => {
     }
 
     const deletePlaylist = async () => {
-        
+        props.deletePlaylist({variables: {_id: playlist._id}});
+        props.history.push({pathname: '/playlists'});
     }
+
     // Calculate the total duration of the playlist.
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
@@ -88,8 +90,11 @@ const PlaylistScreen = (props) => {
                             <div className="playlistTitleDivider "><div class="ui divider"></div></div>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length == 1 ? "" : "s"}, {secToFormattedTime(duration)}</p>
                             <div className="playlistSave">
-                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button">
-                                    <Icon className="large save outline" onClick={handleUpdatePlaylist}></Icon>
+                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button"  onClick={handleUpdatePlaylist}>
+                                    <Icon className="large save outline"></Icon>
+                                </button>
+                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button"  onClick={deletePlaylist}>
+                                    <Icon className="large trash"></Icon>
                                 </button>
                             </div>
                         </div>
@@ -136,6 +141,7 @@ const PlaylistScreen = (props) => {
     );
 };
 
-export default compose
-    (graphql(UPDATE_PLAYLIST, { name: 'updatePlaylist' }))
-    (PlaylistScreen);
+export default compose(
+    graphql(UPDATE_PLAYLIST, { name: 'updatePlaylist' }),
+    graphql(DELETE_PLAYLIST, { name: "deletePlaylist" })
+    )(PlaylistScreen);
