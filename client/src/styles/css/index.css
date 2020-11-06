@@ -464,6 +464,10 @@ code {
   margin-top: 1.5%;
 }
 
+.generateButton:hover {
+  cursor: pointer;
+}
+
 .genreButton {
   margin: 2%;
 }
@@ -477,7 +481,7 @@ code {
 
 .createPlaylistButton {
   width: 32.5%;
-  height: 185%;
+  height: 105%;
   display: flex;
   flex-direction: row;
   border: #333333;
@@ -832,6 +836,7 @@ code {
 
 .playlistPlayAllButton {
   margin: 0 auto;
+  margin-top: 2%;
   margin-bottom: -7%;
 }
 
@@ -854,12 +859,24 @@ code {
   display: flex;
   flex-direction: column;
   margin-top: 2%;
+  margin-left: 3%;
+}
+
+.playlistTitleHandling {
+  display: flex;
+  align-items: center;
 }
 
 .playlistTitle {
-  margin-left: 2%;
   margin-top: 3%;
   word-wrap: break-word;
+  font-size: 22px;
+  border-style: none;
+}
+
+.playlistTitleDivider {
+  margin-top: -4%;
+  width: 95%;
 }
 
 .playlistGenreLabel {
@@ -870,21 +887,26 @@ code {
 }
 
 .playlistNumSongs {
-  font-size: 18px;
-  margin-left: 2%;
+  font-size: 17px;
+  margin-left: 1%;
   margin-top: -4%;
 }
 
 .playlistDescriptionText {
   font-size: 16px;
-  margin-top: 1%;
+  padding: 1%;
+  margin: 3%;
   margin-left: 4%;
-  margin-right: 3%;
+  margin-right: 4%;
   text-align: left;
   font-style: italic;
   word-wrap: break-word;
   height: 35%;
-  max-height: 175px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: #bbbbbb;
+  background-color: red;
+  resize: none !important;
 }
 
 .playlistGenreBox {
@@ -936,14 +958,27 @@ code {
 
 .playlistSongDurationLabel { margin-left: 21%;}
 
-.playlistSongTitle, .playlistSongDuration, .playlistSongArtist, .playlistSave {
+.playlistSongTitle, .playlistSongDuration, .playlistSongArtist {
   display: flex;
 }
 
-.playlistSave:hover {
-  cursor: pointer;
-  background-color: var(--hover-light);
+.playlistSave {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  margin-top: -3%;
 }
+
+.playlistSaveButton {
+  margin-right: -2%;
+  width: 25.5%;
+}
+
+.playlistSaveButton:hover {
+  cursor: pointer;
+}
+
 .playlistSongIcon {
   padding-top: 0.2%;
   color: var(--accent);
@@ -965,7 +1000,6 @@ code {
 .playlistSongTitle {
   text-align: left;
 }
-
 
 .playlistSongArtist {
   position: absolute;

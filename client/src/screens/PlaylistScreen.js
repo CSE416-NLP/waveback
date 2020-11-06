@@ -81,14 +81,21 @@ const PlaylistScreen = (props) => {
                         </Modal>
 
                         <div className="playlistMetadata">
-                            <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
-                                placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
-                            <Icon className="playlistSave" name="save outline" onClick={handleUpdatePlaylist}></Icon>
-                            <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length > 1 ? "s" : ""}, {secToFormattedTime(duration)}</p>
+                            <div className="playlistTitleHandling">
+                                <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
+                                    placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
+                            </div>
+                            <div className="playlistTitleDivider "><div class="ui divider"></div></div>
+                            <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length == 1 ? "" : "s"}, {secToFormattedTime(duration)}</p>
+                            <div className="playlistSave">
+                                <button style={{ color: "var(--background)", backgroundColor: "var(--buttonColor" }} className="playlistSaveButton ui button">
+                                    <Icon className="large save outline" onClick={handleUpdatePlaylist}></Icon>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <textarea className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
+                    <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
                         placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
 
                     <div className="playlistPlayAllButton">

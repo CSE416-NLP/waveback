@@ -41,7 +41,7 @@ const ViewProfileScreen = (props) => {
                         <Grid.Row>
                             {playlists.map((playlist, index) => (
                                 <Grid.Column key={index}>
-                                    <Link to={{ pathname: "/playlists/playlist/" + playlist.id, playlist: playlist }}>
+                                    <Link to={{ pathname: "/playlist/" + playlist.id, playlist: playlist }}>
                                         <div className='viewProfilePlaylists'>
                                             <img className="playlists_art" src={playlist.picture} alt="" />
                                             <div className='playlistInfo'>
