@@ -89,9 +89,11 @@ const PlaylistScreen = (props) => {
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
                                 <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
-                                    placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
+                                    maxLength={30} placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
                             </div>
-                            <div className="playlistTitleDivider "><div class="ui divider"></div></div>
+                            <div className="playlistTitleDivider ">
+                                <div class="ui divider"></div>
+                            </div>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length == 1 ? "" : "s"}, {secToFormattedTime(duration)}</p>
                             <div className="playlistSave">
                                 <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
