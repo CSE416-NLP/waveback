@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { getSpotifyAccessToken } from "../LocalStorageData";
 const LockedScreen = (props) => {
     // This is an example of only allowing the user to visit this page if some requirement is met
     // if (!props.location.key)
@@ -26,7 +26,8 @@ const LockedScreen = (props) => {
     }
 
     const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
-        let token = "BQDPfiFlkR4DvvbZ19-vpSZSU76b7frlhHm4Xu1IGWK1VAnhL70GG8rI4-20_gNgVmqRHXBB-AzI8zy9O2eV8AGASZRr2ztiWGeF7aWmE2WpjKOkHiZy3x6d5wff-xWqko6V-0CTuCruFEyBz5siHW-_Dm0odhkRNFpcS8rI7t28e6NkFWSrDjTKtmMIBbQxG7OyRqm4Vm-eDfd6D-E30LtTM8xDc1Vx9a17xfRXdATO0xN6NLooIxbesyKCHhCSAikN5grqEw8_jBUzTgfO";
+        let token = getSpotifyAccessToken();
+        console.log(token);
         token = "Bearer "+token;
         let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
         
