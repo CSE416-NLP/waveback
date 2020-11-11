@@ -7,6 +7,9 @@ import ThemePicker from '../UtilityComponents/ThemePicker';
 import { REGISTER, LOGIN } from '../cache/mutations';
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
+import { Link } from 'react-router-dom';
+
+
 
 const SplashScreen = (props) => {
     const [passwordOpenState, setPasswordModalOpenState] = useState(false);
@@ -71,7 +74,10 @@ const SplashScreen = (props) => {
                     <img src={wavebackTextBG} className="appLogoBG" alt="" />
                     <img src={wavebackTextFG} className="appLogoFG" alt="" style={{ filter: "hue-rotate(var(--hue))" }} />
                 </p>
-
+                {/* STUPID BUTTON FOR PLAY TESTING */}
+                <Link className = "stupid_button" to="/songplayer">
+                    <li className="navbar_item"> Song Playing Testing </li>
+                </Link>
                 <div className="splashLoginContainer" >
                     <p className="splashTextSubtitle" style={{ color: "var(--accent)" }}>
                         waveback is a simple, yet powerful, playlist creation tool.<br />relive the sounds of the past like never before.
@@ -79,7 +85,7 @@ const SplashScreen = (props) => {
                     <div className="splashLoginBox" style={{ backgroundColor: "var(--primary)" }}>
                         <div className="splashText" style={{ color: "var(--accent)" }}>Sign In</div>
                         <div className="ui input splashInputContainer">
-                            <input size="25" className="splashInput" placeholder="Username" style={{ backgroundColor: "var(--secondary)" }} 
+                            <input size="25" className="splashInput" placeholder="Username" style={{ backgroundColor: "var(--secondary)" }}
                                 name="username" onChange={updateLoginInput} error={loginError} />
                         </div>
                         <div className="ui input splashInputContainer">
@@ -89,7 +95,7 @@ const SplashScreen = (props) => {
                                 trigger={<Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />}
                             />
                         </div>
-                        {loginError && <div style={{color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold"}}>{loginError}</div>}
+                        {loginError && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{loginError}</div>}
                         <Modal
                             basic
                             onClose={() => setPasswordModalOpenState(false)}
@@ -104,7 +110,7 @@ const SplashScreen = (props) => {
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
                                 <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove' />Close</Button>
-                                <Button className="ui primary button"><Icon name='checkmark'/>Send Recovery Email</Button>
+                                <Button className="ui primary button"><Icon name='checkmark' />Send Recovery Email</Button>
                             </Modal.Actions>
                         </Modal>
                         <div>
@@ -130,7 +136,7 @@ const SplashScreen = (props) => {
                                     <Icon style={{ marginLeft: "10px", marginTop: "5px", color: "white", fontSize: "15pt" }} onClick={() => toggleShowPassword()}
                                         name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />
                                 </div>
-                                {registerError && <div style={{color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold", left: "22%", position: "relative"}}>{registerError}</div>}
+                                {registerError && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold", left: "22%", position: "relative" }}>{registerError}</div>}
 
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">

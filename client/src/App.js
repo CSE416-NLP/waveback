@@ -13,6 +13,7 @@ import LockedScreen from './screens/LockedScreen';
 import ViewProfileScreen from './screens/ViewProfileScreen';
 import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './Navbar';
+import SongPlayer from './SongPlayer';
 
 const App = (props) => {
   let user = null;
@@ -44,16 +45,17 @@ const App = (props) => {
     <BrowserRouter>
       <Navbar user={user} />
       <Switch>
-        <Route exact path="/welcome" render={(props) => !user ? <SplashScreen user={user} fetchUser={refetch} /> : <Redirect to="/discover" /> } />
-        <Route exact path="/discover" render={(props) => user ? <DiscoverScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/generate" render={(props) => user ? <GenerateScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/playlist/:id" render={(props) => user ? <PlaylistScreen  user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props}/> : <Redirect to="/welcome"/>} />
-        <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome"/>} />
+        <Route exact path="/welcome" render={(props) => !user ? <SplashScreen user={user} fetchUser={refetch} /> : <Redirect to="/discover" />} />
+        <Route exact path="/discover" render={(props) => user ? <DiscoverScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
+        <Route exact path="/generate" render={(props) => user ? <GenerateScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
+        <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
+        <Route exact path="/playlist/:id" render={(props) => user ? <PlaylistScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
+        <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props} /> : <Redirect to="/welcome" />} />
+        <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome" />} />
         <Route exact path="/test" component={LockedScreen} />
-        <Route exact path="/profile/:id" render={(props) => user ? <ViewProfileScreen /> : <Redirect to="/welcome"/>} />
-        <Redirect from={"/:any", "/" } to={{ pathname: "/welcome" }} />
+        <Route exact path="/profile/:id" render={(props) => user ? <ViewProfileScreen /> : <Redirect to="/welcome" />} />
+        <Route exact path="/songplayer" render={(props) => <SongPlayer />} />
+        <Redirect from={"/:any", "/"} to={{ pathname: "/welcome" }} />
       </Switch>
     </BrowserRouter>
   )

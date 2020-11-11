@@ -1148,3 +1148,9 @@ code {
   overflow:hidden;
   visibility: visible;
 }
+
+.stupid_button {
+  background-color: red;
+  outline-style: solid;
+  
+}
