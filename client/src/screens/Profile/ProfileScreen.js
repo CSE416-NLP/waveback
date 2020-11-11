@@ -40,9 +40,33 @@ const ProfileScreen = (props) => {
 
       <div className="profileScreenOptions" style={{ backgroundColor: "var(--background)" }}>
         <div className="profileScreenLeftContainer" style={{ backgroundColor: "var(--secondary)" }}>
-          <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Profile" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Profile")}>My Profile</p>
-          <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Following" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Following")}>Following</p>
-          <p className="profileOptionsText" style={{ color: "var(--accent)", fontWeight: currentTab === "Settings" ? "bold" : "normal" }} onClick={(e) => setCurrentTab("Settings")}>My Account</p>
+          <p className="profileOptionsText" 
+            style={{ 
+              color: "var(--accent)", 
+              fontWeight: currentTab === "Profile" ? "bold" : "normal",
+              borderWidth: currentTab === "Profile" ? "8px" : "0px",
+              backgroundColor: currentTab === "Profile" ? "var(--primary)" : "var(--secondary)",
+            }}
+            onClick={(e) => setCurrentTab("Profile")}>My Profile
+          </p>
+          <p className="profileOptionsText" 
+            style={{ 
+              color: "var(--accent)", 
+              fontWeight: currentTab === "Following" ? "bold" : "normal",
+              borderWidth: currentTab === "Following" ? "8px" : "0px",
+              backgroundColor: currentTab === "Following" ? "var(--primary)" : "var(--secondary)",
+            }} 
+            onClick={(e) => setCurrentTab("Following")}>Following
+          </p>
+          <p className="profileOptionsText" 
+            style={{
+              color: "var(--accent)",
+              fontWeight: currentTab === "Settings" ? "bold" : "normal",
+              borderWidth: currentTab === "Settings" ? "8px" : "0px",
+              backgroundColor: currentTab === "Settings" ? "var(--primary)" : "var(--secondary)",
+            }}
+            onClick={(e) => setCurrentTab("Settings")}>My Account
+          </p>
           <Modal basic size='small' open={signOutOpenState}
             onClose={() => setSignOutModalOpenState(false)} onOpen={() => setSignOutModalOpenState(true)}
             trigger={
