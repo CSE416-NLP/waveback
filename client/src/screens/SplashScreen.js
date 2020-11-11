@@ -64,6 +64,10 @@ const SplashScreen = (props) => {
             setPasswordFieldType("password")
     }
 
+    const attemptLogin = (e) => {
+        if (e.charCode == 13) { login(); }
+    }
+
     return (
         <div className="App">
             <header className="App-header" style={{ backgroundColor: "var(--background)" }}>
@@ -84,7 +88,7 @@ const SplashScreen = (props) => {
                         </div>
                         <div className="ui input splashInputContainer">
                             <input size="25" className="splashInput" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
-                                type={passwordFieldType} name="password" onChange={updateLoginInput} />
+                                type={passwordFieldType} name="password" onChange={updateLoginInput} onKeyPress={(e) => attemptLogin(e)}/>
                             <Popup content="Toggle password visibility"
                                 trigger={<Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />}
                             />
