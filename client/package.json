@@ -29,6 +29,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/spotify-web-playback-sdk": "^0.1.7",
     "apollo-boost": "^0.4.9",
     "bootstrap-icons": "^1.0.0-alpha4",
     "graphql": "^15.1.0",

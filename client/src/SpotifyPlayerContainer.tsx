@@ -4,15 +4,12 @@ import SpotifyAuthWindow from "./SpotifyAuthWindow";
 import {SpotifyAccess} from "./SpotifyAccess";
 import {getSpotifyAccess, getSpotifyAccessToken} from "./LocalStorageData";
 import {FaPause, FaPlay} from "react-icons/fa";
-import  "./App.module.css";
-// import * from "spotify-web-playback-sdk"
 
 interface ISpotifyPlayerProps {
-    playingRecordingId: string;
+    playingRecordingID: string;
 }
 
 interface ISpotifyPlayerState {
-    songID: string;
     loadingState: string;
     spotifyAccessToken: string;
     spotifyAccess: SpotifyAccess;
@@ -35,13 +32,36 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
         new ScriptCache([
             {
                 name: "https://sdk.scdn.co/spotify-player.js",
-                callback: this.spotifySDKCallback
+                callback: window.onSpotifyWebPlaybackSDKReady = () => {
+
+                    if (this.state.spotifyAccess !== SpotifyAccess.DENIED) {
+                        const spotifyPlayer = new Spotify.Player({
+                            name: 'React Spotify Player',
+                            getOAuthToken: cb => {
+                                cb(this.state.spotifyAccessToken);
+                            }
+                        });
+        
+                        // Playback status updates
+                        spotifyPlayer.addListener('player_state_changed', state => {
+                            console.log(state);
+                        });
+        
+        
+                        this.setState({
+                            loadingState: "spotify scripts loaded",
+                            spotifyPlayer
+                        });
+        
+                    } else {
+                        this.setState({loadingState: "spotify authorization rejected"});
+                    }
+                }
             }]);
 
         window.addEventListener("storage", this.authorizeSpotifyFromStorage);
 
         this.state = {
-            songID: this.props.playingRecordingId,
             loadingState: "loading scripts",
             spotifyAccessToken: "",
             spotifyDeviceId: "",
@@ -58,37 +78,8 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
 
     }
 
-    private spotifySDKCallback = () => {
-        window.onSpotifyWebPlaybackSDKReady = () => {
-
-            if (this.state.spotifyAccess !== SpotifyAccess.DENIED) {
-                const spotifyPlayer = new Spotify.Player({
-                    name: 'React Spotify Player',
-                    getOAuthToken: cb => {
-                        cb(this.state.spotifyAccessToken);
-                    }
-                });
-
-                // Playback status updates
-                spotifyPlayer.addListener('player_state_changed', state => {
-                    console.log(state);
-                });
-
-
-                this.setState({
-                    loadingState: "spotify scripts loaded",
-                    spotifyPlayer
-                });
-
-            } else {
-                this.setState({loadingState: "spotify authorization rejected"});
-            }
-        }
-
-    }
-
     private authorizeSpotifyFromStorage = (e: StorageEvent) => {
-        console.log("authorizeSpotify");
+
         if (e.key === "spotifyAuthToken") {
             const spotifyAccessToken = e.newValue;
 
@@ -106,7 +97,6 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
                     loadingState: "spotify token retrieved"
                 });
             }
-
             this.connectToPlayer();
         }
     }
@@ -140,14 +130,11 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
 
 
     private startPlayback = (spotify_uri: string) => {
-        console.log(spotify_uri);
-        console.log(this.state.spotifyDeviceId);
-        // console.log()
+        // Spotify_uri is undefined when sent from return statement as a prop, however props are defined inside this function. What gives?
         fetch("https://api.spotify.com/v1/me/player/play?" +
             "device_id=" + this.state.spotifyDeviceId, {
             method: 'PUT',
-            // QUEEN DOESN'T WORK????
-            body: JSON.stringify({uris: ["spotify:track:45d0O3xhhDPV6fhT6aCu48"]}),
+            body: JSON.stringify({uris: [spotify_uri]}),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${this.state.spotifyAccessToken}`
@@ -199,8 +186,6 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
     }
 
     render() {
-        console.log(this.props);
-        let songID = this.props.playingRecordingId;
         return (
             <div className="app">
                 <h3>Spotify</h3>
@@ -209,8 +194,7 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
                     {this.state.spotifyPlayerReady &&
                     <div onClick={() => {
                         if (!this.state.playbackOn) {
-                            console.log(this.state.songID);
-                            this.startPlayback(this.state.songID);
+                            this.startPlayback(this.props.playingRecordingID);
                         } else {
                             if (this.state.playbackPaused) {
                                 this.resumePlayback();
