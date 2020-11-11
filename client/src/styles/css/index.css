@@ -1062,15 +1062,48 @@ code {
   padding-top: 0.25%;
   padding-right: 0.75%;
 }
-/* 
-.playlistPictureModal {
-  width: 40%;
-  padding: 3%;
+
+.songPlayingBar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333333;
+  color: var(--background);
+  top: 90%;
+  width: 96%;
+  height: 8%;
+}
+
+.spotifyPlayerContainer {
+  text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-top: 2.25%;
-} */
+}
+
+.songPlayer {
+  width: 200%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+}
+
+.songPlayerStatusMessage {
+  justify-content: center;
+}
+
+.songPlay, .songPause {
+  color: var(--buttonColor);
+}
+
+.songPlay:hover, .songPause:hover {
+  color: var(--secondary);
+}
+
 
 /* ANIMATIONS */
 @keyframes App-logo-spin {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
+import SpotifyPlayerContainer from "../SpotifyPlayerContainer";
 
 import "../styles/css/index.css"
 import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
@@ -155,6 +156,9 @@ const PlaylistScreen = (props) => {
                     </div>
                 ))}
 
+            </div>
+            <div className="songPlayingBar">
+                <SpotifyPlayerContainer playingRecordingID="spotify:track:11ajcVj3qSyyMPUpTJUP3y" />
             </div>
 
         </div>

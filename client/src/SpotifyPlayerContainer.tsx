@@ -4,6 +4,7 @@ import SpotifyAuthWindow from "./SpotifyAuthWindow";
 import {SpotifyAccess} from "./SpotifyAccess";
 import {getSpotifyAccess, getSpotifyAccessToken} from "./LocalStorageData";
 import {FaPause, FaPlay} from "react-icons/fa";
+import { Icon } from 'semantic-ui-react';
 
 interface ISpotifyPlayerProps {
     playingRecordingID: string;
@@ -187,10 +188,10 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
 
     render() {
         return (
-            <div className="app">
+            <div className="spotifyPlayerContainer">
                 <h3>Spotify</h3>
                 <SpotifyAuthWindow/>
-                <div className="player">
+                <div className="songPlayer">
                     {this.state.spotifyPlayerReady &&
                     <div onClick={() => {
                         if (!this.state.playbackOn) {
@@ -201,19 +202,19 @@ class SpotifyPlayerContainer extends Component <ISpotifyPlayerProps, ISpotifyPla
                             }
                         }
                     }}>
-                        <FaPlay/>
+                        <Icon size="big" name="play circle" className="songPlay" />
                     </div>}
-                    {this.state.spotifyPlayerReady && this.state.playbackOn &&
+                    {this.state.spotifyPlayerReady &&
                     <div onClick={() => {
                         if (!this.state.playbackPaused) {
                             this.pauseTrack();
                         }
                     }}>
-                        <FaPause/>
+                        <Icon size="big" name="pause circle" className="songPause" />
                     </div>}
+                <p className="songPlayerStatusMessage">{this.state.loadingState}</p>
                 </div>
 
-                <p className="statusMessage">{this.state.loadingState}</p>
             </div>
         );
     }
