@@ -84,9 +84,14 @@ const PlaylistScreen = (props) => {
                 console.log(data);
                 let songURI = data.tracks.items[0].uri;
                 console.log(songURI);
+                props.history.push({
+                    pathname: '/songplayer',
+                    songURI: songURI,
+                })
             });
+
         
-        
+
     }
     // Calculate the total duration of the playlist.
     let duration = 0;

@@ -54,7 +54,7 @@ const App = (props) => {
         <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome" />} />
         <Route exact path="/test" component={LockedScreen} />
         <Route exact path="/profile/:id" render={(props) => user ? <ViewProfileScreen /> : <Redirect to="/welcome" />} />
-        <Route exact path="/songplayer" render={(props) => <SongPlayer />} />
+        <Route exact path="/songplayer" render={(props) => <SongPlayer  {...props}/>} />
         <Redirect from={"/:any", "/"} to={{ pathname: "/welcome" }} />
       </Switch>
     </BrowserRouter>
