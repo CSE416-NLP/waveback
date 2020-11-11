@@ -66,7 +66,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "The Court of the Crimson King",
+                    "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
                     "genre": ["Rock", "Jazz"],
@@ -76,7 +76,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -86,7 +86,7 @@
                 {
                     "_id": 2,
                     "song_id": "",
-                    "name": "Wolf Totem 2",
+                    "title": "Wolf Totem 2",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -109,7 +109,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "Through the Fire and the Flames",
+                    "title": "Through the Fire and the Flames",
                     "artist": "Dragonforce",
                     "album": "Inhuman Rampage",
                     "genre": ["Rock"],
@@ -119,7 +119,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Song 2",
+                    "title": "Song 2",
                     "artist": "Blur",
                     "album": "",
                     "genre": ["Rock"],
@@ -129,7 +129,7 @@
                 {
                     "_id": 2,
                     "song_id": "",
-                    "name": "Piano Sonata in A Minor",
+                    "title": "Piano Sonata in A Minor",
                     "artist": "Beethoven",
                     "album": "",
                     "genre": ["Classical"],
@@ -139,7 +139,7 @@
                 {
                     "_id": 3,
                     "song_id": "",
-                    "name": "Tik Tok",
+                    "title": "Tik Tok",
                     "artist": "Kesha",
                     "album": "Album",
                     "genre": ["Electronic", "Pop"],
@@ -162,7 +162,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "The Court of the Crimson King",
+                    "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
                     "genre": ["Rock", "Jazz"],
@@ -172,7 +172,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -182,7 +182,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -205,7 +205,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "The Court of the Crimson King",
+                    "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
                     "genre": ["Rock", "Jazz"],
@@ -215,7 +215,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -225,7 +225,7 @@
                 {
                     "_id": 2,
                     "song_id": "",
-                    "name": "2112",
+                    "title": "2112",
                     "artist": "Rush",
                     "album": "2112",
                     "genre": ["Rock"],
@@ -235,7 +235,7 @@
                 {
                     "_id": 3,
                     "song_id": "",
-                    "name": "bad guy",
+                    "title": "bad guy",
                     "artist": "Billie Eilish",
                     "album": "When We All Fall Asleep, Where Do We Go?",
                     "genre": ["Pop", "Electronic"],
@@ -258,7 +258,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "The Court of the Crimson King",
+                    "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
                     "genre": ["Rock", "Jazz"],
@@ -268,7 +268,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -278,7 +278,7 @@
                 {
                     "_id": 2,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -301,7 +301,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "The Court of the Crimson King",
+                    "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
                     "genre": ["Rock", "Jazz"],
@@ -311,7 +311,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -321,7 +321,7 @@
                 {
                     "_id": 2,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -344,7 +344,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "Through the Fire and the Flames",
+                    "title": "Through the Fire and the Flames",
                     "artist": "Dragonforce",
                     "album": "Inhuman Rampage",
                     "genre": ["Rock"],
@@ -354,7 +354,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Song 2",
+                    "title": "Song 2",
                     "artist": "Blur",
                     "album": "",
                     "genre": ["Rock"],
@@ -364,7 +364,7 @@
                 {
                     "_id": 2,
                     "song_id": "",
-                    "name": "Piano Sonata in A Minor",
+                    "title": "Piano Sonata in A Minor",
                     "artist": "Beethoven",
                     "album": "",
                     "genre": ["Classical"],
@@ -374,7 +374,7 @@
                 {
                     "_id": 3,
                     "song_id": "",
-                    "name": "Tik Tok",
+                    "title": "Tik Tok",
                     "artist": "Kesha",
                     "album": "Album",
                     "genre": ["Electronic", "Pop"],
@@ -397,7 +397,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "The Court of the Crimson King",
+                    "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
                     "genre": ["Rock", "Jazz"],
@@ -407,7 +407,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -417,7 +417,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
-                    "name": "Wolf Totem",
+                    "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
                     "genre": ["Metal", "Folk"],
@@ -440,7 +440,7 @@
                 {
                     "_id": 0,
                     "song_id": "",
-                    "name": "The Court of the Crimson King",
+                    "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
                     "genre": ["Rock", "Jazz"],

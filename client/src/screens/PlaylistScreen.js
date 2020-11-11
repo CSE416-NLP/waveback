@@ -10,6 +10,10 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 
+
+// TEMPORARY TOKEN FUNCTION:
+import { getSpotifyAccessToken } from "../LocalStorageData";
+
 // import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
@@ -27,6 +31,8 @@ const PlaylistScreen = (props) => {
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : playlistPlaceholderPicture);
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
+
+    // const[songQuery, setSongQuery] = useState("");
     // Convert a time in seconds into minutes and seconds.
     const secToFormattedTime = (seconds) => {
         let m = Math.floor(seconds / 60);
@@ -59,6 +65,35 @@ const PlaylistScreen = (props) => {
         refetch();
     }
 
+    const playSong = async (songQuery) => {
+        console.log(songQuery);
+        let token = getSpotifyAccessToken();
+        // console.log(token);
+        token = "Bearer " + token;
+        let query = "https://api.spotify.com/v1/search?q=" + songQuery + "&type=track%2Cartist%2Calbum&market=US"
+
+        fetch(query, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                let songURI = data.tracks.items[0].uri;
+                console.log(songURI);
+                props.history.push({
+                    pathname: '/songplayer',
+                    songURI: songURI,
+                })
+            });
+
+        
+
+    }
     // Calculate the total duration of the playlist.
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
@@ -110,7 +145,7 @@ const PlaylistScreen = (props) => {
                                         <Icon className="large trash"></Icon>
                                     </button>}>
                                     <Header icon><Icon name='large trash' />Are you sure you want to delete this playlist?</Header>
-                               
+
                                     <Modal.Actions className="recoverPasswordModalButtonContainer">
                                         <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
                                         <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>
@@ -147,9 +182,9 @@ const PlaylistScreen = (props) => {
                 {playlist.songs.map((song, index) => (
                     <div className="playlistSongBox">
                         <p className="songNumber">{index + 1}</p>
-                        <Icon className="playlistSongIcon big" name="play circle outline"></Icon>
+                        <Icon className="playlistSongIcon big" name="play circle outline" onClick={(e) => playSong(song.title)}></Icon>
                         <div className="playlistSongBar">
-                            <div className="playlistSongTitle">{song.name}</div>
+                            <div className="playlistSongTitle">{song.title}</div>
                             <div className="playlistSongArtist">{song.artist}</div>
                             <div className="playlistSongDuration">{secToFormattedTime(song.duration)}</div>
                         </div>
