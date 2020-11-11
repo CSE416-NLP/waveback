@@ -622,9 +622,7 @@ code {
   margin-right: -17.6%;
   padding-top: 15%;
   padding-bottom: 15%;
-  border-style: ridge;
-  border-left: transparent;
-  border-right: transparent;
+  border-style: inset;
   border-color: var(--primary);
 }
 
