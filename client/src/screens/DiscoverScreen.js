@@ -3,10 +3,16 @@ import "../styles/css/index.css"
 import { Grid } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import jsonData from "../TestData.json";
+import SpotifyAuthWindow from "../SpotifyAuthWindow";
+import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "../LocalStorage";
 
 var buttonStyle = {color: "var(--background)", backgroundColor: "var(--buttonColor"};
 
 const DiscoverScreen = (props) => {
+  console.log(props);
+  window.addEventListener("storage", props.authorizeSpotifyFromStorage);
+  let token = getSpotifyAccessToken();
+  console.log(token)
   const [playlists, updatePlaylists] = useState(jsonData.Playlists);
   const [filterTextState, changeFilterText] = useState("playlists");
   const columns = 2;
@@ -19,7 +25,7 @@ const DiscoverScreen = (props) => {
 
   return (
     <div className="discoverScreen" style={{ backgroundColor: "var(--background)" }}>
-
+      {!token && <SpotifyAuthWindow />}
       <div className="discoverSearchContainer">
         <p className="discoverTitleText">explore other users' creations</p>
         <div className="ui input">
@@ -34,7 +40,7 @@ const DiscoverScreen = (props) => {
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link to={{ pathname: "/playlist/" + playlist.id, playlist: playlist }}>
+              <Link to={{ pathname: "/playlist/" + playlist.id, playlist: playlist, spotifyToken: token }}>
                 <div className='playlists'>
                   <img className="playlists_art" src={playlist.picture} alt="" />
                   <div className='playlistInfo'>

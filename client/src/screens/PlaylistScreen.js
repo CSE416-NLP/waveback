@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
-import SpotifyPlayerContainer from "../SpotifyPlayerContainer";
 
 import "../styles/css/index.css"
 import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
@@ -10,13 +9,20 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 
+import SpotifyPlayer from 'react-spotify-web-playback';
+
+
 
 // TEMPORARY TOKEN FUNCTION:
-import { getSpotifyAccessToken } from "../LocalStorageData";
+import { getSpotifyAccessToken } from "../LocalStorage";
 
 // import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
+    let token = props.spotifyToken;
+    // console.log(props)
+
+    const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20']);
     const currentUser = props.user;
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
 
@@ -32,7 +38,7 @@ const PlaylistScreen = (props) => {
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
 
-    // const[songQuery, setSongQuery] = useState("");
+    const [songURI, setSongURI] = useState("");
     // Convert a time in seconds into minutes and seconds.
     const secToFormattedTime = (seconds) => {
         let m = Math.floor(seconds / 60);
@@ -67,8 +73,7 @@ const PlaylistScreen = (props) => {
 
     const playSong = async (songQuery) => {
         console.log(songQuery);
-        let token = getSpotifyAccessToken();
-        // console.log(token);
+       
         token = "Bearer " + token;
         let query = "https://api.spotify.com/v1/search?q=" + songQuery + "&type=track%2Cartist%2Calbum&market=US"
 
@@ -82,16 +87,17 @@ const PlaylistScreen = (props) => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 let songURI = data.tracks.items[0].uri;
-                console.log(songURI);
-                props.history.push({
-                    pathname: '/songplayer',
-                    songURI: songURI,
-                })
+                // console.log(songURI);
+                // props.history.push({
+                //     pathname: '/songplayer',
+                //     songURI: songURI,
+                // })
+                setTracks([songURI]);
             });
 
-        
+
 
     }
     // Calculate the total duration of the playlist.
@@ -193,7 +199,7 @@ const PlaylistScreen = (props) => {
 
             </div>
             <div className="songPlayingBar">
-                <SpotifyPlayerContainer playingRecordingID="spotify:track:11ajcVj3qSyyMPUpTJUP3y" />
+                <SpotifyPlayer token={token} uris={tracks} name="Waveback"/>
             </div>
 
         </div>
