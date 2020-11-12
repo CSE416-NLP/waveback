@@ -36,6 +36,7 @@ const PlaylistsScreen = props => {
       picture: "",
       description: "",
       songs: [],
+      songURIs: [],
       followers: 0,
       visibility: props.user.defaultVisibility,
       tags: [],

@@ -12,6 +12,7 @@ const typeDefs = gql `
         picture: String
         description: String
         songs: [Song]!
+        songURIs: [String]!
         followers: Int!
         visibility: String!
         tags: [String]
@@ -34,7 +35,7 @@ const typeDefs = gql `
         getPlaylistById(_id: String!): Playlist
     }
     extend type Mutation {
-        addSong(song: SongInput!, _id: String!): String
+        addSong(song: SongInput!, _id: String!, uri: String!): String
         addPlaylist(playlist: PlaylistInput!): String
         updatePlaylist(_id: String!, name: String, picture: String, description: String): Boolean
         deletePlaylist(_id: String!): Boolean
@@ -48,6 +49,7 @@ const typeDefs = gql `
         picture: String
         description: String
         songs: [SongInput]
+        songURIs: [String]
         followers: Int
         visibility: String
         tags: [String]

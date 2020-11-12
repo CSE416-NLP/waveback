@@ -45,6 +45,7 @@ export const GET_DB_PLAYLISTS = gql`
                 year
                 duration
             }
+            songURIs
             followers
             createdAt
             visibility

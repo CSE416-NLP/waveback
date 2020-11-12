@@ -1073,6 +1073,7 @@ code {
   top: 90%;
   width: 96%;
   height: 8%;
+  user-select: none;
 }
 
 .spotifyPlayerContainer {

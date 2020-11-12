@@ -28,10 +28,11 @@ const playlistSchema = new Schema(
             required: false
         },
         songs: [Song],
+        songURIs: [String],
         followers: {
             type: Number,
             reqiured: true
-        },
+        }, 
         visibility: {
             type: String,
             required: true
