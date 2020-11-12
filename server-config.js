@@ -65,8 +65,10 @@ const validateTokens = async(req, res, next) => {
 		// request object to validate authenticity. 
 		const access = tokens.generateAccessToken(user);
 		const refresh = tokens.generateRefreshToken(user);
-		res.cookie('refresh-token', refresh, { httpOnly: true, sameSite: 'None', secure: true}); 
-		res.cookie('access-token', access, { httpOnly: true, sameSite: 'None', secure: true}); 
+		// res.cookie('refresh-token', refresh, { httpOnly: true, sameSite: 'None', secure: true}); 
+		// res.cookie('access-token', access, { httpOnly: true, sameSite: 'None', secure: true}); 
+		res.cookie('refresh-token', refresh, { httpOnly: true}); 
+		res.cookie('access-token', access, { httpOnly: true}); 
 		req.userId = user.id;
 		req.user = user;
 	} 

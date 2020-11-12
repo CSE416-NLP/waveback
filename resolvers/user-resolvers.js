@@ -42,8 +42,10 @@ module.exports = {
 
             const accessToken = tokens.generateAccessToken(user);
             const refreshToken = tokens.generateRefreshToken(user);
-            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
-            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true })
+            // res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
+            // res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true })
+            res.cookie('refresh-token', refreshToken, { httpOnly: true});
+            res.cookie('access-token', accessToken, { httpOnly: true})
             return user;
         },
         /**
@@ -89,9 +91,10 @@ module.exports = {
 
             const accessToken = tokens.generateAccessToken(user);
             const refreshToken = tokens.generateRefreshToken(user);
-            res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
-            res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true })
-
+            // res.cookie('refresh-token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true });
+            // res.cookie('access-token', accessToken, { httpOnly: true, sameSite: 'None', secure: true });
+            res.cookie('refresh-token', refreshToken, { httpOnly: true});
+            res.cookie('access-token', accessToken, { httpOnly: true});
             return user;
         },
 
