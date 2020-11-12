@@ -45,34 +45,6 @@ const LockedScreen = (props) => {
             });
     }
 
-    // const parseTime = (ISO_8601_String) => {
-        // Holy cow this is annoying, I give up for now
-
-        // let regexString = "PT";
-        // if (ISO_8601_String.includes("H"))
-        //     regexString += "(\\d+H)";
-        // if (ISO_8601_String.includes("M"))
-        //     regexString += "(\\d+M)";
-        // if (ISO_8601_String.includes("S"))
-        //     regexString += "(\\d+S)";
-        // console.log(regexString)
-        // let regex = new RegExp(regexString);
-        // let str = ISO_8601_String.replace(regex, "$1:$2");
-        // console.log(str)
-        // let times = str.split(":");
-        // console.log(times)
-        // let seconds = 0;
-        // for (let time of times) {
-        //     if (time.includes("H"))
-        //         seconds += 3600 * parseInt(time);
-        //     else if (time.includes("M"))
-        //         seconds += 60 * parseInt(time);
-        //     else if (time.includes("S"))
-        //         seconds += parseInt(time)
-        // }
-        // console.log(seconds)
-    // }
-
     const [searchTerm, setSearch] = useState("");
     return (
         <div className="App" style={{ flex: "1", display: "flex", flexDirection: "column" }}>

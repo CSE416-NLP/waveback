@@ -15,8 +15,6 @@ import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './Navbar';
 import PlayerScreen from './PlayerScreen';
 import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "./LocalStorage";
-// import SpotifyPlayer from 'react-spotify-web-playback';
-
 
 
 const App = (props) => {
@@ -30,7 +28,6 @@ const App = (props) => {
     let { getCurrentUser } = data;
     if (getCurrentUser !== null) {
       user = getCurrentUser;
-      // console.log("user", user);
     }
   }
 

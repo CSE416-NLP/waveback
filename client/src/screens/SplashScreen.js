@@ -78,10 +78,6 @@ const SplashScreen = (props) => {
                     <img src={wavebackTextBG} className="appLogoBG" alt="" />
                     <img src={wavebackTextFG} className="appLogoFG" alt="" style={{ filter: "hue-rotate(var(--hue))" }} />
                 </p>
-                {/* STUPID BUTTON FOR PLAY TESTING
-                <Link className = "stupid_button" to="/songplayer">
-                    <li className="navbar_item"> Song Playing Testing </li>
-                </Link> */}
                 <div className="splashLoginContainer" >
                     <p className="splashTextSubtitle" style={{ color: "var(--accent)" }}>
                         waveback is a simple, yet powerful, playlist creation tool.<br />relive the sounds of the past like never before.

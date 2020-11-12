@@ -64,7 +64,6 @@ const PlaylistScreen = (props) => {
     }
 
     const deletePlaylist = async () => {
-        // console.log("wtf");
         setDeletePlaylistOpenState(false);
         props.deletePlaylist({ variables: { _id: playlist._id } });
         props.history.push({ pathname: '/playlists' });
@@ -170,10 +169,7 @@ const PlaylistScreen = (props) => {
                     </div>
                     <p className="playlistGenreLabel" style={{ color: "var(--accent)" }}>Genres</p>
                     <div className="playlistGenreBox">
-                        {/* <div className="playlistGenreText">{playlist.songs[0].genre + ""}</div>
-                        <div className="playlistGenreText">{playlist.songs[1].genre + ""}</div>
-                        <div className="playlistGenreText">{playlist.songs[2].genre + ""}</div>
-                        <div className="playlistGenreText">{playlist.songs[3].genre + ""}</div> */}
+                        {/* List of all genres in the playlist goes here. */}
                     </div>
                 </div>
             </div>
@@ -199,7 +195,7 @@ const PlaylistScreen = (props) => {
 
             </div>
             <div className="songPlayingBar">
-                <SpotifyPlayer token={token} uris={tracks} name="Waveback"/>
+                <SpotifyPlayer className="songPlayer" token={token} uris={tracks} name="Waveback"/>
             </div>
 
         </div>

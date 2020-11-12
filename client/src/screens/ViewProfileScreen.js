@@ -7,11 +7,7 @@ import jsonData from "../TestData.json";
 const ViewProfileScreen = (props) => {
     const [playlists, updatePlaylists] = useState(jsonData.Playlists);
     const firstUser = jsonData.Users[0];
-    // console.log(playlists);
-    // if (props.history.location.user) {
-    //     console.log(props.history.location.user)
-    // }
-    // const user = useState(props.history.location.user);
+
     return (
         <div style={{ backgroundColor: "var(--background)" }}>
             <div className="viewProfileScreenContainer" >
