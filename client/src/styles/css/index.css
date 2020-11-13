@@ -1061,24 +1061,25 @@ code {
 
 .songPlayingBar {
   position: absolute;
+  padding: 0.1%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #333333;
-  color: var(--background);
-  top: 90%;
-  width: 96%;
-  height: 8%;
-  user-select: none;
-  padding: 1%;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-.songPlayer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #333333;
+.windowButtonContainer {
+  text-align: right;
+}
+
+.playerWindowButton {
+  background-color: transparent;
+  color: var(--buttonColor);
+}
+
+.playerWindowButton:hover {
+  cursor: pointer;
 }
 
 .songPlayerStatusMessage {

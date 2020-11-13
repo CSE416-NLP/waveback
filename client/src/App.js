@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Icon } from 'semantic-ui-react';
 import { GET_DB_USER } from './cache/queries';
 import { useQuery } from '@apollo/react-hooks';
 import { COLOR_SCHEMES } from './styles/ColorSchemes'
@@ -33,7 +34,7 @@ const App = (props) => {
 
   const [spotifyToken, setSpotifyToken] = useState(getSpotifyAccess() === "allowed" && getSpotifyTokenExpirationTime() > new Date().getTime() ? getSpotifyAccessToken() : null)
   const [playerVisible, setPlayerVisible] = useState(null)
-  const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20', "spotify:track:46OFHBw45fNi7QNjSetITR", "spotify:track:2LiDZmGERLzjrtBTCofj2G"])
+  const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20', "spotify:track:46OFHBw45fNi7QNjSetITR", "spotify:track:6i3uaiOs9AMxEq5bYoiro0"])
 
   console.log("token: ", spotifyToken);
   const authorizeSpotifyFromStorage = (e) => {
@@ -105,22 +106,23 @@ const App = (props) => {
         <Redirect from={"/:any", "/"} to={{ pathname: "/welcome" }} />
       </Switch>
       {spotifyToken &&
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "end", position: "absolute", bottom: "0", width: "100%" }}>
+        <div className="songPlayingBar">
           {(playerVisible === true || playerVisible === false) &&
-            <div className="playerTab" onClick={() => setPlayerVisible(!playerVisible)}>{playerVisible ? "Hide player" : "Show player"}</div>}
+            <div className="windowButtonContainer" onClick={() => setPlayerVisible(!playerVisible)}>
+              {playerVisible ? <Icon className="playerWindowButton big window minimize"/> : <Icon className="playerWindowButton big window maximize"/>}</div>}
           <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
             <SpotifyPlayer
               token={spotifyToken}
               uris={tracks}
               name="Waveback"
               styles={{
-                bgColor: "var(--secondary)",
+                bgColor: "var(--background)",
                 sliderColor: "var(--buttonColor)",
                 sliderTrackColor: "var(--primary)",
                 color: "var(--accent)",
                 sliderhandleColor: "var(--accent)",
-                trackNameColor: "var(--buttonColor)",
-                trackArtistColor: "var(--primary)"
+                trackNameColor: "var(--accent)",
+                trackArtistColor: "var(--buttonColor)"
               }}
             />
           </div>
