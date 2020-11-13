@@ -9,10 +9,10 @@ import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime 
 var buttonStyle = {color: "var(--background)", backgroundColor: "var(--buttonColor"};
 
 const DiscoverScreen = (props) => {
-  console.log(props);
+  console.log(getSpotifyTokenExpirationTime() - new Date().getTime());
+  // console.log(props);
   window.addEventListener("storage", props.authorizeSpotifyFromStorage);
-  let token = getSpotifyAccessToken();
-  console.log(token)
+  let token = props.spotifyToken;
   const [playlists, updatePlaylists] = useState(jsonData.Playlists);
   const [filterTextState, changeFilterText] = useState("playlists");
   const columns = 2;
@@ -56,7 +56,7 @@ const DiscoverScreen = (props) => {
       </div>
 
 
-      <div className="discoverBottomContainer">
+      {/* <div className="discoverBottomContainer">
           <div className="discoverRandomContainer">
             <button className="clickButton ui huge button" style={buttonStyle}>Random Song</button>
           </div>
@@ -64,7 +64,7 @@ const DiscoverScreen = (props) => {
             <p className="discoverFilterText">Filter by</p>
             <button className="clickButton discoverFilterButton ui huge button" style={buttonStyle} onClick={changeFilterButtonText}>{filterTextState}</button>
           </div>
-      </div>
+      </div> */}
 
     </div>
   );

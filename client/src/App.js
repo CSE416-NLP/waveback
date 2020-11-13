@@ -15,7 +15,7 @@ import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './Navbar';
 import PlayerScreen from './PlayerScreen';
 import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "./LocalStorage";
-
+import SpotifyPlayer from 'react-spotify-web-playback';
 
 const App = (props) => {
 
@@ -50,6 +50,7 @@ const App = (props) => {
       }
     }
   }
+
   useEffect(() => {
     if (user && user.theme) {
       let theme = COLOR_SCHEMES[user.theme]
@@ -65,11 +66,38 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Navbar user={user} />
-      <Switch>
+
+      <div >
+        {(playerVisible === true || playerVisible === false) &&
+          <div className="playerTab" onClick={() => {
+            // if (playerVisible === true || playerVisible === false)
+            setPlayerVisible(!playerVisible)
+          }}>{playerVisible ? "Hide player" : "Show player"}</div>}
+        <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
+          <SpotifyPlayer
+            spotifyToken={spotifyToken}
+            uris={tracks}
+            name="Waveback"
+            styles={{
+              bgColor: "var(--secondary)",
+              sliderColor: "var(--buttonColor)",
+              sliderTrackColor: "var(--primary)",
+              color: "var(--accent)",
+              sliderhandleColor: "var(--accent)",
+              trackNameColor: "var(--buttonColor)",
+              trackArtistColor: "var(--primary)"
+            }}
+          />
+        </div>
+      </div>
+        <Switch>
         <Route exact path="/welcome" render={(props) => !user ? <SplashScreen user={user} fetchUser={refetch} /> : <Redirect to="/discover" />} />
-        <Route exact path="/discover" render={(props) => user ? 
-          <DiscoverScreen 
+        <Route exact path="/discover" render={(props) => user ?
+          <DiscoverScreen
             user={user}
+            playerVisible={playerVisible}
+            setPlayerVisible={setPlayerVisible}
+            spotifyToken={spotifyToken}
             authorizeSpotifyFromStorage={authorizeSpotifyFromStorage}
             {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/generate" render={(props) => user ? <GenerateScreen user={user} {...props} /> : <Redirect to="/welcome" />} />

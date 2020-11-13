@@ -19,7 +19,12 @@ import { getSpotifyAccessToken } from "../LocalStorage";
 // import jsonData from "../TestData.json";
 
 const PlaylistScreen = (props) => {
+    if (props.playerVisible === null){
+        props.setPlayerVisible(true);
+    }
+    // console.log(props.spotifyToken);
     let token = props.spotifyToken;
+    
     // console.log(props)
 
     const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20']);
@@ -72,7 +77,7 @@ const PlaylistScreen = (props) => {
 
     const playSong = async (songQuery) => {
         console.log(songQuery);
-       
+
         token = "Bearer " + token;
         let query = "https://api.spotify.com/v1/search?q=" + songQuery + "&type=track%2Cartist%2Calbum&market=US"
 
@@ -194,9 +199,7 @@ const PlaylistScreen = (props) => {
                 ))}
 
             </div>
-            <div className="songPlayingBar">
-                <SpotifyPlayer className="songPlayer" token={token} uris={tracks} name="Waveback"/>
-            </div>
+
 
         </div>
     );
