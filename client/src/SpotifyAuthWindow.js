@@ -16,7 +16,7 @@ export default class SpotifyAuthWindow extends Component {
             "&response_type=token" +
             "&redirect_uri=http://localhost:8080/redirect" +
             "&show_dialog=true" +
-            "&scope=" + SCOPE_LIST, '', "width=800, height=950");
+            "&scope=" + SCOPE_LIST, '', "align-content = center, width=800, height=950");
     }
 
     render() {

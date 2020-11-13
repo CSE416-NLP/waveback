@@ -138,7 +138,7 @@ const PlaylistScreen = (props) => {
                                     maxLength={30} placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
                             </div>
                             <div className="playlistTitleDivider ">
-                                <div class="ui divider"></div>
+                                <div className="ui divider"></div>
                             </div>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length == 1 ? "" : "s"}, {secToFormattedTime(duration)}</p>
                             <div className="playlistSave">
@@ -154,7 +154,7 @@ const PlaylistScreen = (props) => {
                                     trigger={<button className="clickButton playlistSaveButton ui button">
                                         <Icon className="large trash"></Icon>
                                     </button>}>
-                                    <Header icon><Icon name='large trash' />Are you sure you want to delete this playlist?</Header>
+                                    <Header icon><Icon className='large trash' />Are you sure you want to delete this playlist?</Header>
 
                                     <Modal.Actions className="recoverPasswordModalButtonContainer">
                                         <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>

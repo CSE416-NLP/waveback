@@ -35,6 +35,7 @@ const App = (props) => {
   const [playerVisible, setPlayerVisible] = useState(null)
   const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20', "spotify:track:46OFHBw45fNi7QNjSetITR", "spotify:track:2LiDZmGERLzjrtBTCofj2G"])
 
+  console.log("token: ", spotifyToken);
   const authorizeSpotifyFromStorage = (e) => {
     console.log("Something changed in local storage", e)
     if (e.key === "spotifyAuthToken") {
@@ -75,7 +76,7 @@ const App = (props) => {
           }}>{playerVisible ? "Hide player" : "Show player"}</div>}
         <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
           <SpotifyPlayer
-            spotifyToken={spotifyToken}
+            // spotifyToken={spotifyToken}
             uris={tracks}
             name="Waveback"
             styles={{
