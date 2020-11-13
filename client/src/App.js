@@ -67,31 +67,7 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Navbar user={user} />
-
-      <div >
-        {(playerVisible === true || playerVisible === false) &&
-          <div className="playerTab" onClick={() => {
-            // if (playerVisible === true || playerVisible === false)
-            setPlayerVisible(!playerVisible)
-          }}>{playerVisible ? "Hide player" : "Show player"}</div>}
-        <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
-          <SpotifyPlayer
-            token={spotifyToken}
-            uris={tracks}
-            name="Waveback"
-            styles={{
-              bgColor: "var(--secondary)",
-              sliderColor: "var(--buttonColor)",
-              sliderTrackColor: "var(--primary)",
-              color: "var(--accent)",
-              sliderhandleColor: "var(--accent)",
-              trackNameColor: "var(--buttonColor)",
-              trackArtistColor: "var(--primary)"
-            }}
-          />
-        </div>
-      </div>
-        <Switch>
+      <Switch>
         <Route exact path="/welcome" render={(props) => !user ? <SplashScreen user={user} fetchUser={refetch} /> : <Redirect to="/discover" />} />
         <Route exact path="/discover" render={(props) => user ?
           <DiscoverScreen
@@ -127,8 +103,28 @@ const App = (props) => {
             {...props} />
         } />
         <Redirect from={"/:any", "/"} to={{ pathname: "/welcome" }} />
-
       </Switch>
+      {spotifyToken &&
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "end", position: "absolute", bottom: "0", width: "100%" }}>
+          {(playerVisible === true || playerVisible === false) &&
+            <div className="playerTab" onClick={() => setPlayerVisible(!playerVisible)}>{playerVisible ? "Hide player" : "Show player"}</div>}
+          <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
+            <SpotifyPlayer
+              token={spotifyToken}
+              uris={tracks}
+              name="Waveback"
+              styles={{
+                bgColor: "var(--secondary)",
+                sliderColor: "var(--buttonColor)",
+                sliderTrackColor: "var(--primary)",
+                color: "var(--accent)",
+                sliderhandleColor: "var(--accent)",
+                trackNameColor: "var(--buttonColor)",
+                trackArtistColor: "var(--primary)"
+              }}
+            />
+          </div>
+        </div>}
     </BrowserRouter>
   )
 }

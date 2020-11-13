@@ -1175,3 +1175,15 @@ code {
   overflow:hidden;
   visibility: visible;
 }
+
+.playerTab {
+  padding-inline: 8px;
+  padding-block: 4px;
+  color: white;
+  background-color: var(--buttonColor);
+  user-select: none;
+}
+
+.playerTab:hover {
+  cursor: pointer;
+}
