@@ -76,7 +76,7 @@ const App = (props) => {
           }}>{playerVisible ? "Hide player" : "Show player"}</div>}
         <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
           <SpotifyPlayer
-            // spotifyToken={spotifyToken}
+            token={spotifyToken}
             uris={tracks}
             name="Waveback"
             styles={{

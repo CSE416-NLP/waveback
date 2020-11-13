@@ -12,7 +12,6 @@ import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import SpotifyPlayer from 'react-spotify-web-playback';
 
 
-
 // TEMPORARY TOKEN FUNCTION:
 import { getSpotifyAccessToken } from "../LocalStorage";
 
@@ -108,8 +107,10 @@ const PlaylistScreen = (props) => {
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
 
+    let spotifyToken = getSpotifyAccessToken();
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }}>
+           
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
                 <div className="playlistScreenLeftContainer" style={{ backgroundColor: "var(--secondary)", filter: "drop-shadow(5px 0px 0px var(--accent))" }}>
                     <div className="playlistScreenInfo">
