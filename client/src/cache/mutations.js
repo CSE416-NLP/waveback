@@ -62,6 +62,12 @@ export const UPDATEUSERACCOUNT = gql`
     }
 `;
 
+export const UPDATEUSERTHEME = gql`
+    mutation UpdateUserTheme($_id: String!, $theme: String!) {
+        updateUserTheme(_id: $_id, theme: $theme)
+    }
+`;
+
 // ========= Playlist Mutations ========== //
 
 export const ADD_PLAYLIST = gql`

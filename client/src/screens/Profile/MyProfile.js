@@ -27,7 +27,6 @@ const arrayToString = (array) => {
 }
 
 const MyProfile = (props) => {
-    console.log(props);
     const currentUser = props.user
     const [bio, setBio] = useState(currentUser.bio)
     const [avatarOpenState, setAvatarModalOpenState] = useState(false);

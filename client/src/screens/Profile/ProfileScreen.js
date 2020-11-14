@@ -8,6 +8,7 @@ import ThemePicker from "../../UtilityComponents/ThemePicker"
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { LOGOUT } from '../../cache/mutations';
+import { UPDATEUSERTHEME } from '../../cache/mutations'
 import { Redirect } from 'react-router-dom';
 
 const tabMap = {
@@ -29,6 +30,16 @@ const ProfileScreen = (props) => {
       }
     }
   };
+
+  const saveColorTheme = async (theme) => {
+    const saveThemeResult = await props.updateusertheme({variables: {
+      _id: props.user._id, 
+      theme: theme
+    }});
+    if (saveThemeResult) {
+      console.log(saveThemeResult)
+    }
+  }
 
   const renderTab = () => {
     let TabElement = tabMap[currentTab];
@@ -87,13 +98,14 @@ const ProfileScreen = (props) => {
         </div>
       </div>
 
-      <ThemePicker />
+      <ThemePicker saveColorTheme={saveColorTheme} />
 
       {renderTab()}
     </div>
   );
 };
 
-export default compose
-  (graphql(LOGOUT, { name: 'logout' }))
-  (ProfileScreen);
+export default compose(
+  graphql(LOGOUT, { name: 'logout' }),
+  graphql(UPDATEUSERTHEME, { name: 'updateusertheme' })
+)(ProfileScreen);

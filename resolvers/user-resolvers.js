@@ -132,6 +132,14 @@ module.exports = {
             }
             if (saved) return true;
             else return false;
+        },
+
+        updateUserTheme: async (_, args) => {
+            let { _id, theme } = args;
+            const objectId = new ObjectId(_id);
+            let saved = await User.updateOne({ _id: objectId }, { theme: theme });
+            if (saved) return true;
+            else return false;
         }
     }
 }

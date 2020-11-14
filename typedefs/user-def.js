@@ -28,6 +28,7 @@ const typeDefs = gql`
         logout: Boolean!
         updateUserProfile(_id: String!, bio: String, location: String, favoriteGenres: [String], favoriteArtists: [String], favoriteSongs: [String], profilePicture: String): Boolean
         updateUserAccount(_id: String!, username: String!, email: String!, password: String): Boolean
+        updateUserTheme(_id: String!, theme: String!): Boolean
     }
 `;
 
