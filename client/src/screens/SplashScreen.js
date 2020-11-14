@@ -67,10 +67,6 @@ const SplashScreen = (props) => {
             setPasswordFieldType("password")
     }
 
-    const attemptLogin = (e) => {
-        if (e.charCode == 13) { login(); }
-    }
-
     return (
         <div className="App">
             <header className="App-header" style={{ backgroundColor: "var(--background)" }}>
@@ -84,40 +80,46 @@ const SplashScreen = (props) => {
                     </p>
                     <div className="splashLoginBox" style={{ backgroundColor: "var(--primary)" }}>
                         <div className="splashText" style={{ color: "var(--accent)" }}>Sign In</div>
-                        <div className="ui input splashInputContainer">
-                            <input size="25" className="splashInput" placeholder="Username" style={{ backgroundColor: "var(--secondary)" }}
-                                name="username" onChange={updateLoginInput} 
-                                style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : ""}} />
-                        </div>
-                        <div className="ui input splashInputContainer">
-                            <input size="25" className="splashInput" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
-                                type={passwordFieldType} name="password" onChange={updateLoginInput} onKeyPress={(e) => attemptLogin(e)}
-                                style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : ""}} />
-                            <Popup content="Toggle password visibility"
-                                trigger={<Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />}
-                            />
-                        </div>
-                        {loginError && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{loginError}</div>}
-                        <Modal
-                            basic
-                            onClose={() => setPasswordModalOpenState(false)}
-                            onOpen={() => setPasswordModalOpenState(true)}
-                            open={passwordOpenState}
-                            size='small' trigger={<div className="splashTextSmall">Forgot Password?</div>}>
-                            <Header icon><Icon name='question circle' />Password Recovery</Header>
-                            <Modal.Content>
-                                <div className="ui input recoverPasswordTextfield">
-                                    <input size="50" placeholder="Email" style={{ backgroundColor: "var(--secondary)" }} />
-                                </div>
-                            </Modal.Content>
-                            <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove' />Close</Button>
-                                <Button className="ui primary button"><Icon name='checkmark' />Send Recovery Email</Button>
-                            </Modal.Actions>
-                        </Modal>
-                        <div>
-                            <Button className="clickButton ui huge button" onClick={login}>Log In</Button>
-                        </div>
+                        <form style={{ maxWidth: "min-content " }} onSubmit={(e) => {
+                            e.preventDefault()
+                            login()
+                            return false
+                        }}>
+                            <div className="ui input splashInputContainer">
+                                <input size="25" className="splashInput" placeholder="Username" style={{ backgroundColor: "var(--secondary)" }}
+                                    name="username" onChange={updateLoginInput}
+                                    style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : "" }} />
+                            </div>
+                            <div className="ui input splashInputContainer">
+                                <input size="25" className="splashInput" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
+                                    type={passwordFieldType} name="password" onChange={updateLoginInput}
+                                    style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : "" }} />
+                                <Popup content="Toggle password visibility"
+                                    trigger={<Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />}
+                                />
+                            </div>
+                            {loginError && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{loginError}</div>}
+                            <Modal
+                                basic
+                                onClose={() => setPasswordModalOpenState(false)}
+                                onOpen={() => setPasswordModalOpenState(true)}
+                                open={passwordOpenState}
+                                size='small' trigger={<div className="splashTextSmall">Forgot Password?</div>}>
+                                <Header icon><Icon name='question circle' />Password Recovery</Header>
+                                <Modal.Content>
+                                    <div className="ui input recoverPasswordTextfield">
+                                        <input size="50" placeholder="Email" style={{ backgroundColor: "var(--secondary)" }} />
+                                    </div>
+                                </Modal.Content>
+                                <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                    <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove' />Close</Button>
+                                    <Button className="ui primary button"><Icon name='checkmark' />Send Recovery Email</Button>
+                                </Modal.Actions>
+                            </Modal>
+                            <div>
+                                <Button type="submit" className="clickButton ui huge button" onClick={login}>Log In</Button>
+                            </div>
+                        </form>
                         <Modal
                             basic
                             onClose={() => setRegisterModalOpenState(false)}
