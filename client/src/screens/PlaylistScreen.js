@@ -2,39 +2,25 @@ import React, { useState } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
-
 import "../styles/css/index.css"
 import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
-
-import SpotifyPlayer from 'react-spotify-web-playback';
-
-
-// TEMPORARY TOKEN FUNCTION:
-import { getSpotifyAccessToken } from "../LocalStorage";
-
-// import jsonData from "../TestData.json";
+import { getSongTime } from "../UtilityComponents/Playlist"
+// import jsonData from "../data/TestData.json";
 
 const PlaylistScreen = (props) => {
-    if (props.playerVisible === null){
+    if (props.playerVisible === null) {
         props.setPlayerVisible(true);
     }
-    // console.log(props.spotifyToken);
     let token = props.spotifyToken;
-    
-    // console.log(props)
 
     const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20']);
     const currentUser = props.user;
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
 
     const playlist = props.location.playlist;
-    // console.log(playlist.picture === "");
-    if (props.location.playlist) {
-        // console.log(props.location.playlist)
-    }
     // const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
@@ -44,12 +30,12 @@ const PlaylistScreen = (props) => {
 
     const [songURI, setSongURI] = useState("");
     // Convert a time in seconds into minutes and seconds.
-    const secToFormattedTime = (seconds) => {
-        let m = Math.floor(seconds / 60);
-        let s = seconds %= 60;
-        s = (s < 10) ? (s = "0" + s) : s
-        return m + ":" + s;
-    }
+    // const secToFormattedTime = (seconds) => {
+    //     let m = Math.floor(seconds / 60);
+    //     let s = seconds %= 60;
+    //     s = (s < 10) ? (s = "0" + s) : s
+    //     return m + ":" + s;
+    // }
 
     const handleUpdatePlaylist = async () => {
         setPlaylistPictureOpenState(false);
@@ -107,10 +93,9 @@ const PlaylistScreen = (props) => {
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
 
-    let spotifyToken = getSpotifyAccessToken();
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }}>
-           
+
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
                 <div className="playlistScreenLeftContainer" style={{ backgroundColor: "var(--secondary)", filter: "drop-shadow(5px 0px 0px var(--accent))" }}>
                     <div className="playlistScreenInfo">
@@ -141,7 +126,7 @@ const PlaylistScreen = (props) => {
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
                             </div>
-                            <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length == 1 ? "" : "s"}, {secToFormattedTime(duration)}</p>
+                            <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length === 1 ? "" : "s"}, {getSongTime(duration)}</p>
                             <div className="playlistSave">
                                 <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
                                     <Icon className="large save outline"></Icon>
@@ -194,14 +179,11 @@ const PlaylistScreen = (props) => {
                         <div className="playlistSongBar">
                             <div className="playlistSongTitle">{song.title}</div>
                             <div className="playlistSongArtist">{song.artist}</div>
-                            <div className="playlistSongDuration">{secToFormattedTime(song.duration)}</div>
+                            <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
                         </div>
                     </div>
                 ))}
-
             </div>
-
-
         </div>
     );
 };

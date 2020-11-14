@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
 import "../styles/css/index.css"
 import { Link } from "react-router-dom";
-import jsonData from "../TestData.json";
+import jsonData from "../data/TestData.json";
 
 const ViewProfileScreen = (props) => {
     const [playlists, updatePlaylists] = useState(jsonData.Playlists);

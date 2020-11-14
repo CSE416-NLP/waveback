@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getSpotifyAccessToken } from "../LocalStorage.js";
+import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 const LockedScreen = (props) => {
     // This is an example of only allowing the user to visit this page if some requirement is met
     // if (!props.location.key)

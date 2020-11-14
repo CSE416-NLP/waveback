@@ -5,7 +5,8 @@ const SPOTIFY_TOKEN_EXPIRATION_TIME = "spotifyTokenExpirationTime";
 export function getSpotifyAccess() {
     if (localStorage.getItem(SPOTIFY_ACCESS) === null) {
         return null;
-    } else {
+    }
+    else {
         switch (localStorage.getItem(SPOTIFY_ACCESS)) {
             case ("not_requested"):
                 return "not_requested";

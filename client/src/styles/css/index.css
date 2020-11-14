@@ -189,13 +189,14 @@ code {
 
 .dropdownChangeTheme {
   position: absolute;
-  left: 91%;
-  top: 92.5%;
+  left: 84%;
+  top: 90.5%;
 }
 
 /* NAVBAR */
 .navbar {
   display: flex;
+  flex: 0 1 auto;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -233,6 +234,9 @@ code {
 }
 
 .userProfilePicture {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -240,17 +244,28 @@ code {
 .discoverScreen {
   text-align: center;
   overflow: hidden;
+  padding: 0 6% 0 6%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .discoverSearchContainer {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
+  border-style: double;
+  border-width: 0 0 3px 0;
+  border-radius: 5%;
+  border-color: var(--secondary);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
 }
 
 .discoverTitleText {
   margin-bottom: 1%;
-  font-size: 72px;
+  font-size: 36pt;
   font-weight: bolder;
   font-style: italic;
   user-select: none;
@@ -260,7 +275,7 @@ code {
 
 .discoverSearch {
   text-align: center;
-  font-size: 20px;
+  font-size: 12pt;
 }
 
 .playlistDiscover {
@@ -270,21 +285,12 @@ code {
 }
 
 .discoverPlaylistGrid {
-  height: 75.2%;
   margin: 0 auto;
   margin-left: 1%;
-  margin-bottom: 1%;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   user-select: none;
-}
-
-.playlistSubTextDiscover {
-  text-align: left;
-  margin-top: -5%;
-  margin-bottom: 5%;
-  font-size: 16px;
-  color: var(--accent);
+  flex: 1 1 auto;
 }
 
 .discoverBottomContainer {
@@ -331,7 +337,7 @@ code {
 .generateScreenTitleText {
   margin-top: 3.5%;
   margin-bottom: 2.5%;
-  font-size: 72px;
+  font-size: 32pt;
   font-weight: bolder;
   text-align: center;
   font-style: italic;
@@ -488,9 +494,12 @@ code {
 
 /* PLAYLISTS SCREEN */
 .playlistsScreen {
+  text-align: center;
+  overflow: hidden;
+  padding: 0 6% 0 6%;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1 1 auto;
 }
 
 .createPlaylistButtonContainer {
@@ -513,34 +522,49 @@ code {
   user-select: none;
 }
 
-.playlists:hover {
+.playlist {
+  color: var(--accent);
+  display: flex;
+  flex-direction: row;
+  border: #333333;
+  border-radius: 5px;
+}
+
+.playlist:hover {
   cursor: pointer;
   background-color: var(--secondary);
 }
 
-.playlists:active {
+.playlist:active {
   cursor: pointer;
   background-color: var(--primary);
+  color: var(--background);
 }
 
-.playlists_row {
-  align-content: center;
-  padding: 40px;
-}
-.playlistsColumn {
+.playlistTextContainer {
   display: flex;
-  flex-direction: row;
-}
-
-.playlistsInfo {
-  display: inline-block;
+  flex-direction: column;
 }
 
 .playlistName {
+  width: 100%;
+  font-weight: bold;
+  font-size: 18pt;
   text-align: left;
+  flex: 0 1 auto;
+  margin: 3% 0 0 5%;
 }
 
-.playlists_art { 
+.playlistInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+  margin-left: 5%;
+}
+
+.playlist_art { 
   display: inline-block;
   height: 150px;
   width: 150px;
@@ -552,44 +576,39 @@ code {
   justify-content: center;
 }
 
-.playlists {
-  display: flex;
-  flex-direction: row;
-  border: #333333;
-  border-radius: 5px;
-  margin-left: 0%;
-}
-
 .playlistsSearchContainer {
+
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
+  border-style: double;
+  border-width: 0 0 3px 0;
+  border-radius: 5%;
+  border-color: var(--secondary);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
 }
 
 .playlistsSearch {
   text-align: center;
-  font-size: 20px;
-}
-
-.playlistInfo {
-  color: var(--accent);
-  margin-left: 2%;
+  font-size: 12pt;
 }
 
 .playlistSubText {
-  margin-top: -5%;
-  margin-bottom: 5%;
-  font-size: 16px;
-  color: var(--accent);
+  text-align: left;
+  font-size: 13pt;
 }
 
 /* PROFILE SCREEN */
 .profileScreen {
+  position: relative;
+  padding: 0 6% 0 6%;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  height: 100%;
+  flex: 1 1 auto;
 }
+
 .profileScreenOptions {
   display: flex;
   flex-direction: column;
@@ -867,9 +886,6 @@ code {
   height: 200px;
   width: 200px;
 }
-.playlistInfo {
-  margin-left: 2%;
-}
 
 .playlistScreenInfo {
   margin-left: 2%;
@@ -1060,17 +1076,18 @@ code {
 }
 
 .songPlayingBar {
-  position: absolute;
   padding: 0.1%;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  bottom: 0;
   width: 100%;
+  align-items: flex-end;
 }
 
 .windowButtonContainer {
+  width: max-content;
   text-align: right;
+  position: fixed;
+  transform: translateY(-125%);
 }
 
 .playerWindowButton {

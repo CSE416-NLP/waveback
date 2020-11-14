@@ -65,7 +65,7 @@ const MyProfile = (props) => {
         <div className="myProfileScreen">
             <div className="profileScreenMainContainer">
                 <p className="profileScreenSubText">Bio</p>
-                <Form><TextArea className="profileTextArea" rows={6} style={{ backgroundColor: "var(--secondary)" }} placeholder="Tell us about yourself"
+                <Form><TextArea className="profileTextArea" rows={6} style={{ backgroundColor: "var(--secondary)" }} placeholder="Tell us about yourself!"
                     value={bio} onChange={(e) => setBio(e.target.value)} />
                 </Form>
                 <p className="profileScreenSubText">Location</p>
@@ -73,13 +73,13 @@ const MyProfile = (props) => {
                     value={location} onChange={(e) => setLocation(e.target.value)} />
                 </Form>
                 <p className="profileScreenSubText">Favorite Genres</p>
-                <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }}
+                <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} placeholder="What are some of your favorite genres?"
                     value={favoriteGenres} onChange={(e) => setFavoriteGenres(e.target.value)} /></Form>
                 <p className="profileScreenSubText">Favorite Artists</p>
-                <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }}
+                <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} placeholder="Who are some of your favorite artists?"
                     value={favoriteArtists} onChange={(e) => setFavoriteArtists(e.target.value)} /></Form>
                 <p className="profileScreenSubText">Favorite Songs</p>
-                <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }}
+                <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} placeholder="What are some of your favorite songs?"
                     value={favoriteSongs} onChange={(e) => setFavoriteSongs(e.target.value)} /></Form>
                 <div className="profileScreenUpdateButton">
                     <button className="clickButton ui huge button" onClick={updateProfile}>Update</button>

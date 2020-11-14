@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import "../styles/css/index.css"
 import { Grid } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
-import jsonData from "../TestData.json";
-import SpotifyAuthWindow from "../SpotifyAuthWindow";
-import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "../LocalStorage";
+import jsonData from "../data/TestData.json";
+import SpotifyAuthWindow from "../UtilityComponents/SpotifyAuthWindow";
+import Playlist from "../UtilityComponents/Playlist"
 
-var buttonStyle = {color: "var(--background)", backgroundColor: "var(--buttonColor"};
+var buttonStyle = { color: "var(--background)", backgroundColor: "var(--buttonColor" };
 
 const DiscoverScreen = (props) => {
-  console.log(getSpotifyTokenExpirationTime() - new Date().getTime());
-  // console.log(props);
   window.addEventListener("storage", props.authorizeSpotifyFromStorage);
   let token = props.spotifyToken;
   const [playlists, updatePlaylists] = useState(jsonData.Playlists);
@@ -40,15 +38,8 @@ const DiscoverScreen = (props) => {
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link to={{ pathname: "/playlist/" + playlist.id, playlist: playlist, spotifyToken: token }}>
-                <div className='playlists'>
-                  <img className="playlists_art" src={playlist.picture} alt="" />
-                  <div className='playlistInfo'>
-                    <h2 className="playlistName">{playlist.name}</h2>
-                    <p className="playlistSubTextDiscover">by {playlist.owner}</p>
-                    <p className="playlistSubTextDiscover">{playlist.songs.length} song(s)</p>
-                  </div>
-                </div>
+              <Link to={{ pathname: "/playlist/" + playlist.id, playlist: playlist }}>
+                <Playlist playlist={playlist}/>
               </Link>
             </Grid.Column>
           ))}

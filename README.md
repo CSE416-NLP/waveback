@@ -24,8 +24,14 @@ waveback was created using the MERN stack, that is
 [MongoDB](https://www.mongodb.com/), 
 [Express](https://www.express.com/), 
 [React](https://reactjs.org/), and 
-[Node.JS](https://nodejs.org/en/), 
-along with simple HTML and CSS styling. 
+[Node.JS](https://nodejs.org/en/). 
+For styling, 
+[Semantic UI React](https://react.semantic-ui.com/) 
+and simple CSS were used. In order to play music, waveback connects with the 
+[Spotify Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/) 
+through the help of the 
+[react-spotify-web-playback](https://github.com/gilbarbara/react-spotify-web-playback) 
+library.
 
 ## Developers
 - [Tian Brown](https://github.com/TLeonBrown)

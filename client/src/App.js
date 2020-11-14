@@ -13,13 +13,11 @@ import AdminScreen from './screens/AdminScreen';
 import LockedScreen from './screens/LockedScreen';
 import ViewProfileScreen from './screens/ViewProfileScreen';
 import PlaylistScreen from './screens/PlaylistScreen';
-import Navbar from './Navbar';
-import PlayerScreen from './PlayerScreen';
-import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "./LocalStorage";
+import Navbar from './UtilityComponents/Navbar';
+import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "./data/LocalStorage";
 import SpotifyPlayer from 'react-spotify-web-playback';
 
 const App = (props) => {
-
   let user = null;
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
 
@@ -93,23 +91,14 @@ const App = (props) => {
         <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome" />} />
         <Route exact path="/test" component={LockedScreen} />
         <Route exact path="/profile/:id" render={(props) => user ? <ViewProfileScreen /> : <Redirect to="/welcome" />} />
-        <Route exact path="/test2" render={(props) =>
-          <PlayerScreen
-            authorizeSpotifyFromStorage={authorizeSpotifyFromStorage}
-            setSpotifyToken={setSpotifyToken}
-            spotifyToken={spotifyToken}
-            setTracks={setTracks}
-            setPlayerVisible={setPlayerVisible}
-            playerVisible={playerVisible}
-            {...props} />
-        } />
         <Redirect from={"/:any", "/"} to={{ pathname: "/welcome" }} />
       </Switch>
       {spotifyToken &&
         <div className="songPlayingBar">
           {(playerVisible === true || playerVisible === false) &&
             <div className="windowButtonContainer" onClick={() => setPlayerVisible(!playerVisible)}>
-              {playerVisible ? <Icon className="playerWindowButton big window minimize"/> : <Icon className="playerWindowButton big window maximize"/>}</div>}
+              {playerVisible ? <Icon className="playerWindowButton big window minimize" /> : <Icon className="playerWindowButton big window maximize" />}
+            </div>}
           <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
             <SpotifyPlayer
               token={spotifyToken}
