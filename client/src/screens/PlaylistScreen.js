@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
+import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import "../styles/css/index.css"
@@ -23,7 +24,6 @@ const PlaylistScreen = (props) => {
 
     const playlist = props.location.playlist;
 
-    // const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
@@ -31,6 +31,9 @@ const PlaylistScreen = (props) => {
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
+    // Spotify Song Searching
+    const [searchTerm, setSearch] = useState("");
+    const [searchResults, setSearchResult] = useState([]);
 
     const [songURI, setSongURI] = useState("");
 
@@ -56,6 +59,33 @@ const PlaylistScreen = (props) => {
         props.deletePlaylist({ variables: { _id: playlist._id } });
         props.history.push({ pathname: '/playlists' });
         refetch();
+    }
+
+    const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
+        if (term === "") { return; }
+        let token = getSpotifyAccessToken();
+        token = "Bearer " + token;
+        let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
+
+        fetch(query, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setSearchResult(data.tracks.items);
+            });
+    }
+
+    const handleSearchInput = (event) => {
+        setSearch(event.target.value);
+        if (event.key === 'Enter') {
+            onClickHandler(event.target.value);
+        }
     }
 
     // const addSong = async () => {
@@ -182,32 +212,52 @@ const PlaylistScreen = (props) => {
                             </div>
                         </div>
                     </div>
-
                     <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
                         placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
-
-                    <div className="playlistAddSongDivider" ></div>
+                </div>
+                <div className="playlistScreenAddSongBox">
                     <div className="addSongEntireContainer">
                         <div className="addSongContainer ui input">
+                            <p className="addSongText" >Add Song</p>
                             <div className="addSongSearchContainer ui input">
-                                <input className="addSongSearch" placeholder="Add Song..."></input>
+                                <input className="addSongSearch" onKeyPress={(e) => handleSearchInput(e)} placeholder="Add Song..."></input>
                             </div>
-                            <button type="submit" style={buttonStyle} className="clickButton ui icon large button">
+                            <button type="submit" style={buttonStyle} className="clickButton ui icon large button" onClick={() => onClickHandler(searchTerm)}>
                                 <i className="search icon"></i>
                             </button>
                         </div>
-                        <div className="displaySearchResultsContainer">
-                            {playlist.songs.map((song, index) => (
-                                <div className="playlistSearchResultBox">
-                                    <div className="playlistSearchResult">
-                                        <div className="playlistSongSearchResultImage">werwerwr</div>
-                                        <div className="playlistSongSearchResultTitle">wewerwre</div>
+                    <div className="playlistAddSongDivider" ></div>
+
+                        <div className="displaySearchResultsContainer2">
+                            <div className="displaySearchResultsContainer">
+                                {
+                                searchResults.map((song, index) => (
+                                    <div className="playlistSearchResultBox">
+                                        <div className="playlistSearchResult">
+                                            <div className="playlistSongSearchResultImage">
+                                                <img className="searchResultImg" src={song.album.images[0].url} alt="" />
+                                            </div>
+                                            <div className="playlistSongSearchResultInfo">
+                                                <div className="playlistSongSearchResultTitle">{song.name}</div>
+                                                <div className="playlistSongSearchResultDesc">{song.artists[0].name}</div>
+                                            </div>
+                                        </div>
+                                        <div className="playlistSearchResultOptions">
+                                            <button className="searchResultOptionButton clickButton ui icon button" >
+                                                <Icon className="info circle"></Icon>
+                                            </button>
+                                            <button className="searchResultOptionButton clickButton ui icon button" >
+                                                <Icon className="play circle"></Icon>
+                                            </button>
+                                            <button className="searchResultOptionButton clickButton ui icon button" >
+                                                <Icon className="plus circle"></Icon>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    
+                    </div>  
                 </div>
             </div>
 

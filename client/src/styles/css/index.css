@@ -862,11 +862,11 @@ code {
 .playlistScreenLeftBox {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100%;
   width: 35%;
   user-select: none;
 }
+
 .playlistScreenLeftContainer {
   display: flex;
   flex-direction: column;
@@ -875,6 +875,17 @@ code {
   user-select: none;
   overflow-x: hidden;
   user-select: none;
+  background-color: var(--secondary);
+  filter: drop-shadow(0px 0px 4px #333333);
+}
+
+.playlistScreenAddSongBox {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  overflow: hidden;
+  user-select: none;
+  margin-top: 3%;
   background-color: var(--secondary);
   filter: drop-shadow(0px 0px 4px #333333);
 }
@@ -916,7 +927,7 @@ code {
 .playlistTitleHandling {
   display: flex;
   align-items: center;
-  width: 150%;
+  width: 130%;
 }
 
 .playlistTitle {
@@ -928,17 +939,17 @@ code {
 
 .playlistTitleDivider {
   margin-top: -4%;
-  width: 150%;
+  width: 135%;
 }
 
 .playlistAddSongDivider {
   margin: 0 auto;
-  margin-bottom: 0.75%;
+  margin-bottom: 1%;
   border-style: double;
   border-width: 3px 0 0 0;
   border-radius: 0%;
   border-color: #999999;
-  width: 90%;
+  width: 100%;
 }
 
 .addSongEntireContainer {
@@ -950,13 +961,20 @@ code {
   width: 90%;
 }
 
+.addSongText {
+  font-size: 20px;
+  margin: 0 auto;
+  font-weight: bold;
+}
+
 .addSongContainer {
   display: flex;
-  margin: 0 auto;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  margin-top: 2%;
+  width: 80%;
+  margin-top: 3%;
+  margin-bottom: 1%;
+  margin-left: -5%;
 }
 
 .addSongSearchContainer {
@@ -971,18 +989,39 @@ code {
   font-size: 12pt;
 }
 
+.displaySearchResultsContainer2 {
+  height: 30vmin;
+  width: 100%;
+  overflow-y: scroll;
+}
+
 .displaySearchResultsContainer {
   width: 100%;
 }
 
 .playlistSearchResult {
   display: flex;
+  align-items: center;
   background-color: var(--background);
   font-size: 16px;
   border: outset;
   border-width: 1px;
-  padding: 3%;
-  width: 100%;
+  padding: 1%;
+  margin-bottom: 0.75%;
+  width: 75%;
+  height: 110%;
+}
+
+.playlistSearchResultOptions {
+  display: flex;
+  justify-content: center;
+  background-color: var(--background);
+  border: outset;
+  border-width: 1px;
+  padding: 2.3%;
+  margin-bottom: 0.75%;
+  margin-left: 0.75%;
+  width: 25%;
   height: 110%;
 }
 
@@ -991,12 +1030,29 @@ code {
   align-items: center;
 }
 
-.playlistSongSearchResultImage {
+.playlistSongSearchResultImage, .searchResultImg {
+  height: 50px;
+  width: 50px;
+  margin-right: 1%;
+}
 
+.playlistSongSearchResultInfo {
+  display: flex;
+  flex-direction: column;
 }
 
 .playlistSongSearchResultTitle {
-  
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.playlistSongSearchResultDesc {
+  font-size: 14px;
+}
+
+.searchResultOptionButton {
+  width: 40%;
+  text-align: center;
 }
 
 .playlistNumSongs {
@@ -1014,10 +1070,10 @@ code {
   text-align: left;
   font-style: italic;
   word-wrap: break-word;
-  height: 15%;
+  height: 35%;
   border-style: solid;
-  border-width: 0.5px;
-  border-color: #bbbbbb;
+  border-width: 1px;
+  border-color: #999999;
   resize: none !important;
 }
 
