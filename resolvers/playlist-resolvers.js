@@ -3,6 +3,16 @@ const Playlist = require("../models/playlist-model");
 
 module.exports = {
     Query: {
+
+        /**
+            @return {array} - array of public playlists
+        **/        
+        getAllPublicPlaylists: async (_, __, { req }) => {
+            // const _id = new ObjectId(req.userId);
+            const playlists = await Playlist.find({ visibility: "public", });
+            if (playlists) return playlists;
+        },
+
         /**
             @param {object} req - the request object containing a user id
             @return {array} - an array of playlist objects on success, and an empty array on failure 

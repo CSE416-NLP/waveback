@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../styles/css/index.css"
+import { useQuery } from '@apollo/react-hooks';
 import { Grid } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import jsonData from "../data/TestData.json";
 import SpotifyAuthWindow from "../UtilityComponents/SpotifyAuthWindow";
 import Playlist from "../UtilityComponents/Playlist"
+import { GET_DB_PLAYLISTS } from '../cache/queries';
 
 var buttonStyle = { color: "var(--background)", backgroundColor: "var(--buttonColor" };
 
 const DiscoverScreen = (props) => {
+  let playlists = [];
+  const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
+  if (data) {
+    playlists = data.getAllPublicPlaylists;
+    console.log(playlists);
+  }
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   window.addEventListener("storage", props.authorizeSpotifyFromStorage);
   let token = props.spotifyToken;
-  const [playlists, updatePlaylists] = useState(jsonData.Playlists);
+  // const [playlists, updatePlaylists] = useState(jsonData.Playlists);
   const [filterTextState, changeFilterText] = useState("playlists");
   const columns = 2;
 

@@ -11,24 +11,14 @@ const ObjectId = require("mongoose").Types.ObjectId;
 
 
 const LockedScreen = (props) => {
-
-    let playlists = [];
-    const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
-    if (data) {
-        playlists = data.getAllUserPlaylists;
-    }
-    useEffect(() => {
-        refetch();
-    }, [refetch]);
-
-    const playlists2 = jsonData.Playlists;
+    const playlists = jsonData.Playlists;
     // console.log(playlists2);
     const resetDatabasePlaylists = () => {
-        
+
     }
     const addPlaylistsToDatabase = () => {
 
-        playlists2.forEach(playlist => {
+        playlists.forEach(playlist => {
             let songs = playlist.songs;
             for (let i = 0; i < songs.length; i++) {
                 if (!songs[i]._id)
@@ -53,7 +43,7 @@ const LockedScreen = (props) => {
             }
             console.log(newPlaylist);
 
-            const { data2 } = props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
+            props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
             // if (data2.addPlaylist) {
             //     console.log(data2.addPlaylist);
             // }
