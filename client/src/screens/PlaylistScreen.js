@@ -22,6 +22,8 @@ const PlaylistScreen = (props) => {
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
 
     const playlist = props.location.playlist;
+
+    props.setTracks(playlist.songURIs);
     // const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
@@ -29,7 +31,7 @@ const PlaylistScreen = (props) => {
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
-    const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURI);
+    const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
 
     const [songURI, setSongURI] = useState("");
 
