@@ -21,23 +21,24 @@ const typeDefs = gql `
     }
     type Song {
         _id: String!
-        song_id: String!
+        songURI: String!
         key: Int!
         title: String!
         artist: String!
-        album: String!
+        album: String
         genre: [String]!
         year: Int!
         duration: Int!
     }
     extend type Query {
-        getAllPlaylists: [Playlist] 
+        getAllUserPlaylists: [Playlist] 
         getPlaylistById(_id: String!): Playlist
     }
+    
     extend type Mutation {
         addSong(song: SongInput!, _id: String!, uri: String!): String
         addPlaylist(playlist: PlaylistInput!): String
-        updatePlaylist(_id: String!, name: String, picture: String, description: String): Boolean
+        updatePlaylist(_id: String!, name: String, picture: String, description: String, songs: [SongInput], songURIs: [String], tags: [String], duration: Int): Boolean
         deletePlaylist(_id: String!): Boolean
     }
 
@@ -58,7 +59,7 @@ const typeDefs = gql `
 
     input SongInput {
         _id: String
-        song_id: String
+        songURI: String
         key: Int
         title: String
         artist: String

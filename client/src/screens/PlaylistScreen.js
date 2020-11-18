@@ -3,7 +3,6 @@ import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import "../styles/css/index.css"
-import playlistPlaceholderPicture from "./pictures/playlistPicturePlaceholder.png"
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
@@ -11,6 +10,7 @@ import { getSongTime } from "../UtilityComponents/Playlist"
 // import jsonData from "../data/TestData.json";
 
 const PlaylistScreen = (props) => {
+    // if (props) console.log(props);
     if (props.playerVisible === null) {
         props.setPlayerVisible(true);
     }
@@ -24,26 +24,33 @@ const PlaylistScreen = (props) => {
     // const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
-    const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : playlistPlaceholderPicture);
+    const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
 
+    const [songs, setSongs] = useState(playlist.songs);
+    const [songURIs, setSongURIs] = useState(playlist.songURIs);
+    
     const [songURI, setSongURI] = useState("");
     // Convert a time in seconds into minutes and seconds.
     // const secToFormattedTime = (seconds) => {
     //     let m = Math.floor(seconds / 60);
     //     let s = seconds %= 60;
     //     s = (s < 10) ? (s = "0" + s) : s
+
+
     //     return m + ":" + s;
     // }
 
     const handleUpdatePlaylist = async () => {
         setPlaylistPictureOpenState(false);
+
+        let picture = playlistPicture ? playlistPicture : "https://i.imgur.com/ZRoNOEu.png";
         const { data } = await props.updatePlaylist({
             variables: {
                 _id: playlist._id,
                 name: playlistName,
-                picture: playlistPicture,
+                picture: picture,
                 description: playlistDescription,
                 // songs: songs,
             }

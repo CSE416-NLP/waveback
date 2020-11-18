@@ -34,7 +34,7 @@ const App = (props) => {
   const [playerVisible, setPlayerVisible] = useState(null)
   const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20', "spotify:track:46OFHBw45fNi7QNjSetITR", "spotify:track:6i3uaiOs9AMxEq5bYoiro0"])
 
-  console.log("token: ", spotifyToken);
+  // console.log("token: ", spotifyToken);
   const authorizeSpotifyFromStorage = (e) => {
     console.log("Something changed in local storage", e)
     if (e.key === "spotifyAuthToken") {
@@ -86,10 +86,9 @@ const App = (props) => {
             setTracks={setTracks}
             playerVisible={playerVisible}
             {...props} />} />
-
         <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome" />} />
-        <Route exact path="/test" component={LockedScreen} />
+        <Route exact path="/test" component={LockedScreen} spotifyToken={spotifyToken} />
         <Route exact path="/profile/:id" render={(props) => user ? <ViewProfileScreen /> : <Redirect to="/welcome" />} />
         <Redirect from={"/:any", "/"} to={{ pathname: "/welcome" }} />
       </Switch>

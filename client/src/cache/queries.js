@@ -27,7 +27,7 @@ export const GET_DB_USER = gql`
 
 export const GET_DB_PLAYLISTS = gql`
     query GetDBPlaylists {
-        getAllPlaylists {
+        getAllUserPlaylists {
             _id
             key
             owner
@@ -36,7 +36,7 @@ export const GET_DB_PLAYLISTS = gql`
             description
             songs {
                 _id
-                song_id
+                songURI
                 key
                 title
                 artist

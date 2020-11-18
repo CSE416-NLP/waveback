@@ -6,7 +6,7 @@ const songSchema = new Schema(
             type: ObjectId,
             required: true
         },
-        song_id: {
+        songURI: {
             type: String,
             required: true
         },
@@ -24,7 +24,7 @@ const songSchema = new Schema(
         },
         album: {
             type: String,
-            required: true
+            required: false
         },
         genre: [String],
         year: {

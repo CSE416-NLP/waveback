@@ -13,7 +13,8 @@ const PlaylistsScreen = props => {
   let playlists = [];
   const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
   if (data) {
-    playlists = data.getAllPlaylists;
+    playlists = data.getAllUserPlaylists;
+    console.log(playlists);
   }
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const PlaylistsScreen = props => {
       key: playlists.length,
       owner: props.user._id,
       name: "Unnamed Playlist",
-      picture: "",
+      picture: "https://i.imgur.com/ZRoNOEu.png",
       description: "",
       songs: [],
       songURIs: [],

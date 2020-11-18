@@ -1,36 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
+import { useQuery } from '@apollo/react-hooks';
+import { GET_DB_PLAYLISTS } from '../cache/queries';
+import jsonData from "../data/TestData.json";
+import { flowRight as compose } from 'lodash';
+import { graphql } from '@apollo/react-hoc';
+import * as mutations from '../cache/mutations';
+import { isValidObjectId } from 'mongoose';
+const ObjectId = require("mongoose").Types.ObjectId;
+
+
 const LockedScreen = (props) => {
-    // This is an example of only allowing the user to visit this page if some requirement is met
-    // if (!props.location.key)
-    //     return <Redirect to="/" />
 
-    const [data, setData] = useState(null);
+    let playlists = [];
+    const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
+    if (data) {
+        playlists = data.getAllUserPlaylists;
+    }
+    useEffect(() => {
+        refetch();
+    }, [refetch]);
 
-    const queryAPI = (songID) => {
-        // Nate's YouTube API key is AIzaSyBqoZTfsx0o7_2UBNBPKOMGRREY6Qg2wAc
-        let APIKey = "&key=AIzaSyBqoZTfsx0o7_2UBNBPKOMGRREY6Qg2wAc";
-        let options = "&part=snippet,contentDetails,statistics,status";
-        let query = "https://www.googleapis.com/youtube/v3/videos?id=" + songID + APIKey + options;
+    const playlists2 = jsonData.Playlists;
+    // console.log(playlists2);
+    const resetDatabasePlaylists = () => {
+        
+    }
+    const addPlaylistsToDatabase = () => {
 
-        fetch(query, {                      // Attempt to get some data from YouTube
-            method: "GET",
-        })
-            .then(response => response.json())  // Turn the reponse into JSON representation
-            .then(data => {
-                if (data && data.items && data.items[0]) {
-                    console.log(data.items[0])
-                    setData(data.items[0]);     // Use the JSON however we see fit
-                }
-            });
+        playlists2.forEach(playlist => {
+            let songs = playlist.songs;
+            for (let i = 0; i < songs.length; i++) {
+                if (!songs[i]._id)
+                    songs[i]._id = new ObjectId();
+            }
+            const newPlaylist = {
+                key: playlist.key,
+                owner: playlist.owner,
+                name: playlist.name,
+                picture: playlist.picture,
+                description: playlist.descdription,
+                songs: songs,
+                songURIs: playlist.songURIs,
+                followers: playlist.followers,
+                visibility: playlist.visibility,
+                tags: playlist.tags,
+                duration: playlist.duration,
+            }
+            for (let i = 0; i < songs.length; i++) {
+                if (!songs[i]._id)
+                    songs[i]._id = new ObjectId();
+            }
+            console.log(newPlaylist);
+
+            const { data2 } = props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
+            // if (data2.addPlaylist) {
+            //     console.log(data2.addPlaylist);
+            // }
+            // refreshList: refetch
+        });
     }
 
     const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
         let token = getSpotifyAccessToken();
         console.log(token);
-        token = "Bearer "+token;
+        token = "Bearer " + token;
         let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-        
+
         fetch(query, {
             method: "GET",
             headers: {
@@ -49,21 +85,22 @@ const LockedScreen = (props) => {
     return (
         <div className="App" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
             <div>
-                <button onClick={() => queryAPI("-tJYN-eG1zk")}>Play Queen</button>
-                <button onClick={() => queryAPI("-cmSCQbWxV0")}>Play Kanye</button>
+
                 <div>
                     <input value={searchTerm} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." className="discoverSearch"></input>
                     <button onClick={() => onClickHandler(searchTerm)}>Query Data in Console</button>
+                    <button onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
                 </div>
 
             </div>
-            {data && <div style={{ flex: "1" }}>
-                <iframe title="bideo" src={"http://www.youtube.com/embed/" + data.id}
-                    width="100%" height="100%" frameBorder="0" allowFullScreen={true} />
-            </div>}
-            {data && <div>Duration: {data.contentDetails.duration} | VideoID: {data.id}</div>}
+
         </div>
     );
 };
 
-export default LockedScreen;
+
+export default compose(
+    graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
+    // graphql()
+    graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" })
+  )(LockedScreen);
