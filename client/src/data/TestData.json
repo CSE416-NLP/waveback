@@ -57,15 +57,17 @@
     ],
     "Playlists": [
         {
-            "id": 0,
+            "_id": 0,
+            "key": 0,
             "owner": "Wavebacker_1234",
             "name": "Nathan's Workout Playlist",
             "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
-            "description": "wow Ethan, great moves, keep it up, proud of you. now, like jacob marley, you've seen the money go straight to my head, and the chains that I have forged in life will now carry me down to the deep below. Each facecam expansion will be accompanied by a corresponding reduction in JOEPACITY!",
+            "description": "Wow Ethan, great moves, keep it up, proud of you.",
             "songs": [
                 {
                     "_id": 0,
                     "song_id": "",
+                    "key": 0,
                     "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
@@ -76,6 +78,7 @@
                 {
                     "_id": 1,
                     "song_id": "",
+                    "key": 1,
                     "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
@@ -86,372 +89,350 @@
                 {
                     "_id": 2,
                     "song_id": "",
-                    "title": "Wolf Totem 2",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
-                }
-            ],
-            "followers": "10",
-            "date_created": "10-10-20",
-            "visibility": "followers",
-            "tags": ["Metal", "Rock", "Jazz"]
-        },
-        {
-            "id": 1,
-            "owner": "Wavebacker_1234",
-            "name": "Nathan's Gaming Playlist",
-            "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
-            "description": "ha ha E! funny markiplier meme! the FUNNY YELLOW DOG SAID THE FUNNY WORD LMAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
-            "songs": [
-                {
-                    "_id": 0,
-                    "song_id": "",
-                    "title": "Through the Fire and the Flames",
-                    "artist": "Dragonforce",
-                    "album": "Inhuman Rampage",
-                    "genre": ["Rock"],
-                    "year": "2005",
-                    "duration": 444
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "title": "Song 2",
-                    "artist": "Blur",
-                    "album": "",
-                    "genre": ["Rock"],
-                    "year": "1997",
-                    "duration": 122
-                },
-                {
-                    "_id": 2,
-                    "song_id": "",
-                    "title": "Piano Sonata in A Minor",
-                    "artist": "Beethoven",
+                    "key": 2,
+                    "title": "Fur Elise, WoO 59",
+                    "artist": "Ludwig Van Beethoven",
                     "album": "",
                     "genre": ["Classical"],
-                    "year": "1795",
-                    "duration": 1205
-                },
-                {
-                    "_id": 3,
-                    "song_id": "",
-                    "title": "Tik Tok",
-                    "artist": "Kesha",
-                    "album": "Album",
-                    "genre": ["Electronic", "Pop"],
-                    "year": "1009",
-                    "duration": 185
+                    "year": "1810",
+                    "duration": 188
                 }
             ],
-            "followers": "5",
-            "date_created": "11-15-19",
-            "visibility": "no-one",
-            "tags": ["gaming", "classical"]
-        },
-        {
-            "id": 2,
-            "owner": "Wavebacker_1234",
-            "name": "Nathan's Eating Playlist",
-            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
-            "description": "I am Heavy Weapons Guy...and this is my weapon. She weighs one hundred fifty kilograms and fires two hundred dollar, custom-tooled cartridges at ten thousand rounds per minute. It costs four hundred thousand dollars to fire this weapon...for twelve seconds.",
-            "songs": [
-                {
-                    "_id": 0,
-                    "song_id": "",
-                    "title": "The Court of the Crimson King",
-                    "artist": "King Crimson",
-                    "album": "In the Court of the Crimson King",
-                    "genre": ["Rock", "Jazz"],
-                    "year": "1969",
-                    "duration": 566
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
-                }
+            "songURIs": [
+                "spotify:track:1OFjv0Cq2JeK3FPvPG98rJ",
+                "spotify:track:5hISmTJXBXdOes4htbUhGk",
+                "spotify:track:6MQAB3vorg90FA3tQpbYXK"
             ],
             "followers": "10",
-            "date_created": "10-10-20",
-            "visibility": "followers",
-            "tags": ["Metal", "Rock", "Jazz"]
+            "visibility": "public",
+            "tags": ["Metal", "Rock", "Classical", "Jazz"],
+            "duration": 1234,
+            "createdAt": "10-10-20"
         },
         {
-            "id": 3,
-            "owner": "Wavebacker_1234",
-            "name": "Nathan's Sleeping Playlist",
-            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
-            "description": "HA HA YES I AM THE THING AND THE EHHH AND THE CRISPY BACK AIR AND THE YES AND THE UH HUH ME TOO YEAH AND SMILEY SMILEY SMILEY SMILEY HAHA YEP HAHA",
+            "_id": 1,
+            "key": 1,
+            "owner": "Joe Mama",
+            "name": "Richard's Grading Bops",
+            "picture": "https://www.publicdomainpictures.net/pictures/70000/nahled/3d-a-square.jpg",
+            "description": "ha ha yeah :)",
             "songs": [
                 {
                     "_id": 0,
                     "song_id": "",
-                    "title": "The Court of the Crimson King",
-                    "artist": "King Crimson",
-                    "album": "In the Court of the Crimson King",
-                    "genre": ["Rock", "Jazz"],
-                    "year": "1969",
-                    "duration": 566
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
-                },
-                {
-                    "_id": 2,
-                    "song_id": "",
-                    "title": "2112",
-                    "artist": "Rush",
-                    "album": "2112",
-                    "genre": ["Rock"],
-                    "year": "1976",
-                    "duration": 1249
-                },
-                {
-                    "_id": 3,
-                    "song_id": "",
-                    "title": "bad guy",
-                    "artist": "Billie Eilish",
-                    "album": "When We All Fall Asleep, Where Do We Go?",
-                    "genre": ["Pop", "Electronic"],
+                    "key": 0,
+                    "title": "Solar System",
+                    "artist": "Sub Focus",
+                    "album": "Solar System / Siren",
+                    "genre": ["Electronic", "D&B"],
                     "year": "2019",
-                    "duration": 194
-                }
-            ],
-            "followers": "10",
-            "date_created": "10-10-20",
-            "visibility": "followers",
-            "tags": ["Metal", "Rock", "Jazz"]
-        },
-        {
-            "id": 4,
-            "owner": "Wavebacker_1234",
-            "name": "Nathan's Walking Playlist",
-            "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
-            "description": "when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. when u walkin. ",
-            "songs": [
+                    "duration": 288
+                },
                 {
-                    "_id": 0,
+                    "_id": 1,
                     "song_id": "",
-                    "title": "The Court of the Crimson King",
-                    "artist": "King Crimson",
-                    "album": "In the Court of the Crimson King",
+                    "key": 1,
+                    "title": "Decay of Logos",
+                    "artist": "Eloy",
+                    "album": "Ocean (Remastered 2015)",
                     "genre": ["Rock", "Jazz"],
-                    "year": "1969",
-                    "duration": 566
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
-                },
-                {
-                    "_id": 2,
-                    "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
+                    "year": "1977",
+                    "duration": 497
                 }
             ],
-            "followers": "10",
-            "date_created": "10-10-20",
-            "visibility": "followers",
-            "tags": ["Metal", "Rock", "Jazz"]
+            "songURIs": [
+                "spotify:track:5cRDn5aGMLvWsldoRmOOz0",
+                "spotify:track:2RDeTDybENavg3R7X5AKOd"
+            ],
+            "followers": "2",
+            "visibility": "public",
+            "tags": ["Rock", "Jazz", "Electronnic", "D&B"],
+            "duration": 785,
+            "createdAt": "1-13-2020"
         },
         {
-            "id": 5,
-            "owner": "FredRispoli_AAAAA",
-            "name": "there might be music in here",
-            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
-            "description": "Howdy y'all! Joe Hills here, recording as I always do in Nashville, Tennessee! Previously on BETER ZENG LMAO we took a quick trip over to the BETER ZENG LMAO",
+            "_id": 2,
+            "key": 2,
+            "owner": "RJ 'Free Pizza' Castellitto",
+            "name": "I really like dinosaurs",
+            "picture": "https://cdn.trendhunterstatic.com/thumbs/triceratops-dinosaur-statue.jpeg",
+            "description": "dinosaurs make me happy",
             "songs": [
                 {
                     "_id": 0,
                     "song_id": "",
-                    "title": "The Court of the Crimson King",
-                    "artist": "King Crimson",
-                    "album": "In the Court of the Crimson King",
-                    "genre": ["Rock", "Jazz"],
-                    "year": "1969",
-                    "duration": 566
+                    "key": 0,
+                    "title": "Fade to Black (Remastered)",
+                    "artist": "Metallica",
+                    "album": "Ride the Lightning (Deluxe Remaster)",
+                    "genre": ["Metal"],
+                    "year": "1984",
+                    "duration": 417
                 },
                 {
                     "_id": 1,
                     "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
+                    "key": 1,
+                    "title": "Louisiana Bob",
+                    "artist": "MAXIMUM THE HORMONE",
+                    "album": "Bu-ikikaesu",
+                    "genre": ["Metal"],
+                    "year": "2007",
+                    "duration": 221
                 },
                 {
                     "_id": 2,
                     "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
+                    "key": 2,
+                    "title": "Blood Eagle Wings",
+                    "artist": "Anthrax",
+                    "album": "For All Kings",
+                    "genre": ["Metal"],
+                    "year": "2016",
+                    "duration": 473
                 }
             ],
-            "followers": "10",
-            "date_created": "10-10-20",
-            "visibility": "followers",
-            "tags": ["Metal", "Rock", "Jazz"]
+            "songURIs": [
+                "spotify:track:0dqGfCMAGyDgpUAgLNOjWd", 
+                "spotify:track:3x2x7gZsQNfhNgFP5d9Q5U",
+                "spotify:track:3lrLJzYlDMkpe2GelQqf5P"
+            ],
+            "followers": "74",
+            "visibility": "public",
+            "tags": ["Metal"],
+            "duration": 1111,
+            "createdAt": "1-13-2009"
         },
         {
-            "id": 6,
-            "owner": "definitely not bon jovi",
-            "name": "Best of: Bon Jovi",
-            "picture": "https://consequenceofsound.net/wp-content/uploads/2018/10/anderson-paak-oxnard-album-cover-artwork.jpg?quality=80&w=807",
-            "description": "HI MY NAME IS BON JOVI AND WELCOME TO MY UNBOXING OF THE 2005 LEGO STAR WARS CLONE TURBO TANK. IN THIS VIDEO WE WILL BE ANALYZING THE EFFECT OF HYPERINFLATION ON 2000s VENEZUELAN SOCIETY",
+            "_id": 3,
+            "key": 3,
+            "owner": "You, But In The Future",
+            "name": "internal brain hemmhoraging",
+            "picture": "https://www.backyardchickens.com/hredirect2.php?c=5707236",
+            "description": "enjoy the ride",
             "songs": [
                 {
                     "_id": 0,
                     "song_id": "",
-                    "title": "Through the Fire and the Flames",
-                    "artist": "Dragonforce",
-                    "album": "Inhuman Rampage",
-                    "genre": ["Rock"],
-                    "year": "2005",
-                    "duration": 444
+                    "key": 0,
+                    "title": "Miku",
+                    "artist": "Anamanaguchi, Miku Hatsune",
+                    "album": "Miku",
+                    "genre": ["Pop", "Electronic"],
+                    "year": "2016",
+                    "duration": 223
                 },
                 {
                     "_id": 1,
                     "song_id": "",
-                    "title": "Song 2",
-                    "artist": "Blur",
-                    "album": "",
-                    "genre": ["Rock"],
-                    "year": "1997",
-                    "duration": 122
+                    "key": 1,
+                    "title": "Discord - The Living Tombstone Remix",
+                    "artist": "Caleb Hyles",
+                    "album": "Discord (The Living Tombstone Remix)",
+                    "genre": ["Electronic"],
+                    "year": "2016",
+                    "duration": 138
                 },
                 {
                     "_id": 2,
                     "song_id": "",
-                    "title": "Piano Sonata in A Minor",
-                    "artist": "Beethoven",
-                    "album": "",
-                    "genre": ["Classical"],
-                    "year": "1795",
-                    "duration": 1205
+                    "key": 2,
+                    "title": "Caramelldansen",
+                    "artist": "Caramell",
+                    "album": "Supergott (Speedy Mixes)",
+                    "genre": ["Pop", "Electronic"],
+                    "year": "2008",
+                    "duration": 175
                 },
                 {
                     "_id": 3,
                     "song_id": "",
-                    "title": "Tik Tok",
-                    "artist": "Kesha",
-                    "album": "Album",
-                    "genre": ["Electronic", "Pop"],
-                    "year": "1009",
-                    "duration": 185
+                    "key": 3,
+                    "title": "Rollin' Girl",
+                    "artist": "wowaka(Genjitsutouhi-P)",
+                    "album": "EXIT TUNES PRESENTS Supernova:redjuice",
+                    "genre": ["Pop", "Electronic"],
+                    "year": "2010",
+                    "duration": 194
+                },
+                {
+                    "_id": 4,
+                    "song_id": "",
+                    "key": 4,
+                    "title": "MEGALOVANIA",
+                    "artist": "Toby Fox",
+                    "album": "UNDERTALE Soundtrack",
+                    "genre": ["Electronic"],
+                    "year": "2016",
+                    "duration": 156
+                },
+                {
+                    "_id": 5,
+                    "song_id": "",
+                    "key": 5,
+                    "title": "Gourmet Race (From 'Kirby Super Star')",
+                    "artist": "Qumu",
+                    "album": "",
+                    "genre": ["Electronic"],
+                    "year": "2020",
+                    "duration": 196
+                },
+                {
+                    "_id": 6,
+                    "song_id": "",
+                    "key": 6,
+                    "title": "Miku",
+                    "artist": "Anamanaguchi, Miku Hatsune",
+                    "album": "Miku",
+                    "genre": ["Pop", "Electronic"],
+                    "year": "2016",
+                    "duration": 223
+                },
+                {
+                    "_id": 7,
+                    "song_id": "",
+                    "key": 7,
+                    "title": "Discord - The Living Tombstone Remix",
+                    "artist": "Caleb Hyles",
+                    "album": "Discord (The Living Tombstone Remix)",
+                    "genre": ["Electronic"],
+                    "year": "2016",
+                    "duration": 138
+                },
+                {
+                    "_id": 8,
+                    "song_id": "",
+                    "key": 8,
+                    "title": "Caramelldansen",
+                    "artist": "Caramell",
+                    "album": "Supergott (Speedy Mixes)",
+                    "genre": ["Pop", "Electronic"],
+                    "year": "2008",
+                    "duration": 175
+                },
+                {
+                    "_id": 9,
+                    "song_id": "",
+                    "key": 9,
+                    "title": "Rollin' Girl",
+                    "artist": "wowaka(Genjitsutouhi-P)",
+                    "album": "EXIT TUNES PRESENTS Supernova:redjuice",
+                    "genre": ["Pop", "Electronic"],
+                    "year": "2010",
+                    "duration": 194
+                },
+                {
+                    "_id": 10,
+                    "song_id": "",
+                    "key": 10,
+                    "title": "MEGALOVANIA",
+                    "artist": "Toby Fox",
+                    "album": "UNDERTALE Soundtrack",
+                    "genre": ["Electronic"],
+                    "year": "2016",
+                    "duration": 156
+                },
+                {
+                    "_id": 11,
+                    "song_id": "",
+                    "key": 11,
+                    "title": "Gourmet Race (From 'Kirby Super Star')",
+                    "artist": "Qumu",
+                    "album": "",
+                    "genre": ["Electronic"],
+                    "year": "2020",
+                    "duration": 196
                 }
             ],
-            "followers": "5",
-            "date_created": "11-15-19",
-            "visibility": "no-one",
-            "tags": ["gaming", "classical"]
+            "songURIs": [
+                "spotify:track:2MQwgtSGxPKUiI2Qr5am7V", 
+                "spotify:track:46bdsCZKQ93J9RGqlFZpAF", 
+                "spotify:track:0r2JODBoOO6DKgFB2m73q9",
+                "spotify:track:3CNptmi6HPZj6lgglUafW7",
+                "spotify:track:2WpstnkNuH6dUnm3fVLCpU",
+                "spotify:track:4r7UvABK5z5EVgsrZgFENL",
+                "spotify:track:2MQwgtSGxPKUiI2Qr5am7V", 
+                "spotify:track:46bdsCZKQ93J9RGqlFZpAF", 
+                "spotify:track:0r2JODBoOO6DKgFB2m73q9",
+                "spotify:track:3CNptmi6HPZj6lgglUafW7",
+                "spotify:track:2WpstnkNuH6dUnm3fVLCpU",
+                "spotify:track:4r7UvABK5z5EVgsrZgFENL"
+            ],
+            "followers": "999",
+            "visibility": "public",
+            "tags": ["Electronic", "Pop"],
+            "duration": 2164,
+            "createdAt": "01-01-1970"
         },
         {
-            "id": 7,
-            "owner": "Richard_McKenna",
-            "name": "Richard's Grading Playlist",
-            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
-            "description": "This playlist really should have no entries because, let's be honest, does Richard actually grade anything? I doubt it.",
+            "_id": 4,
+            "key": 4,
+            "owner": "Mike Pennsylvania",
+            "name": "Rudy Guiliani",
+            "picture": "https://www.pngkit.com/png/detail/368-3685893_official-artwork-of-luigi-from-super-smash-bros.png",
+            "description": "Michael Cohen",
             "songs": [
                 {
                     "_id": 0,
                     "song_id": "",
-                    "title": "The Court of the Crimson King",
-                    "artist": "King Crimson",
-                    "album": "In the Court of the Crimson King",
-                    "genre": ["Rock", "Jazz"],
-                    "year": "1969",
-                    "duration": 566
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
-                },
-                {
-                    "_id": 1,
-                    "song_id": "",
-                    "title": "Wolf Totem",
-                    "artist": "The Hu",
-                    "album": "The Gereg",
-                    "genre": ["Metal", "Folk"],
-                    "year": "2018",
-                    "duration": 397
+                    "key": 0,
+                    "title": "Children of the Grave",
+                    "artist": "Black Sabbath",
+                    "album": "Master of Reality",
+                    "genre": ["Metal", "Rock"],
+                    "year": "1971",
+                    "duration": 315
                 }
             ],
-            "followers": "10",
-            "date_created": "10-10-20",
-            "visibility": "followers",
-            "tags": ["Metal", "Rock", "Jazz"]
+            "songURIs": [
+                "spotify:track:3ZuVfQriS93y6ofwbIf7lp"
+            ],
+            "followers": "1",
+            "visibility": "public",
+            "tags": ["Metal", "Rock"],
+            "duration": 315,
+            "createdAt": "3-30-2019"
         },
         {
-            "id": 8,
-            "owner": " seriously don't",
-            "name": "do not open this playlist",
-            "picture": "https://cdn.discordapp.com/attachments/692102395651686481/768629768924954644/Z.png",
-            "description": "if you're reading this, then it's too late. turn back now and save yourself from th-DURDURDURURUDURUURUDRURUUUDRURUU sans noises",
+            "_id": 5,
+            "key": 5,
+            "owner": "Kevin Li",
+            "name": "Boot Music",
+            "picture": "http://images.the-house.com/keen-elsa-boot-wp-wmns-bt-brnz-mist-15.jpg",
+            "description": "boot",
             "songs": [
                 {
                     "_id": 0,
                     "song_id": "",
-                    "title": "The Court of the Crimson King",
-                    "artist": "King Crimson",
-                    "album": "In the Court of the Crimson King",
-                    "genre": ["Rock", "Jazz"],
-                    "year": "1969",
-                    "duration": 566
+                    "key": 0,
+                    "title": "Die with Your Boots On - 2015 Remaster",
+                    "artist": "Iron Maiden",
+                    "album": "Piece of Mind (2015 - Remaster)",
+                    "genre": ["Metal", "Rock"],
+                    "year": "1983",
+                    "duration": 327
+                },
+                {
+                    "_id": 1,
+                    "song_id": "",
+                    "key": 1,
+                    "title": "Boots of Spanish Leather",
+                    "artist": "Bob Dylan",
+                    "album": "",
+                    "genre": ["Folk"],
+                    "year": "1964",
+                    "duration": 277
                 }
             ],
-            "followers": "10",
-            "date_created": "10-10-20",
-            "visibility": "followers",
-            "tags": ["Metal", "Rock", "Jazz"]
+            "songURIs": [
+                "spotify:track:6jqUGlZia4JuGsGrINez6P",
+                "spotify:track:0r7rLeNXTRTRsyDjYp9tIq"
+            ],
+            "followers": "1",
+            "visibility": "public",
+            "tags": ["Folk", "Rock", "Metal"],
+            "duration": 604,
+            "createdAt": "6-20-2012"
         }
     ]
 }
