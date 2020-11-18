@@ -35,8 +35,6 @@ const PlaylistScreen = (props) => {
     const [searchTerm, setSearch] = useState("");
     const [searchResults, setSearchResult] = useState([]);
 
-    const [songURI, setSongURI] = useState("");
-
     const handleUpdatePlaylist = async () => {
         setPlaylistPictureOpenState(false);
         const { data } = await props.updatePlaylist({
@@ -88,25 +86,27 @@ const PlaylistScreen = (props) => {
         }
     }
 
-    // const addSong = async () => {
-    //     let newSong = {
-    //         _id: "",
-    //         songURI: "spotify:track:1J03Vp93ybKIxfzYI4YJtL",
-    //         key: playlist.songs.length,
-    //         title: "MEGALOVANIA",
-    //         artist: "Toby Fox",
-    //         album: "UNDERTALE Soundtrack",
-    //         genre: "Electronic",
-    //         year: 2016,
-    //         duration: 156,
-    //     }
-    //     let newSongURI = "spotify:track:1J03Vp93ybKIxfzYI4YJtL";
-    //     let newSongs = playlist.songs.push(newSong);
-    //     let newSongURIs = playlist.songURIs.push(newSongURI);
-    //     setPlaylistSongs(newSongs);
-    //     setPlaylistSongURIs(newSongURIs);
-    //     handleUpdatePlaylist();
-    // }
+    const addSong = async (song) => {
+        let newSong = {
+            _id: "",
+            songURI: song.uri,
+            key: playlist.songs.length,
+            title: song.name,
+            artist: song.artists[0].name,
+            album: song.album.name,
+            genre: [],
+            year: song.album.release_date.substring(0, 4),
+            duration: Math.round(song.duration_ms / 1000),
+            __typename: "Song",
+        }
+        let newSongURI = song.uri;
+        let newSongs = playlist.songs.push(newSong);
+        let newSongURIs = playlist.songURIs.push(newSongURI);
+        setPlaylistSongs(newSongs);
+        setPlaylistSongURIs(newSongURIs);
+        console.log(playlistSongs);
+        console.log(playlistSongURIs);
+    }
 
     const playSong = (offset) => {
         if (props.playStatus != true){
@@ -250,7 +250,7 @@ const PlaylistScreen = (props) => {
                                                 <Icon className="play circle"></Icon>
                                             </button>
                                             <button className="searchResultOptionButton clickButton ui icon button" >
-                                                <Icon className="plus circle"></Icon>
+                                                <Icon onClick={() => addSong(song)} className="plus circle"></Icon>
                                             </button>
                                         </div>
                                     </div>

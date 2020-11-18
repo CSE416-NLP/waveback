@@ -361,6 +361,71 @@
             "tags": ["Folk", "Rock", "Metal"],
             "duration": 604,
             "createdAt": "6-20-2012"
+        },
+        {
+            "_id": 6,
+            "key": 6,
+            "owner": "SuperFire49",
+            "name": "Liked",
+            "picture": "http://i.ytimg.com/vi/2vXM8kuslZA/hqdefault.jpg",
+            "description": "bet",
+            "songs": [
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:5VcOZYRlC02MDPD95bi0rs",
+                    "key": 0,
+                    "title": "Data & Picard",
+                    "artist": "Pogo",
+                    "album": "Weightless",
+                    "genre": ["Electronic"],
+                    "year": 2016,
+                    "duration": 185
+                },
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:40yFmXrjfkv51FEQ0ULf1N",
+                    "key": 1,
+                    "title": "Shop Vac",
+                    "artist": "Jonathan Coulton",
+                    "album": "JoCo Looks Back",
+                    "genre": ["Rock"],
+                    "year": 2008,
+                    "duration": 211
+                },
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:32jOQyOqRdxSEiQJTjvZM2",
+                    "key": 2,
+                    "title": "Talk It Up",
+                    "artist": "Sammy Rae",
+                    "album": "The Good Life",
+                    "genre": ["Alternative", "Indie"],
+                    "year": 2018,
+                    "duration": 238
+                },
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:2hKtLq0OFHoK7ftAqn456x",
+                    "key": 3,
+                    "title": "Community Gardens",
+                    "artist": "The Scary Jokes, Louie Zhong",
+                    "album": "Burn Pygmalion!!! a Better Guide to Romance",
+                    "genre": ["Alternative", "Indie"],
+                    "year": 2019,
+                    "duration": 165
+                }
+            ],
+            "songURIs": [
+                "spotify:track:5VcOZYRlC02MDPD95bi0rs",
+                "spotify:track:40yFmXrjfkv51FEQ0ULf1N",
+                "spotify:track:32jOQyOqRdxSEiQJTjvZM2",
+                "spotify:track:2hKtLq0OFHoK7ftAqn456x"
+            ],
+            "followers": 80,
+            "visibility": "public",
+            "tags": ["Electronic", "Rock", "Indie", "Alternative"],
+            "duration": 799,
+            "createdAt": "11-18-2020"
         }
     ]
 }
