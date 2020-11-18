@@ -9,8 +9,9 @@ import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime } from "../UtilityComponents/Playlist"
 // import jsonData from "../data/TestData.json";
 
+var buttonStyle = { color: "var(--background)", backgroundColor: "var(--buttonColor" };
+
 const PlaylistScreen = (props) => {
-    // if (props) console.log(props);
     if (props.playerVisible === null) {
         props.setPlayerVisible(true);
     }
@@ -27,32 +28,21 @@ const PlaylistScreen = (props) => {
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
+    const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
+    const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURI);
 
-    const [songs, setSongs] = useState(playlist.songs);
-    const [songURIs, setSongURIs] = useState(playlist.songURIs);
-    
     const [songURI, setSongURI] = useState("");
-    // Convert a time in seconds into minutes and seconds.
-    // const secToFormattedTime = (seconds) => {
-    //     let m = Math.floor(seconds / 60);
-    //     let s = seconds %= 60;
-    //     s = (s < 10) ? (s = "0" + s) : s
-
-
-    //     return m + ":" + s;
-    // }
 
     const handleUpdatePlaylist = async () => {
         setPlaylistPictureOpenState(false);
-
-        let picture = playlistPicture ? playlistPicture : "https://i.imgur.com/ZRoNOEu.png";
         const { data } = await props.updatePlaylist({
             variables: {
                 _id: playlist._id,
                 name: playlistName,
-                picture: picture,
+                picture: playlistPicture,
                 description: playlistDescription,
-                // songs: songs,
+                songs: playlistSongs,
+                songURIs: playlistSongURIs,
             }
         })
         if (data && data.updatePlaylist) console.log("Updated successfully");
@@ -65,6 +55,26 @@ const PlaylistScreen = (props) => {
         props.deletePlaylist({ variables: { _id: playlist._id } });
         props.history.push({ pathname: '/playlists' });
         refetch();
+    }
+
+    const addSong = async () => {
+        let newSong = {
+            _id: "",
+            songURI: "spotify:track:1J03Vp93ybKIxfzYI4YJtL",
+            key: playlist.songs.length,
+            title: "MEGALOVANIA",
+            artist: "Toby Fox",
+            album: "UNDERTALE Soundtrack",
+            genre: "Electronic",
+            year: 2016,
+            duration: 156,
+        }
+        let newSongURI = "spotify:track:1J03Vp93ybKIxfzYI4YJtL";
+        let newSongs = playlist.songs.push(newSong);
+        let newSongURIs = playlist.songURIs.push(newSongURI);
+        setPlaylistSongs(newSongs);
+        setPlaylistSongURIs(newSongURIs);
+        handleUpdatePlaylist();
     }
 
     const playSong = async (songQuery) => {
@@ -104,7 +114,7 @@ const PlaylistScreen = (props) => {
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }}>
 
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
-                <div className="playlistScreenLeftContainer" style={{ backgroundColor: "var(--secondary)", filter: "drop-shadow(5px 0px 0px var(--accent))" }}>
+                <div className="playlistScreenLeftContainer">
                     <div className="playlistScreenInfo">
                         <Modal
                             basic
@@ -128,33 +138,37 @@ const PlaylistScreen = (props) => {
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
                                 <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
-                                    maxLength={30} placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
+                                    maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
                             </div>
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
                             </div>
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length === 1 ? "" : "s"}, {getSongTime(duration)}</p>
-                            <div className="playlistSave">
-                                <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
-                                    <Icon className="large save outline"></Icon>
-                                </button>
-                                <Modal
-                                    basic
-                                    onClose={() => setDeletePlaylistOpenState(false)}
-                                    onOpen={() => setDeletePlaylistOpenState(true)}
-                                    open={deletePlaylistOpenState}
-                                    size='small'
-                                    trigger={<button className="clickButton playlistSaveButton ui button">
-                                        <Icon className="large trash"></Icon>
-                                    </button>}>
-                                    <Header icon><Icon className='large trash' />Are you sure you want to delete this playlist?</Header>
+                            <div className="playlistSideButtons">
+                                <div className="playlistPlayAllButton">
+                                    <button className="clickButton ui button huge">Play All</button>
+                                </div>
+                                <div className="playlistSave">
+                                    <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
+                                        <Icon className="large save outline"></Icon>
+                                    </button>
+                                    <Modal
+                                        basic
+                                        onClose={() => setDeletePlaylistOpenState(false)}
+                                        onOpen={() => setDeletePlaylistOpenState(true)}
+                                        open={deletePlaylistOpenState}
+                                        size='small'
+                                        trigger={<button className="clickButton playlistSaveButton ui button">
+                                            <Icon className="large trash"></Icon>
+                                        </button>}>
+                                        <Header icon><Icon className='large trash' />Are you sure you want to delete this playlist?</Header>
 
-                                    <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                        <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
-                                        <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>
-                                    </Modal.Actions>
-                                </Modal>
-
+                                        <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                            <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
+                                            <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>
+                                        </Modal.Actions>
+                                    </Modal>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -162,13 +176,20 @@ const PlaylistScreen = (props) => {
                     <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
                         placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
 
-                    <div className="playlistPlayAllButton">
-                        <button className="clickButton ui button massive">Play All</button>
+                    <div className="playlistAddSongDivider" ></div>
+                    <div className="addSongEntireContainer">
+                        <div className="addSongContainer ui input">
+                            <div className="addSongSearchContainer ui input">
+                                <input className="addSongSearch" placeholder="Add Song..."></input>
+                            </div>
+                            <button type="submit" style={buttonStyle} className="clickButton ui icon large button">
+                                <i className="search icon"></i>
+                            </button>
+                        </div>
+                        <div className="displaySearchResultsContainer">
+                        </div>
                     </div>
-                    <p className="playlistGenreLabel" style={{ color: "var(--accent)" }}>Genres</p>
-                    <div className="playlistGenreBox">
-                        {/* List of all genres in the playlist goes here. */}
-                    </div>
+                    
                 </div>
             </div>
 
@@ -181,7 +202,7 @@ const PlaylistScreen = (props) => {
 
                 {playlist.songs.map((song, index) => (
                     <div className="playlistSongBox">
-                        <p className="songNumber">{index + 1}</p>
+                        <div className="songNumber"><p>{index + 1}</p></div>
                         <Icon className="playlistSongIcon big" name="play circle outline" onClick={(e) => playSong(song.title)}></Icon>
                         <div className="playlistSongBar">
                             <div className="playlistSongTitle">{song.title}</div>

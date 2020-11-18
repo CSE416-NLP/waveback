@@ -38,7 +38,6 @@ const PlaylistsScreen = props => {
       duration: 0
     }
     // Add playlist to database
-
     const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
     if (data.addPlaylist) {
       console.log(data.addPlaylist);

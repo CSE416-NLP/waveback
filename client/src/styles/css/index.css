@@ -256,7 +256,6 @@ code {
   align-items: center;
   border-style: double;
   border-width: 0 0 3px 0;
-  border-radius: 5%;
   border-color: var(--secondary);
   margin-top: 10px;
   margin-bottom: 20px;
@@ -578,13 +577,11 @@ code {
 }
 
 .playlistsSearchContainer {
-
   display: flex;
   justify-content: space-around;
   align-items: center;
   border-style: double;
   border-width: 0 0 3px 0;
-  border-radius: 5%;
   border-color: var(--secondary);
   margin-top: 10px;
   margin-bottom: 20px;
@@ -865,6 +862,7 @@ code {
   height: 100%;
   width: 35%;
   margin-right: 6%;
+  user-select: none;
 }
 .playlistScreenLeftContainer {
   display: flex;
@@ -873,12 +871,23 @@ code {
   height: 100%;
   user-select: none;
   overflow-x: hidden;
+  user-select: none;
+  background-color: var(--secondary);
+  filter: drop-shadow(0px 0px 4px #333333);
 }
 
 .playlistPlayAllButton {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   margin-top: 2%;
-  margin-bottom: -7%;
+  margin-bottom: 0%;
+  margin-left: 0%;
+}
+
+.playlistSideButtons {
+  display: flex;
+  flex-direction: column;
 }
 
 .playlistArt {
@@ -904,25 +913,59 @@ code {
 .playlistTitleHandling {
   display: flex;
   align-items: center;
+  width: 150%;
 }
 
 .playlistTitle {
   margin-top: 3%;
   font-size: 20px;
   border-style: none;
-  width: 120%;
+  width: 100%;
 }
 
 .playlistTitleDivider {
   margin-top: -4%;
-  width: 119%;
+  width: 150%;
 }
 
-.playlistGenreLabel {
-  margin-top: 10%;
-  font-size: 32px;
+.playlistAddSongDivider {
+  margin: 0 auto;
+  margin-bottom: 0.75%;
+  border-style: double;
+  border-width: 3px 0 0 0;
+  border-radius: 0%;
+  border-color: #999999;
+  width: 90%;
+}
+
+.addSongEntireContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.addSongContainer {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin-top: 2%;
+}
+
+.addSongSearchContainer {
+  width: 60%;
+}
+
+.addSongSearch {
+  background-color: var(--background);
+  width: 50%;
+  margin-right: 0.5%;
   text-align: center;
-  margin-bottom: 2%;
+  font-size: 12pt;
 }
 
 .playlistNumSongs {
@@ -940,7 +983,7 @@ code {
   text-align: left;
   font-style: italic;
   word-wrap: break-word;
-  height: 35%;
+  height: 15%;
   border-style: solid;
   border-width: 0.5px;
   border-color: #bbbbbb;
@@ -975,8 +1018,10 @@ code {
 .playlistSongsContainer {
   display: flex;
   flex-direction: column;
+  margin-top: -3%;
   width: 60%;
   height: 100%;
+  text-align: right;
 }
 
 .playlistSongsBox {
@@ -994,7 +1039,7 @@ code {
 
 .playlistSongArtistLabel { margin-left: 33%;}
 
-.playlistSongDurationLabel { margin-left: 21%;}
+.playlistSongDurationLabel { margin-left: 23%;}
 
 .playlistSongTitle, .playlistSongDuration, .playlistSongArtist {
   display: flex;
@@ -1005,7 +1050,7 @@ code {
   align-items: center;
   justify-content: left;
   width: 100%;
-  margin-top: -3%;
+  margin-top: 1%;
 }
 
 .playlistSaveButton {
@@ -1041,19 +1086,17 @@ code {
 
 .playlistSongArtist {
   position: absolute;
-  left: 70%;
-  transform: translate(-50%);
+  left: 72.5%;
 }
 
 .playlistSongDuration {
   position: absolute;
-  right: 12.5%;
+  right: 10.3%;
 }
 
 .playlistSongBox {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-top: 2%;
   padding-right: 10%;
   padding-left: 10%;
@@ -1071,9 +1114,9 @@ code {
 
 .songNumber {
   font-size: 18px;
-  margin: 0 auto;
   padding-top: 0.25%;
   padding-right: 0.75%;
+  color: red;
 }
 
 .songPlayingBar {
