@@ -82,8 +82,11 @@ const PlaylistScreen = (props) => {
         if (props.playStatus != true){
             props.setPlayStatus(true);
         }
-        props.setOffset(offset);
-        props.setTracks(playlist.songURIs);
+        console.log(props.playStatus)
+        props.setTracks({
+            offset: offset,
+            uris: playlist.songURIs
+        })
         
         console.log(offset);
     }
