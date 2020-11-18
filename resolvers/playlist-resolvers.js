@@ -6,7 +6,7 @@ module.exports = {
 
         /**
             @return {array} - array of public playlists
-        **/        
+        **/
         getAllPublicPlaylists: async (_, __, { req }) => {
             // const _id = new ObjectId(req.userId);
             const playlists = await Playlist.find({ visibility: "public", });
@@ -72,6 +72,20 @@ module.exports = {
             if (saved) return objectId;
             else return ("Couldn't add playlist");
         },
+
+        // deleteAllPlaylists: async (_, args) => {
+        //     const { duration } = args;
+        //     const deleted = await Playlist.deleteMany({});
+        //     console.log(deleted);
+        //     if (deleted) return true;
+        //     else return false;
+        // },
+        deleteAllPlaylists: async () => {
+            const deleted = await Playlist.deleteMany({});
+            console.log(deleted);
+            if (deleted) return true;
+            else return false;
+        },
         /**
             @param {object} args - an playlist object
             @returns {boolean} - successful delete: true, failure: false
@@ -87,7 +101,7 @@ module.exports = {
             @param {object} args - a playlist objectID, an array of songs, and a name
             @returns {boolean} successful update: true, failure: false
          **/
-        updatePlaylist: async(_,args) => {
+        updatePlaylist: async (_, args) => {
             let { _id, name, picture, description, songs, songURIs, tags, duration } = args;
             const objectId = new ObjectId(_id);
 
@@ -96,11 +110,11 @@ module.exports = {
             //         songs[i]._id = new ObjectId();
             //     }
             // }
-            const saved = await Playlist.updateOne({_id: objectId}, { 
-                name: name, picture: picture, 
+            const saved = await Playlist.updateOne({ _id: objectId }, {
+                name: name, picture: picture,
                 description: description, songs: songs,
                 songURIs: songURIs, tags: tags,
-                duration: duration 
+                duration: duration
             })
             if (saved) return true;
             else return false;

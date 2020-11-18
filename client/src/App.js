@@ -33,6 +33,8 @@ const App = (props) => {
   const [spotifyToken, setSpotifyToken] = useState(getSpotifyAccess() === "allowed" && getSpotifyTokenExpirationTime() > new Date().getTime() ? getSpotifyAccessToken() : null)
   const [playerVisible, setPlayerVisible] = useState(null)
   const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20', "spotify:track:46OFHBw45fNi7QNjSetITR", "spotify:track:6i3uaiOs9AMxEq5bYoiro0"])
+  const [offset, setOffset] = useState(0);
+  const [playStatus, setPlayStatus] = useState(false);
 
   // console.log("token: ", spotifyToken);
   const authorizeSpotifyFromStorage = (e) => {
@@ -80,7 +82,9 @@ const App = (props) => {
         <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/playlist/:id" render={(props) =>
           <PlaylistScreen user={user}
-            // authorizeSpotifyFromStorage={authorizeSpotifyFromStorage}
+            playStatus={playStatus}
+            setPlayStatus={setPlayStatus}
+            setOffset={setOffset}
             spotifyToken={spotifyToken}
             setPlayerVisible={setPlayerVisible}
             setTracks={setTracks}
@@ -100,7 +104,9 @@ const App = (props) => {
             </div>}
           <div style={{ width: "100%", display: playerVisible ? "block" : "none" }}>
             <SpotifyPlayer
+              play={playStatus}
               token={spotifyToken}
+              offset={offset}
               uris={tracks}
               name="Waveback"
               styles={{

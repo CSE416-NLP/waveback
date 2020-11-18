@@ -23,7 +23,6 @@ const PlaylistScreen = (props) => {
 
     const playlist = props.location.playlist;
 
-    props.setTracks(playlist.songURIs);
     // const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
@@ -59,55 +58,61 @@ const PlaylistScreen = (props) => {
         refetch();
     }
 
-    const addSong = async () => {
-        let newSong = {
-            _id: "",
-            songURI: "spotify:track:1J03Vp93ybKIxfzYI4YJtL",
-            key: playlist.songs.length,
-            title: "MEGALOVANIA",
-            artist: "Toby Fox",
-            album: "UNDERTALE Soundtrack",
-            genre: "Electronic",
-            year: 2016,
-            duration: 156,
+    // const addSong = async () => {
+    //     let newSong = {
+    //         _id: "",
+    //         songURI: "spotify:track:1J03Vp93ybKIxfzYI4YJtL",
+    //         key: playlist.songs.length,
+    //         title: "MEGALOVANIA",
+    //         artist: "Toby Fox",
+    //         album: "UNDERTALE Soundtrack",
+    //         genre: "Electronic",
+    //         year: 2016,
+    //         duration: 156,
+    //     }
+    //     let newSongURI = "spotify:track:1J03Vp93ybKIxfzYI4YJtL";
+    //     let newSongs = playlist.songs.push(newSong);
+    //     let newSongURIs = playlist.songURIs.push(newSongURI);
+    //     setPlaylistSongs(newSongs);
+    //     setPlaylistSongURIs(newSongURIs);
+    //     handleUpdatePlaylist();
+    // }
+
+    const playSong = (offset) => {
+        if (props.playStatus != true){
+            props.setPlayStatus(true);
         }
-        let newSongURI = "spotify:track:1J03Vp93ybKIxfzYI4YJtL";
-        let newSongs = playlist.songs.push(newSong);
-        let newSongURIs = playlist.songURIs.push(newSongURI);
-        setPlaylistSongs(newSongs);
-        setPlaylistSongURIs(newSongURIs);
-        handleUpdatePlaylist();
+        props.setOffset(offset);
+        props.setTracks(playlist.songURIs);
+        
+        console.log(offset);
     }
+    // const playSong = async (songQuery) => {
+    //     console.log(songQuery);
 
-    const playSong = async (songQuery) => {
-        console.log(songQuery);
+    //     token = "Bearer " + token;
+    //     let query = "https://api.spotify.com/v1/search?q=" + songQuery + "&type=track%2Cartist%2Calbum&market=US"
 
-        token = "Bearer " + token;
-        let query = "https://api.spotify.com/v1/search?q=" + songQuery + "&type=track%2Cartist%2Calbum&market=US"
-
-        fetch(query, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                // console.log(data);
-                let songURI = data.tracks.items[0].uri;
-                // console.log(songURI);
-                // props.history.push({
-                //     pathname: '/songplayer',
-                //     songURI: songURI,
-                // })
-                setTracks([songURI]);
-            });
-
-
-
-    }
+    //     fetch(query, {
+    //         method: "GET",
+    //         headers: {
+    //             "Accept": "application/json",
+    //             "Content-Type": "application/json",
+    //             "Authorization": token
+    //         }
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // console.log(data);
+    //             let songURI = data.tracks.items[0].uri;
+    //             // console.log(songURI);
+    //             // props.history.push({
+    //             //     pathname: '/songplayer',
+    //             //     songURI: songURI,
+    //             // })
+    //             setTracks([songURI]);
+    //         });
+    // }
     // Calculate the total duration of the playlist.
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
@@ -213,7 +218,7 @@ const PlaylistScreen = (props) => {
                 {playlist.songs.map((song, index) => (
                     <div className="playlistSongBox">
                         <div className="songNumber"><p>{index + 1}</p></div>
-                        <Icon className="playlistSongIcon big" name="play circle outline" onClick={(e) => playSong(song.title)}></Icon>
+                        <Icon className="playlistSongIcon big" name="play circle outline" onClick={(e) => playSong(index)}></Icon>
                         <div className="playlistSongBar">
                             <div className="playlistSongTitle">{song.title}</div>
                             <div className="playlistSongArtist">{song.artist}</div>

@@ -7,6 +7,7 @@ import { flowRight as compose } from 'lodash';
 import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
 import { isValidObjectId } from 'mongoose';
+
 const ObjectId = require("mongoose").Types.ObjectId;
 
 
@@ -14,8 +15,10 @@ const LockedScreen = (props) => {
     const playlists = jsonData.Playlists;
     // console.log(playlists2);
     const resetDatabasePlaylists = () => {
-
+       props.deleteAllPlaylists({ variables: {}, refetchQueries: [{query: GET_DB_PLAYLISTS}] });
     }
+
+
     const addPlaylistsToDatabase = () => {
 
         playlists.forEach(playlist => {
@@ -80,6 +83,7 @@ const LockedScreen = (props) => {
                     <input value={searchTerm} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." className="discoverSearch"></input>
                     <button onClick={() => onClickHandler(searchTerm)}>Query Data in Console</button>
                     <button onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
+                    <button onClick={() => resetDatabasePlaylists()}>Reset Playlists in Database</button>
                 </div>
 
             </div>
@@ -92,5 +96,6 @@ const LockedScreen = (props) => {
 export default compose(
     graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
     // graphql()
-    graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" })
+    graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
+    graphql(mutations.DELETE_ALL_PLAYLISTS, { name: "deleteAllPlaylists"})
   )(LockedScreen);

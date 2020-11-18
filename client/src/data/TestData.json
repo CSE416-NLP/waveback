@@ -276,81 +276,9 @@
                     "genre": ["Electronic"],
                     "year": 2020,
                     "duration": 196
-                },
-                {
-                    "_id": "",
-                    "songURI": "spotify:track:2MQwgtSGxPKUiI2Qr5am7V",
-                    "key": 6,
-                    "title": "Miku",
-                    "artist": "Anamanaguchi, Miku Hatsune",
-                    "album": "Miku",
-                    "genre": ["Pop", "Electronic"],
-                    "year": 2016,
-                    "duration": 223
-                },
-                {
-                    "_id": "",
-                    "songURI": "spotify:track:46bdsCZKQ93J9RGqlFZpAF",
-                    "key": 7,
-                    "title": "Discord - The Living Tombstone Remix",
-                    "artist": "Caleb Hyles",
-                    "album": "Discord (The Living Tombstone Remix)",
-                    "genre": ["Electronic"],
-                    "year": 2016,
-                    "duration": 138
-                },
-                {
-                    "_id": "",
-                    "songURI": "spotify:track:0r2JODBoOO6DKgFB2m73q9",
-                    "key": 8,
-                    "title": "Caramelldansen",
-                    "artist": "Caramell",
-                    "album": "Supergott (Speedy Mixes)",
-                    "genre": ["Pop", "Electronic"],
-                    "year": 2008,
-                    "duration": 175
-                },
-                {
-                    "_id": "",
-                    "songURI": "spotify:track:3CNptmi6HPZj6lgglUafW7",
-                    "key": 9,
-                    "title": "Rollin' Girl",
-                    "artist": "wowaka(Genjitsutouhi-P)",
-                    "album": "EXIT TUNES PRESENTS Supernova:redjuice",
-                    "genre": ["Pop", "Electronic"],
-                    "year": 2010,
-                    "duration": 194
-                },
-                {
-                    "_id": "",
-                    "songURI": "spotify:track:2WpstnkNuH6dUnm3fVLCpU",
-                    "key": 10,
-                    "title": "MEGALOVANIA",
-                    "artist": "Toby Fox",
-                    "album": "UNDERTALE Soundtrack",
-                    "genre": ["Electronic"],
-                    "year": 2016,
-                    "duration": 156
-                },
-                {
-                    "_id": "",
-                    "songURI": "spotify:track:4r7UvABK5z5EVgsrZgFENL",
-                    "key": 11,
-                    "title": "Gourmet Race (From 'Kirby Super Star')",
-                    "artist": "Qumu",
-                    "album": "",
-                    "genre": ["Electronic"],
-                    "year": 2020,
-                    "duration": 196
                 }
             ],
             "songURIs": [
-                "spotify:track:2MQwgtSGxPKUiI2Qr5am7V", 
-                "spotify:track:46bdsCZKQ93J9RGqlFZpAF", 
-                "spotify:track:0r2JODBoOO6DKgFB2m73q9",
-                "spotify:track:3CNptmi6HPZj6lgglUafW7",
-                "spotify:track:2WpstnkNuH6dUnm3fVLCpU",
-                "spotify:track:4r7UvABK5z5EVgsrZgFENL",
                 "spotify:track:2MQwgtSGxPKUiI2Qr5am7V", 
                 "spotify:track:46bdsCZKQ93J9RGqlFZpAF", 
                 "spotify:track:0r2JODBoOO6DKgFB2m73q9",

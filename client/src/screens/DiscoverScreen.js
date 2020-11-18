@@ -50,7 +50,7 @@ const DiscoverScreen = (props) => {
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link to={{ pathname: "/playlist/" + playlist.id, playlist: playlist }}>
+              <Link to={{ pathname: "/playlist/" + playlist._id, playlist: playlist }}>
                 <Playlist playlist={playlist}/>
               </Link>
             </Grid.Column>

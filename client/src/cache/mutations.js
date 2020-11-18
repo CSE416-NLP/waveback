@@ -86,3 +86,8 @@ export const DELETE_PLAYLIST = gql`
         deletePlaylist(_id: $_id)
     }
 `;
+export const DELETE_ALL_PLAYLISTS = gql`
+    mutation DeleteAllPlaylists{
+        deleteAllPlaylists
+    }
+`;

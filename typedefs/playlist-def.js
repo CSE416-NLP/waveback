@@ -41,6 +41,7 @@ const typeDefs = gql `
         addPlaylist(playlist: PlaylistInput!): String
         updatePlaylist(_id: String!, name: String, picture: String, description: String, songs: [SongInput], songURIs: [String], tags: [String], duration: Int): Boolean
         deletePlaylist(_id: String!): Boolean
+        deleteAllPlaylists: Boolean
     }
 
     input PlaylistInput {
