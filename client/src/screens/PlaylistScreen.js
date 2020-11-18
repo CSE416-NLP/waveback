@@ -187,6 +187,14 @@ const PlaylistScreen = (props) => {
                             </button>
                         </div>
                         <div className="displaySearchResultsContainer">
+                            {playlist.songs.map((song, index) => (
+                                <div className="playlistSearchResultBox">
+                                    <div className="playlistSearchResult">
+                                        <div className="playlistSongSearchResultImage">werwerwr</div>
+                                        <div className="playlistSongSearchResultTitle">wewerwre</div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     
