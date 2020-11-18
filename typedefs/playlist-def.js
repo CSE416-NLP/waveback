@@ -31,6 +31,7 @@ const typeDefs = gql `
         duration: Int!
     }
     extend type Query {
+        getAllPublicPlaylists: [Playlist]
         getAllUserPlaylists: [Playlist] 
         getPlaylistById(_id: String!): Playlist
     }

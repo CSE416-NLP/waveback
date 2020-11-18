@@ -52,5 +52,30 @@ export const GET_DB_PLAYLISTS = gql`
             tags
             duration
         }
+        getAllPublicPlaylists {
+            _id
+            key
+            owner
+            name
+            picture
+            description
+            songs {
+                _id
+                songURI
+                key
+                title
+                artist
+                album
+                genre
+                year
+                duration
+            }
+            songURIs
+            followers
+            createdAt
+            visibility
+            tags
+            duration
+        }
     }
 `;
