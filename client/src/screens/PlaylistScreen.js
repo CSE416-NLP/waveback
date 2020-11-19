@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Icon, Header, Button } from 'semantic-ui-react';
+import { Modal, Icon, Header, Button, Content } from 'semantic-ui-react';
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
@@ -29,10 +29,11 @@ const PlaylistScreen = (props) => {
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
+    const [songInfoOpenState, setSongInfoOpenState] = useState(false);
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     // Spotify Song Searching
-    const [searchTerm, setSearch] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
 
     const handleUpdatePlaylist = async () => {
@@ -60,7 +61,7 @@ const PlaylistScreen = (props) => {
     }
 
     const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
-        if (term === "") { return; }
+        if (term === "") return;
         let token = getSpotifyAccessToken();
         token = "Bearer " + token;
         let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
@@ -80,7 +81,7 @@ const PlaylistScreen = (props) => {
     }
 
     const handleSearchInput = (event) => {
-        setSearch(event.target.value);
+        setSearchTerm(event.target.value);
         if (event.key === 'Enter') {
             onClickHandler(event.target.value);
         }
@@ -104,8 +105,6 @@ const PlaylistScreen = (props) => {
         let newSongURIs = playlist.songURIs.push(newSongURI);
         setPlaylistSongs(newSongs);
         setPlaylistSongURIs(newSongURIs);
-        console.log(playlistSongs);
-        console.log(playlistSongURIs);
     }
 
     const playSong = (offset) => {
@@ -243,9 +242,25 @@ const PlaylistScreen = (props) => {
                                             </div>
                                         </div>
                                         <div className="playlistSearchResultOptions">
-                                            <button className="searchResultOptionButton clickButton ui icon button" >
-                                                <Icon className="info circle"></Icon>
-                                            </button>
+                                            <Modal
+                                                
+                                                onClose={() => setSongInfoOpenState(false)}
+                                                onOpen={() => setSongInfoOpenState(true)}
+                                                open={songInfoOpenState}
+                                                size='small'
+                                                trigger={<button className="searchResultOptionButton clickButton ui icon button" >
+                                                            <Icon className="info circle"></Icon>
+                                                        </button>}>
+                                                <Header icon>More Info</Header>
+                                                <Modal.Content>
+                                                    <div className="playlistSongSearchResultTitle">{song.name}</div>
+                                                    <div className="playlistSongSearchResultDesc">{song.artists[0].name}</div>
+                                                </Modal.Content>
+
+                                                <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                                    <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
+                                                </Modal.Actions>
+                                            </Modal>
                                             <button className="searchResultOptionButton clickButton ui icon button" >
                                                 <Icon className="play circle"></Icon>
                                             </button>

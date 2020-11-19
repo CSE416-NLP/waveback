@@ -992,7 +992,7 @@ code {
 .displaySearchResultsContainer2 {
   height: 30vmin;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .displaySearchResultsContainer {
