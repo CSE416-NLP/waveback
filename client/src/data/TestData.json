@@ -426,6 +426,71 @@
             "tags": ["Electronic", "Rock", "Indie", "Alternative"],
             "duration": 799,
             "createdAt": "11-18-2020"
+        },
+        {
+            "_id": 7,
+            "key": 7,
+            "owner": "The Living Tombstone",
+            "name": "cringe gaming bops",
+            "picture": "https://i.ytimg.com/vi/KSJyCQN1-pA/maxresdefault.jpg",
+            "description": "the man behind the slaughter",
+            "songs": [
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:468BsK9sjyvH3vQFfRbBwD",
+                    "key": 0,
+                    "title": "No Mercy (feat. BlackGryph0n & LittleJayneyCakes",
+                    "artist": "The Living Tombstone",
+                    "album": "",
+                    "genre": ["Electronic"],
+                    "year": 2017,
+                    "duration": 154
+                },
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:2ItNKt19iqefEe590Z9GeE",
+                    "key": 1,
+                    "title": "Five Nights at Freddy's",
+                    "artist": "The Living Tombstone",
+                    "album": "",
+                    "genre": ["Electronic"],
+                    "year": 2014,
+                    "duration": 166
+                },
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:611nlMA40SKg9gQ4pTVXT3",
+                    "key": 2,
+                    "title": "Discord - Eurobeat Brony",
+                    "artist": "The Living Tombstone",
+                    "album": "",
+                    "genre": ["Electronic"],
+                    "year": 2012,
+                    "duration": 194
+                },
+                {
+                    "_id": "",
+                    "songURI": "spotify:track:2Z6uzO3wcOLCq5aInVQlcg",
+                    "key": 3,
+                    "title": "Beep Beep I'm a Sheep",
+                    "artist":  "The Living Tombstone",
+                    "album": "",
+                    "genre": ["Electronic"],
+                    "year": 2017,
+                    "duration": 229
+                }
+            ],
+            "songURIs": [
+                "spotify:track:468BsK9sjyvH3vQFfRbBwD",
+                "spotify:track:2ItNKt19iqefEe590Z9GeE",
+                "spotify:track:611nlMA40SKg9gQ4pTVXT3",
+                "spotify:track:2Z6uzO3wcOLCq5aInVQlcg"
+            ],
+            "followers": 999,
+            "visibility": "public",
+            "tags": ["Electronic"],
+            "duration": 743,
+            "createdAt": "3-3-1969"
         }
     ]
 }
