@@ -112,40 +112,28 @@ const PlaylistScreen = (props) => {
             props.setPlayStatus(true);
         }
         console.log(props.playStatus)
+        props.setPlayStatus(false);
         props.setTracks({
             offset: offset,
             uris: playlist.songURIs
         })
-        
+        props.setPlayStatus(true);
         console.log(offset);
     }
-    // const playSong = async (songQuery) => {
-    //     console.log(songQuery);
 
-    //     token = "Bearer " + token;
-    //     let query = "https://api.spotify.com/v1/search?q=" + songQuery + "&type=track%2Cartist%2Calbum&market=US"
-
-    //     fetch(query, {
-    //         method: "GET",
-    //         headers: {
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json",
-    //             "Authorization": token
-    //         }
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // console.log(data);
-    //             let songURI = data.tracks.items[0].uri;
-    //             // console.log(songURI);
-    //             // props.history.push({
-    //             //     pathname: '/songplayer',
-    //             //     songURI: songURI,
-    //             // })
-    //             setTracks([songURI]);
-    //         });
-    // }
-    // Calculate the total duration of the playlist.
+    const playRandom = () => {
+        if (props.playStatus != true){
+            props.setPlayStatus(true);
+        }
+        let random = Math.floor(Math.random() * playlistSongs.length);
+        props.setPlayStatus(false);
+        props.setTracks({
+            offset: random,
+            uris: playlist.songURIs
+        })
+        props.setPlayStatus(true);
+    }
+    
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
 
@@ -185,7 +173,7 @@ const PlaylistScreen = (props) => {
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length === 1 ? "" : "s"}, {getSongTime(duration)}</p>
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
-                                    <button className="clickButton ui button huge">Play All</button>
+                                    <button className="clickButton ui button huge" onClick = {playRandom}>Play</button>
                                 </div>
                                 <div className="playlistSave">
                                     <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
