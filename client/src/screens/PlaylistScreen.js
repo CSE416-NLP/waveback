@@ -99,7 +99,7 @@ const PlaylistScreen = (props) => {
         let newSong = {
             _id: "",
             songURI: song.uri,
-            key: playlist.songs.length,
+            key: playlistSongs.length,
             title: song.name,
             artist: song.artists[0].name,
             album: song.album.name,
@@ -109,8 +109,8 @@ const PlaylistScreen = (props) => {
             __typename: "Song",
         }
         let newSongURI = song.uri;
-        let newSongs = playlist.songs.push(newSong);
-        let newSongURIs = playlist.songURIs.push(newSongURI);
+        let newSongs = playlistSongs.push(newSong);
+        let newSongURIs = playlistSongURIs.push(newSongURI);
         setPlaylistSongs(newSongs);
         setPlaylistSongURIs(newSongURIs);
     }
@@ -123,7 +123,7 @@ const PlaylistScreen = (props) => {
         props.setPlayStatus(false);
         props.setTracks({
             offset: offset,
-            uris: playlist.songURIs
+            uris: playlistSongURIs
         })
         props.setPlayStatus(true);
         console.log(offset);
@@ -142,10 +142,15 @@ const PlaylistScreen = (props) => {
     }
 
     const removeSong = (song) => {
-        let newSongs = playlist.songs.splice(playlist.songs.indexOf(song), 1);
-        let newSongURIs = playlist.songURIs.splice(playlist.songURIs.indexOf(song.songURI), 1);
-        setPlaylistSongs(newSongs);
-        setPlaylistSongURIs(newSongURIs);
+        let songs = [...playlistSongs];
+        let URIs = [...playlistSongURIs];
+        console.log(songs);
+        songs.splice(playlistSongs.indexOf(song), 1);
+        console.log(songs);
+        URIs.splice(playlistSongURIs.indexOf(song.songURI), 1);
+        console.log(URIs);
+        setPlaylistSongs(songs);
+        setPlaylistSongURIs(URIs);
     }
 
     const playRandom = () => {
@@ -156,7 +161,7 @@ const PlaylistScreen = (props) => {
         props.setPlayStatus(false);
         props.setTracks({
             offset: random,
-            uris: playlist.songURIs
+            uris: playlistSongURIs,
         })
         props.setPlayStatus(true);
     }
@@ -165,7 +170,7 @@ const PlaylistScreen = (props) => {
         setSongInfoOpenState(false);
     }
     let duration = 0;
-    for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
+    for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }}>
@@ -200,7 +205,7 @@ const PlaylistScreen = (props) => {
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
                             </div>
-                            <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length === 1 ? "" : "s"}, {getSongTime(duration)}</p>
+                            <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getSongTime(duration)}</p>
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
@@ -312,7 +317,7 @@ const PlaylistScreen = (props) => {
                     <div className="playlistSongDurationLabel">Duration</div>
                 </div>
 
-                {playlist.songs.map((song, index) => (
+                {playlistSongs.map((song, index) => (
                     <div className="playlistSongBox">
                         <div className="songNumber"><p>{index + 1}</p></div>
                         <Icon className="playlistSongIcon big" name="play circle outline" onClick={() => playSong(index)}></Icon>
