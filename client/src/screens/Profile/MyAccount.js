@@ -13,6 +13,14 @@ const MyAccount = (props) => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmedNewPassword, setConfirmedNewPassword] = useState("");
     const [updateCheck, setUpdateCheck] = useState(false);
+    const [passwordFieldType, setPasswordFieldType] = useState("password");
+
+    const toggleShowPassword = () => {
+        if (passwordFieldType === "password")
+            setPasswordFieldType("text")
+        else
+            setPasswordFieldType("password")
+    }
 
     const updateAccount = async () => {
         console.log("updateAccount");
@@ -40,13 +48,17 @@ const MyAccount = (props) => {
             </div>
             <p className="profileScreenSubText">New Password</p>
             <div className="ui input profileInputContainer">
-                <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }}
+                <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }} type={passwordFieldType}
                     value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                <Icon style={{ marginLeft: "10px", marginTop: "5px", color: "var(--accent)", fontSize: "15pt" }}
+                    name={passwordFieldType === "password" ? 'eye' : 'eye slash'} onClick={() => toggleShowPassword(!passwordFieldType)} />
             </div>
             <p className="profileScreenSubText">Confirm New Password</p>
             <div className="ui input profileInputContainer">
-                <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }}
+                <input className="profileInput" style={{ backgroundColor: "var(--secondary)" }} type={passwordFieldType}
                     value={confirmedNewPassword} onChange={(e) => setConfirmedNewPassword(e.target.value)} />
+                <Icon style={{ marginLeft: "10px", marginTop: "5px", color: "var(--accent)", fontSize: "15pt" }}
+                    name={passwordFieldType === "password" ? 'eye' : 'eye slash'} onClick={() => toggleShowPassword(!passwordFieldType)} />
             </div>
             <Modal
                 basic
