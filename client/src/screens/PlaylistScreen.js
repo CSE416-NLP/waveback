@@ -135,6 +135,13 @@ const PlaylistScreen = (props) => {
         props.setPlayStatus(true);
     }
 
+    const removeSong = (song) => {
+        let newSongs = playlist.songs.splice(playlist.songs.indexOf(song), 1);
+        let newSongURIs = playlist.songURIs.splice(playlist.songURIs.indexOf(song.songURI), 1);
+        setPlaylistSongs(newSongs);
+        setPlaylistSongURIs(newSongURIs);
+    }
+
     const playRandom = () => {
         if (props.playStatus != true) {
             props.setPlayStatus(true);
@@ -308,6 +315,7 @@ const PlaylistScreen = (props) => {
                             <div className="playlistSongArtist">{song.artist}</div>
                             <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
                         </div>
+                        <Icon className="removeSongIcon large" name="remove" onClick={() => removeSong(song)}></Icon>
                     </div>
                 ))}
             </div>

@@ -1154,7 +1154,13 @@ code {
   justify-content: center;
 }
 
-.playlistSongIcon:hover {
+.removeSongIcon {
+  padding-top: 0.2%;
+  color: var(--accent);
+  padding-left: 1%;
+}
+
+.playlistSongIcon:hover, .removeSongIcon:hover {
   cursor: pointer;
   color: var(--primary);
 }
