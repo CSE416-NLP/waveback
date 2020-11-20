@@ -7,7 +7,7 @@ import "../styles/css/index.css"
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
-import { getSongTime } from "../UtilityComponents/Playlist";
+import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 // import { search } from 'spotify-web-sdk';
 
 // import jsonData from "../data/TestData.json";
@@ -40,14 +40,20 @@ const PlaylistScreen = (props) => {
 
     const handleUpdatePlaylist = async () => {
         setPlaylistPictureOpenState(false);
+        let songsCopy = [...playlistSongs];
+        for (let i = 0; i < songsCopy.length; i++) {
+            delete songsCopy[i].__typename;
+        }
         const { data } = await props.updatePlaylist({
             variables: {
                 _id: playlist._id,
                 name: playlistName,
                 picture: playlistPicture,
                 description: playlistDescription,
-                songs: playlistSongs,
+                songs: songsCopy,
                 songURIs: playlistSongURIs,
+                duration: parseInt(getAlbumTime(playlistSongs)),
+                tags: playlist.tags
             }
         })
         if (data && data.updatePlaylist) console.log("Updated successfully");
@@ -278,7 +284,7 @@ const PlaylistScreen = (props) => {
                                                                     songInfoOpenState ? "Duration: " + getSongTime(Math.round(songInfoOpenState.duration_ms / 1000)) : ""
                                                                 }</div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                     </Modal.Content>
                                                     <Modal.Actions className="recoverPasswordModalButtonContainer">
                                                         <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
