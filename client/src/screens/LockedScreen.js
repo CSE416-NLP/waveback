@@ -83,7 +83,7 @@ const LockedScreen = (props) => {
                     <input value={searchTerm} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." className="discoverSearch"></input>
                     <button onClick={() => onClickHandler(searchTerm)}>Query Data in Console</button>
                     <button onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
-                    <button onClick={() => resetDatabasePlaylists()}>Reset Playlists in Database</button>
+                    <button onClick={() => resetDatabasePlaylists()}>Delete All Playlists in Database</button>
                 </div>
 
             </div>

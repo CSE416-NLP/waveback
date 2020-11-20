@@ -9,6 +9,7 @@ import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime } from "../UtilityComponents/Playlist";
 import { search } from 'spotify-web-sdk';
+
 // import jsonData from "../data/TestData.json";
 
 var buttonStyle = { color: "var(--background)", backgroundColor: "var(--buttonColor" };
@@ -78,7 +79,7 @@ const PlaylistScreen = (props) => {
             .then(response => response.json())
             .then(data => {
                 setSearchResult(data.tracks.items)
-        })
+            })
     }
 
     const handleSearchInput = (event) => {
@@ -109,7 +110,7 @@ const PlaylistScreen = (props) => {
     }
 
     const playSong = (offset) => {
-        if (props.playStatus != true){
+        if (props.playStatus != true) {
             props.setPlayStatus(true);
         }
         console.log(props.playStatus)
@@ -123,7 +124,7 @@ const PlaylistScreen = (props) => {
     }
 
     const playSongByURI = (uri) => {
-        if (props.playStatus != true){
+        if (props.playStatus != true) {
             props.setPlayStatus(true);
         }
         props.setPlayStatus(false);
@@ -135,7 +136,7 @@ const PlaylistScreen = (props) => {
     }
 
     const playRandom = () => {
-        if (props.playStatus != true){
+        if (props.playStatus != true) {
             props.setPlayStatus(true);
         }
         let random = Math.floor(Math.random() * playlistSongs.length);
@@ -147,6 +148,9 @@ const PlaylistScreen = (props) => {
         props.setPlayStatus(true);
     }
 
+    const openMoreInfoModal = (song) => {
+        setSongInfoOpenState(false);
+    }
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
 
@@ -186,7 +190,7 @@ const PlaylistScreen = (props) => {
                             <p className="playlistNumSongs">{playlist.songs.length} song{playlist.songs.length === 1 ? "" : "s"}, {getSongTime(duration)}</p>
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
-                                    <button className="clickButton ui button huge" onClick = {playRandom}>Play</button>
+                                    <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
                                 </div>
                                 <div className="playlistSave">
                                     <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
@@ -226,54 +230,54 @@ const PlaylistScreen = (props) => {
                                 <i className="search icon"></i>
                             </button>
                         </div>
-                    <div className="playlistAddSongDivider" ></div>
+                        <div className="playlistAddSongDivider" ></div>
 
                         <div className="displaySearchResultsContainer2">
                             <div className="displaySearchResultsContainer">
                                 {
-                                searchResults.map((song, index) => (
-                                    <div className="playlistSearchResultBox">
-                                        <div className="playlistSearchResult">
-                                            <div className="playlistSongSearchResultImage">
-                                                <img className="searchResultImg" src={song.album.images[0].url} alt="" />
-                                            </div>
-                                            <div className="playlistSongSearchResultInfo">
-                                                <div className="playlistSongSearchResultTitle">{song.name}</div>
-                                                <div className="playlistSongSearchResultDesc">{song.artists[0].name}</div>
-                                            </div>
-                                        </div>
-                                        <div className="playlistSearchResultOptions">
-                                            <Modal
-                                                onClose={() => setSongInfoOpenState(false)}
-                                                onOpen={() => setSongInfoOpenState(true)}
-                                                open={songInfoOpenState}
-                                                size='small'
-                                                trigger={
-                                                    <button className="searchResultOptionButton clickButton ui icon button" >
-                                                        <Icon className="info circle"></Icon>
-                                                    </button>}>
-                                                <Header icon>More Info</Header>
-                                                <Modal.Content>
+                                    searchResults.map((song, index) => (
+                                        <div className="playlistSearchResultBox">
+                                            <div className="playlistSearchResult">
+                                                <div className="playlistSongSearchResultImage">
+                                                    <img className="searchResultImg" src={song.album.images[0].url} alt="" />
+                                                </div>
+                                                <div className="playlistSongSearchResultInfo">
                                                     <div className="playlistSongSearchResultTitle">{song.name}</div>
                                                     <div className="playlistSongSearchResultDesc">{song.artists[0].name}</div>
-                                                </Modal.Content>
+                                                </div>
+                                            </div>
+                                            <div className="playlistSearchResultOptions">
+                                                <Modal
+                                                    onClose={() => setSongInfoOpenState(false)}
+                                                    onOpen={() => setSongInfoOpenState(song)}
+                                                    open={Boolean(songInfoOpenState)}
+                                                    size='small'
+                                                    trigger={
+                                                        <button className="searchResultOptionButton clickButton ui icon button" >
+                                                            <Icon className="info circle"></Icon>
+                                                        </button>}>
+                                                    <Header icon>More Info</Header>
+                                                    <Modal.Content>
+                                                        <div className="playlistSongSearchResultTitle">{songInfoOpenState ? songInfoOpenState.name : ""}</div>
+                                                        <div className="playlistSongSearchResultDesc">{songInfoOpenState ? songInfoOpenState.artists[0].name : ""}</div>
+                                                    </Modal.Content>
 
-                                                <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                                    <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
-                                                </Modal.Actions>
-                                            </Modal>
-                                            <button className="searchResultOptionButton clickButton ui icon button" >
-                                                <Icon onClick={() => playSongByURI(song.uri)} className="play circle"></Icon>
-                                            </button>
-                                            <button className="searchResultOptionButton clickButton ui icon button" >
-                                                <Icon onClick={() => addSong(song)} className="plus circle"></Icon>
-                                            </button>
+                                                    <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                                        <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
+                                                    </Modal.Actions>
+                                                </Modal>
+                                                <button className="searchResultOptionButton clickButton ui icon button" >
+                                                    <Icon onClick={() => playSongByURI(song.uri)} className="play circle"></Icon>
+                                                </button>
+                                                <button className="searchResultOptionButton clickButton ui icon button" >
+                                                    <Icon onClick={() => addSong(song)} className="plus circle"></Icon>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </div>
             </div>
 
