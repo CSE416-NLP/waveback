@@ -1123,7 +1123,7 @@ code {
 
 .playlistSongArtistLabel { margin-left: 38.2%;}
 
-.playlistSongDurationLabel { margin-left: 36%;}
+.playlistSongDurationLabel { margin-left: 33.5%;}
 
 .playlistSongTitle, .playlistSongDuration, .playlistSongArtist {
   display: flex;
@@ -1181,7 +1181,18 @@ code {
 
 .playlistSongDuration {
   position: absolute;
-  right: 8.8%;
+  right: 8.6%;
+}
+
+.playlistSongTitleLabel:hover, .playlistSongArtistLabel:hover, .playlistSongDurationLabel:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.playlistSongTitleLabel:active, .playlistSongArtistLabel:active, .playlistSongDurationLabel:active {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--primary);
 }
 
 .playlistSongBox {

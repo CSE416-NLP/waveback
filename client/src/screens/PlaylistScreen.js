@@ -34,6 +34,7 @@ const PlaylistScreen = (props) => {
     const [songInfoOpenState, setSongInfoOpenState] = useState(false);
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
+    const [sortState, setSortState] = useState("normal");
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
@@ -169,6 +170,43 @@ const PlaylistScreen = (props) => {
     const openMoreInfoModal = (song) => {
         setSongInfoOpenState(false);
     }
+
+    const sortSongs = (newType) => {
+        let songs = [...playlistSongs];
+        let sort = sortState;
+        if (newType == 0) {
+            if (sort === "reverse") {
+                setSortState("normal");
+                songs.sort(function(a, b) { return a.title.localeCompare(b.title); });
+            }
+            else if (sort === "normal") {
+                setSortState("reverse");
+                songs.sort(function(a, b) { return b.title.localeCompare(a.title); });
+            }
+        }
+        else if (newType == 1) {
+            if (sort === "reverse") {
+                setSortState("normal");
+                songs.sort(function(a, b) { return a.artist.localeCompare(b.artist); });
+            }
+            else if (sort === "normal") {
+                setSortState("reverse");
+                songs.sort(function(a, b) { return b.artist.localeCompare(a.artist); });
+            }
+        }
+        else {
+            if (sort === "reverse") {
+                setSortState("normal");
+                songs.sort(function(a, b) { return a.duration - b.duration; });
+            }
+            else if (sort === "normal") {
+                setSortState("reverse");
+                songs.sort(function(a, b) { return b.duration - a.duration; });
+            }
+        }
+        setPlaylistSongs(songs);
+    }
+
     let duration = 0;
     for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
@@ -241,7 +279,7 @@ const PlaylistScreen = (props) => {
                         </div>
                     </div>
                     <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
-                        placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} />
+                        placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => setPlaylistDescription(e.target.value)} />
                 </div>
                 <div className="playlistScreenAddSongBox">
                     <div className="addSongEntireContainer">
@@ -318,11 +356,10 @@ const PlaylistScreen = (props) => {
 
             <div className="playlistSongsContainer">
                 <div className="playlistSongsBox">
-                    <div className="playlistSongTitleLabel">Song Title</div>
-                    <div className="playlistSongArtistLabel">Artist</div>
-                    <div className="playlistSongDurationLabel">Duration</div>
+                    <div onClick={() => sortSongs(0)} className="playlistSongTitleLabel">Song Title</div>
+                    <div onClick={() => sortSongs(1)} className="playlistSongArtistLabel">Artist</div>
+                    <div onClick={() => sortSongs(2)} className="playlistSongDurationLabel">Duration</div>
                 </div>
-
                 {playlistSongs.map((song, index) => (
                     <div className="playlistSongBox">
                         <div className="songNumber"><p>{index + 1}</p></div>
