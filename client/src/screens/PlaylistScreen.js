@@ -7,7 +7,8 @@ import "../styles/css/index.css"
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
-import { getSongTime } from "../UtilityComponents/Playlist"
+import { getSongTime } from "../UtilityComponents/Playlist";
+import { search } from 'spotify-web-sdk';
 // import jsonData from "../data/TestData.json";
 
 var buttonStyle = { color: "var(--background)", backgroundColor: "var(--buttonColor" };
@@ -76,8 +77,8 @@ const PlaylistScreen = (props) => {
         })
             .then(response => response.json())
             .then(data => {
-                setSearchResult(data.tracks.items);
-            });
+                setSearchResult(data.tracks.items)
+        })
     }
 
     const handleSearchInput = (event) => {
@@ -121,6 +122,18 @@ const PlaylistScreen = (props) => {
         console.log(offset);
     }
 
+    const playSongByURI = (uri) => {
+        if (props.playStatus != true){
+            props.setPlayStatus(true);
+        }
+        props.setPlayStatus(false);
+        props.setTracks({
+            offset: 0,
+            uris: [uri]
+        })
+        props.setPlayStatus(true);
+    }
+
     const playRandom = () => {
         if (props.playStatus != true){
             props.setPlayStatus(true);
@@ -133,7 +146,7 @@ const PlaylistScreen = (props) => {
         })
         props.setPlayStatus(true);
     }
-    
+
     let duration = 0;
     for (let i = 0; i < playlist.songs.length; i++) { duration += playlist.songs[i].duration; }
 
@@ -231,14 +244,14 @@ const PlaylistScreen = (props) => {
                                         </div>
                                         <div className="playlistSearchResultOptions">
                                             <Modal
-                                                
                                                 onClose={() => setSongInfoOpenState(false)}
                                                 onOpen={() => setSongInfoOpenState(true)}
                                                 open={songInfoOpenState}
                                                 size='small'
-                                                trigger={<button className="searchResultOptionButton clickButton ui icon button" >
-                                                            <Icon className="info circle"></Icon>
-                                                        </button>}>
+                                                trigger={
+                                                    <button className="searchResultOptionButton clickButton ui icon button" >
+                                                        <Icon className="info circle"></Icon>
+                                                    </button>}>
                                                 <Header icon>More Info</Header>
                                                 <Modal.Content>
                                                     <div className="playlistSongSearchResultTitle">{song.name}</div>
@@ -250,7 +263,7 @@ const PlaylistScreen = (props) => {
                                                 </Modal.Actions>
                                             </Modal>
                                             <button className="searchResultOptionButton clickButton ui icon button" >
-                                                <Icon className="play circle"></Icon>
+                                                <Icon onClick={() => playSongByURI(song.uri)} className="play circle"></Icon>
                                             </button>
                                             <button className="searchResultOptionButton clickButton ui icon button" >
                                                 <Icon onClick={() => addSong(song)} className="plus circle"></Icon>
@@ -274,7 +287,7 @@ const PlaylistScreen = (props) => {
                 {playlist.songs.map((song, index) => (
                     <div className="playlistSongBox">
                         <div className="songNumber"><p>{index + 1}</p></div>
-                        <Icon className="playlistSongIcon big" name="play circle outline" onClick={(e) => playSong(index)}></Icon>
+                        <Icon className="playlistSongIcon big" name="play circle outline" onClick={() => playSong(index)}></Icon>
                         <div className="playlistSongBar">
                             <div className="playlistSongTitle">{song.title}</div>
                             <div className="playlistSongArtist">{song.artist}</div>
