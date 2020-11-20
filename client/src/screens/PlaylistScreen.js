@@ -136,8 +136,8 @@ const PlaylistScreen = (props) => {
     }
 
     const removeSong = (song) => {
-        let newSongs = playlistSongs.splice(playlistSongs.indexOf(song), 1);
-        let newSongURIs = playlistSongURIs.splice(playlistSongURIs.indexOf(song.songURI), 1);
+        let newSongs = playlist.songs.splice(playlist.songs.indexOf(song), 1);
+        let newSongURIs = playlist.songURIs.splice(playlist.songURIs.indexOf(song.songURI), 1);
         setPlaylistSongs(newSongs);
         setPlaylistSongURIs(newSongURIs);
     }
