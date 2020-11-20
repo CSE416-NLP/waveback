@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Icon, Header, Button, Content } from 'semantic-ui-react';
+import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
@@ -8,7 +8,7 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime } from "../UtilityComponents/Playlist";
-import { search } from 'spotify-web-sdk';
+// import { search } from 'spotify-web-sdk';
 
 // import jsonData from "../data/TestData.json";
 
@@ -256,12 +256,23 @@ const PlaylistScreen = (props) => {
                                                         <button className="searchResultOptionButton clickButton ui icon button" >
                                                             <Icon className="info circle"></Icon>
                                                         </button>}>
-                                                    <Header icon>More Info</Header>
+                                                    <Header icon>Song Info</Header>
                                                     <Modal.Content>
-                                                        <div className="playlistSongSearchResultTitle">{songInfoOpenState ? songInfoOpenState.name : ""}</div>
-                                                        <div className="playlistSongSearchResultDesc">{songInfoOpenState ? songInfoOpenState.artists[0].name : ""}</div>
+                                                        <div className="moreInfoContainer">
+                                                            <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.album.images[0].url : ""} alt="" />
+                                                            <div>
+                                                                <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.name : ""}</div>
+                                                                <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artists[0].name : ""}</div>
+                                                                <div className="playlistSRRAlbum">{
+                                                                    songInfoOpenState ? songInfoOpenState.album.name + ", " + songInfoOpenState.album.release_date.substring(0, 4) : ""
+                                                                }</div>
+                                                                <br></br>
+                                                                <div className="playlistSRRDuration">{
+                                                                    songInfoOpenState ? "Duration: " + getSongTime(Math.round(songInfoOpenState.duration_ms / 1000)) : ""
+                                                                }</div>
+                                                            </div>
+                                                        </div> 
                                                     </Modal.Content>
-
                                                     <Modal.Actions className="recoverPasswordModalButtonContainer">
                                                         <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
                                                     </Modal.Actions>

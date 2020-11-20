@@ -331,6 +331,7 @@ code {
 /* GENERATE SCREEN */
 .generateScreen {
   height: 100%;
+  background-color: var(--background);
 }
 
 .generateScreenTitleText {
@@ -1041,12 +1042,32 @@ code {
   flex-direction: column;
 }
 
-.playlistSongSearchResultTitle {
-  font-size: 16px;
+.moreInfoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.playlistSRRArt {
+  width: 105px;
+  height: 105px;
+  margin-right: 1%;
+}
+
+.playlistSRRTitle {
+  font-size: 18px;
   font-weight: bold;
 }
 
-.playlistSongSearchResultDesc {
+.playlistSRRArtist {
+  font-size: 16px;
+}
+
+.playlistSRRAlbum {
+  font-size: 16px;
+  font-style: italic;
+}
+
+.playlistSRRDuration {
   font-size: 14px;
 }
 

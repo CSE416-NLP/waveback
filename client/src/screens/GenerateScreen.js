@@ -75,9 +75,8 @@ const GenerateScreen = (props) => {
   }
 
   return (
-    <div className="generateScreen" style={{backgroundColor: "var(--background)"}}>
-      <div className="generateScreenTitleText" style={{color: "var(--accent)", textShadow: "3px 3px 0px var(--secondary)"}}>bring back the sounds of...</div>
-
+    <div className="generateScreen">
+      <div className="generateScreenTitleText">bring back the sounds of...</div>
       <div className="generateScreenModules" style={{backgroundColor: "var(--background)"}}>
         <p className="generateScreenText">Locations
           <button style={buttonStyle} className="clickButton ui icon button generateSquareButton" onClick={addLocation}>
