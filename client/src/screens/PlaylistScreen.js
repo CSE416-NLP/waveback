@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Icon, Header, Button } from 'semantic-ui-react';
+import { Modal, Icon, Header, Button, Popup } from 'semantic-ui-react';
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
@@ -211,9 +211,15 @@ const PlaylistScreen = (props) => {
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
                                 </div>
                                 <div className="playlistSave">
-                                    <button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
-                                        <Icon className="large save outline"></Icon>
-                                    </button>
+                                    <Popup
+                                        content='Saved!'
+                                        on='click'
+                                        pinned
+                                        trigger={<button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
+                                            <Icon className="large save outline"></Icon>
+                                        </button>}
+                                    />
+
                                     <Modal
                                         basic
                                         onClose={() => setDeletePlaylistOpenState(false)}

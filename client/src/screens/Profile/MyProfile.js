@@ -35,9 +35,13 @@ const MyProfile = (props) => {
     const [favoriteGenres, setFavoriteGenres] = useState(arrayToString(currentUser.favoriteGenres))
     const [favoriteArtists, setFavoriteArtists] = useState(arrayToString(currentUser.favoriteArtists))
     const [favoriteSongs, setFavoriteSongs] = useState(arrayToString(currentUser.favoriteSongs))
+    const [updateCheck, setUpdateCheck] = useState(false);
 
     const updateProfile = async () => {
         // Split the strings by comma separators and then remove excess whitespace (not inbetween words)
+        if (updateCheck == true){
+            setUpdateCheck(false)
+        }
         let parsedGenres = stringToArray(favoriteGenres)
         let parsedArtists = stringToArray(favoriteArtists)
         let parsedSongs = stringToArray(favoriteSongs)
@@ -80,9 +84,22 @@ const MyProfile = (props) => {
                 <p className="profileScreenSubText">Favorite Songs</p>
                 <Form><TextArea className="profileTextArea" rows={1} style={{ backgroundColor: "var(--secondary)" }} placeholder="What are some of your favorite songs?"
                     value={favoriteSongs} onChange={(e) => setFavoriteSongs(e.target.value)} /></Form>
-                <div className="profileScreenUpdateButton">
-                    <button className="clickButton ui huge button" onClick={updateProfile}>Update</button>
-                </div>
+                <Modal
+                    basic
+                    onClose={() => setUpdateCheck(false)}
+                    onOpen={() => setUpdateCheck(true)}
+                    open={updateCheck}
+                    size='small'
+                    trigger={<div className="profileScreenUpdateButton">
+                        <button className="clickButton ui huge button" >Update</button>
+                    </div>}>
+                    <Header icon>Are you sure you want to update your profile?</Header>
+                    <Modal.Actions className="recoverPasswordModalButtonContainer">
+                        <Button inverted color='red' onClick={(e) => setUpdateCheck(false)}><Icon name='remove' />Close</Button>
+                        <Button className="ui primary button" onClick={updateProfile}><Icon name='checkmark' />Update</Button>
+                    </Modal.Actions>
+                </Modal>
+
             </div>
             <div className="profileScreenChangeAvatarContainer">
                 <img style={{ objectFit: "cover" }} src={currentUser ? currentUser.profilePicture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="myProfilePicture" alt="r" />
