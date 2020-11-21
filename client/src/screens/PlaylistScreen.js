@@ -8,6 +8,8 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
+const ObjectId = require("mongoose").Types.ObjectId;
+
 // import { search } from 'spotify-web-sdk';
 
 // import jsonData from "../data/TestData.json";
@@ -43,6 +45,7 @@ const PlaylistScreen = (props) => {
         setPlaylistPictureOpenState(false);
         let songsCopy = [...playlistSongs];
         for (let i = 0; i < songsCopy.length; i++) {
+            if (!songsCopy[i]._id) songsCopy[i]._id = ObjectId();
             delete songsCopy[i].__typename;
         }
         const { data } = await props.updatePlaylist({
@@ -97,6 +100,7 @@ const PlaylistScreen = (props) => {
     }
 
     const addSong = async (song) => {
+        console.log(song);
         let newSong = {
             _id: "",
             songURI: song.uri,
@@ -105,13 +109,15 @@ const PlaylistScreen = (props) => {
             artist: song.artists[0].name,
             album: song.album.name,
             genre: [],
-            year: song.album.release_date.substring(0, 4),
+            year: parseInt(song.album.release_date.substring(0, 4)),
             duration: Math.round(song.duration_ms / 1000),
             __typename: "Song",
         }
         let newSongURI = song.uri;
-        let newSongs = playlistSongs.push(newSong);
-        let newSongURIs = playlistSongURIs.push(newSongURI);
+        let newSongs = playlistSongs;
+        newSongs.push(newSong);
+        let newSongURIs = playlistSongURIs;
+        newSongURIs.push(newSongURI);
         setPlaylistSongs(newSongs);
         setPlaylistSongURIs(newSongURIs);
     }

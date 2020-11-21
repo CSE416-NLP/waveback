@@ -15,7 +15,7 @@ const DiscoverScreen = (props) => {
   const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
   if (data) {
     playlists = data.getAllPublicPlaylists;
-    console.log(playlists);
+    // console.log(playlists);
   }
   useEffect(() => {
     refetch();

@@ -27,7 +27,7 @@ const typeDefs = gql `
         artist: String!
         album: String
         genre: [String]!
-        year: Int!
+        year: Int
         duration: Int!
     }
     extend type Query {
