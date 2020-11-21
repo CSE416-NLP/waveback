@@ -20,10 +20,6 @@ const PlaylistScreen = (props) => {
     if (props.playerVisible === null) {
         props.setPlayerVisible(true);
     }
-    let token = props.spotifyToken;
-
-    const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20']);
-    const currentUser = props.user;
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
 
     const playlist = props.location.playlist;
@@ -123,7 +119,7 @@ const PlaylistScreen = (props) => {
     }
 
     const playSong = (offset) => {
-        if (props.playStatus != true) {
+        if (props.playStatus !== true) {
             props.setPlayStatus(true);
         }
         console.log(props.playStatus)
@@ -137,7 +133,7 @@ const PlaylistScreen = (props) => {
     }
 
     const playSongByURI = (uri) => {
-        if (props.playStatus != true) {
+        if (props.playStatus !== true) {
             props.setPlayStatus(true);
         }
         props.setPlayStatus(false);
@@ -161,7 +157,7 @@ const PlaylistScreen = (props) => {
     }
 
     const playRandom = () => {
-        if (props.playStatus != true) {
+        if (props.playStatus !== true) {
             props.setPlayStatus(true);
         }
         let random = Math.floor(Math.random() * playlistSongs.length);
@@ -173,14 +169,10 @@ const PlaylistScreen = (props) => {
         props.setPlayStatus(true);
     }
 
-    const openMoreInfoModal = (song) => {
-        setSongInfoOpenState(false);
-    }
-
     const sortSongs = (newType) => {
         let songs = [...playlistSongs];
         let sort = sortState;
-        if (newType == 0) {
+        if (newType === 0) {
             if (sort === "reverse") {
                 setSortState("normal");
                 songs.sort(function(a, b) { return a.title.localeCompare(b.title); });
@@ -190,7 +182,7 @@ const PlaylistScreen = (props) => {
                 songs.sort(function(a, b) { return b.title.localeCompare(a.title); });
             }
         }
-        else if (newType == 1) {
+        else if (newType === 1) {
             if (sort === "reverse") {
                 setSortState("normal");
                 songs.sort(function(a, b) { return a.artist.localeCompare(b.artist); });
@@ -345,11 +337,11 @@ const PlaylistScreen = (props) => {
                                                         <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
                                                     </Modal.Actions>
                                                 </Modal>
-                                                <button className="searchResultOptionButton clickButton ui icon button" >
-                                                    <Icon onClick={() => playSongByURI(song.uri)} className="play circle"></Icon>
+                                                <button className="searchResultOptionButton clickButton ui icon button" onClick={() => playSongByURI(song.uri)} >
+                                                    <Icon className="play circle"></Icon>
                                                 </button>
-                                                <button className="searchResultOptionButton clickButton ui icon button" >
-                                                    <Icon onClick={() => addSong(song)} className="plus circle"></Icon>
+                                                <button className="searchResultOptionButton clickButton ui icon button" onClick={() => addSong(song)} >
+                                                    <Icon className="plus circle"></Icon>
                                                 </button>
                                             </div>
                                         </div>
