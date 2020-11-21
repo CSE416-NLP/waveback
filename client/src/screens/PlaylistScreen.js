@@ -99,7 +99,7 @@ const PlaylistScreen = (props) => {
         }
     }
 
-    const addSong = async (song) => {
+    const addSong = (song) => {
         console.log(song);
         let newSong = {
             _id: "",
@@ -114,9 +114,9 @@ const PlaylistScreen = (props) => {
             __typename: "Song",
         }
         let newSongURI = song.uri;
-        let newSongs = playlistSongs;
+        let newSongs = [...playlistSongs];
         newSongs.push(newSong);
-        let newSongURIs = playlistSongURIs;
+        let newSongURIs = [...playlistSongURIs];
         newSongURIs.push(newSongURI);
         setPlaylistSongs(newSongs);
         setPlaylistSongURIs(newSongURIs);
