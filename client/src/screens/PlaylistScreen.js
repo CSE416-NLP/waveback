@@ -5,16 +5,14 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import "../styles/css/index.css"
 import { graphql } from '@apollo/react-hoc';
-import { flowRight as compose } from 'lodash';
+import { flowRight as compose, random } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 const ObjectId = require("mongoose").Types.ObjectId;
 
 // import { search } from 'spotify-web-sdk';
 
-// import jsonData from "../data/TestData.json";
-
-var buttonStyle = { color: "var(--background)", backgroundColor: "var(--buttonColor" };
+var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const PlaylistScreen = (props) => {
     if (props.playerVisible === null) {
@@ -93,6 +91,15 @@ const PlaylistScreen = (props) => {
         if (event.key === 'Enter') {
             onClickHandler(event.target.value);
         }
+    }
+
+    const getRandomSong = () => {
+        let randomString = "";
+        for (let i = 0; i < 3; i++) {
+            randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        setSearchTerm(randomString);
+        onClickHandler(randomString);
     }
 
     const addSong = (song) => {
@@ -286,9 +293,12 @@ const PlaylistScreen = (props) => {
                             <div className="addSongSearchContainer ui input">
                                 <input className="addSongSearch" onKeyPress={(e) => handleSearchInput(e)} placeholder="Add Song..."></input>
                             </div>
-                            <button type="submit" style={buttonStyle} className="clickButton ui icon large button" onClick={() => onClickHandler(searchTerm)}>
+                            <button type="submit" className="clickButton ui icon large button" onClick={() => onClickHandler(searchTerm)}>
                                 <i className="search icon"></i>
                             </button>
+                            <div className="randomSongButton">
+                                <button onClick={getRandomSong} type="submit" className="clickButton ui button">Random Song</button>
+                            </div>
                         </div>
                         <div className="playlistAddSongDivider" ></div>
 
