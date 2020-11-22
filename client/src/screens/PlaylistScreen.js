@@ -31,6 +31,7 @@ const PlaylistScreen = (props) => {
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
+    const [currentPlayingSong, setCurrentPlayingSong] = useState("");
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
@@ -129,14 +130,13 @@ const PlaylistScreen = (props) => {
         if (props.playStatus !== true) {
             props.setPlayStatus(true);
         }
-        console.log(props.playStatus)
         props.setPlayStatus(false);
         props.setTracks({
             offset: offset,
             uris: playlistSongURIs
         })
         props.setPlayStatus(true);
-        console.log(offset);
+        setCurrentPlayingSong(playlistSongURIs[offset]);
     }
 
     const playSongByURI = (uri) => {
@@ -149,6 +149,8 @@ const PlaylistScreen = (props) => {
             uris: [uri]
         })
         props.setPlayStatus(true);
+        setCurrentPlayingSong(uri);
+        console.log(uri);
     }
 
     const removeSong = (song) => {
@@ -372,10 +374,18 @@ const PlaylistScreen = (props) => {
                     <div className="playlistSongBox">
                         <div className="songNumber"><p>{index + 1}</p></div>
                         <Icon className="playlistSongIcon big" name="play circle outline" onClick={() => playSong(index)}></Icon>
-                        <div className="playlistSongBar">
-                            <div className="playlistSongTitle">{song.title}</div>
-                            <div className="playlistSongArtist">{song.artist}</div>
-                            <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
+                        <div className="playlistSongBar" style={
+                            (song.songURI === currentPlayingSong) ? {backgroundColor: "var(--primary)"} : {backgroundColor: "var(--secondary)"}
+                        }>
+                            <div className="playlistSongTitle" style={
+                                (song.songURI === currentPlayingSong) ? {fontWeight: "bold"} : {fontWeight: "normal"}
+                            }>{song.title}</div>
+                            <div className="playlistSongArtist" style={
+                                (song.songURI === currentPlayingSong) ? {fontWeight: "bold"} : {fontWeight: "normal"}
+                            }>{song.artist}</div>
+                            <div className="playlistSongDuration" style={
+                                (song.songURI === currentPlayingSong) ? {fontWeight: "bold"} : {fontWeight: "normal"}
+                            }>{getSongTime(song.duration)}</div>
                         </div>
                         <Icon className="removeSongIcon large" name="remove" onClick={() => removeSong(song)}></Icon>
                     </div>
