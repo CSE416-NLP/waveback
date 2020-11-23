@@ -32,7 +32,9 @@ const PlaylistScreen = (props) => {
     const [searchResults, setSearchResult] = useState([]);
 
     const handleUpdatePlaylist = async () => {
-        setPlaylistPictureOpenState(false);
+        if (playlistPictureOpenState) {
+            setPlaylistPictureOpenState(false);
+        }
         let songsCopy = [...playlistSongs];
         for (let i = 0; i < songsCopy.length; i++) {
             if (!songsCopy[i]._id) songsCopy[i]._id = ObjectId();
@@ -257,6 +259,12 @@ const PlaylistScreen = (props) => {
         updateTracks(songURIsCopy, props.currentSongIndex)
     }
 
+    const invalidImage = (e) => {
+        e.target.src = "https://i.imgur.com/ZRoNOEu.png";
+        setPlaylistPicture("https://i.imgur.com/ZRoNOEu.png");
+        // handleUpdatePlaylist();
+    }
+
     let duration = 0;
     for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
@@ -272,7 +280,7 @@ const PlaylistScreen = (props) => {
                             onOpen={() => setPlaylistPictureOpenState(true)}
                             open={playlistPictureOpenState}
                             size='small'
-                            trigger={<img className="playlistArt" src={playlistPicture} alt="" />}>
+                            trigger={<img onError={invalidImage} className="playlistArt" src={playlistPicture} alt="" />}>
                             <Header icon><Icon name='user circle' />Update Playlist Picture</Header>
                             <Modal.Content>
                                 <div className="ui input changeAvatarTextField">
@@ -284,7 +292,6 @@ const PlaylistScreen = (props) => {
                                 <Button className="ui primary button" onClick={handleUpdatePlaylist}><Icon name='checkmark' />Update</Button>
                             </Modal.Actions>
                         </Modal>
-
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
                                 <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
