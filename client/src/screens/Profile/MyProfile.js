@@ -63,7 +63,9 @@ const MyProfile = (props) => {
         else console.log("Error in saving");
         props.fetchUser();
     }
-
+    const invalidImage = (e) => {
+        e.target.src = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=";
+    }
     return (
         <div className="myProfileScreen">
             <div className="profileScreenMainContainer">
@@ -102,7 +104,7 @@ const MyProfile = (props) => {
 
             </div>
             <div className="profileScreenChangeAvatarContainer">
-                <img style={{ objectFit: "cover" }} src={currentUser ? currentUser.profilePicture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="myProfilePicture" alt="r" />
+                <img onError = {invalidImage} style={{ objectFit: "cover" }} src={currentUser ? currentUser.profilePicture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="myProfilePicture" alt="r" />
                 <h2>{currentUser.username}</h2>
                 <Modal
                     basic
