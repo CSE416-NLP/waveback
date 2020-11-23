@@ -39,7 +39,7 @@ const MyProfile = (props) => {
 
     const updateProfile = async () => {
         // Split the strings by comma separators and then remove excess whitespace (not inbetween words)
-        if (updateCheck == true){
+        if (updateCheck == true) {
             setUpdateCheck(false)
         }
         let parsedGenres = stringToArray(favoriteGenres)
@@ -97,14 +97,14 @@ const MyProfile = (props) => {
                     </div>}>
                     <Header icon>Are you sure you want to update your profile?</Header>
                     <Modal.Actions className="recoverPasswordModalButtonContainer">
-                        <Button inverted color='red' onClick={(e) => setUpdateCheck(false)}><Icon name='remove' />Close</Button>
                         <Button className="ui primary button" onClick={updateProfile}><Icon name='checkmark' />Update</Button>
+                        <Button inverted color='red' onClick={(e) => setUpdateCheck(false)}><Icon name='remove' />Close</Button>
                     </Modal.Actions>
                 </Modal>
 
             </div>
             <div className="profileScreenChangeAvatarContainer">
-                <img onError = {invalidImage} style={{ objectFit: "cover" }} src={currentUser ? currentUser.profilePicture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="myProfilePicture" alt="r" />
+                <img onError={invalidImage} style={{ objectFit: "cover" }} src={currentUser ? currentUser.profilePicture : "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ="} className="myProfilePicture" alt="r" />
                 <h2>{currentUser.username}</h2>
                 <Modal
                     basic
@@ -120,8 +120,8 @@ const MyProfile = (props) => {
                         </div>
                     </Modal.Content>
                     <Modal.Actions className="recoverPasswordModalButtonContainer">
-                        <Button inverted color='red' onClick={(e) => setAvatarModalOpenState(false)}><Icon name='remove' />Close</Button>
                         <Button className="ui primary button" onClick={updateProfile}><Icon name='checkmark' />Update</Button>
+                        <Button inverted color='red' onClick={(e) => setAvatarModalOpenState(false)}><Icon name='remove' />Close</Button>
                     </Modal.Actions>
                 </Modal>
             </div>

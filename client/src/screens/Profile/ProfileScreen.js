@@ -32,10 +32,12 @@ const ProfileScreen = (props) => {
   };
 
   const saveColorTheme = async (theme) => {
-    const saveThemeResult = await props.updateusertheme({variables: {
-      _id: props.user._id, 
-      theme: theme
-    }});
+    const saveThemeResult = await props.updateusertheme({
+      variables: {
+        _id: props.user._id,
+        theme: theme
+      }
+    });
     if (saveThemeResult) {
       console.log(saveThemeResult)
     }
@@ -43,7 +45,7 @@ const ProfileScreen = (props) => {
 
   const renderTab = () => {
     let TabElement = tabMap[currentTab];
-    return (<TabElement user={props.user} fetchUser={props.fetchUser}/>)
+    return (<TabElement user={props.user} fetchUser={props.fetchUser} />)
   }
 
   return (
@@ -51,25 +53,25 @@ const ProfileScreen = (props) => {
 
       <div className="profileScreenOptions" style={{ backgroundColor: "var(--background)" }}>
         <div className="profileScreenLeftContainer" style={{ backgroundColor: "var(--secondary)" }}>
-          <p className="profileOptionsText" 
-            style={{ 
-              color: "var(--accent)", 
+          <p className="profileOptionsText"
+            style={{
+              color: "var(--accent)",
               fontWeight: currentTab === "Profile" ? "bold" : "normal",
               borderWidth: currentTab === "Profile" ? "8px" : "0px",
               backgroundColor: currentTab === "Profile" ? "var(--primary)" : "var(--secondary)",
             }}
             onClick={(e) => setCurrentTab("Profile")}>My Profile
           </p>
-          <p className="profileOptionsText" 
-            style={{ 
-              color: "var(--accent)", 
+          <p className="profileOptionsText"
+            style={{
+              color: "var(--accent)",
               fontWeight: currentTab === "Following" ? "bold" : "normal",
               borderWidth: currentTab === "Following" ? "8px" : "0px",
               backgroundColor: currentTab === "Following" ? "var(--primary)" : "var(--secondary)",
-            }} 
+            }}
             onClick={(e) => setCurrentTab("Following")}>Following
           </p>
-          <p className="profileOptionsText" 
+          <p className="profileOptionsText"
             style={{
               color: "var(--accent)",
               fontWeight: currentTab === "Settings" ? "bold" : "normal",
@@ -84,15 +86,15 @@ const ProfileScreen = (props) => {
               <div className="profileOptionsButton">
                 <button className="clickButton ui massive button">Sign Out</button>
               </div>}>
-            <Header icon><Icon name='sign-out'/>Sign Out</Header>
+            <Header icon><Icon name='sign-out' />Sign Out</Header>
             <Modal.Content>
               <div className="signOutText">
                 <p>Are you sure you want to sign out?</p>
               </div>
             </Modal.Content>
             <Modal.Actions className="signOutModalButtonContainer">
-              <Button inverted color='red' onClick={() => setSignOutModalOpenState(false)}><Icon name='remove' />No</Button>
               <Button className="ui primary button" onClick={logout}><Icon name='checkmark' />Yes</Button>
+              <Button inverted color='red' onClick={() => setSignOutModalOpenState(false)}><Icon name='remove' />No</Button>
             </Modal.Actions>
           </Modal>
         </div>

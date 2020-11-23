@@ -96,7 +96,7 @@ const PlaylistScreen = (props) => {
         for (let i = 0; i < 3; i++) {
             randomString += characters.charAt(Math.floor(Math.random() * characters.length));
         }
-        setSearchTerm(randomString);
+        // setSearchTerm(randomString);
         searchSpotify(randomString);
     }
 
@@ -327,8 +327,8 @@ const PlaylistScreen = (props) => {
                                         <Header icon><Icon className='large trash' />Are you sure you want to delete this playlist?</Header>
 
                                         <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                            <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
                                             <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>
+                                            <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
                                         </Modal.Actions>
                                     </Modal>
                                 </div>
