@@ -72,7 +72,7 @@ const PlaylistScreen = (props) => {
 
         fetch(query, {
             method: "GET",
-            headers: {
+            headers: {  
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Authorization": token
@@ -431,7 +431,7 @@ const PlaylistScreen = (props) => {
                                     {(provided, snapshot) => (
                                         <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
                                             <div style={{ display: "flex", flexDirection: "row", width: "7%" }}>
-                                                <div className="songNumber"><p>{index + 1}</p></div>
+                                                {/* <div className="songNumber"><p>{index + 1}</p></div> */}
                                                 <Icon className="playlistSongIcon big" name="play circle outline" onClick={() => playSong(index)}></Icon>
                                             </div>
 
