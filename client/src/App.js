@@ -32,13 +32,13 @@ const App = (props) => {
 
   const [spotifyToken, setSpotifyToken] = useState(getSpotifyAccess() === "allowed" && getSpotifyTokenExpirationTime() > new Date().getTime() ? getSpotifyAccessToken() : null)
   const [playerVisible, setPlayerVisible] = useState(null)
-  // const [tracks, setTracks] = useState(['spotify:track:5yK37zazHUe3WxEvymZs20', "spotify:track:46OFHBw45fNi7QNjSetITR", "spotify:track:6i3uaiOs9AMxEq5bYoiro0"])
-  // const [offset, setOffset] = useState(0);
   const [tracks, setTracks] = useState({
     uris: ['spotify:track:5yK37zazHUe3WxEvymZs20', "spotify:track:46OFHBw45fNi7QNjSetITR", "spotify:track:6i3uaiOs9AMxEq5bYoiro0"],
     offset: 0
   })
   const [playStatus, setPlayStatus] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(-1);
+  const [currentPlaylistID, setCurrentPlaylistID] = useState(null);
 
   // console.log("token: ", spotifyToken);
   const authorizeSpotifyFromStorage = (e) => {
@@ -92,6 +92,10 @@ const App = (props) => {
             setPlayerVisible={setPlayerVisible}
             setTracks={setTracks}
             playerVisible={playerVisible}
+            currentSongIndex={currentSongIndex}
+            setCurrentSongIndex={setCurrentSongIndex}
+            currentPlaylistID={currentPlaylistID}
+            setCurrentPlaylistID={setCurrentPlaylistID}
             {...props} />} />
         <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/admin" render={(props) => user && user.admin ? <AdminScreen /> : <Redirect to="/welcome" />} />
@@ -121,7 +125,12 @@ const App = (props) => {
                 trackNameColor: "var(--accent)",
                 trackArtistColor: "var(--buttonColor)"
               }}
-              callback={(state) => setPlayStatus(state.isPlaying)}
+              callback={(state) => {
+                if (state.isPlaying) {
+                  setCurrentSongIndex(tracks.uris.indexOf(state.track.uri))
+                }
+                setPlayStatus(state.isPlaying)
+              }}
             />
           </div>
         </div>}

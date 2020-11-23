@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Icon, Header, Button, Popup } from 'semantic-ui-react';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
@@ -10,14 +11,9 @@ import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 const ObjectId = require("mongoose").Types.ObjectId;
 
-// import { search } from 'spotify-web-sdk';
-
-var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const PlaylistScreen = (props) => {
-    if (props.playerVisible === null) {
-        props.setPlayerVisible(true);
-    }
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
 
     const playlist = props.location.playlist;
@@ -31,7 +27,6 @@ const PlaylistScreen = (props) => {
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
-    const [currentPlayingSong, setCurrentPlayingSong] = useState("");
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
@@ -67,7 +62,7 @@ const PlaylistScreen = (props) => {
         refetch();
     }
 
-    const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
+    const searchSpotify = (term) => { // Default is all fields, playlist generation may only use song search
         if (term === "") return;
         let token = getSpotifyAccessToken();
         token = "Bearer " + token;
@@ -90,7 +85,7 @@ const PlaylistScreen = (props) => {
     const handleSearchInput = (event) => {
         setSearchTerm(event.target.value);
         if (event.key === 'Enter') {
-            onClickHandler(event.target.value);
+            searchSpotify(event.target.value);
         }
     }
 
@@ -100,7 +95,33 @@ const PlaylistScreen = (props) => {
             randomString += characters.charAt(Math.floor(Math.random() * characters.length));
         }
         setSearchTerm(randomString);
-        onClickHandler(randomString);
+        searchSpotify(randomString);
+    }
+
+    const updateTracks = (newURIs, offset) => {
+        if (props.currentPlaylistID === playlist._id) {
+            // Very sloppy solution of mine to reset the player, try to find a better solution
+            props.setTracks({
+                offset: 0,
+                uris: []
+            })
+            props.setTracks({
+                offset: offset,
+                uris: newURIs
+            })
+        }
+    }
+
+    const checkPlayerStatus = () => {
+        if (props.playStatus !== true) {
+            props.setPlayStatus(true);
+        }
+        if (props.playerVisible === null) {
+            props.setPlayerVisible(true);
+        }
+        if (props.currentPlaylistID === playlist._id) {
+            props.setCurrentPlaylistID(playlist._id);
+        }
     }
 
     const addSong = (song) => {
@@ -124,33 +145,7 @@ const PlaylistScreen = (props) => {
         newSongURIs.push(newSongURI);
         setPlaylistSongs(newSongs);
         setPlaylistSongURIs(newSongURIs);
-    }
-
-    const playSong = (offset) => {
-        if (props.playStatus !== true) {
-            props.setPlayStatus(true);
-        }
-        props.setPlayStatus(false);
-        props.setTracks({
-            offset: offset,
-            uris: playlistSongURIs
-        })
-        props.setPlayStatus(true);
-        setCurrentPlayingSong(playlistSongURIs[offset]);
-    }
-
-    const playSongByURI = (uri) => {
-        if (props.playStatus !== true) {
-            props.setPlayStatus(true);
-        }
-        props.setPlayStatus(false);
-        props.setTracks({
-            offset: 0,
-            uris: [uri]
-        })
-        props.setPlayStatus(true);
-        setCurrentPlayingSong(uri);
-        console.log(uri);
+        updateTracks(newSongURIs, props.currentSongIndex);
     }
 
     const removeSong = (song) => {
@@ -163,12 +158,32 @@ const PlaylistScreen = (props) => {
         console.log(URIs);
         setPlaylistSongs(songs);
         setPlaylistSongURIs(URIs);
+        updateTracks(URIs, props.currentSongIndex);
+    }
+
+    const playSong = (offset) => {
+        checkPlayerStatus();
+        props.setPlayStatus(false);
+        props.setTracks({
+            offset: offset,
+            uris: playlistSongURIs
+        })
+        props.setPlayStatus(true);
+    }
+
+    const playSongByURI = (uri) => {
+        checkPlayerStatus();
+        props.setPlayStatus(false);
+        props.setTracks({
+            offset: 0,
+            uris: [uri]
+        })
+        props.setPlayStatus(true);
+        console.log(uri);
     }
 
     const playRandom = () => {
-        if (props.playStatus !== true) {
-            props.setPlayStatus(true);
-        }
+        checkPlayerStatus();
         let random = Math.floor(Math.random() * playlistSongs.length);
         props.setPlayStatus(false);
         props.setTracks({
@@ -181,37 +196,65 @@ const PlaylistScreen = (props) => {
     const sortSongs = (newType) => {
         let songs = [...playlistSongs];
         let sort = sortState;
+        let currentURI = playlistSongURIs[props.currentSongIndex];
         if (newType === 0) {
             if (sort === "reverse") {
                 setSortState("normal");
-                songs.sort(function(a, b) { return a.title.localeCompare(b.title); });
+                songs.sort(function (a, b) { return a.title.localeCompare(b.title); });
             }
             else if (sort === "normal") {
                 setSortState("reverse");
-                songs.sort(function(a, b) { return b.title.localeCompare(a.title); });
+                songs.sort(function (a, b) { return b.title.localeCompare(a.title); });
             }
         }
         else if (newType === 1) {
             if (sort === "reverse") {
                 setSortState("normal");
-                songs.sort(function(a, b) { return a.artist.localeCompare(b.artist); });
+                songs.sort(function (a, b) { return a.artist.localeCompare(b.artist); });
             }
             else if (sort === "normal") {
                 setSortState("reverse");
-                songs.sort(function(a, b) { return b.artist.localeCompare(a.artist); });
+                songs.sort(function (a, b) { return b.artist.localeCompare(a.artist); });
             }
         }
         else {
             if (sort === "reverse") {
                 setSortState("normal");
-                songs.sort(function(a, b) { return a.duration - b.duration; });
+                songs.sort(function (a, b) { return a.duration - b.duration; });
             }
             else if (sort === "normal") {
                 setSortState("reverse");
-                songs.sort(function(a, b) { return b.duration - a.duration; });
+                songs.sort(function (a, b) { return b.duration - a.duration; });
             }
         }
         setPlaylistSongs(songs);
+
+        let newSongURIs = [];
+        for (let i = 0; i < songs.length; i++) {
+            newSongURIs.push(songs[i].songURI);
+        }
+        let newCurrentSongPos = newSongURIs.indexOf(currentURI)
+        setPlaylistSongURIs(newSongURIs);
+        updateTracks(newSongURIs, newCurrentSongPos);
+        props.setCurrentSongIndex(newCurrentSongPos)
+    }
+
+    const onDragEnd = (result) => {
+        if (!result.destination) {
+            return;
+        }
+
+        let songsCopy = [...playlistSongs];
+        let [removed] = songsCopy.splice(result.source.index, 1);
+        songsCopy.splice(result.destination.index, 0, removed);
+        setPlaylistSongs(songsCopy);
+
+        let songURIsCopy = [...playlistSongURIs];
+        let [removedURI] = songURIsCopy.splice(result.source.index, 1);
+        songURIsCopy.splice(result.destination.index, 0, removedURI);
+
+        setPlaylistSongURIs(songURIsCopy);
+        updateTracks(songURIsCopy, props.currentSongIndex)
     }
 
     let duration = 0;
@@ -295,7 +338,7 @@ const PlaylistScreen = (props) => {
                             <div className="addSongSearchContainer ui input">
                                 <input className="addSongSearch" onKeyPress={(e) => handleSearchInput(e)} placeholder="Add Song..."></input>
                             </div>
-                            <button type="submit" className="clickButton ui icon large button" onClick={() => onClickHandler(searchTerm)}>
+                            <button type="submit" className="clickButton ui icon large button" onClick={() => searchSpotify(searchTerm)}>
                                 <i className="search icon"></i>
                             </button>
                             <div className="randomSongButton">
@@ -308,7 +351,7 @@ const PlaylistScreen = (props) => {
                             <div className="displaySearchResultsContainer">
                                 {
                                     searchResults.map((song, index) => (
-                                        <div className="playlistSearchResultBox">
+                                        <div className="playlistSearchResultBox" key={index}>
                                             <div className="playlistSearchResult">
                                                 <div className="playlistSongSearchResultImage">
                                                     <img className="searchResultImg" src={song.album.images[0].url} alt="" />
@@ -364,33 +407,46 @@ const PlaylistScreen = (props) => {
                 </div>
             </div>
 
-            <div className="playlistSongsContainer">
-                <div className="playlistSongsBox">
-                    <div onClick={() => sortSongs(0)} className="playlistSongTitleLabel">Song Title</div>
-                    <div onClick={() => sortSongs(1)} className="playlistSongArtistLabel">Artist</div>
-                    <div onClick={() => sortSongs(2)} className="playlistSongDurationLabel">Duration</div>
-                </div>
-                {playlistSongs.map((song, index) => (
-                    <div className="playlistSongBox">
-                        <div className="songNumber"><p>{index + 1}</p></div>
-                        <Icon className="playlistSongIcon big" name="play circle outline" onClick={() => playSong(index)}></Icon>
-                        <div className="playlistSongBar" style={
-                            (song.songURI === currentPlayingSong) ? {backgroundColor: "var(--primary)"} : {backgroundColor: "var(--secondary)"}
-                        }>
-                            <div className="playlistSongTitle" style={
-                                (song.songURI === currentPlayingSong) ? {fontWeight: "bold"} : {fontWeight: "normal"}
-                            }>{song.title}</div>
-                            <div className="playlistSongArtist" style={
-                                (song.songURI === currentPlayingSong) ? {fontWeight: "bold"} : {fontWeight: "normal"}
-                            }>{song.artist}</div>
-                            <div className="playlistSongDuration" style={
-                                (song.songURI === currentPlayingSong) ? {fontWeight: "bold"} : {fontWeight: "normal"}
-                            }>{getSongTime(song.duration)}</div>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable">
+                    {(provided, snapshot) => (
+                        <div className="playlistSongsContainer" {...provided.droppableProps} ref={provided.innerRef}>
+                            <div style={{ display: "flex" }}>
+                                <div style={{ width: "7%" }}></div>
+                                <div className="playlistSongsBox">
+                                    <div onClick={() => sortSongs(0)} className="playlistSongTitleLabel">Song Title</div>
+                                    <div onClick={() => sortSongs(1)} className="playlistSongArtistLabel">Artist</div>
+                                    <div onClick={() => sortSongs(2)} className="playlistSongDurationLabel">Duration</div>
+                                </div>
+                            </div>
+                            {playlistSongs.map((song, index) => (
+                                <Draggable key={song.key.toString()} draggableId={song.key.toString()} index={index}>
+                                    {(provided, snapshot) => (
+                                        <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
+                                            <div style={{ display: "flex", flexDirection: "row", width: "7%" }}>
+                                                <div className="songNumber"><p>{index + 1}</p></div>
+                                                <Icon className="playlistSongIcon big" name="play circle outline" onClick={() => playSong(index)}></Icon>
+                                            </div>
+
+                                            <div className="playlistSongBar" style={((props.currentPlaylistID === playlist._id && index === props.currentSongIndex) || snapshot.isDragging) ?
+                                                { backgroundColor: "var(--primary)", fontWeight: "bold", color: "white" }
+                                                : { backgroundColor: "var(--secondary)" }
+                                            }>
+                                                <div className="playlistSongTitle">{song.title}</div>
+                                                <div className="playlistSongArtist">{song.artist}</div>
+                                                <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
+                                            </div>
+
+                                            <Icon className="removeSongIcon large" style={{ width: "3%" }} name="remove" onClick={() => removeSong(song)}></Icon>
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
                         </div>
-                        <Icon className="removeSongIcon large" name="remove" onClick={() => removeSong(song)}></Icon>
-                    </div>
-                ))}
-            </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
         </div>
     );
 };

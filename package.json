@@ -41,6 +41,7 @@
     "mongoose": "^5.9.19",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
+    "react-beautiful-dnd": "^13.0.0",
     "react-spotify-web-playback": "^0.7.0",
     "spotify-web-sdk": "^0.7.0",
     "typescript": "^4.0.5",
