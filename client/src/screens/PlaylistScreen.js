@@ -9,6 +9,7 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose, random } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
+import SongSearch from "../UtilityComponents/SongSearch";
 import { PlaylistTransaction } from '../utils/jsTPS';
 
 const ObjectId = require("mongoose").Types.ObjectId;
@@ -29,6 +30,7 @@ const PlaylistScreen = (props) => {
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
+    const [songHoverState, setSongHoverState] = useState(null);
 
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
@@ -196,11 +198,8 @@ const PlaylistScreen = (props) => {
     const removeSong = (song) => {
         let songs = [...playlistSongs];
         let URIs = [...playlistSongURIs];
-        // console.log(songs);
         songs.splice(playlistSongs.indexOf(song), 1);
-        // console.log(songs);
         URIs.splice(playlistSongURIs.indexOf(song.songURI), 1);
-        // console.log(URIs);
         setPlaylistSongs(songs);
         setPlaylistSongURIs(URIs);
         updateTracks(URIs, props.currentSongIndex);
@@ -264,6 +263,16 @@ const PlaylistScreen = (props) => {
             else if (sort === "normal") {
                 setSortState("reverse");
                 songs.sort(function (a, b) { return b.artist.localeCompare(a.artist); });
+            }
+        }
+        else if (newType === 2) {
+            if (sort === "reverse") {
+                setSortState("normal");
+                songs.sort(function (a, b) { return a.album.localeCompare(b.album); });
+            }
+            else if (sort === "normal") {
+                setSortState("reverse");
+                songs.sort(function (a, b) { return b.album.localeCompare(a.album); });
             }
         }
         else {
@@ -349,9 +358,8 @@ const PlaylistScreen = (props) => {
     let duration = 0;
     for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
-    return (
-        <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }}>
-
+    return (                                        
+        <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
                 <div className="playlistScreenLeftContainer">
                     <div className="playlistScreenInfo">
@@ -381,7 +389,7 @@ const PlaylistScreen = (props) => {
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
                             </div>
-                            <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getSongTime(duration)}</p>
+                            <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
@@ -395,7 +403,6 @@ const PlaylistScreen = (props) => {
                                             <Icon className="large save outline"></Icon>
                                         </button>}
                                     />
-
                                     <Modal
                                         basic
                                         onClose={() => setDeletePlaylistOpenState(false)}
@@ -405,8 +412,11 @@ const PlaylistScreen = (props) => {
                                         trigger={<button className="clickButton playlistSaveButton ui button">
                                             <Icon className="large trash"></Icon>
                                         </button>}>
-                                        <Header icon><Icon className='large trash' />Are you sure you want to delete this playlist? <b>THIS IS IRREVERSIBLE</b></Header>
-
+                                        <Header icon><Icon className='large trash' />
+                                            Are you sure you want to delete this playlist?
+                                            <br></br>
+                                            <div className="irreversible">THIS IS NOT REVERSIBLE!</div>
+                                        </Header>
                                         <Modal.Actions className="recoverPasswordModalButtonContainer">
                                             <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>
                                             <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
@@ -434,63 +444,7 @@ const PlaylistScreen = (props) => {
                             </div>
                         </div>
                         <div className="playlistAddSongDivider" ></div>
-
-                        <div className="displaySearchResultsContainer2">
-                            <div className="displaySearchResultsContainer">
-                                {
-                                    searchResults.map((song, index) => (
-                                        <div className="playlistSearchResultBox" key={index}>
-                                            <div className="playlistSearchResult">
-                                                <div className="playlistSongSearchResultImage">
-                                                    <img className="searchResultImg" src={song.album.images[0].url} alt="" />
-                                                </div>
-                                                <div className="playlistSongSearchResultInfo">
-                                                    <div className="playlistSongSearchResultTitle">{song.name}</div>
-                                                    <div className="playlistSongSearchResultDesc">{song.artists[0].name}</div>
-                                                </div>
-                                            </div>
-                                            <div className="playlistSearchResultOptions">
-                                                <Modal
-                                                    onClose={() => setSongInfoOpenState(false)}
-                                                    onOpen={() => setSongInfoOpenState(song)}
-                                                    open={Boolean(songInfoOpenState)}
-                                                    size='small'
-                                                    trigger={
-                                                        <button className="searchResultOptionButton clickButton ui icon button" >
-                                                            <Icon className="info circle"></Icon>
-                                                        </button>}>
-                                                    <Header icon>Song Info</Header>
-                                                    <Modal.Content>
-                                                        <div className="moreInfoContainer">
-                                                            <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.album.images[0].url : ""} alt="" />
-                                                            <div>
-                                                                <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.name : ""}</div>
-                                                                <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artists[0].name : ""}</div>
-                                                                <div className="playlistSRRAlbum">{
-                                                                    songInfoOpenState ? songInfoOpenState.album.name + ", " + songInfoOpenState.album.release_date.substring(0, 4) : ""
-                                                                }</div>
-                                                                <br></br>
-                                                                <div className="playlistSRRDuration">{
-                                                                    songInfoOpenState ? "Duration: " + getSongTime(Math.round(songInfoOpenState.duration_ms / 1000)) : ""
-                                                                }</div>
-                                                            </div>
-                                                        </div>
-                                                    </Modal.Content>
-                                                    <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                                        <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
-                                                    </Modal.Actions>
-                                                </Modal>
-                                                <button className="searchResultOptionButton clickButton ui icon button" onClick={() => playSongByURI(song.uri)} >
-                                                    <Icon className="play circle"></Icon>
-                                                </button>
-                                                <button className="searchResultOptionButton clickButton ui icon button" onClick={() => addSong(song)} >
-                                                    <Icon className="plus circle"></Icon>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
-                        </div>
+                        <SongSearch searchResults={searchResults} addSong={addSong} playSongByURI={playSongByURI}/>
                     </div>
                 </div>
             </div>
@@ -504,28 +458,32 @@ const PlaylistScreen = (props) => {
                                 <div className="playlistSongsBox">
                                     <div onClick={() => sortSongs(0)} className="playlistSongTitleLabel">Song Title</div>
                                     <div onClick={() => sortSongs(1)} className="playlistSongArtistLabel">Artist</div>
-                                    <div onClick={() => sortSongs(2)} className="playlistSongDurationLabel">Duration</div>
+                                    <div onClick={() => sortSongs(2)} className="playlistSongAlbumLabel">Album</div>
+                                    <div onClick={() => sortSongs(3)} className="playlistSongDurationLabel">Duration</div>
                                 </div>
                             </div>
                             {playlistSongs.map((song, index) => (
                                 <Draggable key={song.key.toString()} draggableId={song.key.toString()} index={index}>
                                     {(provided, snapshot) => (
                                         <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
-                                            <div style={{ display: "flex", flexDirection: "row", width: "7%" }}>
-                                                {/* <div className="songNumber"><p>{index + 1}</p></div> */}
-                                                <Icon className="playlistSongIcon big" name="play circle outline" onClick={() => playSong(index)}></Icon>
+                                            <div className="playlistSongIcon" style={{ display: "flex", flexDirection: "row", width: "7%" }}>
+                                                <Icon className="big" name="play circle outline" onClick={() => playSong(index)}></Icon>
                                             </div>
-
                                             <div className="playlistSongBar" style={((props.currentPlaylistID === playlist._id && index === props.currentSongIndex) || snapshot.isDragging) ?
                                                 { backgroundColor: "var(--primary)", fontWeight: "bold", color: "white" }
                                                 : { backgroundColor: "var(--secondary)" }
-                                            }>
+                                            }
+                                            onMouseEnter={() => setSongHoverState(song.title)}
+                                            >
                                                 <div className="playlistSongTitle">{song.title}</div>
                                                 <div className="playlistSongArtist">{song.artist}</div>
+                                                <div className="playlistSongAlbum">{song.album}</div>
                                                 <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
                                             </div>
 
-                                            <Icon className="removeSongIcon large" style={{ width: "3%" }} name="remove" onClick={() => removeSong(song)}></Icon>
+                                            <Icon className="removeSongIcon large" style={{ 
+                                                width: "3%", display: (song.title === songHoverState) ? "block" : "none"}} 
+                                            name="remove" onClick={() => removeSong(song)}></Icon>
                                         </div>
                                     )}
                                 </Draggable>

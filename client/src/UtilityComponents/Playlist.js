@@ -13,6 +13,7 @@ export const getAlbumTime = (songs) => {
     for (let song of songs)
         seconds += song.duration ? song.duration : 0;
     let h = Math.floor(seconds / 3600);
+    if (h >= 1) { return new Date(seconds * 1000).toISOString().substr(11, 8); }
     let m = Math.floor(seconds / 60);
     let s = seconds %= 60;
     s = (s < 10) ? (s = "0" + s) : s
