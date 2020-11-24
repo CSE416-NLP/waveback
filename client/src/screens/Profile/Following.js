@@ -1,18 +1,33 @@
+import React, { useState }  from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import React  from 'react';
 import "../../styles/css/index.css";
+import { graphql } from '@apollo/react-hoc';
+import { flowRight as compose } from 'lodash';
+import { GETUSERBYUSERNAME } from '../../cache/mutations';
 import jsonData from "../../data/TestData.json";
 
 const Following = (props) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const users = jsonData.Users;
   const columns = 2;
-  console.log(users);
+
+  const searchUser = async (searchTerm) => {
+    const {data} = await props.getuserbyusername({ variables: { username: searchTerm}})
+    if (data && data.getUserByUsername) {
+      console.log(data.getUserByUsername)
+      props.history.push({ pathname: "/profile/" + data.getUserByUsername[0]._id, user: data.getUserByUsername[0] });
+    }
+    else
+      console.log("No users found")
+  }
+
   return (
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">
-        <input placeholder="Search for a user..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"></input>
-        <button type="submit" className="clickButton ui icon big button">
+        <input placeholder="Search for a user..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
+          value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+        <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
           <i className="search icon"></i>
         </button>
       </div>
@@ -35,5 +50,6 @@ const Following = (props) => {
     </div>
   )
 } 
-
-export default Following
+export default compose(
+  (graphql(GETUSERBYUSERNAME, { name: 'getuserbyusername' }))
+)(Following);
