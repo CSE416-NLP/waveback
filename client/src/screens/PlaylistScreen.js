@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Icon, Header, Button, Popup } from 'semantic-ui-react';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
@@ -9,6 +9,8 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose, random } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
+import { PlaylistTransaction } from '../utils/jsTPS';
+
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -16,8 +18,8 @@ const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567
 const PlaylistScreen = (props) => {
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
 
-    const playlist = props.location.playlist;
-
+    // const playlist = props.location.playlist;
+    const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
@@ -27,11 +29,47 @@ const PlaylistScreen = (props) => {
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
+
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
 
-    const handleUpdatePlaylist = async () => {
+    useEffect(() => {
+        document.addEventListener("keydown", handleKeyPress);
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        }
+    }, []);
+  
+    const getPlaylistObject = (name, picture, description, songs, songURIs) => {
+        let newPlaylist = {
+            _id: playlist._id,
+            key: playlist.key,
+            owner: playlist.owner,
+            name: name,
+            picture: picture,
+            description: description,
+            songs: songs,
+            songURIs: songURIs,
+            followers: playlist.followers,
+            visibility: playlist.visibility,
+            tags: playlist.tags,
+            duration: parseInt(getAlbumTime(playlistSongs))
+        }
+        return newPlaylist;
+    }
+
+    const modifyPlaylist = (playlist) => {
+        setPlaylistName(playlist.name);
+        setPlaylistPicture(playlist.picture);
+        setPlaylistDescription(playlist.description);
+        setPlaylistSongs(playlist.songs);
+        setPlaylistSongURIs(playlist.songURIs);
+        updateTracks(playlist.songURIs, props.currentSongIndex);
+    }
+
+
+    const savePlaylist = async () => {
         if (playlistPictureOpenState) {
             setPlaylistPictureOpenState(false);
         }
@@ -72,7 +110,7 @@ const PlaylistScreen = (props) => {
 
         fetch(query, {
             method: "GET",
-            headers: {  
+            headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Authorization": token
@@ -112,6 +150,7 @@ const PlaylistScreen = (props) => {
                 uris: newURIs
             })
         }
+
     }
 
     const checkPlayerStatus = () => {
@@ -148,19 +187,27 @@ const PlaylistScreen = (props) => {
         setPlaylistSongs(newSongs);
         setPlaylistSongURIs(newSongURIs);
         updateTracks(newSongURIs, props.currentSongIndex);
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, newSongs, newSongURIs);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
     }
 
     const removeSong = (song) => {
         let songs = [...playlistSongs];
         let URIs = [...playlistSongURIs];
-        console.log(songs);
+        // console.log(songs);
         songs.splice(playlistSongs.indexOf(song), 1);
-        console.log(songs);
+        // console.log(songs);
         URIs.splice(playlistSongURIs.indexOf(song.songURI), 1);
-        console.log(URIs);
+        // console.log(URIs);
         setPlaylistSongs(songs);
         setPlaylistSongURIs(URIs);
         updateTracks(URIs, props.currentSongIndex);
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
     }
 
     const playSong = (offset) => {
@@ -239,6 +286,10 @@ const PlaylistScreen = (props) => {
         setPlaylistSongURIs(newSongURIs);
         updateTracks(newSongURIs, newCurrentSongPos);
         props.setCurrentSongIndex(newCurrentSongPos)
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, newSongURIs);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
     }
 
     const onDragEnd = (result) => {
@@ -257,13 +308,43 @@ const PlaylistScreen = (props) => {
 
         setPlaylistSongURIs(songURIsCopy);
         updateTracks(songURIsCopy, props.currentSongIndex)
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songsCopy, songURIsCopy);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
     }
 
     const invalidImage = (e) => {
         e.target.src = "https://i.imgur.com/ZRoNOEu.png";
         setPlaylistPicture("https://i.imgur.com/ZRoNOEu.png");
-        // handleUpdatePlaylist();
     }
+
+    const tpsUndo = () => {
+        props.tps.undoTransaction();
+    }
+
+    const tpsRedo = () => {
+        props.tps.doTransaction();
+    }
+
+    const handleKeyPress = (e) => {
+        if (e.ctrlKey && e.keyCode === 90) {          // Ctrl + Z
+            e.preventDefault();
+            console.log("Ctrl + Z pressed");
+            tpsUndo()
+        }
+        else if (e.ctrlKey && e.keyCode === 89) {     // Ctrl + Y
+            e.preventDefault();
+            console.log("Ctrl + Y pressed");
+            tpsRedo()
+        }
+        else if (e.ctrlKey && e.keyCode === 83) {     // Ctrl + S
+            e.preventDefault();
+            console.log("Ctrl + S pressed");
+            savePlaylist();
+        }
+    };
+
 
     let duration = 0;
     for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
@@ -289,7 +370,7 @@ const PlaylistScreen = (props) => {
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
                                 <Button inverted color='red' onClick={(e) => setPlaylistPictureOpenState(false)}><Icon name='remove' />Close</Button>
-                                <Button className="ui primary button" onClick={handleUpdatePlaylist}><Icon name='checkmark' />Update</Button>
+                                <Button className="ui primary button" onClick={savePlaylist}><Icon name='checkmark' />Update</Button>
                             </Modal.Actions>
                         </Modal>
                         <div className="playlistMetadata">
@@ -310,7 +391,7 @@ const PlaylistScreen = (props) => {
                                         content='Saved!'
                                         on='click'
                                         pinned
-                                        trigger={<button className="clickButton playlistSaveButton ui button" onClick={handleUpdatePlaylist}>
+                                        trigger={<button className="clickButton playlistSaveButton ui button" onClick={savePlaylist}>
                                             <Icon className="large save outline"></Icon>
                                         </button>}
                                     />
@@ -324,7 +405,7 @@ const PlaylistScreen = (props) => {
                                         trigger={<button className="clickButton playlistSaveButton ui button">
                                             <Icon className="large trash"></Icon>
                                         </button>}>
-                                        <Header icon><Icon className='large trash' />Are you sure you want to delete this playlist?</Header>
+                                        <Header icon><Icon className='large trash' />Are you sure you want to delete this playlist? <b>THIS IS IRREVERSIBLE</b></Header>
 
                                         <Modal.Actions className="recoverPasswordModalButtonContainer">
                                             <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>

@@ -16,6 +16,8 @@ import PlaylistScreen from './screens/PlaylistScreen';
 import Navbar from './UtilityComponents/Navbar';
 import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "./data/LocalStorage";
 import SpotifyPlayer from 'react-spotify-web-playback';
+import { jsTPS } from './utils/jsTPS';
+
 
 const App = (props) => {
   let user = null;
@@ -69,6 +71,8 @@ const App = (props) => {
     }
   }, [user]);
 
+  let transactionStack = new jsTPS();
+
   return (
     <BrowserRouter>
       <Navbar user={user} />
@@ -85,7 +89,9 @@ const App = (props) => {
         <Route exact path="/generate" render={(props) => user ? <GenerateScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/playlist/:id" render={(props) =>
-          <PlaylistScreen user={user}
+          <PlaylistScreen 
+            user={user}
+            tps={transactionStack}
             playStatus={playStatus}
             setPlayStatus={setPlayStatus}
             spotifyToken={spotifyToken}
