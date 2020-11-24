@@ -7,6 +7,7 @@ import { flowRight as compose } from 'lodash';
 import { GETUSERBYUSERNAME } from '../../cache/mutations';
 import jsonData from "../../data/TestData.json";
 
+
 const Following = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const users = jsonData.Users;
@@ -37,7 +38,7 @@ const Following = (props) => {
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
               <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
 
-                <img className="profilePicture" src={user.profilePicture} alt="" />
+                <img className="profilePicture" src={user.profile_picture} alt="" />
                 <div className='profileFollowingInfo'>
                   <h2>{user.username}</h2>
                 </div>

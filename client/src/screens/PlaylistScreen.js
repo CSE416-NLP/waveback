@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import "../styles/css/index.css"
 import { graphql } from '@apollo/react-hoc';
-import { flowRight as compose, random } from 'lodash';
+import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 import SongSearch from "../UtilityComponents/SongSearch";

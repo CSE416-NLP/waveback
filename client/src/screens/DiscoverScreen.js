@@ -3,12 +3,9 @@ import "../styles/css/index.css"
 import { useQuery } from '@apollo/react-hooks';
 import { Grid } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
-import jsonData from "../data/TestData.json";
 import SpotifyAuthWindow from "../UtilityComponents/SpotifyAuthWindow";
 import Playlist from "../UtilityComponents/Playlist"
 import { GET_DB_PLAYLISTS } from '../cache/queries';
-
-var buttonStyle = { color: "var(--background)", backgroundColor: "var(--buttonColor" };
 
 const DiscoverScreen = (props) => {
   let playlists = [];
@@ -40,7 +37,7 @@ const DiscoverScreen = (props) => {
         <p className="discoverTitleText">explore other users' creations</p>
         <div className="ui input">
           <input placeholder="Search.." size="40" className="discoverSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
-          <button type="submit" style={buttonStyle} className="clickButton fluid ui icon big button">
+          <button type="submit"  className="clickButton fluid ui icon big button">
             <i className="search icon"></i>
           </button>
         </div>
