@@ -45,7 +45,7 @@ const ProfileScreen = (props) => {
 
   const renderTab = () => {
     let TabElement = tabMap[currentTab];
-    return (<TabElement user={props.user} fetchUser={props.fetchUser} />)
+    return (<TabElement user={props.user} fetchUser={props.fetchUser} history={props.history} />)
   }
 
   return (
