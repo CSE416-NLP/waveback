@@ -68,13 +68,11 @@ const PlaylistScreen = (props) => {
         setPlaylistSongs(playlist.songs);
         setPlaylistSongURIs(playlist.songURIs);
         updateTracks(playlist.songURIs, props.currentSongIndex);
+        setPlaylist(playlist);
     }
 
 
     const savePlaylist = async () => {
-        if (playlistPictureOpenState) {
-            setPlaylistPictureOpenState(false);
-        }
         let songsCopy = [...playlistSongs];
         for (let i = 0; i < songsCopy.length; i++) {
             if (!songsCopy[i]._id) songsCopy[i]._id = ObjectId();
@@ -166,6 +164,36 @@ const PlaylistScreen = (props) => {
             props.setCurrentPlaylistID(playlist._id);
         }
     }
+    
+    const handleNameChange = (name) => {
+        setPlaylistName(name);
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
+        let new_playlist = getPlaylistObject(name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
+    }
+
+    const handleDescriptionChange = (description) => {
+        setPlaylistDescription(description);
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
+        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, description, playlist.songs, playlist.songURIs);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
+    }
+
+    const updatePlaylistPicture = (picture) => {
+        if (playlistPictureOpenState){
+            setPlaylistPictureOpenState(false);
+        }
+        setPlaylistPicture(picture);
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
+        let new_playlist = getPlaylistObject(playlist.name, picture, playlist.description, playlist.songs, playlist.songURIs);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
+    }
 
     const addSong = (song) => {
         console.log(song);
@@ -190,6 +218,7 @@ const PlaylistScreen = (props) => {
         setPlaylistSongURIs(newSongURIs);
         updateTracks(newSongURIs, props.currentSongIndex);
         let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, newSongs, newSongURIs);
         let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
@@ -204,6 +233,7 @@ const PlaylistScreen = (props) => {
         setPlaylistSongURIs(URIs);
         updateTracks(URIs, props.currentSongIndex);
         let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
         let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
@@ -296,6 +326,7 @@ const PlaylistScreen = (props) => {
         updateTracks(newSongURIs, newCurrentSongPos);
         props.setCurrentSongIndex(newCurrentSongPos)
         let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, newSongURIs);
         let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
@@ -318,6 +349,7 @@ const PlaylistScreen = (props) => {
         setPlaylistSongURIs(songURIsCopy);
         updateTracks(songURIsCopy, props.currentSongIndex)
         let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songsCopy, songURIsCopy);
         let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
@@ -378,13 +410,13 @@ const PlaylistScreen = (props) => {
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
                                 <Button inverted color='red' onClick={(e) => setPlaylistPictureOpenState(false)}><Icon name='remove' />Close</Button>
-                                <Button className="ui primary button" onClick={savePlaylist}><Icon name='checkmark' />Update</Button>
+                                <Button className="ui primary button" onClick={updatePlaylistPicture}><Icon name='checkmark' />Update</Button>
                             </Modal.Actions>
                         </Modal>
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
                                 <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
-                                    maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
+                                    maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => handleNameChange(e.target.value)} />
                             </div>
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
@@ -427,7 +459,7 @@ const PlaylistScreen = (props) => {
                         </div>
                     </div>
                     <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
-                        placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => setPlaylistDescription(e.target.value)} />
+                        placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)} />
                 </div>
                 <div className="playlistScreenAddSongBox">
                     <div className="addSongEntireContainer">
