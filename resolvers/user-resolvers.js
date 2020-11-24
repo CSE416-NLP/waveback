@@ -106,7 +106,12 @@ module.exports = {
             res.clearCookie("access-token");
             return true;
         },
-
+        getUserByUsername: async (_, args, { res }) => {
+            const { username } = args;
+            var regexp = new RegExp("^"+ username, "i");
+            const users = await User.find({ username: regexp });
+            return users ? users : null;
+        },
         updateUserProfile: async (_, args) => {
             let { _id, bio, location, favoriteGenres, favoriteArtists, favoriteSongs, profilePicture } = args;
             const objectId = new ObjectId(_id);

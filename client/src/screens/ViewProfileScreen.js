@@ -1,30 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import "../styles/css/index.css"
 import { Link } from "react-router-dom";
-import jsonData from "../data/TestData.json";
+import jsonData from "../data/TestData.json"
+
+const arrayToString = (array) => {
+    let str = "";
+    for (let element of array)
+        str += element + ", ";
+    if (str.length >= 1 && str.charAt(str.length - 1) === " ")
+        str = str.substring(0, str.length - 2);
+    return str;
+}
 
 const ViewProfileScreen = (props) => {
-    const [playlists, updatePlaylists] = useState(jsonData.Playlists);
-    const firstUser = jsonData.Users[0];
+    console.log(props)
+    const user = props.location.user;
+    // const playlists = user.playlists
+    const playlists = jsonData.Playlists
 
     return (
-        <div style={{ backgroundColor: "var(--background)" }}>
+        <div className="viewProfileScreen">
             <div className="viewProfileScreenContainer" >
                 <div className="profileContainerLeft">
                     <div className="profileContainerTop">
-                        <img className="profilePicture" src={firstUser.profilePicture} alt="" />
-                        <div className="profileName"><h1>{firstUser.username}</h1></div>    
+                        <img className="profilePicture" src={user.profilePicture} alt="" />
+                        <div className="profileName"><h1>{user.username}</h1></div>
                     </div>
                     <div className="viewProfileInfoBackground">
                         <p className="viewProfileScreenLabel">Bio</p>
-                        <div className="viewProfileTextArea" >{firstUser.bio}</div>
+                        <div className="viewProfileTextArea" >{user.bio}</div>
                         <p className="viewProfileScreenLabel">Location</p>
-                        <div className="viewProfileTextArea" >{firstUser.location}</div>
+                        <div className="viewProfileTextArea" >{user.location}</div>
                         <p className="viewProfileScreenLabel">Favorite Genres</p>
-                        <div className="viewProfileTextArea" >{firstUser.favorite_genres}</div>
+                        <div className="viewProfileTextArea" >{arrayToString(user.favoriteGenres)}</div>
                         <p className="viewProfileScreenLabel">Favorite Artists</p>
-                        <div className="viewProfileTextArea" >{firstUser.favorite_artists}</div>
+                        <div className="viewProfileTextArea" >{arrayToString(user.favoriteArtists)}</div>
                         <div className="followButtonContainer">
                             <button className="clickButton ui button massive followButton">Follow</button>
                         </div>

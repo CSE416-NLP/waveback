@@ -50,6 +50,24 @@ export const LOGOUT = gql`
 	}
 `;
 
+export const GETUSERBYUSERNAME = gql`
+    mutation GetUserByUsername($username: String!) {
+        getUserByUsername(username: $username) {
+            _id
+            username
+            profilePicture
+            playlists
+            following
+            bio
+            location
+            favoriteGenres
+            favoriteArtists
+            favoriteSongs
+        }
+    }
+`;
+
+
 export const UPDATEUSERPROFILE = gql`
     mutation UpdateUserProfile($_id: String!, $bio: String, $location: String, $favoriteGenres: [String], $favoriteArtists: [String], $favoriteSongs: [String], $profilePicture: String) {
         updateUserProfile(_id: $_id, bio: $bio, location: $location, favoriteGenres: $favoriteGenres, favoriteArtists: $favoriteArtists, favoriteSongs: $favoriteSongs, profilePicture: $profilePicture)

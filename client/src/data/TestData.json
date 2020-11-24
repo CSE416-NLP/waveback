@@ -12,9 +12,9 @@
             "following": [1],
             "bio": "This is a bio. I was born at a very young age.",
             "location": "Long Island, NY, USA",
-            "favorite_genres": ["Jazz", "Blues", "Bluegrass"],
-            "favorite_artists": ["Miles Davis", "Vulfpeck", "Roy Hargrove"],
-            "favorite_songs": ["Strasbourg St. Denis", "Funky Duck"],
+            "favoriteGenres": ["Jazz", "Blues", "Bluegrass"],
+            "favoriteArtists": ["Miles Davis", "Vulfpeck", "Roy Hargrove"],
+            "favoriteSongs": ["Strasbourg St. Denis", "Funky Duck"],
             "visible": true,
             "theme": "Modern"
         },
@@ -30,9 +30,9 @@
             "following": [1],
             "bio": "I was born in the wrong generation",
             "location": "Short Island, NY, USA",
-            "favorite_genres": ["Classical", "Electronic"],
-            "favorite_artists": ["Cardi B", "Duke Ellington"],
-            "favorite_songs": ["WAP", "Just WAP", "Seriously just WAP"],
+            "favoriteGenres": ["Classical", "Electronic"],
+            "favoriteArtists": ["Cardi B", "Duke Ellington"],
+            "favoriteSongs": ["WAP", "Just WAP", "Seriously just WAP"],
             "visible": true,
             "theme": "Retro"
         },
@@ -48,9 +48,9 @@
             "following": [1],
             "bio": "I teach CSE 416",
             "location": "Long Island, NY, USA",
-            "favorite_genres": ["Classical", "Electronic"],
-            "favorite_artists": ["Pink Floyd", "Duke Ellington"],
-            "favorite_songs": ["Shine on you Crazy Diamond", "Just WAP", "Seriously just WAP"],
+            "favoriteGenres": ["Classical", "Electronic"],
+            "favoriteArtists": ["Pink Floyd", "Duke Ellington"],
+            "favoriteSongs": ["Shine on you Crazy Diamond", "Just WAP", "Seriously just WAP"],
             "visible": true,
             "theme": "Old-School"
         }
