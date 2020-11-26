@@ -9,6 +9,7 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
+import PrivacyPicker from "../UtilityComponents/PrivacyPicker.js";
 import SongSearch from "../UtilityComponents/SongSearch";
 import { PlaylistTransaction } from '../utils/jsTPS';
 
@@ -26,7 +27,6 @@ const PlaylistScreen = (props) => {
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
-    const [songInfoOpenState, setSongInfoOpenState] = useState(false);
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
@@ -409,7 +409,7 @@ const PlaylistScreen = (props) => {
                                 </div>
                             </Modal.Content>
                             <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                <Button inverted color='red' onClick={(e) => setPlaylistPictureOpenState(false)}><Icon name='remove' />Close</Button>
+                                <Button inverted color='red' onClick={() => setPlaylistPictureOpenState(false)}><Icon name='remove' />Close</Button>
                                 <Button className="ui primary button" onClick={updatePlaylistPicture}><Icon name='checkmark' />Update</Button>
                             </Modal.Actions>
                         </Modal>
@@ -454,6 +454,7 @@ const PlaylistScreen = (props) => {
                                             <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
                                         </Modal.Actions>
                                     </Modal>
+                                    <PrivacyPicker></PrivacyPicker>
                                 </div>
                             </div>
                         </div>

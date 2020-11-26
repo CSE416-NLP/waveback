@@ -12,7 +12,6 @@ const DiscoverScreen = (props) => {
   const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
   if (data) {
     playlists = data.getAllPublicPlaylists;
-    // console.log(playlists);
   }
   useEffect(() => {
     refetch();
@@ -20,7 +19,6 @@ const DiscoverScreen = (props) => {
 
   window.addEventListener("storage", props.authorizeSpotifyFromStorage);
   let token = props.spotifyToken;
-  // const [playlists, updatePlaylists] = useState(jsonData.Playlists);
   const [filterTextState, changeFilterText] = useState("playlists");
   const columns = 2;
 
@@ -54,18 +52,6 @@ const DiscoverScreen = (props) => {
           ))}
         </Grid>
       </div>
-
-
-      {/* <div className="discoverBottomContainer">
-          <div className="discoverRandomContainer">
-            <button className="clickButton ui huge button" style={buttonStyle}>Random Song</button>
-          </div>
-          <div className="discoverFilterContainer">
-            <p className="discoverFilterText">Filter by</p>
-            <button className="clickButton discoverFilterButton ui huge button" style={buttonStyle} onClick={changeFilterButtonText}>{filterTextState}</button>
-          </div>
-      </div> */}
-
     </div>
   );
 };
