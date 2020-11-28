@@ -330,12 +330,13 @@ code {
 
 /* GENERATE SCREEN */
 .generateScreen {
-  height: 100%;
   background-color: var(--background);
+  display: flex;
+  flex-direction: column;
 }
 
 .generateScreenTitleText {
-  margin-top: 3.5%;
+  margin-top: 2.5%;
   margin-bottom: 2.5%;
   font-size: 32pt;
   font-weight: bolder;
@@ -346,79 +347,35 @@ code {
   filter: drop-shadow(3px 3px 0px var(--secondary));
 }
 
-.generateScreenModules {
-  vertical-align: top;
-  display: inline-block;
-  text-align: left;
-  margin-top: 1.5%;
-  margin-left: 10.15%;
-  margin-bottom: 1%;
-  height: 53vmin;
-  max-height: 53%;
-  width: 35%;
-  padding: 0.5%;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #dddddd;
+.generateScreenTopContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-.generateScreenText {
-  font-size: 24px;
+.generateScreenTopInnerContainer {
+  vertical-align: top;
+  display: flex;
+  flex-direction: column;
+  height: 55vmin;
+  width: 35%;
+  padding: 0.75%;
+  margin-bottom: 1%;
+  border-style: double;
+  border-width: 3px;
+  border-color: var(--secondary);
+  overflow: hidden;
+}
+
+.generateAddSubtractButtons {
+  display: flex;
   font-weight: bold;
   user-select: none;
+  justify-content: space-around;
 }
 
-.generateScreenBox {
-  overflow-y: hidden;
-  width: 100%;
-}
-
-.generateLeftScroller {
-  overflow-y: auto;
-  height: 21vw;
-}
-
-.generateRightScroller {
-  overflow-y: auto;
-  background-color: none;
-  height: 40vmin;
-  width: 39%;
-  user-select: none;
-  margin-right: -63%;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #cccccc;
-}
-
-#locationText1 {
-  float: left;
-  margin-left: 4.5%;
-  user-select: none;
-}
-
-#locationText2 {
-  margin-left: 48%;
-  user-select: none;
-}
-
-#locationText3 {
-  float: right;
-  margin-right: 10%;
-  user-select: none;
-}
-
-#gsbRight { 
-  margin-right: -8%; 
-}
-
-.generateInput {
-  font-size: 18px;
-  width: 21vw;
-}
-
-.generateInputSmall {
-  font-size: 18px;
-  width: 5vw;
+.generateBoxLabel {
+  margin-left: 73%;
 }
 
 .generateSquareButton {
@@ -427,40 +384,84 @@ code {
   margin-left: 1.5%;
 }
 
-.generateSquareButton:hover {
-  cursor: pointer;
+.generateScreenBoxLeft {
+  width: 100%;
 }
 
-#genreText1 {
-  float: left;
-  margin-left: 18px;
+.locationScroller {
+  overflow-y: auto;
+  height: 45vmin;
+}
+
+.generateSubText {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   user-select: none;
+  margin-top: 1%;
 }
 
-.generateInputGenre {
-  font-size: 18px;
+#lt1 { margin-left: 4%; }
+
+#lt2 { margin-left: 55%; }
+
+#lt3 { margin-left: 6%; }
+
+.locationInfoRow { margin-bottom: 2%; }
+
+.generateInput, .generateInputSmall, .generateInputGenre { font-size: 18px; }
+
+.generateInput { width: 21vw; }
+
+.generateInputSmall { width: 5vw; }
+
+.generateScreenBoxRight {
+  width: 100%;
+  margin-top: 6%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.genreRightContainer {
+  overflow-y: auto;
+  background-color: none;
+  height: 40vmin;
+  width: 40%;
+  user-select: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--secondary);
+}
+
+.genreLeftContainer {
   float: left;
-  margin-left: 10px;
+  width: 40%;
+  margin-top: -3%;
+  margin-left: -1%;
+}
+
+#gt1 {
+  float: left;
+  margin-left: 6%;
 }
 
 .genreList {
   text-align: center;
-  font-size: 24px;
+  font-size: 22px;
 }
 
-.genreLeft {
-  float: left;
-  width: 265px;
-  height: 345px;
+.genreButton {
+  margin: 2%;
 }
 
 .generateDivider {
-  width: 85%;
-  margin-top: -0.5%;
+  width: 80%;
   margin-bottom: -3%;
-  margin-left: 7.5%;
-  align-items: center;
-  justify-content: center;
+  margin-left: 10%;
+  border-style: double;
+  border-width: 0 0 3px 0;
+  border-color: var(--secondary);
 }
 
 .maxSongInputArea {
@@ -482,14 +483,6 @@ code {
 
 .generateButtonBox {
   margin-top: 1.5%;
-}
-
-.generateButton:hover {
-  cursor: pointer;
-}
-
-.genreButton {
-  margin: 2%;
 }
 
 /* PLAYLISTS SCREEN */
