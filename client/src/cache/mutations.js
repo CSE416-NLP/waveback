@@ -86,6 +86,12 @@ export const UPDATEUSERTHEME = gql`
     }
 `;
 
+export const UPDATEUSERDEFAULTVISIBILITY = gql`
+    mutation UpdateUserDefaultVisibility($_id: String!, $defaultVisibility: String!) {
+        updateUserDefaultVisibility(_id: $_id, defaultVisibility: $defaultVisibility)
+    }
+`;
+
 export const DELETE_USER = gql`
     mutation DeleteUser($_id: String!){
         deleteUser(_id: $id)

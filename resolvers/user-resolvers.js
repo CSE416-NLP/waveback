@@ -83,7 +83,7 @@ module.exports = {
                 favoriteGenres: [],
                 favoriteArtists: [],
                 favoriteSongs: [],
-                defaultVisibility: "public",
+                defaultVisibility: "Public",
                 theme: "Modern",
                 profilePicture: "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=",
             })
@@ -137,7 +137,6 @@ module.exports = {
             if (saved) return true;
             else return false;
         },
-
         updateUserTheme: async (_, args) => {
             let { _id, theme } = args;
             const objectId = new ObjectId(_id);
@@ -145,7 +144,13 @@ module.exports = {
             if (saved) return true;
             else return false;
         },
-
+        updateUserDefaultVisibility: async (_, args) => {
+            let { _id, defaultVisibility } = args;
+            const objectId = new ObjectId(_id);
+            let saved = await User.updateOne({ _id: objectId }, { defaultVisibility: defaultVisibility });
+            if (saved) return true;
+            else return false;
+        },
         deleteUser: async (_, args) => {
             const { _id } = args;
             const objectId = new ObjectId(_id);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../../styles/css/index.css";
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
-import { UPDATEUSERACCOUNT } from '../../cache/mutations';
+import { UPDATEUSERACCOUNT, UPDATEUSERDEFAULTVISIBILITY } from '../../cache/mutations';
 import { Modal, Button, Icon, Header } from 'semantic-ui-react';
 import PrivacyPicker from "../../UtilityComponents/PrivacyPicker.js";
 
@@ -31,6 +31,14 @@ const MyAccount = (props) => {
         else console.log("Error in saving");
         setUpdateCheck(false);
         props.fetchUser();
+    }
+
+    const updateUserDefaultVisibility = async (newVisibility) => {
+        console.log("Updating user's default visibility to", newVisibility);
+        const updated = await props.updateuserdefaultvisibility({ variables: { _id: currentUser._id, defaultVisibility: newVisibility } });
+        if (updated) console.log("User default visibility saved successfully");
+        else console.log("Error in updating user's default visibility");
+        setUpdateCheck(false);
     }
 
     const validateInput = () => {
@@ -85,7 +93,9 @@ const MyAccount = (props) => {
             </div>
             {errorText && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorText}</div>}
             <p className="profileScreenSubText">User Account Privacy</p>
-            <div className="accountPrivacyPicker"><PrivacyPicker ></PrivacyPicker></div>
+            <div className="accountPrivacyPicker">
+                <PrivacyPicker displayText={currentUser.defaultVisibility} onVisibilityChange={updateUserDefaultVisibility} />
+            </div>
 
             <Modal
                 basic
@@ -107,5 +117,6 @@ const MyAccount = (props) => {
 }
 
 export default compose(
-    (graphql(UPDATEUSERACCOUNT, { name: 'updateuseraccount' }))
+    (graphql(UPDATEUSERACCOUNT, { name: 'updateuseraccount' })),
+    (graphql(UPDATEUSERDEFAULTVISIBILITY, { name: 'updateuserdefaultvisibility' }))
 )(MyAccount)
