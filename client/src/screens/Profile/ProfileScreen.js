@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Header, Icon, Button } from 'semantic-ui-react';
 import "../../styles/css/index.css"
 import MyProfile from "./MyProfile"
+import Followers from "./Followers"
 import Following from "./Following"
 import MyAccount from "./MyAccount"
 import ThemePicker from "../../UtilityComponents/ThemePicker"
@@ -13,6 +14,7 @@ import { Redirect } from 'react-router-dom';
 
 const tabMap = {
   "Profile": MyProfile,
+  "Followers": Followers,
   "Following": Following,
   "Settings": MyAccount,
 }
@@ -65,6 +67,15 @@ const ProfileScreen = (props) => {
           <p className="profileOptionsText"
             style={{
               color: "var(--accent)",
+              fontWeight: currentTab === "Followers" ? "bold" : "normal",
+              borderWidth: currentTab === "Followers" ? "8px" : "0px",
+              backgroundColor: currentTab === "Followers" ? "var(--primary)" : "var(--secondary)",
+            }}
+            onClick={(e) => setCurrentTab("Followers")}>Followers
+          </p>
+          <p className="profileOptionsText"
+            style={{
+              color: "var(--accent)",
               fontWeight: currentTab === "Following" ? "bold" : "normal",
               borderWidth: currentTab === "Following" ? "8px" : "0px",
               backgroundColor: currentTab === "Following" ? "var(--primary)" : "var(--secondary)",
@@ -100,7 +111,7 @@ const ProfileScreen = (props) => {
         </div>
       </div>
 
-      <ThemePicker saveColorTheme={saveColorTheme} />
+      <ThemePicker saveColorTheme={saveColorTheme}/>
 
       {renderTab()}
     </div>

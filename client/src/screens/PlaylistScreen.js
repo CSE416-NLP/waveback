@@ -31,6 +31,7 @@ const PlaylistScreen = (props) => {
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
     const [songHoverState, setSongHoverState] = useState(null);
+    const [songInfoOpenState, setSongInfoOpenState] = useState(false);
 
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
@@ -447,9 +448,9 @@ const PlaylistScreen = (props) => {
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
-                                </div>
-                                <div className="playlistShuffle">
-                                    <button className="clickButton ui button huge" onClick={shufflePlaylist}>Shufle</button>
+                                    <button className="playlistShuffleButton clickButton ui button" onClick={shufflePlaylist}>
+                                        <Icon className="large shuffle"></Icon>
+                                    </button>
                                 </div>
                                 <div className="playlistSave">
                                     <Popup
@@ -538,10 +539,40 @@ const PlaylistScreen = (props) => {
                                                 <div className="playlistSongAlbum">{song.album}</div>
                                                 <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
                                             </div>
-
+                                            <Modal
+                                                onClose={() => setSongInfoOpenState(false)}
+                                                onOpen={() => setSongInfoOpenState(song)}
+                                                open={Boolean(songInfoOpenState)}
+                                                size='small'
+                                                trigger={
+                                                    <Icon className="removeSongIcon large" style={{ 
+                                                        width: "3%", display: (song.title === songHoverState) ? "block" : "none"}} 
+                                                        name="info circle" >
+                                                    </Icon>}>
+                                                <Header icon>Song Info</Header>
+                                                <Modal.Content>
+                                                    <div className="moreInfoContainer">
+                                                        <div>
+                                                            <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.title : ""}</div>
+                                                            <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artist : ""}</div>
+                                                            <div className="playlistSRRAlbum">{
+                                                                songInfoOpenState ? songInfoOpenState.album + ", " + songInfoOpenState.year : ""
+                                                            }</div>
+                                                            <br></br>
+                                                            <div className="playlistSRRDuration">{
+                                                                songInfoOpenState ? "Duration: " + getSongTime(Math.round(songInfoOpenState.duration)) : ""
+                                                            }</div>
+                                                        </div>
+                                                    </div>
+                                                </Modal.Content>
+                                                <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                                    <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
+                                                </Modal.Actions>
+                                            </Modal>
                                             <Icon className="removeSongIcon large" style={{ 
                                                 width: "3%", display: (song.title === songHoverState) ? "block" : "none"}} 
-                                            name="remove" onClick={() => removeSong(song)}></Icon>
+                                                name="remove" onClick={() => removeSong(song)}>
+                                            </Icon>
                                         </div>
                                     )}
                                 </Draggable>
