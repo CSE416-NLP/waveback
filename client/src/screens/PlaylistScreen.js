@@ -274,18 +274,23 @@ const PlaylistScreen = (props) => {
 
     const shufflePlaylist = () => {
         let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        // console.log(old_playlist.songs);
         setPlaylist(old_playlist);
-        let songs = old_playlist.songs;
+        let songs = [...playlistSongs];
         songs = songs.sort(() => Math.random() - 0.5);
         let URIs = []
         for (let i = 0; i < songs.length; i++) {
             // console.log(songs[i]);
             URIs.push(songs[i].songURI);
         }
-        console.log(URIs);
         console.log(songs);
+        // setPlaylistSongs(songs);
+        // setPlaylistSongURIs(URIs);
+        // updateTracks(URIs, props.currentSongIndex);
+        // // console.log(URIs);
+        // // console.log(songs);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        let transaction = new PlaylistTransaction(playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
     }
 
