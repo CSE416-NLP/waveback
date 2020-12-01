@@ -12,6 +12,7 @@ export class PlaylistTransaction extends jsTPS_Transaction {
     }
 
     doTransaction() {
+        // console.log(this.old_playlist.songs);
         this.callback(this.new_playlist);
     }
 
