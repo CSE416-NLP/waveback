@@ -86,6 +86,13 @@ export const UPDATEUSERTHEME = gql`
     }
 `;
 
+export const DELETE_USER = gql`
+    mutation DeleteUser($_id: String!){
+        deleteUser(_id: $id)
+    }
+`;
+
+
 // ========= Playlist Mutations ========== //
 
 export const ADD_PLAYLIST = gql`

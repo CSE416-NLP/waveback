@@ -123,7 +123,6 @@ module.exports = {
             if (saved) return true;
             else return false;
         },
-
         updateUserAccount: async (_, args) => {
             let { _id, username, email, password } = args;
             const objectId = new ObjectId(_id);
@@ -144,6 +143,14 @@ module.exports = {
             const objectId = new ObjectId(_id);
             let saved = await User.updateOne({ _id: objectId }, { theme: theme });
             if (saved) return true;
+            else return false;
+        },
+
+        deleteUser: async (_, args) => {
+            const { _id } = args;
+            const objectId = new ObjectId(_id);
+            const deleted = await User.deleteOne({ _id: objectId });
+            if (deleted) return true;
             else return false;
         }
     }

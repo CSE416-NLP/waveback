@@ -271,6 +271,23 @@ const PlaylistScreen = (props) => {
         props.setPlayStatus(true);
     }
 
+    const shufflePlaylist = () => {
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
+        setPlaylist(old_playlist);
+        let songs = old_playlist.songs;
+        songs = songs.sort(() => Math.random() - 0.5);
+        let URIs = []
+        for (let i = 0; i < songs.length; i++) {
+            // console.log(songs[i]);
+            URIs.push(songs[i].songURI);
+        }
+        console.log(URIs);
+        console.log(songs);
+        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
+    }
+
     const sortSongs = (newType) => {
         let songs = [...playlistSongs];
         let sort = sortState;
@@ -425,6 +442,9 @@ const PlaylistScreen = (props) => {
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
+                                </div>
+                                <div className="playlistShuffle">
+                                    <button className="clickButton ui button huge" onClick={shufflePlaylist}>Shufle</button>
                                 </div>
                                 <div className="playlistSave">
                                     <Popup

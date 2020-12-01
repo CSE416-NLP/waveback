@@ -74,14 +74,18 @@ const LockedScreen = (props) => {
             });
     }
 
+    const deleteUser = async (id) => {
+        props.deleteUser({ variables: { _id: id} });
+        // props.history.push({ pathname: '/playlists' });
+        // refetch();
+    }
+
     const [searchTerm, setSearch] = useState("");
     return (
         <div className="App" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
             <div>
 
                 <div>
-                    <input value={searchTerm} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." className="discoverSearch"></input>
-                    <button onClick={() => onClickHandler(searchTerm)}>Query Data in Console</button>
                     <button onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
                     <button onClick={() => resetDatabasePlaylists()}>Delete All Playlists in Database</button>
                 </div>
@@ -97,5 +101,6 @@ export default compose(
     graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
     // graphql()
     graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
-    graphql(mutations.DELETE_ALL_PLAYLISTS, { name: "deleteAllPlaylists"})
+    graphql(mutations.DELETE_ALL_PLAYLISTS, { name: "deleteAllPlaylists"}),
+    graphql(mutations.DELETE_USER, { name: "deleteUser"})
   )(LockedScreen);
