@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
-import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import jsonData from "../data/TestData.json";
 import { flowRight as compose } from 'lodash';
 import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
 import { isValidObjectId } from 'mongoose';
+import { Grid, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
 
 const LockedScreen = (props) => {
+    const users = jsonData.Users;
+    const columns = 2;
     const playlists = jsonData.Playlists;
     // console.log(playlists2);
     const resetDatabasePlaylists = () => {
@@ -20,7 +23,6 @@ const LockedScreen = (props) => {
 
 
     const addPlaylistsToDatabase = () => {
-
         playlists.forEach(playlist => {
             let songs = playlist.songs;
             for (let i = 0; i < songs.length; i++) {
@@ -47,10 +49,6 @@ const LockedScreen = (props) => {
             console.log(newPlaylist);
 
             props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
-            // if (data2.addPlaylist) {
-            //     console.log(data2.addPlaylist);
-            // }
-            // refreshList: refetch
         });
     }
 
@@ -74,22 +72,41 @@ const LockedScreen = (props) => {
             });
     }
 
-    const deleteUser = async (id) => {
-        props.deleteUser({ variables: { _id: id} });
+    const deleteUser = async (user) => {
+        console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
+        // TODO: Remove this print statement and hook this up to the database.
+        // props.deleteUser({ variables: { _id: user._id} });
         // props.history.push({ pathname: '/playlists' });
         // refetch();
     }
 
     const [searchTerm, setSearch] = useState("");
     return (
-        <div className="App" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
+        <div className="adminScreen" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
+            <br></br><br></br>
             <div>
-
-                <div>
-                    <button onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
-                    <button onClick={() => resetDatabasePlaylists()}>Delete All Playlists in Database</button>
-                </div>
-
+                <button className="clickButton ui button" onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
+                <button className="clickButton ui button" onClick={() => resetDatabasePlaylists()}>Delete All Playlists in Database</button>
+            </div>
+            <br></br><br></br>
+            <h2>List Of All Users</h2>
+            <div className="profileScreenScrollContainer">
+                <Grid columns={columns} divided>
+                {users.map((user, index) => (
+                    <Grid.Column width={Math.floor(16 / columns)} key={index}>
+                    <div className="adminUserList" >
+                        <img className="profilePicture" src={user.profile_picture} alt="" />
+                        <div className='profileFollowingInfo'>
+                        <h2>{user.username}</h2>
+                        <Link to={{ pathname: "/profile/" + user._id, user: user }}>
+                            <Icon className="big" name="user" ></Icon>
+                        </Link>
+                        <Icon className="removeSongIcon big" onClick={() => deleteUser(user)} name="trash" ></Icon>
+                        </div>
+                    </div>
+                    </Grid.Column>
+                ))}
+                </Grid>
             </div>
 
         </div>
@@ -99,7 +116,6 @@ const LockedScreen = (props) => {
 
 export default compose(
     graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
-    // graphql()
     graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
     graphql(mutations.DELETE_ALL_PLAYLISTS, { name: "deleteAllPlaylists"}),
     graphql(mutations.DELETE_USER, { name: "deleteUser"})

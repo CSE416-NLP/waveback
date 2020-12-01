@@ -1330,6 +1330,24 @@ code {
   font-weight: bolder;
 }
 
+/* ADMIN/TEST/LOCKED SCREEN */
+
+.adminScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminUserList {
+  color: var(--accent);
+  display: flex;
+  margin-top: 2%;
+  margin-left: 4%;
+  width: 95%;
+  height: 85%;
+  user-select: none;
+}
 
 /* ANIMATIONS */
 @keyframes App-logo-spin {

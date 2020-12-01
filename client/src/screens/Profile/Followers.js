@@ -46,7 +46,6 @@ const Followers = (props) => {
             </Grid.Column>
           ))}
         </Grid>
-
       </div>
     </div>
   )
