@@ -9,19 +9,19 @@ const PrivacyPicker = (props) => {
         <div className="dropdownChangePrivacy">
             <Button.Group>
                 <Dropdown text={props.displayText ? props.displayText : "Visibility"} icon='setting' floating labeled button className='clickButton icon'>
-                    <Dropdown.Menu>
+                    <Dropdown.Menu className="dropdownMenu">
                         <Dropdown.Item
-                            label={{ color: 'var(--buttonColor)', empty: true, circular: true }}
+                            label={{ color: 'green', empty: true, circular: true }}
                             onClick={() => onVisibilityChange("Public")}
                             text="Public"
                         />
                         <Dropdown.Item
-                            label={{ color: 'var(--primary)', empty: true, circular: true }}
+                            label={{ color: 'yellow', empty: true, circular: true }}
                             onClick={() => onVisibilityChange("Followers-Only")}
                             text="Followers-Only"
                         />
                         <Dropdown.Item
-                            label={{ color: 'var(--accent)', empty: true, circular: true }}
+                            label={{ color: 'red', empty: true, circular: true }}
                             onClick={() => onVisibilityChange("Private")}
                             text="Private"
                         />

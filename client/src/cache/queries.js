@@ -12,6 +12,7 @@ export const GET_DB_USER = gql`
             profilePicture
             playlists
             following
+            followers
             bio
             location
             favoriteGenres

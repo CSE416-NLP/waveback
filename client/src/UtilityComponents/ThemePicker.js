@@ -22,7 +22,7 @@ const ThemePicker = (props) => {
         <div className="dropdownChangeTheme">
             <Button.Group>
                 <Dropdown text='Theme' icon='theme' floating labeled button className='clickButton icon'>
-                    <Dropdown.Menu>
+                    <Dropdown.Menu className="dropdownMenu">
                         <Dropdown.Item
                             label={{ color: 'teal', empty: true, circular: true }}
                             onClick={() => changeStyle("Modern")}

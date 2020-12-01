@@ -26,7 +26,7 @@ const Followers = (props) => {
   return (
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">
-        <input placeholder="Search for a follower..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
+        <input placeholder="Filter followers..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
           value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
           <i className="search icon"></i>

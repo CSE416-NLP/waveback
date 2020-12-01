@@ -78,6 +78,7 @@ module.exports = {
                 admin: false,
                 playlists: [],
                 following: [],
+                followers: [],
                 bio: "",
                 location: "",
                 favoriteGenres: [],
@@ -150,6 +151,19 @@ module.exports = {
             let saved = await User.updateOne({ _id: objectId }, { defaultVisibility: defaultVisibility });
             if (saved) return true;
             else return false;
+        },
+        followUser: async (_, args) => {
+            const { _id, _otherID } = args;
+            const selfID = new ObjectId(_id);
+            const otherID = new ObjectId(_otherID);
+            let flag = true;
+            let selfUpdate = await User.updateOne({ _id: selfID }, { $addToSet: { following: _otherID } })
+            if (selfUpdate.nModified <= 0) 
+                flag = false;
+            let otherUpdate = await User.updateOne({ _id: otherID}, { $addToSet: { followers: _id }} );
+            if (otherUpdate.nModified <= 0)
+                flag = false;
+            return selfUpdate;
         },
         deleteUser: async (_, args) => {
             const { _id } = args;

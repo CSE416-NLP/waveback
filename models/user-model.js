@@ -34,6 +34,10 @@ const userSchema = new Schema(
             type: [ObjectId],
             required: true
         },
+        followers: {
+            type: [ObjectId],
+            required: true
+        },
         bio: {
             type: String,
             required: false

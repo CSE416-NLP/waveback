@@ -193,6 +193,10 @@ code {
   top: 91.5%;
 }
 
+.dropdownMenu {
+  background-color: var(--secondary) !important;
+}
+
 /* NAVBAR */
 .navbar {
   display: flex;
@@ -617,7 +621,6 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 12%;
   width: 80%;
   height: 80%;
   margin-left: 10%;
@@ -631,7 +634,6 @@ code {
   text-align: center;
   margin-top: 5%;
   margin-bottom: 10%;
-  margin-right: -17.6%;
   padding-top: 15%;
   padding-bottom: 15%;
   border-style: inset;
@@ -646,7 +648,7 @@ code {
 .profileOptionsButton {
   display: flex;
   justify-content: center;
-  margin-left: 20%;
+  margin-right: -0.25em;
   margin-top: 5%;
   margin-bottom: 20%;
 }
@@ -696,7 +698,7 @@ code {
   width: 80%;
   height: 90%;
   padding: 3%;
-  padding-right: 12%;
+  /* padding-right: 12%; */
 }
 
 .followingSearchContainer {

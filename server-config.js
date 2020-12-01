@@ -27,7 +27,7 @@ const serverOptions = (app) => {
  	@param {function} next - call the next middleware function
 **/
 const validateTokens = async(req, res, next) => {
-	console.log(req.headers);
+	// console.log(req.headers);
 	const accessToken = req.cookies['access-token'];
 	const refreshToken = req.cookies['refresh-token'];	
 	// Unauthorized request

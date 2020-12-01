@@ -9,6 +9,7 @@ import PrivacyPicker from "../../UtilityComponents/PrivacyPicker.js";
 
 const MyAccount = (props) => {
     const currentUser = props.user;
+    console.log(props.user)
     const [username, setUsername] = useState(currentUser.username);
     const [email, setEmail] = useState(currentUser.email);
     const [newPassword, setNewPassword] = useState("");
@@ -25,7 +26,6 @@ const MyAccount = (props) => {
     }
 
     const updateAccount = async () => {
-        console.log("updateAccount");
         const updated = await props.updateuseraccount({ variables: { _id: currentUser._id, username, email, password: newPassword } });
         if (updated) console.log("Saved successfully");
         else console.log("Error in saving");
@@ -34,9 +34,8 @@ const MyAccount = (props) => {
     }
 
     const updateUserDefaultVisibility = async (newVisibility) => {
-        console.log("Updating user's default visibility to", newVisibility);
         const updated = await props.updateuserdefaultvisibility({ variables: { _id: currentUser._id, defaultVisibility: newVisibility } });
-        if (updated) console.log("User default visibility saved successfully");
+        if (updated) console.log("User default visibility saved successfully to", newVisibility);
         else console.log("Error in updating user's default visibility");
         setUpdateCheck(false);
     }

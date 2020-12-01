@@ -1,26 +1,37 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import "../../styles/css/index.css";
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
-import { GETUSERBYUSERNAME } from '../../cache/mutations';
+import { GETUSERBYUSERNAME, FOLLOWUSER } from '../../cache/mutations';
 import jsonData from "../../data/TestData.json";
 
 
 const Following = (props) => {
+  const user = props.user
+  const [filterTerm, setFilterTerm] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const users = jsonData.Users;
   const columns = 2;
 
   const searchUser = async (searchTerm) => {
-    const {data} = await props.getuserbyusername({ variables: { username: searchTerm}})
+    const { data } = await props.getuserbyusername({ variables: { username: searchTerm } })
     if (data && data.getUserByUsername) {
       console.log(data.getUserByUsername)
       props.history.push({ pathname: "/profile/" + data.getUserByUsername[0]._id, user: data.getUserByUsername[0] });
     }
     else
       console.log("No users found")
+  }
+
+  const followUser = async () => {
+    console.log("About to follow lebron", user._id);
+    const { data } = await props.followuser({ variables: { _id: user._id, _otherID: "5fa49dd3430a003cc0205725" } })
+    if (data) console.log("successfully added lebron")
+    else console.log("couldn't add lebron")
+    
+    // props.fetchUser();
   }
 
   return (
@@ -31,6 +42,14 @@ const Following = (props) => {
         <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
           <i className="search icon"></i>
         </button>
+      </div>
+      <div className="followingSearchContainer ui input">
+        <input placeholder="Filter following..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
+          value={filterTerm} onChange={(e) => setFilterTerm(e.target.value)} />
+        {/* <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
+          <i className="search icon"></i>
+        </button> */}
+        <button onClick={followUser}>follow lebron</button>
       </div>
       <div className="profileScreenScrollContainer">
         <Grid columns={columns} divided>
@@ -50,7 +69,8 @@ const Following = (props) => {
       </div>
     </div>
   )
-} 
+}
 export default compose(
-  (graphql(GETUSERBYUSERNAME, { name: 'getuserbyusername' }))
+  (graphql(GETUSERBYUSERNAME, { name: 'getuserbyusername' })),
+  (graphql(FOLLOWUSER, { name: 'followuser' }))
 )(Following);

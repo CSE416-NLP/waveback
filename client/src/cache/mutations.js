@@ -12,6 +12,7 @@ export const LOGIN = gql`
             profilePicture
             playlists
             following
+            followers
             bio
             location
             favoriteGenres
@@ -33,6 +34,7 @@ export const REGISTER = gql`
             profilePicture
             playlists
             following
+            followers
             bio
             location
             favoriteGenres
@@ -50,6 +52,7 @@ export const LOGOUT = gql`
 	}
 `;
 
+// This "query" doesn't need all the fields, so it doesn't ask for all of them!
 export const GETUSERBYUSERNAME = gql`
     mutation GetUserByUsername($username: String!) {
         getUserByUsername(username: $username) {
@@ -58,6 +61,7 @@ export const GETUSERBYUSERNAME = gql`
             profilePicture
             playlists
             following
+            followers
             bio
             location
             favoriteGenres
@@ -89,6 +93,12 @@ export const UPDATEUSERTHEME = gql`
 export const UPDATEUSERDEFAULTVISIBILITY = gql`
     mutation UpdateUserDefaultVisibility($_id: String!, $defaultVisibility: String!) {
         updateUserDefaultVisibility(_id: $_id, defaultVisibility: $defaultVisibility)
+    }
+`;
+
+export const FOLLOWUSER = gql`
+    mutation FollowUser($_id: String!, $_otherID: String!){
+        followUser(_id: $_id, _otherID: $_otherID)
     }
 `;
 

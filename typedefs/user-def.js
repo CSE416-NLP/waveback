@@ -10,6 +10,7 @@ const typeDefs = gql`
         profilePicture: String
         playlists: [String]
         following: [String]
+        followers: [String]
         bio: String
         location: String
         favoriteGenres: [String]
@@ -31,6 +32,7 @@ const typeDefs = gql`
         updateUserAccount(_id: String!, username: String!, email: String!, password: String): Boolean
         updateUserTheme(_id: String!, theme: String!): Boolean
         updateUserDefaultVisibility(_id: String!, defaultVisibility: String): Boolean
+        followUser(_id: String!, _otherID: String!): Boolean
         deleteUser(_id: String!): Boolean
     }
 `;
