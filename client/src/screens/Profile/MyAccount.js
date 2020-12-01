@@ -4,6 +4,7 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { UPDATEUSERACCOUNT } from '../../cache/mutations';
 import { Modal, Button, Icon, Header } from 'semantic-ui-react';
+import PrivacyPicker from "../../UtilityComponents/PrivacyPicker.js";
 
 
 const MyAccount = (props) => {
@@ -83,6 +84,9 @@ const MyAccount = (props) => {
                     name={passwordFieldType === "password" ? 'eye' : 'eye slash'} onClick={() => toggleShowPassword(!passwordFieldType)} />
             </div>
             {errorText && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorText}</div>}
+            <p className="profileScreenSubText">User Account Privacy</p>
+            <div className="accountPrivacyPicker"><PrivacyPicker ></PrivacyPicker></div>
+
             <Modal
                 basic
                 onClose={() => setUpdateCheck(false)}
