@@ -154,6 +154,8 @@ module.exports = {
         },
         followUser: async (_, args) => {
             const { _id, _otherID } = args;
+            if (_id === _otherID)       // Don't follow self
+                return false
             const selfID = new ObjectId(_id);
             const otherID = new ObjectId(_otherID);
             let flag = true;
@@ -163,7 +165,7 @@ module.exports = {
             let otherUpdate = await User.updateOne({ _id: otherID}, { $addToSet: { followers: _id }} );
             if (otherUpdate.nModified <= 0)
                 flag = false;
-            return selfUpdate;
+            return flag;
         },
         deleteUser: async (_, args) => {
             const { _id } = args;
