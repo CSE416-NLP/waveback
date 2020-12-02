@@ -6,6 +6,7 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { GETUSERBYUSERNAME } from '../../cache/mutations';
 import jsonData from "../../data/TestData.json";
+import UserSearch from "../../UtilityComponents/UserSearch";
 
 
 const Followers = (props) => {
@@ -19,20 +20,27 @@ const Followers = (props) => {
     if (data && data.getUserByUsername) {
       console.log(data.getUserByUsername);
       if (data.getUserByUsername.length == 0) {
-        console.log("No users found");
+        console.log("No followers found");
         return;
       }
       props.history.push({ pathname: "/profile/" + data.getUserByUsername[0]._id, user: data.getUserByUsername[0] });
     }
     else
-      console.log("No users found");
+      console.log("No followers found");
+  }
+
+  const handleSearchInput = (event) => {
+    setSearchTerm(event.target.value);
+    if (event.key === 'Enter') {
+        searchUser(event.target.value);
+    }
   }
 
   return (
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">
-        <input placeholder="Filter followers..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
-          value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <input placeholder="Filter followers..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
+           onKeyPress={(e) => handleSearchInput(e)} />
         <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
           <i className="search icon"></i>
         </button>
@@ -42,7 +50,6 @@ const Followers = (props) => {
           {users.map((user, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
               <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
-
                 <img className="profilePicture" src={user.profilePicture} alt="" />
                 <div className='profileFollowingInfo'>
                   <h2>{user.username}</h2>
@@ -61,15 +68,14 @@ const Followers = (props) => {
                 <button className="clickButton ui massive button">Search for User</button>
               </div>
             </Grid.Column>}>
-            <Header icon>Search for a User</Header>
+            <Header icon>Find New User</Header>
             <Modal.Content>
-                {/* <UserSearch></UserSearch> */}
+                <UserSearch {...props}></UserSearch>
             </Modal.Content>
             <Modal.Actions className="recoverPasswordModalButtonContainer">
                 <Button inverted color='red' onClick={(e) => setUserSearchOpenState(false)}><Icon name='close' />Close</Button>
             </Modal.Actions>
           </Modal>
-         
         </Grid>
       </div>
     </div>

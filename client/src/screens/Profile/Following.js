@@ -6,7 +6,7 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { GETUSERBYUSERNAME, FOLLOWUSER } from '../../cache/mutations';
 import jsonData from "../../data/TestData.json";
-
+import UserSearch from "../../UtilityComponents/UserSearch";
 
 const Following = (props) => {
   const user = props.user
@@ -19,11 +19,15 @@ const Following = (props) => {
   const searchUser = async (searchTerm) => {
     const { data } = await props.getuserbyusername({ variables: { username: searchTerm } })
     if (data && data.getUserByUsername) {
-      console.log(data.getUserByUsername)
+      console.log(data.getUserByUsername);
+      if (data.getUserByUsername.length == 0) {
+        console.log("No following users found");
+        return;
+      };
       props.history.push({ pathname: "/profile/" + data.getUserByUsername[0]._id, user: data.getUserByUsername[0] });
     }
     else
-      console.log("No users found")
+      console.log("No following users found")
   }
 
   const followUser = async () => {
@@ -31,15 +35,20 @@ const Following = (props) => {
     const { data } = await props.followuser({ variables: { _id: user._id, _otherID: "5fa49dd3430a003cc0205725" } })
     if (data) console.log("successfully added lebron")
     else console.log("couldn't add lebron")
-    
-    // props.fetchUser();
+  }
+
+  const handleSearchInput = (event) => {
+    setSearchTerm(event.target.value);
+    if (event.key === 'Enter') {
+        searchUser(event.target.value);
+    }
   }
 
   return (
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">
-        <input placeholder="Search for a user..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
-          value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+        <input placeholder="Filter users..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
+           onKeyPress={(e) => handleSearchInput(e)} />
         <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
           <i className="search icon"></i>
         </button>
@@ -61,16 +70,26 @@ const Following = (props) => {
               </Link>
             </Grid.Column>
           ))}
-          <Grid.Column width={Math.floor(16 / columns)}>
-            <div className="searchForUserButton">
-              <button className="clickButton ui massive button">Search for User</button>
-            </div>
-          </Grid.Column>
-
-
-
+          <Modal
+            onClose={() => setUserSearchOpenState(false)}
+            onOpen={() => setUserSearchOpenState(true)}
+            open={Boolean(userSearchOpenState)}
+            size='large'
+            trigger={
+              <Grid.Column width={Math.floor(16 / columns)}>
+              <div className="searchForUserButton">
+                <button className="clickButton ui massive button">Search for User</button>
+              </div>
+            </Grid.Column>}>
+            <Header icon>Find New User</Header>
+            <Modal.Content>
+                <UserSearch {...props}></UserSearch>
+            </Modal.Content>
+            <Modal.Actions className="recoverPasswordModalButtonContainer">
+                <Button inverted color='red' onClick={(e) => setUserSearchOpenState(false)}><Icon name='close' />Close</Button>
+            </Modal.Actions>
+          </Modal>
         </Grid>
-
       </div>
     </div>
   )

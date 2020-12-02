@@ -284,11 +284,6 @@ const PlaylistScreen = (props) => {
             URIs.push(songs[i].songURI);
         }
         console.log(songs);
-        // setPlaylistSongs(songs);
-        // setPlaylistSongURIs(URIs);
-        // updateTracks(URIs, props.currentSongIndex);
-        // // console.log(URIs);
-        // // console.log(songs);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
         let transaction = new PlaylistTransaction(playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
