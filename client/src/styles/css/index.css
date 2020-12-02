@@ -698,11 +698,18 @@ code {
   width: 80%;
   height: 90%;
   padding: 3%;
-  /* padding-right: 12%; */
 }
 
 .followingSearchContainer {
   margin: auto;
+}
+
+.searchForUserButton {
+  color: var(--accent);
+  display: flex;
+  margin-top: 2%;
+  margin-left: 4%;
+  height: 85%;
 }
 
 .profileScreenSubText {

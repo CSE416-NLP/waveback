@@ -15,9 +15,9 @@ const arrayToString = (array) => {
 }
 
 const ViewProfileScreen = (props) => {
-    console.log(props)
+    console.log(props);
     const user = props.location.user;
-    const playlists = jsonData.Playlists
+    const playlists = jsonData.Playlists;
 
     const invalidImage = (e) => {
         e.target.src = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=";
@@ -27,7 +27,7 @@ const ViewProfileScreen = (props) => {
         <div className="viewProfileScreenOutermost">
             <div className="profileContainerLeft">
                 <div className="profileContainerTop">
-                    <img onError={invalidImage} style={{ objectFit: "cover" }} src={user ? user.profile_picture : invalidImage} className="myProfilePicture" alt="r" />
+                    <img onError={invalidImage} style={{ objectFit: "cover" }} src={user ? user.profilePicture : invalidImage} className="myProfilePicture" alt="" />
                     <div className="profileName"><p>{user.username}</p></div>
                 </div>
                 <div className="viewProfileInfoBackground">

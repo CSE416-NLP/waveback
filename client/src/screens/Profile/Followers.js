@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button, Icon, Modal, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import "../../styles/css/index.css";
 import { graphql } from '@apollo/react-hoc';
@@ -10,17 +10,22 @@ import jsonData from "../../data/TestData.json";
 
 const Followers = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [userSearchOpenState, setUserSearchOpenState] = useState(false);
   const users = jsonData.Users;
   const columns = 2;
 
   const searchUser = async (searchTerm) => {
     const {data} = await props.getuserbyusername({ variables: { username: searchTerm}})
     if (data && data.getUserByUsername) {
-      console.log(data.getUserByUsername)
+      console.log(data.getUserByUsername);
+      if (data.getUserByUsername.length == 0) {
+        console.log("No users found");
+        return;
+      }
       props.history.push({ pathname: "/profile/" + data.getUserByUsername[0]._id, user: data.getUserByUsername[0] });
     }
     else
-      console.log("No users found")
+      console.log("No users found");
   }
 
   return (
@@ -38,13 +43,33 @@ const Followers = (props) => {
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
               <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
 
-                <img className="profilePicture" src={user.profile_picture} alt="" />
+                <img className="profilePicture" src={user.profilePicture} alt="" />
                 <div className='profileFollowingInfo'>
                   <h2>{user.username}</h2>
                 </div>
               </Link>
             </Grid.Column>
           ))}
+          <Modal
+            onClose={() => setUserSearchOpenState(false)}
+            onOpen={() => setUserSearchOpenState(true)}
+            open={Boolean(userSearchOpenState)}
+            size='large'
+            trigger={
+              <Grid.Column width={Math.floor(16 / columns)}>
+              <div className="searchForUserButton">
+                <button className="clickButton ui massive button">Search for User</button>
+              </div>
+            </Grid.Column>}>
+            <Header icon>Search for a User</Header>
+            <Modal.Content>
+                {/* <UserSearch></UserSearch> */}
+            </Modal.Content>
+            <Modal.Actions className="recoverPasswordModalButtonContainer">
+                <Button inverted color='red' onClick={(e) => setUserSearchOpenState(false)}><Icon name='close' />Close</Button>
+            </Modal.Actions>
+          </Modal>
+         
         </Grid>
       </div>
     </div>

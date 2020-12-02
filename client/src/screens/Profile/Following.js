@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button, Icon, Modal, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import "../../styles/css/index.css";
 import { graphql } from '@apollo/react-hoc';
@@ -12,6 +12,7 @@ const Following = (props) => {
   const user = props.user
   const [filterTerm, setFilterTerm] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [userSearchOpenState, setUserSearchOpenState] = useState(false);
   const users = jsonData.Users;
   const columns = 2;
 
@@ -46,9 +47,6 @@ const Following = (props) => {
       <div className="followingSearchContainer ui input">
         <input placeholder="Filter following..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
           value={filterTerm} onChange={(e) => setFilterTerm(e.target.value)} />
-        {/* <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
-          <i className="search icon"></i>
-        </button> */}
         <button onClick={followUser}>follow lebron</button>
       </div>
       <div className="profileScreenScrollContainer">
@@ -56,14 +54,21 @@ const Following = (props) => {
           {users.map((user, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
               <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
-
-                <img className="profilePicture" src={user.profile_picture} alt="" />
+                <img className="profilePicture" src={user.profilePicture} alt="" />
                 <div className='profileFollowingInfo'>
                   <h2>{user.username}</h2>
                 </div>
               </Link>
             </Grid.Column>
           ))}
+          <Grid.Column width={Math.floor(16 / columns)}>
+            <div className="searchForUserButton">
+              <button className="clickButton ui massive button">Search for User</button>
+            </div>
+          </Grid.Column>
+
+
+
         </Grid>
 
       </div>
