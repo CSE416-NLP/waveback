@@ -14,13 +14,10 @@ import SongSearch from "../UtilityComponents/SongSearch";
 import { PlaylistTransaction } from '../utils/jsTPS';
 
 const ObjectId = require("mongoose").Types.ObjectId;
-
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const PlaylistScreen = (props) => {
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
-
-    // const playlist = props.location.playlist;
     const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
@@ -32,7 +29,6 @@ const PlaylistScreen = (props) => {
     const [sortState, setSortState] = useState("normal");
     const [songHoverState, setSongHoverState] = useState(null);
     const [songInfoOpenState, setSongInfoOpenState] = useState(false);
-
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
@@ -93,7 +89,6 @@ const PlaylistScreen = (props) => {
         })
         if (data && data.updatePlaylist) console.log("Updated successfully");
         else console.log("Error in updating");
-        // props.fetchUser();
     }
 
     const deletePlaylist = async () => {
@@ -135,7 +130,6 @@ const PlaylistScreen = (props) => {
         for (let i = 0; i < 3; i++) {
             randomString += characters.charAt(Math.floor(Math.random() * characters.length));
         }
-        // setSearchTerm(randomString);
         searchSpotify(randomString);
     }
 
@@ -274,13 +268,11 @@ const PlaylistScreen = (props) => {
 
     const shufflePlaylist = () => {
         let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        // console.log(old_playlist.songs);
         setPlaylist(old_playlist);
         let songs = [...playlistSongs];
         songs = songs.sort(() => Math.random() - 0.5);
         let URIs = []
         for (let i = 0; i < songs.length; i++) {
-            // console.log(songs[i]);
             URIs.push(songs[i].songURI);
         }
         console.log(songs);
@@ -291,44 +283,43 @@ const PlaylistScreen = (props) => {
 
     const sortSongs = (newType) => {
         let songs = [...playlistSongs];
-        let sort = sortState;
         let currentURI = playlistSongURIs[props.currentSongIndex];
         if (newType === 0) {
-            if (sort === "reverse") {
+            if (sortState === "reverse") {
                 setSortState("normal");
                 songs.sort(function (a, b) { return a.title.localeCompare(b.title); });
             }
-            else if (sort === "normal") {
+            else if (sortState === "normal") {
                 setSortState("reverse");
                 songs.sort(function (a, b) { return b.title.localeCompare(a.title); });
             }
         }
         else if (newType === 1) {
-            if (sort === "reverse") {
+            if (sortState === "reverse") {
                 setSortState("normal");
                 songs.sort(function (a, b) { return a.artist.localeCompare(b.artist); });
             }
-            else if (sort === "normal") {
+            else if (sortState === "normal") {
                 setSortState("reverse");
                 songs.sort(function (a, b) { return b.artist.localeCompare(a.artist); });
             }
         }
         else if (newType === 2) {
-            if (sort === "reverse") {
+            if (sortState === "reverse") {
                 setSortState("normal");
                 songs.sort(function (a, b) { return a.album.localeCompare(b.album); });
             }
-            else if (sort === "normal") {
+            else if (sortState === "normal") {
                 setSortState("reverse");
                 songs.sort(function (a, b) { return b.album.localeCompare(a.album); });
             }
         }
         else {
-            if (sort === "reverse") {
+            if (sortState === "reverse") {
                 setSortState("normal");
                 songs.sort(function (a, b) { return a.duration - b.duration; });
             }
-            else if (sort === "normal") {
+            else if (sortState === "normal") {
                 setSortState("reverse");
                 songs.sort(function (a, b) { return b.duration - a.duration; });
             }
@@ -404,6 +395,10 @@ const PlaylistScreen = (props) => {
         }
     };
 
+    const copyPlaylist = () => {
+        console.log("copy playlist with name: " + playlistName);
+    }
+
 
     let duration = 0;
     for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
@@ -434,7 +429,8 @@ const PlaylistScreen = (props) => {
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
                                 <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
-                                    maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => handleNameChange(e.target.value)} />
+                                    maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => handleNameChange(e.target.value)}
+                                />
                             </div>
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
@@ -445,6 +441,11 @@ const PlaylistScreen = (props) => {
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
                                     <button className="playlistShuffleButton clickButton ui button" onClick={shufflePlaylist}>
                                         <Icon className="large shuffle"></Icon>
+                                    </button>
+                                    <button className="playlistShuffleButton clickButton ui button" onClick={copyPlaylist}
+                                    // style={(playlist.owner === props.user.username) ? {display: "block"} : {display: "none"}}>
+                                    >
+                                        <Icon className="large copy"></Icon>
                                     </button>
                                 </div>
                                 <div className="playlistSave">
