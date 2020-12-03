@@ -26,9 +26,9 @@ const PlaylistsScreen = props => {
   const createNewPlaylist = async () => {
     let newPlaylist = {
       key: playlists.length,
-      owner: props.user._id,
+      owner: props.user.username,
       name: "Unnamed Playlist",
-      picture: "https://i.imgur.com/ZRoNOEu.png",
+      picture: "http://copywritingcourse.com/wp-content/uploads/blank-cd-icon.png",
       description: "",
       songs: [],
       songURIs: [],
@@ -41,6 +41,7 @@ const PlaylistsScreen = props => {
     const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
     if (data.addPlaylist) {
       console.log(data.addPlaylist);
+      console.log(props.user.username);
       props.history.push({
         pathname: '/playlist/' + data.addPlaylist,
         playlist: {

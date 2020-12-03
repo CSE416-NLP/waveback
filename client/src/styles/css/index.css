@@ -1219,6 +1219,11 @@ code {
   width: 24%;
 }
 
+.playlistCopyButton {
+  width: 80%;
+  height: 100%;
+}
+
 .playlistSaveButton:hover {
   cursor: pointer;
 }
