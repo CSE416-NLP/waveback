@@ -32,8 +32,6 @@ const typeDefs = gql `
     }
     extend type Query {
         getAllPublicPlaylists: [Playlist]
-        getAllUserPlaylists(owner: String!): [Playlist] 
-        getPlaylistById(_id: String!): Playlist
     }
     
     extend type Mutation {
@@ -42,6 +40,8 @@ const typeDefs = gql `
         updatePlaylist(_id: String!, name: String, picture: String, description: String, songs: [SongInput], songURIs: [String], tags: [String], duration: Int): Boolean
         deletePlaylist(_id: String!): Boolean
         deleteAllPlaylists: Boolean
+        getUserPlaylists(owner: String!): [Playlist] 
+        getPlaylistById(_id: String!): Playlist
     }
 
     input PlaylistInput {

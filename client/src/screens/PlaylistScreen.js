@@ -42,7 +42,7 @@ const PlaylistScreen = (props) => {
             document.removeEventListener("keydown", handleKeyPress);
         }
     }, []);
-  
+
     const getPlaylistObject = (name, picture, description, songs, songURIs) => {
         let newPlaylist = {
             _id: playlist._id,
@@ -162,7 +162,7 @@ const PlaylistScreen = (props) => {
             props.setCurrentPlaylistID(playlist._id);
         }
     }
-    
+
     const handleNameChange = (name) => {
         setPlaylistName(name);
         let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
@@ -182,7 +182,7 @@ const PlaylistScreen = (props) => {
     }
 
     const updatePlaylistPicture = (picture) => {
-        if (playlistPictureOpenState){
+        if (playlistPictureOpenState) {
             setPlaylistPictureOpenState(false);
         }
         setPlaylistPicture(picture);
@@ -401,31 +401,36 @@ const PlaylistScreen = (props) => {
     const copyPlaylist = async () => {
         console.log(currentUser);
         console.log(playlist);
+        let songsCopy = [...playlistSongs];
+        for (let i = 0; i < songsCopy.length; i++) {
+            if (!songsCopy[i]._id) songsCopy[i]._id = ObjectId();
+            delete songsCopy[i].__typename;
+        }
         // Create new playlist that is copy of current one.
         let newPlaylist = {
             key: currentUser.playlists.length,
             owner: currentUser.username,
-            name: playlist.name,
-            picture: playlist.picture,
-            description: playlist.description,
-            songs: playlist.songs,
-            songURIs: playlist.songURIs,
+            name: playlistName,
+            picture: playlistPicture,
+            description: playlistDescription,
+            songs: songsCopy,
+            songURIs: playlistSongURIs,
             followers: playlist.followers,
-            visibility: playlist.visibility,
+            visibility: currentUser.defaultVisibility,
             tags: playlist.tags,
             duration: playlist.duration,
-          }
+        }
         // Add playlist to database
         const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
         if (data.addPlaylist) {
-        props.history.push({
-            pathname: '/playlist/' + data.addPlaylist,
-            playlist: {
-            _id: data.addPlaylist,
-            ...newPlaylist
-            },
-            refreshList: refetch
-        })
+            props.history.push({
+                pathname: '/playlist/' + data.addPlaylist,
+                playlist: {
+                    _id: data.addPlaylist,
+                    ...newPlaylist
+                },
+                refreshList: refetch
+            })
         }
     }
 
@@ -433,7 +438,7 @@ const PlaylistScreen = (props) => {
     let duration = 0;
     for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
-    return (                                        
+    return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
                 <div className="playlistScreenLeftContainer">
@@ -477,7 +482,7 @@ const PlaylistScreen = (props) => {
                                             <Icon className="large copy"></Icon>
                                         </button>
                                     </Link>
-                                    
+
                                 </div>
                                 <div className="playlistSave">
                                     <Popup
@@ -530,7 +535,7 @@ const PlaylistScreen = (props) => {
                             </div>
                         </div>
                         <div className="playlistAddSongDivider" ></div>
-                        <SongSearch searchResults={searchResults} addSong={addSong} playSongByURI={playSongByURI}/>
+                        <SongSearch searchResults={searchResults} addSong={addSong} playSongByURI={playSongByURI} />
                     </div>
                 </div>
             </div>
@@ -559,7 +564,7 @@ const PlaylistScreen = (props) => {
                                                 { backgroundColor: "var(--primary)", fontWeight: "bold", color: "white" }
                                                 : { backgroundColor: "var(--secondary)" }
                                             }
-                                            onMouseEnter={() => setSongHoverState(song.title)}
+                                                onMouseEnter={() => setSongHoverState(song.title)}
                                             >
                                                 <div className="playlistSongTitle">{song.title}</div>
                                                 <div className="playlistSongArtist">{song.artist}</div>
@@ -572,8 +577,9 @@ const PlaylistScreen = (props) => {
                                                 open={Boolean(songInfoOpenState)}
                                                 size='small'
                                                 trigger={
-                                                    <Icon className="removeSongIcon large" style={{ 
-                                                        width: "3%", display: (song.title === songHoverState) ? "block" : "none"}} 
+                                                    <Icon className="removeSongIcon large" style={{
+                                                        width: "3%", display: (song.title === songHoverState) ? "block" : "none"
+                                                    }}
                                                         name="info circle" >
                                                     </Icon>}>
                                                 <Header icon>Song Info</Header>
@@ -596,8 +602,9 @@ const PlaylistScreen = (props) => {
                                                     <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
                                                 </Modal.Actions>
                                             </Modal>
-                                            <Icon className="removeSongIcon large" style={{ 
-                                                width: "3%", display: (song.title === songHoverState) ? "block" : "none"}} 
+                                            <Icon className="removeSongIcon large" style={{
+                                                width: "3%", display: (song.title === songHoverState) ? "block" : "none"
+                                            }}
                                                 name="remove" onClick={() => removeSong(song)}>
                                             </Icon>
                                         </div>

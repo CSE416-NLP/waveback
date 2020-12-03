@@ -24,11 +24,11 @@ const DiscoverScreen = (props) => {
   const [filterTextState, changeFilterText] = useState("playlists");
   const columns = 2;
 
-  const changeFilterButtonText = () => {
-    let filterTextStateCopy = filterTextState;
-    (filterTextStateCopy === "playlists") ? filterTextStateCopy = "songs" : filterTextStateCopy = "playlists";
-    changeFilterText(filterTextStateCopy);
-  }
+  // const changeFilterButtonText = () => {
+  //   let filterTextStateCopy = filterTextState;
+  //   (filterTextStateCopy === "playlists") ? filterTextStateCopy = "songs" : filterTextStateCopy = "playlists";
+  //   changeFilterText(filterTextStateCopy);
+  // }
 
   return (
     <div className="discoverScreen" style={{ backgroundColor: "var(--background)" }}>
@@ -59,5 +59,5 @@ const DiscoverScreen = (props) => {
 };
 
 export default compose(
-  graphql(GET_DB_PLAYLISTS, { name: "getAllUserPlaylists" })
+  graphql(GET_DB_PLAYLISTS, { name: "getAllPublicPlaylists" })
 )(DiscoverScreen);

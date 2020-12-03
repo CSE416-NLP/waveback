@@ -17,10 +17,10 @@ const LockedScreen = (props) => {
     const columns = 2;
     const playlists = jsonData.Playlists;
     // console.log(playlists2);
+
     const resetDatabasePlaylists = () => {
        props.deleteAllPlaylists({ variables: {}, refetchQueries: [{query: GET_DB_PLAYLISTS}] });
     }
-
 
     const addPlaylistsToDatabase = () => {
         playlists.forEach(playlist => {

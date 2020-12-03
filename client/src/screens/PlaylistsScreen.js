@@ -1,29 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../styles/css/index.css";
 import { Button, Grid } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import { Link } from "react-router-dom"
 import Playlist from "../UtilityComponents/Playlist"
-import { GET_DB_PLAYLISTS } from '../cache/queries';
+// import { GET_DB_PLAYLISTS } from '../cache/queries';
 import { flowRight as compose } from 'lodash';
 import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
+import { GET_USER_PLAYLISTS } from '../cache/mutations';
+import { GET_DB_PLAYLISTS } from '../cache/queries';
+
+
 
 const PlaylistsScreen = props => {
-  console.log(props.user.username);
-  let playlists = [];
-  const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
-  if (data) {
-    console.log(props.user.username);
-    playlists = data.getAllUserPlaylists(props.user.username);
-    console.log(playlists);
-  }
+  const [playlists, setPlaylists] = useState([]);
+  const { refetch } = useQuery(GET_DB_PLAYLISTS);
 
   useEffect(() => {
-    refetch();
+    async function loadPlaylists() {
+      const { data } = await props.getUserPlaylists({ variables: { owner: props.user.username } });
+      // console.log(data);
+      setPlaylists(data.getUserPlaylists);
+    }
+    loadPlaylists();
   }, [refetch]);
-
-  // const [, setPlaylists] = useState(props.user.playlists ? currentUser.playlists : []);
 
   const createNewPlaylist = async () => {
     let newPlaylist = {
@@ -58,7 +59,6 @@ const PlaylistsScreen = props => {
   const columns = 2;
   return (
     <div className="playlistsScreen" style={{ backgroundColor: "var(--background)" }}>
-
       <div className="playlistsSearchContainer ui input">
         <p className="discoverTitleText">my playlists</p>
         <div className="ui input">
@@ -73,7 +73,7 @@ const PlaylistsScreen = props => {
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link to={{ pathname: "/playlist/" + playlist._id, playlist: playlist, refreshList: refetch }}>
+              <Link to={{ pathname: "/playlist/" + playlist._id, playlist: playlist }}>
                 <Playlist playlist={playlist} />
               </Link>
             </Grid.Column>
@@ -93,6 +93,6 @@ const PlaylistsScreen = props => {
 
 export default compose(
   graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
-  // graphql()
-  graphql(GET_DB_PLAYLISTS, { name: "getAllUserPlaylists" })
+  graphql(GET_USER_PLAYLISTS, { name: 'getUserPlaylists' }),
+  graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" })
 )(PlaylistsScreen);

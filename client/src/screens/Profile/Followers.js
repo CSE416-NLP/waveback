@@ -17,6 +17,7 @@ const Followers = (props) => {
 
   const searchUser = async (searchTerm) => {
     const {data} = await props.getuserbyusername({ variables: { username: searchTerm}})
+    // console.log(data);
     if (data && data.getUserByUsername) {
       console.log(data.getUserByUsername);
       if (data.getUserByUsername.length === 0) {
@@ -84,3 +85,4 @@ const Followers = (props) => {
 export default compose(
   (graphql(GETUSERBYUSERNAME, { name: 'getuserbyusername' }))
 )(Followers);
+

@@ -132,3 +132,61 @@ export const DELETE_ALL_PLAYLISTS = gql`
         deleteAllPlaylists
     }
 `;
+export const GET_USER_PLAYLISTS = gql`
+    mutation GetUserPlaylists($owner: String!) {
+        getUserPlaylists(owner: $owner) {
+            _id
+            key
+            owner
+            name
+            picture
+            description
+            songs {
+                _id
+                songURI
+                key
+                title
+                artist
+                album
+                genre
+                year
+                duration
+            }
+            songURIs
+            followers
+            createdAt
+            visibility
+            tags
+            duration
+        }
+    }
+`;
+export const GETPLAYLIST = gql`
+    mutation GetPlaylist($_id: String!){
+        getPlaylist(_id: $_id){
+            _id
+            key
+            owner
+            name
+            picture
+            description
+            songs {
+                _id
+                songURI
+                key
+                title
+                artist
+                album
+                genre
+                year
+                duration
+            }
+            songURIs
+            followers
+            createdAt
+            visibility
+            tags
+            duration
+        }
+    }
+`;

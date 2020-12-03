@@ -28,31 +28,6 @@ export const GET_DB_USER = gql`
 
 export const GET_DB_PLAYLISTS = gql`
     query GetDBPlaylists {
-        getAllUserPlaylists {
-            _id
-            key
-            owner
-            name
-            picture
-            description
-            songs {
-                _id
-                songURI
-                key
-                title
-                artist
-                album
-                genre
-                year
-                duration
-            }
-            songURIs
-            followers
-            createdAt
-            visibility
-            tags
-            duration
-        }
         getAllPublicPlaylists {
             _id
             key
