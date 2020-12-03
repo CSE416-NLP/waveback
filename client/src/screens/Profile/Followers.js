@@ -19,7 +19,7 @@ const Followers = (props) => {
     const {data} = await props.getuserbyusername({ variables: { username: searchTerm}})
     if (data && data.getUserByUsername) {
       console.log(data.getUserByUsername);
-      if (data.getUserByUsername.length == 0) {
+      if (data.getUserByUsername.length === 0) {
         console.log("No followers found");
         return;
       }

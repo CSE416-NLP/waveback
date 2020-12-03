@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import SpotifyAuthWindow from "../UtilityComponents/SpotifyAuthWindow";
 import Playlist from "../UtilityComponents/Playlist"
 import { GET_DB_PLAYLISTS } from '../cache/queries';
+import { flowRight as compose } from 'lodash';
+import { graphql } from '@apollo/react-hoc';
 
 const DiscoverScreen = (props) => {
   let playlists = [];
@@ -56,4 +58,6 @@ const DiscoverScreen = (props) => {
   );
 };
 
-export default DiscoverScreen;
+export default compose(
+  graphql(GET_DB_PLAYLISTS, { name: "getAllUserPlaylists" })
+)(DiscoverScreen);

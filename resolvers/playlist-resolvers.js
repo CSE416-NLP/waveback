@@ -17,10 +17,12 @@ module.exports = {
             @param {object} req - the request object containing a user id
             @return {array} - an array of playlist objects on success, and an empty array on failure 
         **/
-        getAllUserPlaylists: async (_, __, { req }) => {
-            const _id = new ObjectId(req.userId);
-            if (!_id) { return ([]) };
-            const playlists = await Playlist.find({ owner: _id });
+        getAllUserPlaylists: async (_, __, { args }) => {
+            // const _id = new ObjectId(req.userId);
+            // if (!_id) { return ([]) };
+            const owner = args;
+            if (!owner) { return ([]) };
+            const playlists = await Playlist.find({ owner: owner });
             if (playlists) return playlists;
         },
 

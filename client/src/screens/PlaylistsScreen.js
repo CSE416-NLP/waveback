@@ -10,10 +10,12 @@ import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
 
 const PlaylistsScreen = props => {
+  console.log(props.user.username);
   let playlists = [];
   const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
   if (data) {
-    playlists = data.getAllUserPlaylists;
+    console.log(props.user.username);
+    playlists = data.getAllUserPlaylists(props.user.username);
     console.log(playlists);
   }
 
@@ -91,5 +93,5 @@ const PlaylistsScreen = props => {
 export default compose(
   graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
   // graphql()
-  graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" })
+  graphql(GET_DB_PLAYLISTS, { name: "getAllUserPlaylists" })
 )(PlaylistsScreen);
