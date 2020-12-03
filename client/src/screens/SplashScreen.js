@@ -7,7 +7,7 @@ import ThemePicker from '../UtilityComponents/ThemePicker';
 import { REGISTER, LOGIN } from '../cache/mutations';
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 

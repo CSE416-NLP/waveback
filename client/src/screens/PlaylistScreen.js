@@ -12,12 +12,15 @@ import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 import PrivacyPicker from "../UtilityComponents/PrivacyPicker.js";
 import SongSearch from "../UtilityComponents/SongSearch";
 import { PlaylistTransaction } from '../utils/jsTPS';
+import { Link } from "react-router-dom"
+import * as mutations from '../cache/mutations';
 
 const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const PlaylistScreen = (props) => {
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
+    const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
@@ -395,8 +398,35 @@ const PlaylistScreen = (props) => {
         }
     };
 
-    const copyPlaylist = () => {
-        console.log("copy playlist with name: " + playlistName);
+    const copyPlaylist = async () => {
+        console.log(currentUser);
+        console.log(playlist);
+        // Create new playlist that is copy of current one.
+        let newPlaylist = {
+            key: currentUser.playlists.length,
+            owner: currentUser.username,
+            name: playlist.name,
+            picture: playlist.picture,
+            description: playlist.description,
+            songs: playlist.songs,
+            songURIs: playlist.songURIs,
+            followers: playlist.followers,
+            visibility: playlist.visibility,
+            tags: playlist.tags,
+            duration: playlist.duration,
+          }
+        // Add playlist to database
+        const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
+        if (data.addPlaylist) {
+        props.history.push({
+            pathname: '/playlist/' + data.addPlaylist,
+            playlist: {
+            _id: data.addPlaylist,
+            ...newPlaylist
+            },
+            refreshList: refetch
+        })
+        }
     }
 
 
@@ -442,11 +472,12 @@ const PlaylistScreen = (props) => {
                                     <button className="playlistShuffleButton clickButton ui button" onClick={shufflePlaylist}>
                                         <Icon className="large shuffle"></Icon>
                                     </button>
-                                    <button className="playlistShuffleButton clickButton ui button" onClick={copyPlaylist}
-                                    // style={(playlist.owner === props.user.username) ? {display: "block"} : {display: "none"}}>
-                                    >
-                                        <Icon className="large copy"></Icon>
-                                    </button>
+                                    <Link to={{ pathname: "/playlists" }}>
+                                        <button className="playlistCopyButton clickButton ui button" onClick={copyPlaylist}>
+                                            <Icon className="large copy"></Icon>
+                                        </button>
+                                    </Link>
+                                    
                                 </div>
                                 <div className="playlistSave">
                                     <Popup
@@ -583,6 +614,8 @@ const PlaylistScreen = (props) => {
 };
 
 export default compose(
+    graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
+    graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
     graphql(UPDATE_PLAYLIST, { name: 'updatePlaylist' }),
     graphql(DELETE_PLAYLIST, { name: "deletePlaylist" })
 )(PlaylistScreen);

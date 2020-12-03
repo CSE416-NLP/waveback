@@ -12,7 +12,7 @@ const UserSearch = (props) => {
         setSearchedYetState(true);
         const {data} = await props.getuserbyusername({ variables: { username: searchTerm}})
         if (data && data.getUserByUsername) {
-            if (data.getUserByUsername.length == 0) {
+            if (data.getUserByUsername.length === 0) {
                 setUserResults([]);
             }
             else {
@@ -66,7 +66,7 @@ const UserSearch = (props) => {
                         </Link>
                         <div className="userResultFollowInfo">
                             <div className="userResultFollowerInfo">
-                                {(user.followers.length != 1) ? (user.followers.length + " followers") : (user.followers.length + " follower")}
+                                {(user.followers.length !== 1) ? (user.followers.length + " followers") : (user.followers.length + " follower")}
                             </div>
                             <button className="userFollowButton clickButton ui icon big button" onClick={() => followUser(user)}>
                                 Follow

@@ -39,7 +39,7 @@ const MyProfile = (props) => {
 
     const updateProfile = async () => {
         // Split the strings by comma separators and then remove excess whitespace (not inbetween words)
-        if (updateCheck == true) {
+        if (updateCheck === true) {
             setUpdateCheck(false)
         }
         let parsedGenres = stringToArray(favoriteGenres)
