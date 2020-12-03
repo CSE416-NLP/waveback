@@ -337,6 +337,7 @@ code {
   background-color: var(--background);
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .generateScreenTitleText {
@@ -465,7 +466,7 @@ code {
   margin-left: 10%;
   border-style: double;
   border-width: 0 0 3px 0;
-  border-color: var(--secondary);
+  border-color: #999999;
 }
 
 .maxSongInputArea {
@@ -1237,6 +1238,28 @@ code {
   margin-right: -1%;
 }
 
+.playlistFilterContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -1%;
+  margin-top: 1%;
+}
+
+.playlistFilter {
+  height: 90%;
+}
+
+.playlistFilterDivider {
+  height: 10px;
+  margin: 1%;
+  margin-bottom: 1.5%;
+  width: 26%;
+  border-style: double;
+  border-width: 0 0 3px 0;
+  border-color: #999999;
+}
+
 .removeSongIcon {
   color: var(--accent);
   padding-left: 1%;
@@ -1382,7 +1405,7 @@ code {
   width: 70%;
   border-style: double;
   border-width: 0 0 3px 0;
-  border-color: var(--secondary);
+  border-color: #999999;
 }
 
 .userSearchResults {

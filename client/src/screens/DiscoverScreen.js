@@ -34,7 +34,7 @@ const DiscoverScreen = (props) => {
       <div className="discoverSearchContainer">
         <p className="discoverTitleText">explore other users' creations</p>
         <div className="ui input">
-          <input placeholder="Search.." size="40" className="discoverSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
+          <input placeholder="Search..." size="40" className="discoverSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
           <button type="submit"  className="clickButton fluid ui icon big button">
             <i className="search icon"></i>
           </button>

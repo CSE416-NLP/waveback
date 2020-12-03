@@ -35,6 +35,9 @@ const PlaylistScreen = (props) => {
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
+    // Song Filtering
+    const [filterTerm, setFilterTerm] = useState("");
+    const [filteredPlaylistSongs, setFilteredPlaylistSongs] = useState(playlist.songs);
 
     useEffect(() => {
         document.addEventListener("keydown", handleKeyPress);
@@ -126,6 +129,28 @@ const PlaylistScreen = (props) => {
         if (event.key === 'Enter') {
             searchSpotify(event.target.value);
         }
+    }
+
+    const filterPlaylist = (term) => {
+        if (term === "") {
+            return;
+        }
+        term = term.toLowerCase();
+        // for (let i = 0; i < playlist.songs.length; i++) {
+        //     let title = playlist.songs[i].title.toLowerCase();
+        //     let artist = playlist.songs[i].artist.toLowerCase();
+        //     let album = playlist.songs[i].album.toLowerCase();
+        //     if (title.indexOf(term) === -1 && artist.indexOf(term) === -1 && album.indexOf(term) === -1) {
+        //         filteredPlaylistSongs.splice(filteredPlaylistSongs.indexOf(playlist.songs[i]), 1);
+        //     }
+        // }
+        console.log(term);
+        console.log(filteredPlaylistSongs);
+    }
+
+    const handleFilterInput = (event) => {
+        setFilterTerm(event.target.value);
+        filterPlaylist(event.target.value);
     }
 
     const getRandomSong = () => {
@@ -520,7 +545,7 @@ const PlaylistScreen = (props) => {
                         <div className="addSongContainer ui input">
                             <p className="addSongText" >Add Song</p>
                             <div className="addSongSearchContainer ui input">
-                                <input className="addSongSearch" onKeyPress={(e) => handleSearchInput(e)} placeholder="Add Song..."></input>
+                                <input className="addSongSearch" onKeyUp={(e) => handleSearchInput(e)} placeholder="Add Song..."></input>
                             </div>
                             <button type="submit" className="clickButton ui icon large button" onClick={() => searchSpotify(searchTerm)}>
                                 <i className="search icon"></i>
@@ -539,6 +564,18 @@ const PlaylistScreen = (props) => {
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
                         <div className="playlistSongsContainer" {...provided.droppableProps} ref={provided.innerRef}>
+                            <div className="playlistFilterContainer">
+                                <div className="playlistFilterDivider"></div>
+                                <div className="ui input">
+                                    <input placeholder="Filter..." size="40" className="playlistFilter"
+                                        style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => handleFilterInput(e)}>
+                                    </input>
+                                    <button type="submit" className="clickButton fluid ui icon button" onClick={() => filterPlaylist(filterTerm)}>
+                                        <i className="search icon"></i>
+                                    </button>
+                                    </div>
+                                <div className="playlistFilterDivider"></div>
+                            </div>
                             <div style={{ display: "flex" }}>
                                 <div style={{ width: "7%" }}></div>
                                 <div className="playlistSongsBox">

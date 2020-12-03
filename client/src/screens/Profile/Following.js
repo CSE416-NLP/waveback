@@ -48,7 +48,7 @@ const Following = (props) => {
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">
         <input placeholder="Filter users..." style={{ backgroundColor: "var(--secondary)" }} size="50" className="discoverSearch"
-           onKeyPress={(e) => handleSearchInput(e)} />
+           onKeyUp={(e) => handleSearchInput(e)} />
         <button type="submit" className="clickButton ui icon big button" onClick={() => searchUser(searchTerm)}>
           <i className="search icon"></i>
         </button>
