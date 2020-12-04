@@ -12,7 +12,7 @@ const Followers = (props) => {
   const [filter, setFilter] = useState("");
   const [followers, setFollowers] = useState([]);
   const columns = 2;
-  const { loading, error, data, refetch } = useQuery(GET_FOLLOWERS, { variables: { followers: props.user.followers } });
+  const { loading, error, data } = useQuery(GET_FOLLOWERS, { variables: { followers: props.user.followers } }); // Can add refetch
 
   useEffect(() => {
     if (error) { console.log("ERROR:\n", error); }
@@ -21,7 +21,7 @@ const Followers = (props) => {
       console.log("Finished loading followers:", data);
       setFollowers(data.getFollowers)
     }
-  }, [data])
+  }, [data, error, loading])
 
   return (
     <div className="profileScreenMainContainerFollowing">

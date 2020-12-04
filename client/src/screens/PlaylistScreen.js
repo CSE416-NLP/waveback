@@ -39,6 +39,7 @@ const PlaylistScreen = (props) => {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
+        console.log("useeffect")
         document.addEventListener("keydown", handleKeyPress);
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
@@ -438,8 +439,8 @@ const PlaylistScreen = (props) => {
     }
 
 
-    let duration = 0;
-    for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
+    // let duration = 0;
+    // for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>

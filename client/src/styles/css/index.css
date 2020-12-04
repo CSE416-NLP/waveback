@@ -1429,7 +1429,7 @@ code {
 .userResultContainer {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   width: 80vmin;
   padding: 2%;
   margin-right: 2%;

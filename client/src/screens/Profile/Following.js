@@ -4,14 +4,12 @@ import { Grid, Button, Icon, Modal, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import "../../styles/css/index.css";
 import { GET_FOLLOWING } from '../../cache/queries';
-
-// import jsonData from "../../data/TestData.json";
 import UserSearch from "../../UtilityComponents/UserSearch";
 
 const Following = (props) => {
   const user = props.user;
   const [following, setFollowing] = useState([]);
-  const { loading, error, data, refetch } = useQuery(GET_FOLLOWING, { variables: { following: props.user.following } });
+  const { loading, error, data } = useQuery(GET_FOLLOWING, { variables: { following: props.user.following } }); // Can add refetch
   const [filter, setFilter] = useState("");
   const [userSearchOpenState, setUserSearchOpenState] = useState(false);
   const columns = 2;
@@ -23,7 +21,7 @@ const Following = (props) => {
       console.log("Finished loading following:", data.getFollowing);
       setFollowing(data.getFollowing)
     }
-  }, [data])
+  }, [data, error, loading])
 
   return (
     <div className="profileScreenMainContainerFollowing">

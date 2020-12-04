@@ -5,7 +5,6 @@ import jsonData from "../data/TestData.json";
 import { flowRight as compose } from 'lodash';
 import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
-import { isValidObjectId } from 'mongoose';
 import { Grid, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
@@ -52,25 +51,25 @@ const LockedScreen = (props) => {
         });
     }
 
-    const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
-        let token = getSpotifyAccessToken();
-        console.log(token);
-        token = "Bearer " + token;
-        let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
+    // const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
+    //     let token = getSpotifyAccessToken();
+    //     console.log(token);
+    //     token = "Bearer " + token;
+    //     let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
 
-        fetch(query, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            });
-    }
+    //     fetch(query, {
+    //         method: "GET",
+    //         headers: {
+    //             "Accept": "application/json",
+    //             "Content-Type": "application/json",
+    //             "Authorization": token
+    //         }
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             console.log(data);
+    //         });
+    // }
 
     const deleteUser = async (user) => {
         console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
@@ -80,7 +79,7 @@ const LockedScreen = (props) => {
         // refetch();
     }
 
-    const [searchTerm, setSearch] = useState("");
+    // const [searchTerm, setSearch] = useState("");
     return (
         <div className="adminScreen" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
             <br></br><br></br>
