@@ -36,8 +36,7 @@ const PlaylistScreen = (props) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
     // Song Filtering
-    const [filterTerm, setFilterTerm] = useState("");
-    const [filteredPlaylistSongs, setFilteredPlaylistSongs] = useState(playlist.songs);
+    const [filter, setFilter] = useState("");
 
     useEffect(() => {
         document.addEventListener("keydown", handleKeyPress);
@@ -129,28 +128,6 @@ const PlaylistScreen = (props) => {
         if (event.key === 'Enter') {
             searchSpotify(event.target.value);
         }
-    }
-
-    const filterPlaylist = (term) => {
-        if (term === "") {
-            return;
-        }
-        term = term.toLowerCase();
-        // for (let i = 0; i < playlist.songs.length; i++) {
-        //     let title = playlist.songs[i].title.toLowerCase();
-        //     let artist = playlist.songs[i].artist.toLowerCase();
-        //     let album = playlist.songs[i].album.toLowerCase();
-        //     if (title.indexOf(term) === -1 && artist.indexOf(term) === -1 && album.indexOf(term) === -1) {
-        //         filteredPlaylistSongs.splice(filteredPlaylistSongs.indexOf(playlist.songs[i]), 1);
-        //     }
-        // }
-        console.log(term);
-        console.log(filteredPlaylistSongs);
-    }
-
-    const handleFilterInput = (event) => {
-        setFilterTerm(event.target.value);
-        filterPlaylist(event.target.value);
     }
 
     const getRandomSong = () => {
@@ -573,9 +550,9 @@ const PlaylistScreen = (props) => {
                                 <div className="playlistFilterDivider"></div>
                                 <div className="ui input">
                                     <input placeholder="Filter..." size="40" className="playlistFilter"
-                                        style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => handleFilterInput(e)}>
+                                        style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => setFilter(e.target.value)}>
                                     </input>
-                                    <button type="submit" className="clickButton fluid ui icon button" onClick={() => filterPlaylist(filterTerm)}>
+                                    <button type="submit" className="clickButton fluid ui icon button">
                                         <i className="search icon"></i>
                                     </button>
                                     </div>
@@ -590,7 +567,7 @@ const PlaylistScreen = (props) => {
                                     <div onClick={() => sortSongs(3)} className="playlistSongDurationLabel">Duration</div>
                                 </div>
                             </div>
-                            {playlistSongs.map((song, index) => (
+                            {playlistSongs.filter(song => song.title.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase())).map((song, index) => (
                                 <Draggable key={song.key.toString()} draggableId={song.key.toString()} index={index}>
                                     {(provided, snapshot) => (
                                         <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
