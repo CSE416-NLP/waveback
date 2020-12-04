@@ -282,7 +282,7 @@ const PlaylistScreen = (props) => {
         }
         console.log(songs);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
-        let transaction = new PlaylistTransaction(playlist, new_playlist, modifyPlaylist);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
     }
 
