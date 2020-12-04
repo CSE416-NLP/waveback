@@ -42,6 +42,7 @@ const PlaylistScreen = (props) => {
         document.addEventListener("keydown", handleKeyPress);
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
+            props.tps.clearAllTransactions();
         }
     }, []);
 
