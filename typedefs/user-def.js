@@ -21,6 +21,8 @@ const typeDefs = gql`
     }
     extend type Query {
         getCurrentUser: User
+        getFollowers(followers: [String]): [User]
+        getFollowing(following: [String]): [User]
         testQuery: String
     }
     extend type Mutation {

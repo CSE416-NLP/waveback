@@ -19,6 +19,16 @@ module.exports = {
                 return found;
             }
         },
+        getFollowers: async (_, args) => {
+            const { followers } = args;
+            const userFollowers = await User.find().where('_id').in(followers);
+            return userFollowers;
+        },
+        getFollowing: async (_, args) => {
+            const { following } = args;
+            const userFollowing = await User.find().where('_id').in(following);
+            return userFollowing;
+        },        
     },
     Mutation: {
         /**
