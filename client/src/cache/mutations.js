@@ -102,6 +102,12 @@ export const FOLLOWUSER = gql`
     }
 `;
 
+export const UNFOLLOWUSER = gql`
+    mutation UnfollowUser($_id: String!, $_otherID: String!){
+        unfollowUser(_id: $_id, _otherID: $_otherID)
+    }
+`;
+
 export const DELETE_USER = gql`
     mutation DeleteUser($_id: String!){
         deleteUser(_id: $id)

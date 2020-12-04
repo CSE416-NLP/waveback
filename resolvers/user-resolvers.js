@@ -177,6 +177,21 @@ module.exports = {
                 flag = false;
             return flag;
         },
+        unfollowUser: async (_, args) => {
+            const { _id, _otherID } = args;
+            if (_id === _otherID)       // Don't follow self
+                return false
+            const selfID = new ObjectId(_id);
+            const otherID = new ObjectId(_otherID);
+            let flag = true;
+            let selfUpdate = await User.updateOne({ _id: selfID }, { $pull: { following: _otherID } })
+            if (selfUpdate.nModified <= 0) 
+                flag = false;
+            let otherUpdate = await User.updateOne({ _id: otherID}, { $pull: { followers: _id }} );
+            if (otherUpdate.nModified <= 0)
+                flag = false;
+            return flag;
+        },
         deleteUser: async (_, args) => {
             const { _id } = args;
             const objectId = new ObjectId(_id);

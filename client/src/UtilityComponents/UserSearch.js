@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
-import { FOLLOWUSER, GETUSERBYUSERNAME } from '../cache/mutations';
+import { FOLLOWUSER, UNFOLLOWUSER, GETUSERBYUSERNAME } from '../cache/mutations';
 import "../styles/css/index.css";
 
 // Widget that displays all public users.
 const UserSearch = (props) => {
-    const user = props.user;
+    const currentUser = props.user;
+    const [following, setFollowing] = useState(currentUser.following);
     const [searchTerm, setSearchTerm] = useState("");
     const [userResults, setUserResults] = useState([]);
     const [searchedYetState, setSearchedYetState] = useState(false);
@@ -28,12 +29,22 @@ const UserSearch = (props) => {
     }
 
     const followUser = async (otherUser) => {
+        setFollowing(prevFollowing => [...prevFollowing, otherUser._id]);
         console.log("About to follow", otherUser.username);
-        const { data } = await props.followuser({ variables: { _id: user._id, _otherID: otherUser._id } })
+        const { data } = await props.followuser({ variables: { _id: currentUser._id, _otherID: otherUser._id } })
         if (data) console.log("successfully added", otherUser.username)
         else console.log("couldn't add", otherUser.username)
+        props.fetchUser()
     }
 
+    const unfollowUser = async (otherUser) => {
+        setFollowing(following.filter(id => id !== otherUser._id));
+        console.log("About to unfollow", otherUser.username);
+        const { data } = await props.unfollowuser({ variables: { _id: currentUser._id, _otherID: otherUser._id } })
+        if (data) console.log("successfully removed", otherUser.username)
+        else console.log("couldn't remove", otherUser.username)
+        props.fetchUser()
+    }
     const handleSearchInput = (event) => {
         setSearchTerm(event.target.value);
         if (event.key === 'Enter') {
@@ -72,9 +83,13 @@ const UserSearch = (props) => {
                             <div className="userResultFollowerInfo">
                                 {(user.followers.length !== 1) ? (user.followers.length + " followers") : (user.followers.length + " follower")}
                             </div>
+                            {following.includes(user._id) ? 
+                            <button className="userFollowButton clickButton ui icon big button" onClick={() => unfollowUser(user)}>
+                                Unfollow
+                            </button> :
                             <button className="userFollowButton clickButton ui icon big button" onClick={() => followUser(user)}>
                                 Follow
-                            </button>
+                            </button>}
                         </div>
                     </div>
 
@@ -85,5 +100,6 @@ const UserSearch = (props) => {
 }
 export default compose(
     (graphql(FOLLOWUSER, { name: 'followuser' })),
+    (graphql(UNFOLLOWUSER, { name: 'unfollowuser' })),
     (graphql(GETUSERBYUSERNAME, { name: 'getuserbyusername' }))
 )(UserSearch);

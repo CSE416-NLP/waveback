@@ -56,7 +56,7 @@ const Following = (props) => {
               </Grid.Column>}>
             <Header icon>Find New User</Header>
             <Modal.Content>
-              <UserSearch user={user}></UserSearch>
+              <UserSearch fetchUser={props.fetchUser} user={user}></UserSearch>
             </Modal.Content>
             <Modal.Actions className="recoverPasswordModalButtonContainer">
               <Button inverted color='red' onClick={(e) => setUserSearchOpenState(false)}><Icon name='close' />Close</Button>
