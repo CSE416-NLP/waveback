@@ -41,7 +41,7 @@ const typeDefs = gql `
         deletePlaylist(_id: String!): Boolean
         deleteAllPlaylists: Boolean
         getUserPlaylists(owner: String!): [Playlist] 
-        getPlaylistById(_id: String!): Playlist
+        getPlaylist(_id: String!): Playlist
     }
 
     input PlaylistInput {

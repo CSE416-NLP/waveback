@@ -115,7 +115,7 @@ module.exports = {
             @param {object} args - a playlist id
             @returns {object} - a playlist on success and an empty object on failure 
         **/
-        getPlaylistById: async (_, args) => {
+        getPlaylist: async (_, args) => {
             const { _id } = args;
             const objectId = new ObjectId(_id);
             const playlist = await Playlist.findOne({ _id, objectId });
