@@ -38,6 +38,7 @@ const MyAccount = (props) => {
         if (updated) console.log("User default visibility saved successfully to", newVisibility);
         else console.log("Error in updating user's default visibility");
         setUpdateCheck(false);
+        props.fetchUser();
     }
 
     const validateInput = () => {
