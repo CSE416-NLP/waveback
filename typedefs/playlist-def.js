@@ -26,6 +26,7 @@ const typeDefs = gql `
         title: String!
         artist: String!
         album: String
+        albumPicture: String!
         genre: [String]!
         year: Int
         duration: Int!
@@ -66,6 +67,7 @@ const typeDefs = gql `
         title: String
         artist: String
         album: String
+        albumPicture: String
         genre: [String]
         year: Int
         duration: Int

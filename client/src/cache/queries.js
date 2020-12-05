@@ -78,6 +78,7 @@ export const GET_DB_PLAYLISTS = gql`
                 title
                 artist
                 album
+                albumPicture
                 genre
                 year
                 duration

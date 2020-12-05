@@ -71,6 +71,7 @@
                     "title": "The Court of the Crimson King",
                     "artist": "King Crimson",
                     "album": "In the Court of the Crimson King",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b2739f2179592d196f575b7a0ff5",
                     "genre": ["Rock", "Jazz"],
                     "year": 1969,
                     "duration": 566
@@ -82,6 +83,7 @@
                     "title": "Wolf Totem",
                     "artist": "The Hu",
                     "album": "The Gereg",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273b2ef4d022ce47a7981a65248",
                     "genre": ["Metal", "Folk"],
                     "year": 2018,
                     "duration": 397
@@ -93,6 +95,7 @@
                     "title": "Fur Elise, WoO 59",
                     "artist": "Ludwig Van Beethoven",
                     "album": "",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273ad55ad6f1e9ddde0711521bd",
                     "genre": ["Classical"],
                     "year": 1810,
                     "duration": 188
@@ -124,6 +127,7 @@
                     "title": "Solar System",
                     "artist": "Sub Focus",
                     "album": "Solar System / Siren",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273e629cab6558cb496b60e2178",
                     "genre": ["Electronic", "D&B"],
                     "year": 2019,
                     "duration": 288
@@ -135,6 +139,7 @@
                     "title": "Decay of Logos",
                     "artist": "Eloy",
                     "album": "Ocean (Remastered 2015)",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273352a540820179ba257800b6b",
                     "genre": ["Rock", "Jazz"],
                     "year": 1977,
                     "duration": 497
@@ -165,6 +170,7 @@
                     "title": "Fade to Black (Remastered)",
                     "artist": "Metallica",
                     "album": "Ride the Lightning (Deluxe Remaster)",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273533fd0b248052d04e6b732c0",
                     "genre": ["Metal"],
                     "year": 1984,
                     "duration": 417
@@ -176,6 +182,7 @@
                     "title": "Louisiana Bob",
                     "artist": "MAXIMUM THE HORMONE",
                     "album": "Bu-ikikaesu",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273ce7b647fbb4e137ba39ad271",
                     "genre": ["Metal"],
                     "year": 2007,
                     "duration": 221
@@ -187,6 +194,7 @@
                     "title": "Blood Eagle Wings",
                     "artist": "Anthrax",
                     "album": "For All Kings",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273a02e37ecf6f451f0e10e768b",
                     "genre": ["Metal"],
                     "year": 2016,
                     "duration": 473
@@ -218,6 +226,7 @@
                     "title": "Miku",
                     "artist": "Anamanaguchi, Miku Hatsune",
                     "album": "Miku",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273d03049930583aecb52977265",
                     "genre": ["Pop", "Electronic"],
                     "year": 2016,
                     "duration": 223
@@ -229,6 +238,7 @@
                     "title": "Discord - The Living Tombstone Remix",
                     "artist": "Caleb Hyles",
                     "album": "Discord (The Living Tombstone Remix)",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273469061b25a5af8a8064dfdf3",
                     "genre": ["Electronic"],
                     "year": 2016,
                     "duration": 138
@@ -240,6 +250,7 @@
                     "title": "Caramelldansen",
                     "artist": "Caramell",
                     "album": "Supergott (Speedy Mixes)",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273f21349c48b12fd9a60c39dda",
                     "genre": ["Pop", "Electronic"],
                     "year": 2008,
                     "duration": 175
@@ -251,6 +262,7 @@
                     "title": "Rollin' Girl",
                     "artist": "wowaka(Genjitsutouhi-P)",
                     "album": "EXIT TUNES PRESENTS Supernova:redjuice",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273efbb34560b3868d552b1b4c0",
                     "genre": ["Pop", "Electronic"],
                     "year": 2010,
                     "duration": 194
@@ -262,6 +274,7 @@
                     "title": "MEGALOVANIA",
                     "artist": "Toby Fox",
                     "album": "UNDERTALE Soundtrack",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b27324edb22d068eb245a924b7f2",
                     "genre": ["Electronic"],
                     "year": 2016,
                     "duration": 156
@@ -273,6 +286,7 @@
                     "title": "Gourmet Race (From 'Kirby Super Star')",
                     "artist": "Qumu",
                     "album": "",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273c5381e7018858a379db1d024",
                     "genre": ["Electronic"],
                     "year": 2020,
                     "duration": 196
@@ -307,6 +321,7 @@
                     "title": "Children of the Grave",
                     "artist": "Black Sabbath",
                     "album": "Master of Reality",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273c199494ba9ea2b73e9208f91",
                     "genre": ["Metal", "Rock"],
                     "year": 1971,
                     "duration": 315
@@ -336,6 +351,7 @@
                     "title": "Die with Your Boots On - 2015 Remaster",
                     "artist": "Iron Maiden",
                     "album": "Piece of Mind (2015 - Remaster)",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273291b0e8f1a74c2bc9f9d3110",
                     "genre": ["Metal", "Rock"],
                     "year": 1983,
                     "duration": 327
@@ -345,11 +361,12 @@
                     "songURI": "spotify:track:0r7rLeNXTRTRsyDjYp9tIq",
                     "key": 1,
                     "title": "Boots of Spanish Leather",
-                    "artist": "Bob Dylan",
+                    "artist": "The Lumineers",
                     "album": "",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b27381be04cce7de90cd0121417d",
                     "genre": ["Folk"],
                     "year": 1964,
-                    "duration": 277
+                    "duration": 242
                 }
             ],
             "songURIs": [
@@ -359,7 +376,7 @@
             "followers": 1,
             "visibility": "public",
             "tags": ["Folk", "Rock", "Metal"],
-            "duration": 604,
+            "duration": 609,
             "createdAt": "6-20-2012"
         },
         {
@@ -377,6 +394,7 @@
                     "title": "Data & Picard",
                     "artist": "Pogo",
                     "album": "Weightless",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273b4891997c434b9cfa3029ea7",
                     "genre": ["Electronic"],
                     "year": 2016,
                     "duration": 185
@@ -388,6 +406,7 @@
                     "title": "Shop Vac",
                     "artist": "Jonathan Coulton",
                     "album": "JoCo Looks Back",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273a422d871dbfd354dede7e0e4",
                     "genre": ["Rock"],
                     "year": 2008,
                     "duration": 211
@@ -399,6 +418,7 @@
                     "title": "Talk It Up",
                     "artist": "Sammy Rae",
                     "album": "The Good Life",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b2730f63947f08c97207dc2bcdb6",
                     "genre": ["Alternative", "Indie"],
                     "year": 2018,
                     "duration": 238
@@ -410,6 +430,7 @@
                     "title": "Community Gardens",
                     "artist": "The Scary Jokes, Louie Zhong",
                     "album": "Burn Pygmalion!!! a Better Guide to Romance",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b27352ca62031f8265e3c408c111",
                     "genre": ["Alternative", "Indie"],
                     "year": 2019,
                     "duration": 165
@@ -441,7 +462,8 @@
                     "key": 0,
                     "title": "No Mercy (feat. BlackGryph0n & LittleJayneyCakes",
                     "artist": "The Living Tombstone",
-                    "album": "",
+                    "album": "https://i.scdn.co/image/ab67616d0000b273e30b69358299b93578ac045d",
+                    "albumPicture": "",
                     "genre": ["Electronic"],
                     "year": 2017,
                     "duration": 154
@@ -453,6 +475,7 @@
                     "title": "Five Nights at Freddy's",
                     "artist": "The Living Tombstone",
                     "album": "",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b27375e3a12412f893e55ab042c0",
                     "genre": ["Electronic"],
                     "year": 2014,
                     "duration": 166
@@ -464,6 +487,7 @@
                     "title": "Discord - Eurobeat Brony",
                     "artist": "The Living Tombstone",
                     "album": "",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273469061b25a5af8a8064dfdf3",
                     "genre": ["Electronic"],
                     "year": 2012,
                     "duration": 194
@@ -475,6 +499,7 @@
                     "title": "Beep Beep I'm a Sheep",
                     "artist":  "The Living Tombstone",
                     "album": "",
+                    "albumPicture": "https://i.scdn.co/image/ab67616d0000b273472bffac1ba2b106d650dc0b",
                     "genre": ["Electronic"],
                     "year": 2017,
                     "duration": 229

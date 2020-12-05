@@ -206,6 +206,7 @@ const PlaylistScreen = (props) => {
             title: song.name,
             artist: song.artists[0].name,
             album: song.album.name,
+            albumPicture: song.album.images[0].url,
             genre: [],
             year: parseInt(song.album.release_date.substring(0, 4)),
             duration: Math.round(song.duration_ms / 1000),
@@ -601,6 +602,7 @@ const PlaylistScreen = (props) => {
                                                 <Header icon>Song Info</Header>
                                                 <Modal.Content>
                                                     <div className="moreInfoContainer">
+                                                    <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.albumPicture : ""} alt="" />
                                                         <div>
                                                             <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.title : ""}</div>
                                                             <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artist : ""}</div>

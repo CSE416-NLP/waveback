@@ -154,6 +154,7 @@ export const GET_USER_PLAYLISTS = gql`
                 title
                 artist
                 album
+                albumPicture
                 genre
                 year
                 duration
@@ -183,6 +184,7 @@ export const GETPLAYLIST = gql`
                 title
                 artist
                 album
+                albumPicture
                 genre
                 year
                 duration

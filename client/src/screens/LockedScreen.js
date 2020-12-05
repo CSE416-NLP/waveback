@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import jsonData from "../data/TestData.json";
 import { flowRight as compose } from 'lodash';
