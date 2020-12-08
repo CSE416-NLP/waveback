@@ -896,10 +896,10 @@ code {
 .playlistScreenLeftContainer {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
   user-select: none;
-  overflow-x: hidden;
   user-select: none;
   background-color: var(--secondary);
   filter: drop-shadow(0px 0px 4px #333333);
@@ -919,7 +919,7 @@ code {
 .playlistPlayAllButton {
   display: flex;
   flex-direction: row;
-  margin: 0 auto;
+  align-items: center;
   margin-top: 2%;
   margin-bottom: 0%;
   margin-left: 0%;
@@ -928,6 +928,7 @@ code {
 .playlistSideButtons {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .playlistArt {
@@ -953,7 +954,7 @@ code {
 .playlistTitleHandling {
   display: flex;
   align-items: center;
-  width: 130%;
+  width: 120%;
 }
 
 .playlistTitle {
@@ -965,7 +966,7 @@ code {
 
 .playlistTitleDivider {
   margin-top: -4%;
-  width: 135%;
+  width: 110%;
 }
 
 .playlistAddSongDivider {
@@ -1195,16 +1196,13 @@ code {
   margin-top: 1.25%;
 }
 
-.playlistSaveButton {
-  width: 22%;
-}
 
 .playlistShuffleButton {
-  width: 24%;
+  display: flex;
+  margin-right: 0.5%;
 }
 
 .playlistCopyButton {
-  width: 80%;
   height: 100%;
 }
 
@@ -1237,7 +1235,7 @@ code {
   height: 10px;
   margin: 1%;
   margin-bottom: 1.5%;
-  width: 26%;
+  width: 11%;
   border-style: double;
   border-width: 0 0 3px 0;
   border-color: #999999;

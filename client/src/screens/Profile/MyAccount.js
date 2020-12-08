@@ -94,7 +94,7 @@ const MyAccount = (props) => {
             {errorText && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorText}</div>}
             <p className="profileScreenSubText">User Account Privacy</p>
             <div className="accountPrivacyPicker">
-                <PrivacyPicker displayText={currentUser.defaultVisibility} onVisibilityChange={updateUserDefaultVisibility} />
+                <PrivacyPicker className="dropdownChangeUserPrivacy" displayText={currentUser.defaultVisibility} onVisibilityChange={updateUserDefaultVisibility} />
             </div>
 
             <Modal
