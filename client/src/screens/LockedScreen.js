@@ -6,6 +6,7 @@ import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
 import { Grid, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+
 import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 
 const ObjectId = require("mongoose").Types.ObjectId;
