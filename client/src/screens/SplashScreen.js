@@ -86,14 +86,14 @@ const SplashScreen = (props) => {
                             return false
                         }}>
                             <div className="ui input splashInputContainer">
-                                <input size="25" className="splashInput" placeholder="Username" style={{ backgroundColor: "var(--secondary)" }}
+                                <input size="25" className="splashInput" placeholder="Username"
                                     name="username" onChange={updateLoginInput}
-                                    style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : "" }} />
+                                    style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : "var(--secondary)" }} />
                             </div>
                             <div className="ui input splashInputContainer">
-                                <input size="25" className="splashInput" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
+                                <input size="25" className="splashInput" placeholder="Password" 
                                     type={passwordFieldType} name="password" onChange={updateLoginInput}
-                                    style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : "" }} />
+                                    style={{ color: loginError ? "red" : "", backgroundColor: loginError ? "rgba(255, 170, 170, 0.9)" : "var(--secondary)" }} />
                                 <Popup content="Toggle password visibility"
                                     trigger={<Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />}
                                 />

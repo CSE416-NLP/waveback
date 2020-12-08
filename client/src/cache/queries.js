@@ -24,6 +24,42 @@ export const GET_DB_USER = gql`
     }
 `;
 
+export const GET_FOLLOWERS = gql`
+    query getDBFollowers($followers: [String]) {
+        getFollowers(followers: $followers) {
+            _id
+            username
+            profilePicture
+            playlists
+            following
+            followers
+            bio
+            location
+            favoriteGenres
+            favoriteArtists
+            favoriteSongs
+        }
+    }
+`;
+
+export const GET_FOLLOWING = gql`
+    query getDBFollowing($following: [String]) {
+        getFollowing(following: $following) {
+            _id
+            username
+            profilePicture
+            playlists
+            following
+            followers
+            bio
+            location
+            favoriteGenres
+            favoriteArtists
+            favoriteSongs
+        }
+    }
+`;
+
 // ========== Playlist Queries ========== //
 
 export const GET_DB_PLAYLISTS = gql`
@@ -42,6 +78,7 @@ export const GET_DB_PLAYLISTS = gql`
                 title
                 artist
                 album
+                albumPicture
                 genre
                 year
                 duration

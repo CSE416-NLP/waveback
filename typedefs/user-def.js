@@ -21,6 +21,8 @@ const typeDefs = gql`
     }
     extend type Query {
         getCurrentUser: User
+        getFollowers(followers: [String]): [User]
+        getFollowing(following: [String]): [User]
         testQuery: String
     }
     extend type Mutation {
@@ -33,6 +35,7 @@ const typeDefs = gql`
         updateUserTheme(_id: String!, theme: String!): Boolean
         updateUserDefaultVisibility(_id: String!, defaultVisibility: String): Boolean
         followUser(_id: String!, _otherID: String!): Boolean
+        unfollowUser(_id: String!, _otherID: String!): Boolean
         deleteUser(_id: String!): Boolean
     }
 `;

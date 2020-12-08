@@ -26,6 +26,10 @@ const songSchema = new Schema(
             type: String,
             required: false
         },
+        albumPicture: {
+            type: String,
+            required: false
+        },
         genre: [String],
         year: {
             type: Number,

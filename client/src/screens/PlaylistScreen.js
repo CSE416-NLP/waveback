@@ -46,13 +46,14 @@ const PlaylistScreen = (props) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
     // Song Filtering
-    const [filterTerm, setFilterTerm] = useState("");
-    const [filteredPlaylistSongs, setFilteredPlaylistSongs] = useState(playlist.songs);
+    const [filter, setFilter] = useState("");
 
     useEffect(() => {
+        console.log("useeffect")
         document.addEventListener("keydown", handleKeyPress);
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
+            props.tps.clearAllTransactions();
         }
     }, []);
 
@@ -143,28 +144,6 @@ const PlaylistScreen = (props) => {
         }
     }
 
-    const filterPlaylist = (term) => {
-        if (term === "") {
-            return;
-        }
-        term = term.toLowerCase();
-        // for (let i = 0; i < playlist.songs.length; i++) {
-        //     let title = playlist.songs[i].title.toLowerCase();
-        //     let artist = playlist.songs[i].artist.toLowerCase();
-        //     let album = playlist.songs[i].album.toLowerCase();
-        //     if (title.indexOf(term) === -1 && artist.indexOf(term) === -1 && album.indexOf(term) === -1) {
-        //         filteredPlaylistSongs.splice(filteredPlaylistSongs.indexOf(playlist.songs[i]), 1);
-        //     }
-        // }
-        console.log(term);
-        console.log(filteredPlaylistSongs);
-    }
-
-    const handleFilterInput = (event) => {
-        setFilterTerm(event.target.value);
-        filterPlaylist(event.target.value);
-    }
-
     const getRandomSong = () => {
         let randomString = "";
         for (let i = 0; i < 3; i++) {
@@ -239,6 +218,7 @@ const PlaylistScreen = (props) => {
             title: song.name,
             artist: song.artists[0].name,
             album: song.album.name,
+            albumPicture: song.album.images[0].url,
             genre: [],
             year: parseInt(song.album.release_date.substring(0, 4)),
             duration: Math.round(song.duration_ms / 1000),
@@ -317,7 +297,7 @@ const PlaylistScreen = (props) => {
         }
         console.log(songs);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
-        let transaction = new PlaylistTransaction(playlist, new_playlist, modifyPlaylist);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
         props.tps.addTransaction(transaction);
     }
 
@@ -472,8 +452,8 @@ const PlaylistScreen = (props) => {
     }
 
 
-    let duration = 0;
-    for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
+    // let duration = 0;
+    // for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
@@ -585,9 +565,9 @@ const PlaylistScreen = (props) => {
                                 <div className="playlistFilterDivider"></div>
                                 <div className="ui input">
                                     <input placeholder="Filter..." size="40" className="playlistFilter"
-                                        style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => handleFilterInput(e)}>
+                                        style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => setFilter(e.target.value)}>
                                     </input>
-                                    <button type="submit" className="clickButton fluid ui icon button" onClick={() => filterPlaylist(filterTerm)}>
+                                    <button type="submit" className="clickButton fluid ui icon button">
                                         <i className="search icon"></i>
                                     </button>
                                     </div>
@@ -602,7 +582,7 @@ const PlaylistScreen = (props) => {
                                     <div onClick={() => sortSongs(3)} className="playlistSongDurationLabel">Duration</div>
                                 </div>
                             </div>
-                            {playlistSongs.map((song, index) => (
+                            {playlistSongs.filter(song => song.title.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase())).map((song, index) => (
                                 <Draggable key={song.key.toString()} draggableId={song.key.toString()} index={index}>
                                     {(provided, snapshot) => (
                                         <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
@@ -634,6 +614,7 @@ const PlaylistScreen = (props) => {
                                                 <Header icon>Song Info</Header>
                                                 <Modal.Content>
                                                     <div className="moreInfoContainer">
+                                                    <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.albumPicture : ""} alt="" />
                                                         <div>
                                                             <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.title : ""}</div>
                                                             <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artist : ""}</div>

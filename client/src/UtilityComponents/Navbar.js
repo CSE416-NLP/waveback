@@ -25,7 +25,7 @@ const Navbar = (props) => {
         </Link>
         <Link className="navbar_link" to="/profile">
             <div className="navbar_item">
-                <img onError = {invalidImage} src={currentUser ? currentUser.profilePicture : defaultPicture} className="App-logo-navbar userProfilePicture" alt="Profile picture" />
+                <img onError={invalidImage} src={currentUser ? currentUser.profilePicture : defaultPicture} className="App-logo-navbar userProfilePicture" alt="Profile Pic" />
             </div>
         </Link>
     </div>

@@ -19,6 +19,16 @@ module.exports = {
                 return found;
             }
         },
+        getFollowers: async (_, args) => {
+            const { followers } = args;
+            const userFollowers = await User.find().where('_id').in(followers);
+            return userFollowers;
+        },
+        getFollowing: async (_, args) => {
+            const { following } = args;
+            const userFollowing = await User.find().where('_id').in(following);
+            return userFollowing;
+        },        
     },
     Mutation: {
         /**
@@ -163,6 +173,21 @@ module.exports = {
             if (selfUpdate.nModified <= 0) 
                 flag = false;
             let otherUpdate = await User.updateOne({ _id: otherID}, { $addToSet: { followers: _id }} );
+            if (otherUpdate.nModified <= 0)
+                flag = false;
+            return flag;
+        },
+        unfollowUser: async (_, args) => {
+            const { _id, _otherID } = args;
+            if (_id === _otherID)       // Don't follow self
+                return false
+            const selfID = new ObjectId(_id);
+            const otherID = new ObjectId(_otherID);
+            let flag = true;
+            let selfUpdate = await User.updateOne({ _id: selfID }, { $pull: { following: _otherID } })
+            if (selfUpdate.nModified <= 0) 
+                flag = false;
+            let otherUpdate = await User.updateOne({ _id: otherID}, { $pull: { followers: _id }} );
             if (otherUpdate.nModified <= 0)
                 flag = false;
             return flag;
