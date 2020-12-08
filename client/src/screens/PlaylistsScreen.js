@@ -11,6 +11,7 @@ import * as mutations from '../cache/mutations';
 import { GET_USER_PLAYLISTS } from '../cache/mutations';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 
+const ObjectId = require("mongoose").Types.ObjectId;
 
 
 const PlaylistsScreen = props => {

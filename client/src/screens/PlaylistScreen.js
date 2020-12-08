@@ -21,12 +21,12 @@ const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567
 
 const PlaylistScreen = (props) => {
     console.log(props);
-    if (!props.location.playlist){
+    if (!props.location.playlist) {
         console.log("no props");
         props.history.push("/discover");
         // return <>;
     } else {
-        
+
     }
     // console.log(props);
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
@@ -49,13 +49,19 @@ const PlaylistScreen = (props) => {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        // console.log("useeffect")
+        async function loadPlaylists() {
+            setPlaylistSongs(props.location.playlist.songs);
+        }
+        loadPlaylists();
+        console.log("useeffect")
+        console.log(props);
+        console.log(playlistSongs);
         document.addEventListener("keydown", handleKeyPress);
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
             props.tps.clearAllTransactions();
         }
-    }, []);
+    }, [props]);
 
     const getPlaylistObject = (name, picture, description, songs, songURIs) => {
         let newPlaylist = {
@@ -570,7 +576,7 @@ const PlaylistScreen = (props) => {
                                     <button type="submit" className="clickButton fluid ui icon button">
                                         <i className="search icon"></i>
                                     </button>
-                                    </div>
+                                </div>
                                 <div className="playlistFilterDivider"></div>
                             </div>
                             <div style={{ display: "flex" }}>
@@ -614,7 +620,7 @@ const PlaylistScreen = (props) => {
                                                 <Header icon>Song Info</Header>
                                                 <Modal.Content>
                                                     <div className="moreInfoContainer">
-                                                    <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.albumPicture : ""} alt="" />
+                                                        <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.albumPicture : ""} alt="" />
                                                         <div>
                                                             <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.title : ""}</div>
                                                             <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artist : ""}</div>

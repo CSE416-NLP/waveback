@@ -11,6 +11,8 @@ import { graphql } from '@apollo/react-hoc';
 import { GET_USER_PLAYLISTS } from '../cache/mutations';
 
 const GenerateScreen = (props) => {
+  const ObjectId = require("mongoose").Types.ObjectId;
+
   const { refetch } = useQuery(GET_DB_PLAYLISTS);
   const [playlists, setPlaylists] = useState([]);
 
@@ -167,7 +169,7 @@ const GenerateScreen = (props) => {
     }
   }
 
-  const generatePlaylist = async () => {
+  const generatePlaylistHelper = async () => {
     let numCountries = countryIDs.length;
     let numCategories = categoryIDs.length;
     console.log("num of countries: " + numCountries + " num of categories: " + numCategories)
@@ -194,11 +196,11 @@ const GenerateScreen = (props) => {
       let category = "pop";
       if (numCountries > 0) {
         country = countryIDs[Math.floor(Math.random() * numCountries)];
-        console.log(country);
+        // console.log(country);
       }
       if (numCategories > 0) {
         category = categoryIDs[Math.floor(Math.random() * numCategories)];
-        console.log(category);
+        // console.log(category);
       }
 
       let query = "https://api.spotify.com/v1/browse/categories/" + category + "/playlists?country=" + country + "&limit=50";
@@ -211,14 +213,6 @@ const GenerateScreen = (props) => {
         }
       })
         .then(response => response.json()
-          // {
-          // if (response.ok) {
-          //   return response.json();
-          // } else {
-          //   throw new Error("Invalid Query");
-          // }
-          // // response.json()
-          // }
         )
         .then(data => {
           let playlists = data.playlists.items;
@@ -250,7 +244,7 @@ const GenerateScreen = (props) => {
                 genre: [],
                 year: parseInt(randomSong.album.release_date.substring(0, 4)),
                 duration: Math.round(randomSong.duration_ms / 1000),
-                __typename: "Song",
+                // __typename: "Song",
               }
               newPlaylist.songs.push(newSong);
               newPlaylist.songURIs.push(newSong.songURI);
@@ -261,12 +255,23 @@ const GenerateScreen = (props) => {
           console.error("Error:", error);
         });
     }
+    // console.log(newPlaylist);
+    console.log(newPlaylist.songs.length);
+    for (let i = 0; i < newPlaylist.songs.length; i++) {
+      console.log("Test " + newPlaylist.songs[i]._id);
+      if (!newPlaylist.songs[i]._id)
+        newPlaylist.songs[i]._id = new ObjectId();
+    }
+    return newPlaylist;
+  }
 
-    console.log(newPlaylist);
+  const generatePlaylist = async () => {
+    let newPlaylist = await generatePlaylistHelper();
+    console.log(newPlaylist.songs.length);
 
     const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
     if (data.addPlaylist) {
-      // console.log(data.addPlaylist);
+      console.log(newPlaylist);
       // console.log(props.user.username);
       props.history.push({
         pathname: '/playlist/' + data.addPlaylist,
