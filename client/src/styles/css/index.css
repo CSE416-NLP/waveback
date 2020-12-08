@@ -440,6 +440,7 @@ code {
 }
 
 .genreLeftContainer {
+  overflow-y: auto;
   float: left;
   width: 40%;
   margin-top: -3%;

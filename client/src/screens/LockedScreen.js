@@ -6,6 +6,7 @@ import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
 import { Grid, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { getSpotifyAccessToken } from "../data/LocalStorage.js";
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
@@ -49,7 +50,6 @@ const LockedScreen = (props) => {
             props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
         });
     }
-<<<<<<< HEAD
     const searchSpotify = (term) => { // Default is all fields, playlist generation may only use song search
         // if (term === "") return;
         let token = getSpotifyAccessToken();
@@ -70,28 +70,6 @@ const LockedScreen = (props) => {
                 console.log(data);
             })
     }
-=======
-
-    // const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
-    //     let token = getSpotifyAccessToken();
-    //     console.log(token);
-    //     token = "Bearer " + token;
-    //     let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-
-    //     fetch(query, {
-    //         method: "GET",
-    //         headers: {
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json",
-    //             "Authorization": token
-    //         }
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log(data);
-    //         });
-    // }
->>>>>>> 529d6747aa456363935f5b9dcee83f32878e8998
 
     const deleteUser = async (user) => {
         console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);

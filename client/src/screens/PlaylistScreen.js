@@ -20,7 +20,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const PlaylistScreen = (props) => {
-    // const history = useHistory();
+    console.log(props);
     if (!props.location.playlist){
         console.log("no props");
         props.history.push("/discover");
@@ -49,7 +49,7 @@ const PlaylistScreen = (props) => {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        console.log("useeffect")
+        // console.log("useeffect")
         document.addEventListener("keydown", handleKeyPress);
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
@@ -119,9 +119,9 @@ const PlaylistScreen = (props) => {
         if (term === "") return;
         let token = getSpotifyAccessToken();
         token = "Bearer " + token;
-        // let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
+        let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
         // let query = "https://api.spotify.com/v1/browse/categories/rap/playlists?country=US&limit=10"
-        let query = "https://api.spotify.com/v1/browse/categories/country/playlists?country=US&limit=10"
+        // let query = "https://api.spotify.com/v1/browse/categories/country/playlists?country=US&limit=10"
         fetch(query, {
             method: "GET",
             headers: {

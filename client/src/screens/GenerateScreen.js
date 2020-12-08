@@ -1,8 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../styles/css/index.css"
 import { Label } from 'semantic-ui-react'
+import { getSpotifyAccessToken } from "../data/LocalStorage.js";
+import countryList from 'react-select-country-list';
+import { GET_DB_PLAYLISTS } from '../cache/queries';
+import * as mutations from '../cache/mutations';
+import { flowRight as compose } from 'lodash';
+import { useQuery } from '@apollo/react-hooks';
+import { graphql } from '@apollo/react-hoc';
+import { GET_USER_PLAYLISTS } from '../cache/mutations';
 
 const GenerateScreen = (props) => {
+  const { refetch } = useQuery(GET_DB_PLAYLISTS);
+  const [playlists, setPlaylists] = useState([]);
+
+  const [countries, setCountries] = useState([]);
+  const [countryIDs, setCountryIDs] = useState([]);
+  const [categoryIDs, setCategoryIDs] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [countryDisplay, setCountryDisplay] = useState([{
+    country: "",
+  }]);
+  // const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    async function loadPlaylists() {
+      const { data } = await props.getUserPlaylists({ variables: { owner: props.user.username } });
+      // console.log(data);
+      setPlaylists(data.getUserPlaylists);
+    }
+    loadPlaylists();
+
+    let token = getSpotifyAccessToken();
+    token = "Bearer " + token;
+    fetch("https://api.spotify.com/v1/browse/categories?&limit=50", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": token
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        let items = data.categories.items;
+        let newGenres = [];
+        // console.log(items);
+        // let genreMap = new Map();
+        for (var i = 0; i < items.length; i++) {
+          // genreMap.set(items[i].name, items[i].id);
+          if (items[i].name !== "Joe Rogan Experience") {
+            newGenres.push(items[i]);
+          }
+        }
+        setGenres(newGenres);
+      })
+    // let countryObject = contryList().getLabel
+    let newCountries = [];
+    for (const [key, value] of Object.entries(countryList().getLabelList())) {
+      // console.log(key.toString());
+      // console.log(value.toString());
+      let newCountry = {
+        name: key.toString(),
+        id: value.toString()
+      }
+      newCountries.push(newCountry);
+    }
+    // console.log(newCountries);
+    setCountries(newCountries);
+    return () => {
+    }
+  }, [refetch]);
+  // console.log(countries);
+
+  // console.log(genres);
+
   const [numSongs, setNumSongs] = useState(1);
   const [lastSongInputValid, setLastSongInputValid] = useState(true);
   const [locationState, setLocations] = useState([{
@@ -11,67 +83,82 @@ const GenerateScreen = (props) => {
     endYear: "",
   }]);
   const [genreInputState, setGenreInputState] = useState("");
-  const [genreState, setGenres] = useState([{
+  const [genreState, setGenreStates] = useState([{
     genre: "",
   }]);
 
-  const addLocation = () => {
-    let locationCopy = [...locationState];
-    locationCopy.push({
-      location: "",
-      startYear: "",
-      endYear: "",
-    });
-    setLocations(locationCopy);
-  }
+  // const addLocation = () => {
+  //   let locationCopy = [...locationState];
+  //   locationCopy.push({
+  //     location: "",
+  //     startYear: "",
+  //     endYear: "",
+  //   });
+  //   setLocations(locationCopy);
+  // }
 
-  const subtractLocation = () => {
-    let locationCopy = [...locationState];
-    locationCopy.pop();
-    setLocations(locationCopy);
-  }
+  // const subtractLocation = () => {
+  //   let locationCopy = [...locationState];
+  //   locationCopy.pop();
+  //   setLocations(locationCopy);
+  // }
 
-  const addLocationInfo = (index, type, event) => {
-    let rowCopy = [...locationState];
-    rowCopy[index][type] = event.target.value;
-    setLocations(rowCopy);
-  }
+  // const addLocationInfo = (index, type, event) => {
+  //   let rowCopy = [...locationState];
+  //   rowCopy[index][type] = event.target.value;
+  //   setLocations(rowCopy);
+  // }
 
-  // Called when the user types in a genre in the input field.
-  const addNewGenre = () => {
-    let updateThis = true;
-    let genreCopy = [...genreState];
-    if (genreInputState === "") { return; }
-    for (let i = 0; i < genreCopy.length; i++) {
-      if (genreCopy[i].genre === genreInputState) {updateThis = false; }
-    }
-    if (updateThis) { genreCopy.push({genre: genreInputState}); }
-    setGenres(genreCopy);
-  }
+  // // Called when the user types in a genre in the input field.
+  // const addNewGenre = () => {
+  //   let updateThis = true;
+  //   let genreCopy = [...genreState];
+  //   if (genreInputState === "") { return; }
+  //   for (let i = 0; i < genreCopy.length; i++) {
+  //     if (genreCopy[i].genre === genreInputState) { updateThis = false; }
+  //   }
+  //   if (updateThis) { genreCopy.push({ genre: genreInputState }); }
+  //   setGenreStates(genreCopy);
+  // }
 
   // Called when the user selects a pre-defined genre button.
-  const addGenre = (genreName) => {
+  const addGenre = (genreName, id) => {
     let updateThis = true;
     let genreCopy = [...genreState];
     for (let i = 0; i < genreCopy.length; i++) {
-      if (genreCopy[i].genre === genreName) {updateThis = false; }
+      if (genreCopy[i].genre === genreName) { updateThis = false; }
     }
-    if (updateThis) { genreCopy.push({genre: genreName}); }
-    setGenres(genreCopy);
+    if (updateThis) { genreCopy.push({ genre: genreName }); }
+    setGenreStates(genreCopy);
+    genreCopy = [...categoryIDs];
+    genreCopy.push(id);
+    setCategoryIDs(genreCopy);
   }
 
-  const subtractGenre = () => {
-    let genreCopy = [...genreState];
-    genreCopy.pop();
-    setGenres(genreCopy);
+  const addCountry = (country, id) => {
+    let updateThis = true;
+    let countryCopy = [...countryDisplay];
+    for (let i = 0; i < countryCopy.length; i++) {
+      if (countryCopy[i].country === country) { updateThis = false; }
+    }
+    if (updateThis) { countryCopy.push({ country: country }); }
+    setCountryDisplay(countryCopy);
+    countryCopy = [...countryIDs];
+    countryCopy.push(id);
+    setCountryIDs(countryCopy);
   }
+  // const subtractGenre = () => {
+  //   let genreCopy = [...genreState];
+  //   genreCopy.pop();
+  //   setGenreStates(genreCopy);
+  // }
 
   const changeNumSongs = (num) => {
     if (isNaN(num)) {
       setNumSongs("");
       setLastSongInputValid(false)
-    } 
-    else if (num > 0 && num < 100) {
+    }
+    else if (num > 0 && num < 51) {
       setNumSongs(parseInt(num))
       setLastSongInputValid(true)
     }
@@ -80,102 +167,181 @@ const GenerateScreen = (props) => {
     }
   }
 
+  const generatePlaylist = async () => {
+    let numCountries = countryIDs.length;
+    let numCategories = categoryIDs.length;
+    console.log("num of countries: " + numCountries + " num of categories: " + numCategories)
+    let token = getSpotifyAccessToken();
+    token = "Bearer " + token;
+
+    let newPlaylist = {
+      key: playlists.length,
+      owner: props.user.username,
+      name: "Unnamed Playlist",
+      picture: "http://copywritingcourse.com/wp-content/uploads/blank-cd-icon.png",
+      description: "",
+      songs: [],
+      songURIs: [],
+      followers: 0,
+      visibility: props.user.defaultVisibility,
+      tags: [],
+      duration: 0
+    }
+
+    // RANDOMLY SELECT A SONG UNTIL WE REACH TARGET NUMBER //
+    for (var i = 0; i < numSongs; i++) {
+      let country = "US";
+      let category = "pop";
+      if (numCountries > 0) {
+        country = countryIDs[Math.floor(Math.random() * numCountries)];
+        console.log(country);
+      }
+      if (numCategories > 0) {
+        category = categoryIDs[Math.floor(Math.random() * numCategories)];
+        console.log(category);
+      }
+
+      let query = "https://api.spotify.com/v1/browse/categories/" + category + "/playlists?country=" + country + "&limit=50";
+      fetch(query, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": token
+        }
+      })
+        .then(response => response.json()
+          // {
+          // if (response.ok) {
+          //   return response.json();
+          // } else {
+          //   throw new Error("Invalid Query");
+          // }
+          // // response.json()
+          // }
+        )
+        .then(data => {
+          let playlists = data.playlists.items;
+          let randomPlaylist = playlists[Math.floor(Math.random() * playlists.length)];
+          let playlistID = randomPlaylist.id;
+          // console.log(randomPlaylist);
+          let playlistQuery = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks";
+
+          fetch(playlistQuery, {
+            method: "GET",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              "Authorization": token
+            }
+          }).then(response => response.json())
+            .then(data => {
+              let randomSongIndex = Math.floor(Math.random() * data.items.length);
+              let randomSong = data.items[randomSongIndex].track;
+              // console.log(randomSong);
+              let newSong = {
+                _id: "",
+                songURI: randomSong.uri,
+                key: newPlaylist.songs.length,
+                title: randomSong.name,
+                artist: randomSong.artists[0].name,
+                album: randomSong.album.name,
+                albumPicture: randomSong.album.images[0].url,
+                genre: [],
+                year: parseInt(randomSong.album.release_date.substring(0, 4)),
+                duration: Math.round(randomSong.duration_ms / 1000),
+                __typename: "Song",
+              }
+              newPlaylist.songs.push(newSong);
+              newPlaylist.songURIs.push(newSong.songURI);
+              // console.log(data);
+            })
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
+    console.log(newPlaylist);
+
+    const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
+    if (data.addPlaylist) {
+      // console.log(data.addPlaylist);
+      // console.log(props.user.username);
+      props.history.push({
+        pathname: '/playlist/' + data.addPlaylist,
+        playlist: {
+          _id: data.addPlaylist,
+          ...newPlaylist
+        },
+        refreshList: refetch
+      })
+    }
+  }
+
   return (
+
+
     <div className="generateScreen">
-      <div className="generateScreenTitleText">bring back the sounds of...</div>
+      <div className="generateScreenTitleText">experience the sounds of...</div>
       <div className="generateScreenTopContainer">
         <div className="generateScreenTopInnerContainer">
-          <div className="generateAddSubtractButtons">
-            <h3>Locations</h3>
-            <div className="generateBoxLabel">
-              <button className="clickButton ui icon button generateSquareButton" onClick={addLocation}>
+          <h3>Countries</h3>
+          <div className="generateBoxLabel">
+            {/* <button className="clickButton ui icon button generateSquareButton" onClick={addLocation}>
                 <i className="plus circle icon"></i>
               </button>
-              <button style={{color: "var(--background)"}} className="ui grey icon button generateSquareButton" onClick={subtractLocation}>
+              <button style={{ color: "var(--background)" }} className="ui grey icon button generateSquareButton" onClick={subtractLocation}>
                 <i className="minus circle icon"></i>
-              </button>
-            </div> 
+              </button> */}
           </div>
           <div align="center" className="generateScreenBoxLeft">
-            <div className="generateSubText">
-              <i id="lt1">Location</i><i id="lt2">Year Start</i><i id="lt3">Year End</i>
+            <div className="genreLeftContainer">
+              <div className="generateSubText"><i id="gt1">Search for Country</i></div>
+              <div className="ui input">
+                <input size="20" id="genreSearch" className="generateInputGenre" onChange={(e) => setGenreInputState(e.target.value)}
+                  style={{ backgroundColor: "var(--secondary)" }}
+                />
+              </div>
+              <div className="genreButton">
+                {countries.map((country, index) => (
+                  <button className="clickButton ui button tiny" onClick={() => addCountry(country.name, country.id)}>{country.name}</button>
+                ))}
+              </div>
+
             </div>
-            <div className="locationScroller">
-              {locationState.map((row, index) =>
-                <div className="locationInfoRow" key={index}>
-                  <div className="ui input">
-                    <input value={row.location} className="generateInput" style={{backgroundColor: "var(--secondary)"}} 
-                      onChange={(e) => addLocationInfo(index, "location", e)} />
-                  </div>
-                  <div className="ui input">
-                    <input maxLength="4" value={row.startYear} className="generateInputSmall" style={{backgroundColor: "var(--secondary)"}} 
-                      onChange={(e) => addLocationInfo(index, "startYear", e)} />
-                  </div>
-                  <div className="ui input">
-                    <input maxLength="4" value={row.endYear} className="generateInputSmall" style={{backgroundColor: "var(--secondary)"}} 
-                      onChange={(e) => addLocationInfo(index, "endYear", e)} />
-                  </div>
-                </div>
+            <div className="genreRightContainer">
+              {countryDisplay.map((row, index) =>
+                <p key={index}><i className="genreList">{row.country}</i></p>
               )}
             </div>
           </div>
         </div>
 
         <div className="generateScreenTopInnerContainer">
-          <div className="generateAddSubtractButtons">
-            <h3>Genres</h3>
-            <div className="generateBoxLabel">
-              <button className="clickButton ui icon button generateSquareButton" onClick={addNewGenre}>
-                <i className="plus circle icon"></i>
-              </button>
-              <button style={{color: "var(--background)"}} className="ui grey icon button generateSquareButton" onClick={subtractGenre}>
-                <i className="minus circle icon"></i>
-              </button>
-            </div> 
+          <h3>Categories</h3>
+          <div className="generateBoxLabel">
+            {/* <button className="clickButton ui icon button generateSquareButton" onClick={addNewGenre}> */}
+            {/* <i className="plus circle icon"></i> */}
+            {/* </button> */}
+            {/* <button style={{ color: "var(--background)" }} className="ui grey icon button generateSquareButton" onClick={subtractGenre}> */}
+            {/* <i className="minus circle icon"></i> */}
+            {/* </button> */}
           </div>
           <div align="center" className="generateScreenBoxRight">
             <div className="genreLeftContainer">
-              <div className="generateSubText"><i id="gt1">Search for Genre</i></div>
+              <div className="generateSubText"><i id="gt1">Search for Category</i></div>
               <div className="ui input">
                 <input size="20" id="genreSearch" className="generateInputGenre" onChange={(e) => setGenreInputState(e.target.value)}
-                  style={{backgroundColor: "var(--secondary)"}} 
+                  style={{ backgroundColor: "var(--secondary)" }}
                 />
               </div>
               <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Top Lists")}>Top Lists</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Pop")}>Pop</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Indie")}>Indie</button>
+                {genres.map((genre, index) => (
+                  <button className="clickButton ui button tiny" onClick={() => addGenre(genre.name, genre.id)}>{genre.name}</button>
+                ))}
               </div>
-              <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Mood")}>Mood</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Rock")}>Rock</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Hip-Hop")}>Hip-Hop</button>
-              </div>
-              <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Party")}>Party</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Chill")}>Chill</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Workout")}>Workout</button>
-              </div>
-              <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Instrumental")}>Instrumental</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Focus")}>Focus</button>
-              </div>
-              <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("At Home")}>At Home</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Dance/Electronic")}>Dance/Electronic</button>
-              </div>
-              <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("R&B")}>R&amp;B</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Metal")}>Metal</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Romance")}>Romance</button>
-              </div>
-              <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Decades")}>Decades</button>
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Wellness")}>Wellness</button>
-              </div>
-              <div className="genreButton">
-                <button className="clickButton ui button tiny" onClick={() => addGenre("Gaming")}>Gaming</button>
-              </div>
+
             </div>
             <div className="genreRightContainer">
               {genreState.map((row, index) =>
@@ -189,25 +355,29 @@ const GenerateScreen = (props) => {
       <div className="generateDivider"></div>
 
       <div className="generateBottomArea">
-          <h3>Playlist Size</h3>
-          <div className="ui input maxSongInputArea">
-            <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs - 1)}>
-              <i className="angle left icon"/>
-            </button>
-              {!lastSongInputValid && <Label style={{position: "absolute", marginTop: "4em"}} pointing='above'>Please enter a value between 1-99</Label>}
-              <input id="songNumberInput" size="1" maxLength="3" value={numSongs} style={{backgroundColor: "var(--secondary)"}}
-                onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
-            <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs + 1)}>
-              <i className="angle right icon"/>
-            </button>
-          </div>
-          <div className="generateButtonBox">
-            <button className="clickButton ui button massive generateButton">GENERATE!</button>
-          </div>
+        <h3>Playlist Size</h3>
+        <div className="ui input maxSongInputArea">
+          <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs - 1)}>
+            <i className="angle left icon" />
+          </button>
+          {!lastSongInputValid && <Label style={{ position: "absolute", marginTop: "4em" }} pointing='above'>Please enter a value between 1-50</Label>}
+          <input id="songNumberInput" size="1" maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
+            onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
+          <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs + 1)}>
+            <i className="angle right icon" />
+          </button>
         </div>
+        <div className="generateButtonBox">
+          <button className="clickButton ui button massive generateButton" onClick={generatePlaylist}>GENERATE!</button>
+        </div>
+      </div>
 
     </div>
   );
 };
 
-export default GenerateScreen;
+export default compose(
+  graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
+  graphql(GET_USER_PLAYLISTS, { name: 'getUserPlaylists' }),
+  graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" })
+)(GenerateScreen);
