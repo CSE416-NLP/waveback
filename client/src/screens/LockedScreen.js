@@ -19,7 +19,7 @@ const LockedScreen = (props) => {
     // console.log(playlists2);
 
     const resetDatabasePlaylists = () => {
-       props.deleteAllPlaylists({ variables: {}, refetchQueries: [{query: GET_DB_PLAYLISTS}] });
+        props.deleteAllPlaylists({ variables: {}, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
     }
 
     const addPlaylistsToDatabase = () => {
@@ -51,13 +51,13 @@ const LockedScreen = (props) => {
             props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
         });
     }
-
-    const onClickHandler = (term) => { // Default is all fields, playlist generation may only use song search
+    const searchSpotify = (term) => { // Default is all fields, playlist generation may only use song search
+        // if (term === "") return;
         let token = getSpotifyAccessToken();
-        console.log(token);
         token = "Bearer " + token;
-        let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-
+        // let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
+        // let query = "https://api.spotify.com/v1/browse/categories/rap/playlists?country=US&limit=10"
+        let query = "https://api.spotify.com/v1/browse/categories"
         fetch(query, {
             method: "GET",
             headers: {
@@ -69,7 +69,7 @@ const LockedScreen = (props) => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-            });
+            })
     }
 
     const deleteUser = async (user) => {
@@ -88,24 +88,26 @@ const LockedScreen = (props) => {
                 <button className="clickButton ui button" onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
                 <button className="clickButton ui button" onClick={() => resetDatabasePlaylists()}>Delete All Playlists in Database</button>
             </div>
+            <button onClick={searchSpotify}>spotify test</button>
+
             <br></br><br></br>
             <h2>List Of All Users</h2>
             <div className="profileScreenScrollContainer">
                 <Grid columns={columns} divided>
-                {users.map((user, index) => (
-                    <Grid.Column width={Math.floor(16 / columns)} key={index}>
-                    <div className="adminUserList" >
-                        <img className="profilePicture" src={user.profilePicture} alt="" />
-                        <div className='profileFollowingInfo'>
-                        <h2>{user.username}</h2>
-                        <Link to={{ pathname: "/profile/" + user._id, user: user }}>
-                            <Icon className="big" name="user" ></Icon>
-                        </Link>
-                        <Icon className="removeSongIcon big" onClick={() => deleteUser(user)} name="trash" ></Icon>
-                        </div>
-                    </div>
-                    </Grid.Column>
-                ))}
+                    {users.map((user, index) => (
+                        <Grid.Column width={Math.floor(16 / columns)} key={index}>
+                            <div className="adminUserList" >
+                                <img className="profilePicture" src={user.profilePicture} alt="" />
+                                <div className='profileFollowingInfo'>
+                                    <h2>{user.username}</h2>
+                                    <Link to={{ pathname: "/profile/" + user._id, user: user }}>
+                                        <Icon className="big" name="user" ></Icon>
+                                    </Link>
+                                    <Icon className="removeSongIcon big" onClick={() => deleteUser(user)} name="trash" ></Icon>
+                                </div>
+                            </div>
+                        </Grid.Column>
+                    ))}
                 </Grid>
             </div>
 
@@ -117,6 +119,6 @@ const LockedScreen = (props) => {
 export default compose(
     graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
     graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
-    graphql(mutations.DELETE_ALL_PLAYLISTS, { name: "deleteAllPlaylists"}),
-    graphql(mutations.DELETE_USER, { name: "deleteUser"})
-  )(LockedScreen);
+    graphql(mutations.DELETE_ALL_PLAYLISTS, { name: "deleteAllPlaylists" }),
+    graphql(mutations.DELETE_USER, { name: "deleteUser" })
+)(LockedScreen);

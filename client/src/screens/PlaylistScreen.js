@@ -14,11 +14,21 @@ import SongSearch from "../UtilityComponents/SongSearch";
 import { PlaylistTransaction } from '../utils/jsTPS';
 import { Link } from "react-router-dom"
 import * as mutations from '../cache/mutations';
+import { withRouter } from "react-router-dom";
 
 const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const PlaylistScreen = (props) => {
+    // const history = useHistory();
+    if (!props.location.playlist){
+        console.log("no props");
+        props.history.push("/discover");
+        // return <>;
+    } else {
+        
+    }
+    // console.log(props);
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
     const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
@@ -108,8 +118,9 @@ const PlaylistScreen = (props) => {
         if (term === "") return;
         let token = getSpotifyAccessToken();
         token = "Bearer " + token;
-        let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-
+        // let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
+        // let query = "https://api.spotify.com/v1/browse/categories/rap/playlists?country=US&limit=10"
+        let query = "https://api.spotify.com/v1/browse/categories/country/playlists?country=US&limit=10"
         fetch(query, {
             method: "GET",
             headers: {
@@ -120,6 +131,7 @@ const PlaylistScreen = (props) => {
         })
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setSearchResult(data.tracks.items)
             })
     }
