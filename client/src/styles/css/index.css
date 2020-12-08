@@ -342,8 +342,8 @@ code {
 
 .generateScreenTitleText {
   margin-top: 2.5%;
-  margin-bottom: 2.5%;
-  font-size: 32pt;
+  margin-bottom: 3%;
+  font-size: 40pt;
   font-weight: bolder;
   text-align: center;
   font-style: italic;
@@ -362,112 +362,94 @@ code {
   vertical-align: top;
   display: flex;
   flex-direction: column;
-  height: 55vmin;
-  width: 35%;
-  padding: 0.75%;
-  margin-bottom: 1%;
+  height: 50vmin;
+  width: 38%;
+  padding: 0.5%;
+  margin-bottom: 2%;
   border-style: double;
   border-width: 3px;
   border-color: var(--secondary);
   overflow: hidden;
 }
 
-.generateAddSubtractButtons {
-  display: flex;
-  font-weight: bold;
-  user-select: none;
-  justify-content: space-around;
-}
+.generateInput { font-size: 18px; }
 
-.generateBoxLabel {
-  margin-left: 73%;
-}
-
-.generateSquareButton {
-  float: right;
-  margin-right: 0.5%;
-  margin-left: 1.5%;
-}
-
-.generateScreenBoxLeft {
+.generateScreenBox {
   width: 100%;
-}
-
-.locationScroller {
-  overflow-y: auto;
-  height: 45vmin;
-}
-
-.generateSubText {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  user-select: none;
-  margin-top: 1%;
-}
-
-#lt1 { margin-left: 4%; }
-
-#lt2 { margin-left: 55%; }
-
-#lt3 { margin-left: 6%; }
-
-.locationInfoRow { margin-bottom: 2%; }
-
-.generateInput, .generateInputSmall, .generateInputGenre { font-size: 18px; }
-
-.generateInput { width: 21vw; }
-
-.generateInputSmall { width: 5vw; }
-
-.generateScreenBoxRight {
-  width: 100%;
-  margin-top: 6%;
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
 }
 
 .genreRightContainer {
-  overflow-y: auto;
   background-color: none;
-  height: 40vmin;
+  height: 30vmin;
   width: 40%;
   user-select: none;
+  margin-top: -2%;
+}
+
+.genreRightContainerInner {
   border-style: solid;
   border-width: 1px;
   border-color: var(--secondary);
+  height: 43vmin;
+  overflow-y: auto;
 }
 
-.genreLeftContainer {
+.generateLeftContainer {
   overflow-y: auto;
   float: left;
-  width: 40%;
-  margin-top: -3%;
-  margin-left: -1%;
+  width: 50%;
+  margin-top: -1%;
 }
 
-#gt1 {
-  float: left;
-  margin-left: 6%;
+.generateTopCountries {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3%;
 }
 
 .genreList {
   text-align: center;
-  font-size: 22px;
+  font-size: 24px;
+  margin-bottom: 2%;
+}
+
+.countryButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1%;
+  height: 29vmin;
+  overflow-y: auto;
+}
+
+.genreButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4%;
+  height: 37vmin;
+  overflow-y: auto;
 }
 
 .genreButton {
-  margin: 2%;
+  margin-bottom: 1%;
+  overflow-y: auto;
 }
 
 .generateDivider {
-  width: 80%;
+  width: 88%;
   margin-bottom: -3%;
-  margin-left: 10%;
+  margin-left: 6%;
   border-style: double;
   border-width: 0 0 3px 0;
-  border-color: #999999;
+  border-color: var(--secondary);
 }
 
 .maxSongInputArea {

@@ -138,6 +138,7 @@ const GenerateScreen = (props) => {
   }
 
   const addCountry = (country, id) => {
+    console.log(id);
     let updateThis = true;
     let countryCopy = [...countryDisplay];
     for (let i = 0; i < countryCopy.length; i++) {
@@ -285,90 +286,83 @@ const GenerateScreen = (props) => {
   }
 
   return (
-
-
     <div className="generateScreen">
       <div className="generateScreenTitleText">experience the sounds of...</div>
       <div className="generateScreenTopContainer">
         <div className="generateScreenTopInnerContainer">
           <h3>Countries</h3>
-          <div className="generateBoxLabel">
-            {/* <button className="clickButton ui icon button generateSquareButton" onClick={addLocation}>
-                <i className="plus circle icon"></i>
-              </button>
-              <button style={{ color: "var(--background)" }} className="ui grey icon button generateSquareButton" onClick={subtractLocation}>
-                <i className="minus circle icon"></i>
-              </button> */}
-          </div>
-          <div align="center" className="generateScreenBoxLeft">
-            <div className="genreLeftContainer">
-              <div className="generateSubText"><i id="gt1">Search for Country</i></div>
+          <div align="center" className="generateScreenBox">
+            <div className="generateLeftContainer">
+            <div className="generateTopCountries">
+              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("United States", "US")}>United States</button></div>
+              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Canada", "CA")}>Canada</button></div>
+              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Mexico", "MX")}>Mexico</button></div>
+              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Brazil", "BR")}>Brazil</button></div>
+              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("United Kingdom", "GB")}>United Kingdom</button></div>
+              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Germany", "DE")}>Germany</button></div>
+            </div>
               <div className="ui input">
-                <input size="20" id="genreSearch" className="generateInputGenre" onChange={(e) => setGenreInputState(e.target.value)}
-                  style={{ backgroundColor: "var(--secondary)" }}
+                <input size="25" id="genreSearch" className="generateInput" onChange={(e) => setGenreInputState(e.target.value)}
+                  style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
                 />
               </div>
-              <div className="genreButton">
+              <div className="countryButtonContainer">
                 {countries.map((country, index) => (
-                  <button className="clickButton ui button tiny" onClick={() => addCountry(country.name, country.id)}>{country.name}</button>
+                  <div className="genreButton">
+                    <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)}>{country.name}</button>
+                  </div>
                 ))}
               </div>
-
             </div>
             <div className="genreRightContainer">
-              {countryDisplay.map((row, index) =>
-                <p key={index}><i className="genreList">{row.country}</i></p>
-              )}
+              <div className="genreRightContainerInner">
+                {countryDisplay.map((row, index) =>
+                  <p key={index}><i className="genreList">{row.country.name}</i></p>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
         <div className="generateScreenTopInnerContainer">
           <h3>Categories</h3>
-          <div className="generateBoxLabel">
-            {/* <button className="clickButton ui icon button generateSquareButton" onClick={addNewGenre}> */}
-            {/* <i className="plus circle icon"></i> */}
-            {/* </button> */}
-            {/* <button style={{ color: "var(--background)" }} className="ui grey icon button generateSquareButton" onClick={subtractGenre}> */}
-            {/* <i className="minus circle icon"></i> */}
-            {/* </button> */}
-          </div>
-          <div align="center" className="generateScreenBoxRight">
-            <div className="genreLeftContainer">
-              <div className="generateSubText"><i id="gt1">Search for Category</i></div>
+          <div align="center" className="generateScreenBox">
+            <div className="generateLeftContainer">
               <div className="ui input">
-                <input size="20" id="genreSearch" className="generateInputGenre" onChange={(e) => setGenreInputState(e.target.value)}
-                  style={{ backgroundColor: "var(--secondary)" }}
+                <input size="25" id="genreSearch" className="generateInput" onChange={(e) => setGenreInputState(e.target.value)}
+                  style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter categories..."
                 />
               </div>
-              <div className="genreButton">
+              <div className="genreButtonContainer">
                 {genres.map((genre, index) => (
-                  <button className="clickButton ui button tiny" onClick={() => addGenre(genre.name, genre.id)}>{genre.name}</button>
+                  <div className="genreButton">
+                    <button className="clickButton ui button large" onClick={() => addGenre(genre.name, genre.id)}>{genre.name}</button>
+                  </div>
                 ))}
               </div>
-
             </div>
             <div className="genreRightContainer">
-              {genreState.map((row, index) =>
-                <p key={index}><i className="genreList">{row.genre}</i></p>
-              )}
+              <div className="genreRightContainerInner">
+                {genreState.map((row, index) =>
+                  <p className="genreList" key={index}><i>{row.genre}</i></p>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div className="generateDivider"></div>
-
       <div className="generateBottomArea">
         <h3>Playlist Size</h3>
         <div className="ui input maxSongInputArea">
-          <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs - 1)}>
+          <button className="ui button clickButton icon" onClick={() => changeNumSongs(numSongs - 1)}>
             <i className="angle left icon" />
           </button>
           {!lastSongInputValid && <Label style={{ position: "absolute", marginTop: "4em" }} pointing='above'>Please enter a value between 1-50</Label>}
           <input id="songNumberInput" size="1" maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
             onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
-          <button className="ui button grey icon" onClick={() => changeNumSongs(numSongs + 1)}>
+          <button className="clickButton ui button icon" onClick={() => changeNumSongs(numSongs + 1)}>
             <i className="angle right icon" />
           </button>
         </div>
