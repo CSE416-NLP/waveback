@@ -142,27 +142,39 @@ const GenerateScreen = (props) => {
                 />
               </div>
               <div className="genreButton">
-                <button className="clickButton ui button small" onClick={() => addGenre("Pop")}>Pop</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("Rap")}>Rap</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("R&B")}>R&amp;B</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Top Lists")}>Top Lists</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Pop")}>Pop</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Indie")}>Indie</button>
               </div>
               <div className="genreButton">
-                <button className="clickButton ui button small" onClick={() => addGenre("Electronic")}>Electronic</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("Alternative")}>Alternative</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Mood")}>Mood</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Rock")}>Rock</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Hip-Hop")}>Hip-Hop</button>
               </div>
               <div className="genreButton">
-                <button className="clickButton ui button small" onClick={() => addGenre("Rock")}>Rock</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("Indie")}>Indie</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("Jazz")}>Jazz</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Party")}>Party</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Chill")}>Chill</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Workout")}>Workout</button>
               </div>
               <div className="genreButton">
-                <button className="clickButton ui button small" onClick={() => addGenre("Country")}>Country</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("Soul")}>Soul</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("Folk")}>Folk</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Instrumental")}>Instrumental</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Focus")}>Focus</button>
               </div>
               <div className="genreButton">
-                <button className="clickButton ui button small" onClick={() => addGenre("Classical")}>Classical</button>
-                <button className="clickButton ui button small" onClick={() => addGenre("Ambient")}>Ambient</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("At Home")}>At Home</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Dance/Electronic")}>Dance/Electronic</button>
+              </div>
+              <div className="genreButton">
+                <button className="clickButton ui button tiny" onClick={() => addGenre("R&B")}>R&amp;B</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Metal")}>Metal</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Romance")}>Romance</button>
+              </div>
+              <div className="genreButton">
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Decades")}>Decades</button>
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Wellness")}>Wellness</button>
+              </div>
+              <div className="genreButton">
+                <button className="clickButton ui button tiny" onClick={() => addGenre("Gaming")}>Gaming</button>
               </div>
             </div>
             <div className="genreRightContainer">
