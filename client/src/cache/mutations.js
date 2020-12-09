@@ -110,7 +110,7 @@ export const UNFOLLOWUSER = gql`
 
 export const DELETE_USER = gql`
     mutation DeleteUser($_id: String!){
-        deleteUser(_id: $id)
+        deleteUser(_id: $_id)
     }
 `;
 

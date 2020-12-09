@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
+import { GETUSERBYUSERNAME, DELETE_USER } from '../cache/mutations';
 import jsonData from "../data/TestData.json";
 import { flowRight as compose } from 'lodash';
 import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
-import { Grid, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-
-import { getSpotifyAccessToken } from "../data/LocalStorage.js";
+import { Grid, Modal, Icon, Header, Button } from 'semantic-ui-react';
+import { useMutation } from '@apollo/react-hooks';
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
-
 const LockedScreen = (props) => {
-    const users = jsonData.Users;
-    const columns = 2;
+    const columns = 3;
     const playlists = jsonData.Playlists;
-    // console.log(playlists2);
+    const [users, setUsers] = useState([]);
+    const [deleteUserOpenState, setDeleteUserOpenState] = useState(false);
+    const { data, refetch } = useMutation(GETUSERBYUSERNAME);
+
+    const showAllUsers = async (searchTerm) => {
+        const { data } = await props.getuserbyusername({ variables: { username: searchTerm } })
+        if (data && data.getUserByUsername) {
+            if (data.getUserByUsername.length === 0) {
+                setUsers([]);
+            }
+            else {
+                setUsers(data.getUserByUsername);
+            }
+        }
+    }
 
     const resetDatabasePlaylists = () => {
         props.deleteAllPlaylists({ variables: {}, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
@@ -51,64 +63,56 @@ const LockedScreen = (props) => {
             props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
         });
     }
-    const searchSpotify = (term) => { // Default is all fields, playlist generation may only use song search
-        // if (term === "") return;
-        let token = getSpotifyAccessToken();
-        token = "Bearer " + token;
-        // let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-        // let query = "https://api.spotify.com/v1/browse/categories/rap/playlists?country=US&limit=10"
-        let query = "https://api.spotify.com/v1/browse/categories"
-        fetch(query, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-    }
 
     const deleteUser = async (user) => {
         console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
-        // TODO: Remove this print statement and hook this up to the database.
-        // props.deleteUser({ variables: { _id: user._id} });
-        // props.history.push({ pathname: '/playlists' });
-        // refetch();
+        props.deleteUser({ variables: { _id: user._id } })
+        refetch();
+        setDeleteUserOpenState(false);
     }
 
-    // const [searchTerm, setSearch] = useState("");
     return (
         <div className="adminScreen" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
-            <br></br><br></br>
-            <div>
+            <br></br>
+            <div className="adminScreenTop">
                 <button className="clickButton ui button" onClick={() => addPlaylistsToDatabase()}>Add Playlists to Database</button>
                 <button className="clickButton ui button" onClick={() => resetDatabasePlaylists()}>Delete All Playlists in Database</button>
+                <button className="clickButton ui button" onClick={() => showAllUsers("")}>Show List of All Users</button>
+                <button className="clickButton ui button" onClick={() => showAllUsers("zzwer6bcm/uilbvmx9bvx-81v")}>Hide List of All Users</button>
             </div>
-            <button onClick={searchSpotify}>spotify test</button>
-
-            <br></br><br></br>
-            <h2>List Of All Users</h2>
-            <div className="profileScreenScrollContainer">
-                <Grid columns={columns} divided>
-                    {users.map((user, index) => (
-                        <Grid.Column width={Math.floor(16 / columns)} key={index}>
-                            <div className="adminUserList" >
-                                <img className="profilePicture" src={user.profilePicture} alt="" />
-                                <div className='profileFollowingInfo'>
-                                    <h2>{user.username}</h2>
-                                    <Link to={{ pathname: "/profile/" + user._id, user: user }}>
-                                        <Icon className="big" name="user" ></Icon>
-                                    </Link>
-                                    <Icon className="removeSongIcon big" onClick={() => deleteUser(user)} name="trash" ></Icon>
+            <div className="adminScreenScrollContainer">
+                    <Grid columns={columns} divided>
+                        {users.map((user, index) => (
+                            <Grid.Column width={Math.floor(16 / columns)} key={index}>
+                                <div className="adminUserList" >
+                                    <img className="profilePicture" src={user.profilePicture} alt="" />
+                                    <div className='profileFollowingInfo'>
+                                        <h2>{user.username}</h2>
+                                        <Link to={{ pathname: "/profile/" + user._id, user: user }}>
+                                            <Icon className="big" name="user" ></Icon>
+                                        </Link>
+                                        <Modal
+                                            basic
+                                            onClose={() => setDeleteUserOpenState(false)}
+                                            onOpen={() => setDeleteUserOpenState(true)}
+                                            open={deleteUserOpenState}
+                                            size='small'
+                                            trigger={<Icon className="removeSongIcon big" name="trash"></Icon>}>
+                                            <Header icon><Icon className='large trash' />
+                                                Are you sure you want to delete this user?
+                                                <br></br>
+                                                <div className="irreversible">THIS IS NOT REVERSIBLE!</div>
+                                            </Header>
+                                            <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                                <Button className="ui primary button" onClick={() => deleteUser(user)}><Icon name='checkmark' />Yes</Button>
+                                                <Button inverted color='red' onClick={(e) => setDeleteUserOpenState(false)}><Icon name='remove' />No</Button>
+                                            </Modal.Actions>
+                                        </Modal>
+                                    </div>
                                 </div>
-                            </div>
-                        </Grid.Column>
-                    ))}
-                </Grid>
+                            </Grid.Column>
+                        ))}
+                    </Grid>
             </div>
 
         </div>
@@ -120,5 +124,6 @@ export default compose(
     graphql(mutations.ADD_PLAYLIST, { name: 'addPlaylist' }),
     graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
     graphql(mutations.DELETE_ALL_PLAYLISTS, { name: "deleteAllPlaylists" }),
-    graphql(mutations.DELETE_USER, { name: "deleteUser" })
+    graphql(DELETE_USER, { name: "deleteUser" }),
+    graphql(GETUSERBYUSERNAME, { name: 'getuserbyusername' })
 )(LockedScreen);

@@ -1361,20 +1361,39 @@ code {
 
 /* ADMIN/TEST/LOCKED SCREEN */
 .adminScreen {
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.adminScreenTop {
+  display: flex;
+  align-items: center;
+}
+
+.adminUserList {
+  background-color: var(--secondary);
+  color: var(--accent);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.adminUserList {
-  color: var(--accent);
-  display: flex;
   margin-top: 2%;
   margin-left: 4%;
-  width: 95%;
-  height: 85%;
+  width: 50%;
+  height: 100%;
   user-select: none;
+}
+
+.adminScreenScrollContainer {
+  background-color: var(--background);
+  height: 71%;
+  margin-top: 1%;
+  margin-bottom: -3%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* USER SEARCH */

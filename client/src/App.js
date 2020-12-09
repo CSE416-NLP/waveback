@@ -119,7 +119,7 @@ const App = (props) => {
             setCurrentPlaylistID={setCurrentPlaylistID}
             {...props} />} />
         <Route exact path="/profile" render={(props) => user ? <ProfileScreen fetchUser={refetch} user={user} {...props} /> : <Redirect to="/welcome" />} />
-        <Route exact path="/admin" component={LockedScreen} spotifyToken={spotifyToken} />
+        <Route exact path="/admin" component={LockedScreen} user={user} {...props} spotifyToken={spotifyToken} />
         <Route exact path="/profile/:id" render={(props) => user ? <ViewProfileScreen {...props} /> : <Redirect to="/welcome" />} />
         <Redirect from={"/:any", "/"} to={{ pathname: "/welcome" }} />
       </Switch>
