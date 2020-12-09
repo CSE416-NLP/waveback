@@ -49,10 +49,10 @@ const ViewPlaylistScreen = (props) => {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        async function loadPlaylists() {
-            setPlaylistSongs(props.location.playlist.songs);
-        }
-        loadPlaylists();
+        // async function loadPlaylists() {
+        //     setPlaylistSongs(props.location.playlist.songs);
+        // }
+        // loadPlaylists();
         console.log("useeffect")
         console.log(props);
         console.log(playlistSongs);
@@ -326,7 +326,7 @@ const ViewPlaylistScreen = (props) => {
                             <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
-                                    <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
+                                    <button className="clickButton ui button huge" onClick={playRandom}>Play Random</button>
                                     <button className="playlistShuffleButton clickButton ui button" onClick={shufflePlaylist}>
                                         <Icon className="large shuffle"></Icon>
                                     </button>

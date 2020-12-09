@@ -30,12 +30,12 @@ const PlaylistScreen = (props) => {
     }
     // console.log(props);
     try {
-        const [test , setTest] = useState(props.location.playlist);
+        const [test, setTest] = useState(props.location.playlist);
         // console.log("test");
     } catch {
         props.history.push("/discover");
     }
-    
+
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
     const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
@@ -56,10 +56,10 @@ const PlaylistScreen = (props) => {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        async function loadPlaylists() {
-            setPlaylistSongs(props.location.playlist.songs);
-        }
-        loadPlaylists();
+        // async function loadPlaylists() {
+        //     setPlaylistSongs(props.location.playlist.songs);
+        // }
+        // loadPlaylists();
         // console.log("useeffect")
         // console.log(props);
         // console.log(playlistSongs);
@@ -498,14 +498,14 @@ const PlaylistScreen = (props) => {
                             <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
-                                    <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
+                                    <button className="clickButton ui button huge" onClick={playRandom}>Play Random</button>
                                 </div>
                                 <div className="playlistSave">
-                                <Link to={{ pathname: "/playlists" }}>
-                                    <button className="playlistCopyButton clickButton ui button icon" onClick={copyPlaylist}>
-                                        <Icon className="large copy"></Icon>
-                                    </button>
-                                </Link>
+                                    <Link to={{ pathname: "/playlists" }}>
+                                        <button className="playlistCopyButton clickButton ui button icon" onClick={copyPlaylist}>
+                                            <Icon className="large copy"></Icon>
+                                        </button>
+                                    </Link>
                                     <Popup
                                         content='Saved!'
                                         on='click'
@@ -533,9 +533,13 @@ const PlaylistScreen = (props) => {
                                             <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
                                         </Modal.Actions>
                                     </Modal>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
                     <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
                         placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)}>
@@ -568,10 +572,10 @@ const PlaylistScreen = (props) => {
                             <div className="playlistFilterContainer">
                                 <div className="playlistFilterDivider"></div>
                                 <div className="playlistShuffleButton">
-                                        <button className="clickButton ui icon button" onClick={shufflePlaylist}>
-                                            <Icon className="shuffle"></Icon>
-                                        </button>
-                                    </div>
+                                    <button className="clickButton ui icon button" onClick={shufflePlaylist}>
+                                        <Icon className="shuffle"></Icon>
+                                    </button>
+                                </div>
                                 <div className="ui input">
 
                                     <input placeholder="Filter..." size="40" className="playlistFilter"
