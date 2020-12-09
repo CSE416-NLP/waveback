@@ -412,10 +412,30 @@ code {
   margin-bottom: 3%;
 }
 
+.categoryTextContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  margin-left: 4%;
+}
+
 .genreList {
   text-align: center;
   font-size: 24px;
   margin-bottom: 2%;
+}
+
+.categoryTextContainer:hover {
+  filter: drop-shadow(1px 1px 2px var(--primary));
+}
+
+.removeCategoryIcon {
+  margin-right: 4%;
+}
+
+.removeCategoryIcon:hover {
+  color: var(--buttonColor);
 }
 
 .countryButtonContainer {

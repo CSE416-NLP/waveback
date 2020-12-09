@@ -14,24 +14,19 @@ import SongSearch from "../UtilityComponents/SongSearch";
 import { PlaylistTransaction } from '../utils/jsTPS';
 import { Link } from "react-router-dom"
 import * as mutations from '../cache/mutations';
-import { withRouter } from "react-router-dom";
 
 const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const PlaylistScreen = (props) => {
-    // console.log(props);
     if (!props.location.playlist) {
         console.log("no props");
         props.history.push("/discover");
-        // return <>;
     } else {
 
     }
-    // console.log(props);
     try {
         const [test, setTest] = useState(props.location.playlist);
-        // console.log("test");
     } catch {
         props.history.push("/discover");
     }

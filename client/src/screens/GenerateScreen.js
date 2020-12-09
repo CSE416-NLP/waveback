@@ -9,26 +9,23 @@ import { flowRight as compose } from 'lodash';
 import { useQuery } from '@apollo/react-hooks';
 import { graphql } from '@apollo/react-hoc';
 import { GET_USER_PLAYLISTS } from '../cache/mutations';
+import { Icon } from 'semantic-ui-react';
 
 const GenerateScreen = (props) => {
   const ObjectId = require("mongoose").Types.ObjectId;
 
   const { refetch } = useQuery(GET_DB_PLAYLISTS);
   const [playlists, setPlaylists] = useState([]);
-
+  const [textHoverState, setTextHoverState] = useState(null);
   const [countries, setCountries] = useState([]);
   const [countryIDs, setCountryIDs] = useState([]);
   const [categoryIDs, setCategoryIDs] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [countryDisplay, setCountryDisplay] = useState([{
-    country: "",
-  }]);
-  // const [query, setQuery] = useState("");
+  const [countryDisplay, setCountryDisplay] = useState([]);
 
   useEffect(() => {
     async function loadPlaylists() {
       const { data } = await props.getUserPlaylists({ variables: { owner: props.user.username } });
-      // console.log(data);
       setPlaylists(data.getUserPlaylists);
     }
     loadPlaylists();
@@ -47,10 +44,7 @@ const GenerateScreen = (props) => {
       .then(data => {
         let items = data.categories.items;
         let newGenres = [];
-        // console.log(items);
-        // let genreMap = new Map();
         for (var i = 0; i < items.length; i++) {
-          // genreMap.set(items[i].name, items[i].id);
           if (items[i].name !== "Joe Rogan Experience") {
             newGenres.push(items[i]);
           }
@@ -67,16 +61,6 @@ const GenerateScreen = (props) => {
       {name: "Germany", id: "GE"},
       {name: "France", id: "FR"},
     ];
-    // for (const [key, value] of Object.entries(countryList().getLabelList())) {
-    //   // console.log(key.toString());
-    //   // console.log(value.toString());
-    //   let newCountry = {
-    //     name: key.toString(),
-    //     id: value.toString()
-    //   }
-    //   newCountries.push(newCountry);
-    // }
-    // console.log(newCountries);
     setCountries(newCountries);
     return () => {
     }
@@ -97,41 +81,6 @@ const GenerateScreen = (props) => {
     genre: "",
   }]);
 
-  // const addLocation = () => {
-  //   let locationCopy = [...locationState];
-  //   locationCopy.push({
-  //     location: "",
-  //     startYear: "",
-  //     endYear: "",
-  //   });
-  //   setLocations(locationCopy);
-  // }
-
-  // const subtractLocation = () => {
-  //   let locationCopy = [...locationState];
-  //   locationCopy.pop();
-  //   setLocations(locationCopy);
-  // }
-
-  // const addLocationInfo = (index, type, event) => {
-  //   let rowCopy = [...locationState];
-  //   rowCopy[index][type] = event.target.value;
-  //   setLocations(rowCopy);
-  // }
-
-  // // Called when the user types in a genre in the input field.
-  // const addNewGenre = () => {
-  //   let updateThis = true;
-  //   let genreCopy = [...genreState];
-  //   if (genreInputState === "") { return; }
-  //   for (let i = 0; i < genreCopy.length; i++) {
-  //     if (genreCopy[i].genre === genreInputState) { updateThis = false; }
-  //   }
-  //   if (updateThis) { genreCopy.push({ genre: genreInputState }); }
-  //   setGenreStates(genreCopy);
-  // }
-
-  // Called when the user selects a pre-defined genre button.
   const addGenre = (genreName, id) => {
     let updateThis = true;
     let genreCopy = [...genreState];
@@ -159,11 +108,26 @@ const GenerateScreen = (props) => {
     countryCopy.push(id);
     setCountryIDs(countryCopy);
   }
-  // const subtractGenre = () => {
-  //   let genreCopy = [...genreState];
-  //   genreCopy.pop();
-  //   setGenreStates(genreCopy);
-  // }
+
+  const removeGenre = (genreName) => {
+    let genreCopy = [...genreState];
+    let index = 0;
+    for (let i = 0; i < genreCopy.length; i++) {
+      if (genreCopy[i]["genre"] === genreName) { index = i; }
+    }
+    genreCopy.splice(index, 1);
+    setGenreStates(genreCopy);
+  }
+
+  const removeCountry = (countryName) => {
+    let countryCopy = [...countryDisplay];
+    let index = 0;
+    for (let i = 0; i < countryCopy.length; i++) {
+      if (countryCopy[i]["country"] === countryName) { index = i; }
+    }
+    countryCopy.splice(index, 1);
+    setCountryDisplay(countryCopy);
+  }
 
   const changeNumSongs = (num) => {
     if (isNaN(num)) {
@@ -206,11 +170,9 @@ const GenerateScreen = (props) => {
       let category = "pop";
       if (numCountries > 0) {
         country = countryIDs[Math.floor(Math.random() * numCountries)];
-        // console.log(country);
       }
       if (numCategories > 0) {
         category = categoryIDs[Math.floor(Math.random() * numCategories)];
-        // console.log(category);
       }
 
       let query = "https://api.spotify.com/v1/browse/categories/" + category + "/playlists?country=" + country + "&limit=50";
@@ -228,7 +190,6 @@ const GenerateScreen = (props) => {
           let playlists = data.playlists.items;
           let randomPlaylist = playlists[Math.floor(Math.random() * playlists.length)];
           let playlistID = randomPlaylist.id;
-          // console.log(randomPlaylist);
           let playlistQuery = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks";
 
           fetch(playlistQuery, {
@@ -295,7 +256,7 @@ const GenerateScreen = (props) => {
   }
 
   return (
-    <div className="generateScreen">
+    <div className="generateScreen" onMouseEnter={() => setTextHoverState(null)}>
       <div className="generateScreenTitleText">experience the sounds of...</div>
       <div className="generateScreenTopContainer">
         <div className="generateScreenTopInnerContainer">
@@ -312,15 +273,25 @@ const GenerateScreen = (props) => {
               <div className="countryButtonContainer">
                 {countries.map((country, index) => (
                   <div className="genreButton">
-                    <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)}>{country.name}</button>
+                    <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)} onMouseEnter={() => setTextHoverState(null)}>
+                      {country.name}
+                    </button>
                   </div>
                 ))}
               </div>
             </div>
             <div className="genreRightContainer">
-              <div className="genreRightContainerInner">
+              <div className="genreRightContainerInner" onMouseEnter={() => setTextHoverState(null)}>
                 {countryDisplay.map((row, index) =>
-                  <p key={index}><i className="genreList">{row.country}</i></p>
+                  <div className="categoryTextContainer" onMouseEnter={() => setTextHoverState(row.country)}>
+                    <p key={index} className="genreList"><i>{row.country}</i></p>
+                      <div className="removeCategoryIcon">
+                        <Icon className="large" style={{
+                          width: "3%", display: (row.country === textHoverState) ? "block" : "none"}}
+                          name="remove" onClick={() => removeCountry(row.country)}>
+                        </Icon>
+                      </div>
+                    </div>
                 )}
               </div>
             </div>
@@ -339,15 +310,25 @@ const GenerateScreen = (props) => {
               <div className="genreButtonContainer">
                 {genres.map((genre, index) => (
                   <div className="genreButton">
-                    <button className="clickButton ui button large" onClick={() => addGenre(genre.name, genre.id)}>{genre.name}</button>
+                    <button className="clickButton ui button large" onClick={() => addGenre(genre.name, genre.id)} onMouseEnter={() => setTextHoverState(null)}>
+                      {genre.name}
+                    </button>
                   </div>
                 ))}
               </div>
             </div>
             <div className="genreRightContainer">
-              <div className="genreRightContainerInner">
+              <div className="genreRightContainerInner" onMouseEnter={() => setTextHoverState(null)}>
                 {genreState.map((row, index) =>
-                  <p className="genreList" key={index}><i>{row.genre}</i></p>
+                  <div className="categoryTextContainer" onMouseEnter={() => setTextHoverState(row.genre)}>
+                    <p className="genreList" key={index}><i>{row.genre}</i></p>
+                    <div className="removeCategoryIcon">
+                      <Icon className="large" style={{
+                        width: "3%", display: (row.genre === textHoverState) ? "block" : "none"}}
+                        name="remove" onClick={() => removeGenre(row.genre)}>
+                      </Icon>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
