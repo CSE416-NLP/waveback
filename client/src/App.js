@@ -13,6 +13,7 @@ import ProfileScreen from './screens/Profile/ProfileScreen';
 import LockedScreen from './screens/LockedScreen';
 import ViewProfileScreen from './screens/ViewProfileScreen';
 import PlaylistScreen from './screens/PlaylistScreen';
+import ViewPlaylistScreen from './screens/ViewPlaylistScreen';
 import Navbar from './UtilityComponents/Navbar';
 import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "./data/LocalStorage";
 import SpotifyPlayer from 'react-spotify-web-playback';
@@ -88,10 +89,24 @@ const App = (props) => {
             {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/generate" render={(props) => user ? <GenerateScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
         <Route exact path="/playlists" render={(props) => user ? <PlaylistsScreen user={user} {...props} /> : <Redirect to="/welcome" />} />
-        <Route exact path="/playlist/:id" render={(props) =>
-          <PlaylistScreen 
+        <Route exact path="/playlist/:owner/:id" render={(props) =>
+          <PlaylistScreen
             user={user}
             tps={transactionStack}
+            playStatus={playStatus}
+            setPlayStatus={setPlayStatus}
+            spotifyToken={spotifyToken}
+            setPlayerVisible={setPlayerVisible}
+            setTracks={setTracks}
+            playerVisible={playerVisible}
+            currentSongIndex={currentSongIndex}
+            setCurrentSongIndex={setCurrentSongIndex}
+            currentPlaylistID={currentPlaylistID}
+            setCurrentPlaylistID={setCurrentPlaylistID}
+            {...props} />} />
+        <Route exact path="/viewplaylist/:owner/:id" render={(props) =>
+          <ViewPlaylistScreen
+            user={user}
             playStatus={playStatus}
             setPlayStatus={setPlayStatus}
             spotifyToken={spotifyToken}

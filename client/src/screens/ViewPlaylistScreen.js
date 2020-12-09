@@ -11,7 +11,7 @@ import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 import PrivacyPicker from "../UtilityComponents/PrivacyPicker.js";
 import SongSearch from "../UtilityComponents/SongSearch";
-import { PlaylistTransaction } from '../utils/jsTPS';
+// import { PlaylistTransaction } from '../utils/jsTPS';
 import { Link } from "react-router-dom"
 import * as mutations from '../cache/mutations';
 import { withRouter } from "react-router-dom";
@@ -19,8 +19,8 @@ import { withRouter } from "react-router-dom";
 const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-const PlaylistScreen = (props) => {
-    // console.log(props);
+const ViewPlaylistScreen = (props) => {
+    // console.log("ViewPlaylistScreen");
     if (!props.location.playlist) {
         console.log("no props");
         props.history.push("/discover");
@@ -29,23 +29,16 @@ const PlaylistScreen = (props) => {
 
     }
     // console.log(props);
-    try {
-        const [test , setTest] = useState(props.location.playlist);
-        // console.log("test");
-    } catch {
-        props.history.push("/discover");
-    }
-    
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
     const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
-    const [playlistName, setPlaylistName] = useState(props.location.playlist.name);
-    const [playlistDescription, setPlaylistDescription] = useState(props.location.playlist.description);
-    const [playlistPicture, setPlaylistPicture] = useState(props.location.playlist.picture ? props.location.playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
-    const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
-    const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
-    const [playlistSongs, setPlaylistSongs] = useState(props.location.playlist.songs);
-    const [playlistSongURIs, setPlaylistSongURIs] = useState(props.location.playlist.songURIs);
+    const [playlistName, setPlaylistName] = useState(playlist.name);
+    const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
+    const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
+    // const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
+    // const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
+    const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
+    const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
     const [songHoverState, setSongHoverState] = useState(null);
     const [songInfoOpenState, setSongInfoOpenState] = useState(false);
@@ -60,13 +53,10 @@ const PlaylistScreen = (props) => {
             setPlaylistSongs(props.location.playlist.songs);
         }
         loadPlaylists();
-        // console.log("useeffect")
-        // console.log(props);
-        // console.log(playlistSongs);
-        document.addEventListener("keydown", handleKeyPress);
+        console.log("useeffect")
+        console.log(props);
+        console.log(playlistSongs);
         return () => {
-            document.removeEventListener("keydown", handleKeyPress);
-            props.tps.clearAllTransactions();
         }
     }, [props]);
 
@@ -98,37 +88,8 @@ const PlaylistScreen = (props) => {
         setPlaylist(playlist);
     }
 
-
-    const savePlaylist = async () => {
-        let songsCopy = [...playlistSongs];
-        for (let i = 0; i < songsCopy.length; i++) {
-            if (!songsCopy[i]._id) songsCopy[i]._id = ObjectId();
-            delete songsCopy[i].__typename;
-        }
-        const { data } = await props.updatePlaylist({
-            variables: {
-                _id: playlist._id,
-                name: playlistName,
-                picture: playlistPicture,
-                description: playlistDescription,
-                songs: songsCopy,
-                songURIs: playlistSongURIs,
-                duration: parseInt(getAlbumTime(playlistSongs)),
-                tags: playlist.tags
-            }
-        })
-        if (data && data.updatePlaylist) console.log("Updated successfully");
-        else console.log("Error in updating");
-    }
-
-    const deletePlaylist = async () => {
-        setDeletePlaylistOpenState(false);
-        props.deletePlaylist({ variables: { _id: playlist._id } });
-        props.history.push({ pathname: '/playlists' });
-        refetch();
-    }
-
     const searchSpotify = (term) => { // Default is all fields, playlist generation may only use song search
+        console.log(term);
         if (term === "") return;
         let token = getSpotifyAccessToken();
         token = "Bearer " + token;
@@ -177,7 +138,6 @@ const PlaylistScreen = (props) => {
                 uris: newURIs
             })
         }
-
     }
 
     const checkPlayerStatus = () => {
@@ -190,81 +150,6 @@ const PlaylistScreen = (props) => {
         if (props.currentPlaylistID === playlist._id) {
             props.setCurrentPlaylistID(playlist._id);
         }
-    }
-
-    const handleNameChange = (name) => {
-        setPlaylistName(name);
-        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        setPlaylist(old_playlist);
-        let new_playlist = getPlaylistObject(name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
-    }
-
-    const handleDescriptionChange = (description) => {
-        setPlaylistDescription(description);
-        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        setPlaylist(old_playlist);
-        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, description, playlist.songs, playlist.songURIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
-    }
-
-    const updatePlaylistPicture = (picture) => {
-        if (playlistPictureOpenState) {
-            setPlaylistPictureOpenState(false);
-        }
-        setPlaylistPicture(picture);
-        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        setPlaylist(old_playlist);
-        let new_playlist = getPlaylistObject(playlist.name, picture, playlist.description, playlist.songs, playlist.songURIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
-    }
-
-    const addSong = (song) => {
-        console.log(song);
-        let newSong = {
-            _id: "",
-            songURI: song.uri,
-            key: playlistSongs.length,
-            title: song.name,
-            artist: song.artists[0].name,
-            album: song.album.name,
-            albumPicture: song.album.images[0].url,
-            genre: [],
-            year: parseInt(song.album.release_date.substring(0, 4)),
-            duration: Math.round(song.duration_ms / 1000),
-            __typename: "Song",
-        }
-        let newSongURI = song.uri;
-        let newSongs = [...playlistSongs];
-        newSongs.push(newSong);
-        let newSongURIs = [...playlistSongURIs];
-        newSongURIs.push(newSongURI);
-        setPlaylistSongs(newSongs);
-        setPlaylistSongURIs(newSongURIs);
-        updateTracks(newSongURIs, props.currentSongIndex);
-        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        setPlaylist(old_playlist);
-        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, newSongs, newSongURIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
-    }
-
-    const removeSong = (song) => {
-        let songs = [...playlistSongs];
-        let URIs = [...playlistSongURIs];
-        songs.splice(playlistSongs.indexOf(song), 1);
-        URIs.splice(playlistSongURIs.indexOf(song.songURI), 1);
-        setPlaylistSongs(songs);
-        setPlaylistSongURIs(URIs);
-        updateTracks(URIs, props.currentSongIndex);
-        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        setPlaylist(old_playlist);
-        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
     }
 
     const playSong = (offset) => {
@@ -310,12 +195,10 @@ const PlaylistScreen = (props) => {
         }
         console.log(songs);
         let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, URIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
+        modifyPlaylist(new_playlist);
     }
 
     const sortSongs = (newType) => {
-        console.log(sortState);
         let songs = [...playlistSongs];
         let currentURI = playlistSongURIs[props.currentSongIndex];
         if (newType === 0) {
@@ -368,11 +251,6 @@ const PlaylistScreen = (props) => {
         setPlaylistSongURIs(newSongURIs);
         updateTracks(newSongURIs, newCurrentSongPos);
         props.setCurrentSongIndex(newCurrentSongPos)
-        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        setPlaylist(old_playlist);
-        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songs, newSongURIs);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
     }
 
     const onDragEnd = (result) => {
@@ -391,43 +269,7 @@ const PlaylistScreen = (props) => {
 
         setPlaylistSongURIs(songURIsCopy);
         updateTracks(songURIsCopy, props.currentSongIndex)
-        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs);
-        setPlaylist(old_playlist);
-        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, songsCopy, songURIsCopy);
-        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
-        props.tps.addTransaction(transaction);
     }
-
-    const invalidImage = (e) => {
-        e.target.src = "https://i.imgur.com/ZRoNOEu.png";
-        setPlaylistPicture("https://i.imgur.com/ZRoNOEu.png");
-    }
-
-    const tpsUndo = () => {
-        props.tps.undoTransaction();
-    }
-
-    const tpsRedo = () => {
-        props.tps.doTransaction();
-    }
-
-    const handleKeyPress = (e) => {
-        if (e.ctrlKey && e.keyCode === 90) {          // Ctrl + Z
-            e.preventDefault();
-            console.log("Ctrl + Z pressed");
-            tpsUndo()
-        }
-        else if (e.ctrlKey && e.keyCode === 89) {     // Ctrl + Y
-            e.preventDefault();
-            console.log("Ctrl + Y pressed");
-            tpsRedo()
-        }
-        else if (e.ctrlKey && e.keyCode === 83) {     // Ctrl + S
-            e.preventDefault();
-            console.log("Ctrl + S pressed");
-            savePlaylist();
-        }
-    };
 
     const copyPlaylist = async () => {
         console.log(currentUser);
@@ -464,8 +306,6 @@ const PlaylistScreen = (props) => {
             })
         }
     }
-
-
     // let duration = 0;
     // for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
@@ -474,29 +314,11 @@ const PlaylistScreen = (props) => {
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
                 <div className="playlistScreenLeftContainer">
                     <div className="playlistScreenInfo">
-                        <Modal
-                            basic
-                            onClose={() => setPlaylistPictureOpenState(false)}
-                            onOpen={() => setPlaylistPictureOpenState(true)}
-                            open={playlistPictureOpenState}
-                            size='small'
-                            trigger={<img onError={invalidImage} className="playlistArt" src={playlistPicture} alt="" />}>
-                            <Header icon><Icon name='user circle' />Update Playlist Picture</Header>
-                            <Modal.Content>
-                                <div className="ui input changeAvatarTextField">
-                                    <input size="50" onChange={(e) => setPlaylistPicture(e.target.value)} placeholder="URL" style={{ backgroundColor: "var(--secondary)" }} />
-                                </div>
-                            </Modal.Content>
-                            <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                <Button inverted color='red' onClick={() => setPlaylistPictureOpenState(false)}><Icon name='remove' />Close</Button>
-                                <Button className="ui primary button" onClick={updatePlaylistPicture}><Icon name='checkmark' />Update</Button>
-                            </Modal.Actions>
-                        </Modal>
+                        <img className="playlistArt" src={playlistPicture} alt="" />
+
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
-                                <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
-                                    maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => handleNameChange(e.target.value)}
-                                />
+                                <div className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }} maxLength={35}>{playlistName ? playlistName : "Unnamed Playlist"}</div>
                             </div>
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
@@ -515,59 +337,12 @@ const PlaylistScreen = (props) => {
                                     </Link>
 
                                 </div>
-                                <div className="playlistSave">
-                                    <Popup
-                                        content='Saved!'
-                                        on='click'
-                                        pinned
-                                        trigger={<button className="clickButton playlistSaveButton ui button" onClick={savePlaylist}>
-                                            <Icon className="large save outline"></Icon>
-                                        </button>}
-                                    />
-                                    <Modal
-                                        basic
-                                        onClose={() => setDeletePlaylistOpenState(false)}
-                                        onOpen={() => setDeletePlaylistOpenState(true)}
-                                        open={deletePlaylistOpenState}
-                                        size='small'
-                                        trigger={<button className="clickButton playlistSaveButton ui button">
-                                            <Icon className="large trash"></Icon>
-                                        </button>}>
-                                        <Header icon><Icon className='large trash' />
-                                            Are you sure you want to delete this playlist?
-                                            <br></br>
-                                            <div className="irreversible">THIS IS NOT REVERSIBLE!</div>
-                                        </Header>
-                                        <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                            <Button className="ui primary button" onClick={deletePlaylist}><Icon name='checkmark' />Yes</Button>
-                                            <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
-                                        </Modal.Actions>
-                                    </Modal>
-                                    <PrivacyPicker></PrivacyPicker>
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
-                    <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
-                        placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)} />
-                </div>
-                <div className="playlistScreenAddSongBox">
-                    <div className="addSongEntireContainer">
-                        <div className="addSongContainer ui input">
-                            <p className="addSongText" >Add Song</p>
-                            <div className="addSongSearchContainer ui input">
-                                <input className="addSongSearch" onKeyUp={(e) => handleSearchInput(e)} placeholder="Add Song..."></input>
-                            </div>
-                            <button type="submit" className="clickButton ui icon large button" onClick={() => searchSpotify(searchTerm)}>
-                                <i className="search icon"></i>
-                            </button>
-                            <div className="randomSongButton">
-                                <button onClick={getRandomSong} type="submit" className="clickButton ui button">Random Song</button>
-                            </div>
-                        </div>
-                        <div className="playlistAddSongDivider" ></div>
-                        <SongSearch searchResults={searchResults} addSong={addSong} playSongByURI={playSongByURI} />
-                    </div>
+                    <div rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}>{playlistDescription ? playlistDescription : ""}</div>
                 </div>
             </div>
 
@@ -597,9 +372,8 @@ const PlaylistScreen = (props) => {
                                 </div>
                             </div>
                             {playlistSongs.filter(song => song.title.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase())).map((song, index) => (
-                                <Draggable key={song.key.toString()} draggableId={song.key.toString()} index={index}>
-                                    {(provided, snapshot) => (
-                                        <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
+                           
+                                        <div className="playlistSongBox" ref={provided.innerRef}  >
                                             <div className="playlistSongIcon" style={{ display: "flex", flexDirection: "row", width: "7%" }}>
                                                 <Icon className="big" name="play circle outline" onClick={() => playSong(index)}></Icon>
                                             </div>
@@ -646,14 +420,7 @@ const PlaylistScreen = (props) => {
                                                     <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
                                                 </Modal.Actions>
                                             </Modal>
-                                            <Icon className="removeSongIcon large" style={{
-                                                width: "3%", display: (song.title === songHoverState) ? "block" : "none"
-                                            }}
-                                                name="remove" onClick={() => removeSong(song)}>
-                                            </Icon>
                                         </div>
-                                    )}
-                                </Draggable>
                             ))}
                             {provided.placeholder}
                         </div>
@@ -669,4 +436,4 @@ export default compose(
     graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
     graphql(UPDATE_PLAYLIST, { name: 'updatePlaylist' }),
     graphql(DELETE_PLAYLIST, { name: "deletePlaylist" })
-)(PlaylistScreen);
+)(ViewPlaylistScreen);

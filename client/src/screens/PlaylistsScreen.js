@@ -47,7 +47,7 @@ const PlaylistsScreen = props => {
       console.log(data.addPlaylist);
       console.log(props.user.username);
       props.history.push({
-        pathname: '/playlist/' + data.addPlaylist,
+        pathname: '/playlist/' + newPlaylist.owner + '/' + data.addPlaylist,
         playlist: {
           _id: data.addPlaylist,
           ...newPlaylist
@@ -74,7 +74,7 @@ const PlaylistsScreen = props => {
         <Grid columns={columns} divided>
           {playlists.map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link to={{ pathname: "/playlist/" + playlist._id, playlist: playlist }}>
+              <Link to={{ pathname: "/playlist/" + playlist.owner + '/' + playlist._id, playlist: playlist }}>
                 <Playlist playlist={playlist} />
               </Link>
             </Grid.Column>
