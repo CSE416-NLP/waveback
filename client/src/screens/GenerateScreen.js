@@ -58,16 +58,24 @@ const GenerateScreen = (props) => {
         setGenres(newGenres);
       })
     // let countryObject = contryList().getLabel
-    let newCountries = [];
-    for (const [key, value] of Object.entries(countryList().getLabelList())) {
-      // console.log(key.toString());
-      // console.log(value.toString());
-      let newCountry = {
-        name: key.toString(),
-        id: value.toString()
-      }
-      newCountries.push(newCountry);
-    }
+    let newCountries = [
+      {name: "United States", id: "US"},
+      {name: "Canada", id: "CA"},
+      {name: "Mexico", id: "MO"},
+      {name: "Brazil", id: "BA"},
+      {name: "United Kingdom", id: "UK"},
+      {name: "Germany", id: "GE"},
+      {name: "France", id: "FR"},
+    ];
+    // for (const [key, value] of Object.entries(countryList().getLabelList())) {
+    //   // console.log(key.toString());
+    //   // console.log(value.toString());
+    //   let newCountry = {
+    //     name: key.toString(),
+    //     id: value.toString()
+    //   }
+    //   newCountries.push(newCountry);
+    // }
     // console.log(newCountries);
     setCountries(newCountries);
     return () => {
@@ -138,7 +146,7 @@ const GenerateScreen = (props) => {
   }
 
   const addCountry = (country, id) => {
-    console.log(id);
+    console.log(country + " " + id);
     let updateThis = true;
     let countryCopy = [...countryDisplay];
     for (let i = 0; i < countryCopy.length; i++) {
@@ -146,6 +154,7 @@ const GenerateScreen = (props) => {
     }
     if (updateThis) { countryCopy.push({ country: country }); }
     setCountryDisplay(countryCopy);
+    console.log(countryDisplay);
     countryCopy = [...countryIDs];
     countryCopy.push(id);
     setCountryIDs(countryCopy);
@@ -275,7 +284,7 @@ const GenerateScreen = (props) => {
       console.log(newPlaylist);
       // console.log(props.user.username);
       props.history.push({
-        pathname: '/playlist/' + data.addPlaylist,
+        pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
         playlist: {
           _id: data.addPlaylist,
           ...newPlaylist
@@ -294,12 +303,6 @@ const GenerateScreen = (props) => {
           <div align="center" className="generateScreenBox">
             <div className="generateLeftContainer">
             <div className="generateTopCountries">
-              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("United States", "US")}>United States</button></div>
-              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Canada", "CA")}>Canada</button></div>
-              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Mexico", "MX")}>Mexico</button></div>
-              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Brazil", "BR")}>Brazil</button></div>
-              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("United Kingdom", "GB")}>United Kingdom</button></div>
-              <div className="genreButton"><button className="clickButton ui button" onClick={() => addCountry("Germany", "DE")}>Germany</button></div>
             </div>
               <div className="ui input">
                 <input size="25" id="genreSearch" className="generateInput" onChange={(e) => setGenreInputState(e.target.value)}
@@ -317,7 +320,7 @@ const GenerateScreen = (props) => {
             <div className="genreRightContainer">
               <div className="genreRightContainerInner">
                 {countryDisplay.map((row, index) =>
-                  <p key={index}><i className="genreList">{row.country.name}</i></p>
+                  <p key={index}><i className="genreList">{row.country}</i></p>
                 )}
               </div>
             </div>
