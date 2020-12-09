@@ -254,7 +254,7 @@ const GenerateScreen = (props) => {
       if (!newPlaylist.songs[i]._id)
         newPlaylist.songs[i]._id = new ObjectId();
     }
-    console.log(newPlaylist.songs);
+    console.log(newPlaylist);
     // console.log(newPlaylist.songs.length);
 
     const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
