@@ -133,8 +133,6 @@ const PlaylistScreen = (props) => {
         let token = getSpotifyAccessToken();
         token = "Bearer " + token;
         let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-        // let query = "https://api.spotify.com/v1/browse/categories/rap/playlists?country=US&limit=10"
-        // let query = "https://api.spotify.com/v1/browse/categories/country/playlists?country=US&limit=10"
         fetch(query, {
             method: "GET",
             headers: {
@@ -465,10 +463,6 @@ const PlaylistScreen = (props) => {
         }
     }
 
-
-    // let duration = 0;
-    // for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
-
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
@@ -505,22 +499,18 @@ const PlaylistScreen = (props) => {
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play</button>
-                                    <button className="playlistShuffleButton clickButton ui button" onClick={shufflePlaylist}>
-                                        <Icon className="large shuffle"></Icon>
-                                    </button>
-                                    <Link to={{ pathname: "/playlists" }}>
-                                        <button className="playlistCopyButton clickButton ui button" onClick={copyPlaylist}>
-                                            <Icon className="large copy"></Icon>
-                                        </button>
-                                    </Link>
-
                                 </div>
                                 <div className="playlistSave">
+                                <Link to={{ pathname: "/playlists" }}>
+                                    <button className="playlistCopyButton clickButton ui button icon" onClick={copyPlaylist}>
+                                        <Icon className="large copy"></Icon>
+                                    </button>
+                                </Link>
                                     <Popup
                                         content='Saved!'
                                         on='click'
                                         pinned
-                                        trigger={<button className="clickButton playlistSaveButton ui button" onClick={savePlaylist}>
+                                        trigger={<button className="clickButton playlistSaveButton ui button icon" onClick={savePlaylist}>
                                             <Icon className="large save outline"></Icon>
                                         </button>}
                                     />
@@ -530,7 +520,7 @@ const PlaylistScreen = (props) => {
                                         onOpen={() => setDeletePlaylistOpenState(true)}
                                         open={deletePlaylistOpenState}
                                         size='small'
-                                        trigger={<button className="clickButton playlistSaveButton ui button">
+                                        trigger={<button className="clickButton playlistSaveButton ui button icon">
                                             <Icon className="large trash"></Icon>
                                         </button>}>
                                         <Header icon><Icon className='large trash' />
@@ -543,13 +533,13 @@ const PlaylistScreen = (props) => {
                                             <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
                                         </Modal.Actions>
                                     </Modal>
-                                    <PrivacyPicker></PrivacyPicker>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
-                        placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)} />
+                        placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)}>
+                    </textarea>
                 </div>
                 <div className="playlistScreenAddSongBox">
                     <div className="addSongEntireContainer">
@@ -577,7 +567,13 @@ const PlaylistScreen = (props) => {
                         <div className="playlistSongsContainer" {...provided.droppableProps} ref={provided.innerRef}>
                             <div className="playlistFilterContainer">
                                 <div className="playlistFilterDivider"></div>
+                                <div className="playlistShuffleButton">
+                                        <button className="clickButton ui icon button" onClick={shufflePlaylist}>
+                                            <Icon className="shuffle"></Icon>
+                                        </button>
+                                    </div>
                                 <div className="ui input">
+
                                     <input placeholder="Filter..." size="40" className="playlistFilter"
                                         style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => setFilter(e.target.value)}>
                                     </input>
@@ -585,6 +581,8 @@ const PlaylistScreen = (props) => {
                                         <i className="search icon"></i>
                                     </button>
                                 </div>
+                                <div className="playlistFilterDivider"></div>
+                                <PrivacyPicker className="dropdownChangePlaylistPrivacy"></PrivacyPicker>
                                 <div className="playlistFilterDivider"></div>
                             </div>
                             <div style={{ display: "flex" }}>

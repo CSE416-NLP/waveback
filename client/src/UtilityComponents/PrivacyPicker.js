@@ -6,7 +6,7 @@ const PrivacyPicker = (props) => {
     const onVisibilityChange = props.onVisibilityChange ? props.onVisibilityChange : () => console.log("No callback specified")
 
     return (
-        <div className="dropdownChangePrivacy">
+        <div>
             <Button.Group>
                 <Dropdown text={props.displayText ? props.displayText : "Visibility"} icon='setting' floating labeled button className='clickButton icon'>
                     <Dropdown.Menu className="dropdownMenu">
