@@ -54,20 +54,30 @@ const GenerateScreen = (props) => {
     // let countryObject = contryList().getLabel
     let newCountries = [
       {name: "United States", id: "US"},
-      {name: "Canada", id: "CA"},
-      {name: "Mexico", id: "MO"},
-      {name: "Brazil", id: "BA"},
-      {name: "France", id: "FR"},
       {name: "United Kingdom", id: "UK"},
+      {name: "Mexico", id: "MO"},
       {name: "Germany", id: "GE"},
+      {name: "Brazil", id: "BA"},
+      {name: "Canada", id: "CA"},
+      {name: "Australia", id: "AU"},
+      {name: "Netherlands", id: "NL"},
+      {name: "France", id: "FR"},
+      {name: "Sweden", id: "SE"},
+      {name: "Spain", id: "ES"},
+      {name: "Italy", id: "IT"},
+      {name: "Philippines", id: "PH"},
+      {name: "Argentina", id: "AR"},
+      {name: "Norway", id: "NO"},
+      {name: "Chile", id: "CL"},
+      {name: "Denmark", id: "DK"},
+      {name: "New Zealand", id: "NZ"},
+      {name: "Finland", id: "FI"},
+      {name: "Poland", id: "PL"},
     ];
     setCountries(newCountries);
     return () => {
     }
   }, [refetch]);
-  // console.log(countries);
-
-  // console.log(genres);
 
   const [numSongs, setNumSongs] = useState(1);
   const [lastSongInputValid, setLastSongInputValid] = useState(true);
@@ -270,7 +280,7 @@ const GenerateScreen = (props) => {
                   style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
                 />
               </div>
-              <div className="countryButtonContainerLeft">
+              <div className="generateScreenButtonContainer">
                 {countries.map((country, index) => (
                   <div className="genreButton">
                     <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)} onMouseEnter={() => setTextHoverState(null)}>
@@ -307,7 +317,7 @@ const GenerateScreen = (props) => {
                   style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter categories..."
                 />
               </div>
-              <div className="genreButtonContainer">
+              <div className="generateScreenButtonContainer">
                 {genres.map((genre, index) => (
                   <div className="genreButton">
                     <button className="clickButton ui button large" onClick={() => addGenre(genre.name, genre.id)} onMouseEnter={() => setTextHoverState(null)}>

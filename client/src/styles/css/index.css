@@ -438,26 +438,7 @@ code {
   color: var(--buttonColor);
 }
 
-.countryButtonContainer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1%;
-  height: 29vmin;
-  overflow-y: auto;
-}
-
-.countryButtonContainerLeft {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin-top: 4%;
-  height: 15vmin;
-}
-
-.genreButtonContainer {
+.generateScreenButtonContainer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
