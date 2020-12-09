@@ -57,9 +57,9 @@ const GenerateScreen = (props) => {
       {name: "Canada", id: "CA"},
       {name: "Mexico", id: "MO"},
       {name: "Brazil", id: "BA"},
+      {name: "France", id: "FR"},
       {name: "United Kingdom", id: "UK"},
       {name: "Germany", id: "GE"},
-      {name: "France", id: "FR"},
     ];
     setCountries(newCountries);
     return () => {
@@ -270,7 +270,7 @@ const GenerateScreen = (props) => {
                   style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
                 />
               </div>
-              <div className="countryButtonContainer">
+              <div className="countryButtonContainerLeft">
                 {countries.map((country, index) => (
                   <div className="genreButton">
                     <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)} onMouseEnter={() => setTextHoverState(null)}>

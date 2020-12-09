@@ -11,7 +11,6 @@ import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 import PrivacyPicker from "../UtilityComponents/PrivacyPicker.js";
 import SongSearch from "../UtilityComponents/SongSearch";
-// import { PlaylistTransaction } from '../utils/jsTPS';
 import { Link } from "react-router-dom"
 import * as mutations from '../cache/mutations';
 import { withRouter } from "react-router-dom";
@@ -20,23 +19,18 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const ViewPlaylistScreen = (props) => {
-    // console.log("ViewPlaylistScreen");
     if (!props.location.playlist) {
         console.log("no props");
         props.history.push("/discover");
-        // return <>;
     } else {
 
     }
-    // console.log(props);
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
     const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist.name);
     const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
     const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
-    // const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
-    // const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
     const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
     const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
     const [sortState, setSortState] = useState("normal");
@@ -49,10 +43,6 @@ const ViewPlaylistScreen = (props) => {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        // async function loadPlaylists() {
-        //     setPlaylistSongs(props.location.playlist.songs);
-        // }
-        // loadPlaylists();
         console.log("useeffect")
         console.log(props);
         console.log(playlistSongs);
@@ -94,8 +84,6 @@ const ViewPlaylistScreen = (props) => {
         let token = getSpotifyAccessToken();
         token = "Bearer " + token;
         let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-        // let query = "https://api.spotify.com/v1/browse/categories/rap/playlists?country=US&limit=10"
-        // let query = "https://api.spotify.com/v1/browse/categories/country/playlists?country=US&limit=10"
         fetch(query, {
             method: "GET",
             headers: {
@@ -306,43 +294,41 @@ const ViewPlaylistScreen = (props) => {
             })
         }
     }
-    // let duration = 0;
-    // for (let i = 0; i < playlistSongs.length; i++) { duration += playlistSongs[i].duration; }
 
     return (
-        <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
+        <div className="viewPlaylistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
-                <div className="playlistScreenLeftContainer">
+                <div className="viewPlaylistScreenLeftContainer">
                     <div className="playlistScreenInfo">
                         <img className="playlistArt" src={playlistPicture} alt="" />
 
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
-                                <div className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }} maxLength={35}>{playlistName ? playlistName : "Unnamed Playlist"}</div>
+                                <div className="viewPlaylistTitle" style={{ backgroundColor: "var(--secondary)" }} maxLength={35}>{playlistName ? playlistName : "Unnamed Playlist"}</div>
                             </div>
-                            <div className="playlistTitleDivider ">
+                            <div className="viewPlaylistTitleDivider">
                                 <div className="ui divider"></div>
                             </div>
                             <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
-                                <div className="playlistPlayAllButton">
+                                <div className="viewPlaylistPlayAllButton">
                                     <button className="clickButton ui button huge" onClick={playRandom}>Play Random</button>
-                                    <button className="playlistShuffleButton clickButton ui button" onClick={shufflePlaylist}>
+                                </div>
+                                <div>
+                                    <button className="playlistShuffleButton clickButton ui icon button" onClick={shufflePlaylist}>
                                         <Icon className="large shuffle"></Icon>
                                     </button>
                                     <Link to={{ pathname: "/playlists" }}>
-                                        <button className="playlistCopyButton clickButton ui button" onClick={copyPlaylist}>
+                                        <button className="playlistCopyButton clickButton ui icon button" onClick={copyPlaylist}>
                                             <Icon className="large copy"></Icon>
                                         </button>
                                     </Link>
-
                                 </div>
-
-
+                               
                             </div>
                         </div>
                     </div>
-                    <div rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}>{playlistDescription ? playlistDescription : ""}</div>
+                    <div rows={4} className="viewPlaylistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}>{playlistDescription ? playlistDescription : ""}</div>
                 </div>
             </div>
 
@@ -351,7 +337,7 @@ const ViewPlaylistScreen = (props) => {
                     {(provided, snapshot) => (
                         <div className="playlistSongsContainer" {...provided.droppableProps} ref={provided.innerRef}>
                             <div className="playlistFilterContainer">
-                                <div className="playlistFilterDivider"></div>
+                                <div className="viewPlaylistFilterDivider"></div>
                                 <div className="ui input">
                                     <input placeholder="Filter..." size="40" className="playlistFilter"
                                         style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => setFilter(e.target.value)}>
@@ -360,7 +346,7 @@ const ViewPlaylistScreen = (props) => {
                                         <i className="search icon"></i>
                                     </button>
                                 </div>
-                                <div className="playlistFilterDivider"></div>
+                                <div className="viewPlaylistFilterDivider"></div>
                             </div>
                             <div style={{ display: "flex" }}>
                                 <div style={{ width: "7%" }}></div>
