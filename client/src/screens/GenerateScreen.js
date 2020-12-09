@@ -17,11 +17,32 @@ const GenerateScreen = (props) => {
   const { refetch } = useQuery(GET_DB_PLAYLISTS);
   const [playlists, setPlaylists] = useState([]);
   const [textHoverState, setTextHoverState] = useState(null);
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState([{ name: "United States", id: "US" },
+  { name: "United Kingdom", id: "GB" },
+  { name: "Mexico", id: "MO" },
+  { name: "Germany", id: "GE" },
+  { name: "Brazil", id: "BA" },
+  { name: "Canada", id: "CA" },
+  { name: "Australia", id: "AU" },
+  { name: "Netherlands", id: "NL" },
+  { name: "France", id: "FR" },
+  { name: "Sweden", id: "SE" },
+  { name: "Spain", id: "ES" },
+  { name: "Italy", id: "IT" },
+  { name: "Philippines", id: "PH" },
+  { name: "Argentina", id: "AR" },
+  { name: "Norway", id: "NO" },
+  { name: "Chile", id: "CL" },
+  { name: "Denmark", id: "DK" },
+  { name: "New Zealand", id: "NZ" },
+  { name: "Finland", id: "FI" },
+  { name: "Poland", id: "PL" },]);
   const [countryIDs, setCountryIDs] = useState([]);
   const [categoryIDs, setCategoryIDs] = useState([]);
   const [genres, setGenres] = useState([]);
   const [countryDisplay, setCountryDisplay] = useState([]);
+  const [decades, setDecades] = useState(["1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"]);
+  const [decadeQuery, setDecadeQuery] = useState([]);
 
   useEffect(() => {
     async function loadPlaylists() {
@@ -51,30 +72,6 @@ const GenerateScreen = (props) => {
         }
         setGenres(newGenres);
       })
-    // let countryObject = contryList().getLabel
-    let newCountries = [
-      {name: "United States", id: "US"},
-      {name: "United Kingdom", id: "UK"},
-      {name: "Mexico", id: "MO"},
-      {name: "Germany", id: "GE"},
-      {name: "Brazil", id: "BA"},
-      {name: "Canada", id: "CA"},
-      {name: "Australia", id: "AU"},
-      {name: "Netherlands", id: "NL"},
-      {name: "France", id: "FR"},
-      {name: "Sweden", id: "SE"},
-      {name: "Spain", id: "ES"},
-      {name: "Italy", id: "IT"},
-      {name: "Philippines", id: "PH"},
-      {name: "Argentina", id: "AR"},
-      {name: "Norway", id: "NO"},
-      {name: "Chile", id: "CL"},
-      {name: "Denmark", id: "DK"},
-      {name: "New Zealand", id: "NZ"},
-      {name: "Finland", id: "FI"},
-      {name: "Poland", id: "PL"},
-    ];
-    setCountries(newCountries);
     return () => {
     }
   }, [refetch]);
@@ -105,7 +102,7 @@ const GenerateScreen = (props) => {
   }
 
   const addCountry = (country, id) => {
-    console.log(country + " " + id);
+    // console.log(country + " " + id);
     let updateThis = true;
     let countryCopy = [...countryDisplay];
     for (let i = 0; i < countryCopy.length; i++) {
@@ -113,10 +110,21 @@ const GenerateScreen = (props) => {
     }
     if (updateThis) { countryCopy.push({ country: country }); }
     setCountryDisplay(countryCopy);
-    console.log(countryDisplay);
+    // console.log(countryDisplay);
     countryCopy = [...countryIDs];
     countryCopy.push(id);
     setCountryIDs(countryCopy);
+  }
+
+  const addDecade = (decade) => {
+    let updateThis = true;
+    let decadeCopy = [...decadeQuery];
+    let index = 0;
+    for (let i = 0; i < decadeCopy.length; i++) {
+      if (decadeCopy[i] === decade) { updateThis = false; }
+    }
+    if (updateThis) { decadeCopy.push(decade); }
+    setDecadeQuery(decadeCopy);
   }
 
   const removeGenre = (genreName) => {
@@ -153,7 +161,11 @@ const GenerateScreen = (props) => {
     }
   }
 
-  const generatePlaylistHelper = async () => {
+  // const generatePlaylistHelper = async () => {
+
+  // }
+
+  const generatePlaylist = async () => {
     let numCountries = countryIDs.length;
     let numCategories = categoryIDs.length;
     console.log("num of countries: " + numCountries + " num of categories: " + numCategories)
@@ -176,6 +188,7 @@ const GenerateScreen = (props) => {
 
     // RANDOMLY SELECT A SONG UNTIL WE REACH TARGET NUMBER //
     for (var i = 0; i < numSongs; i++) {
+      try {
       let country = "US";
       let category = "pop";
       if (numCountries > 0) {
@@ -186,6 +199,111 @@ const GenerateScreen = (props) => {
       }
 
       let query = "https://api.spotify.com/v1/browse/categories/" + category + "/playlists?country=" + country + "&limit=50";
+      let response = await fetch(query, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": token
+        }
+      })
+      const data = await response.json()
+      let playlists = data.playlists.items;
+      let randomPlaylist = playlists[Math.floor(Math.random() * playlists.length)];
+      let playlistID = randomPlaylist.id;
+      let playlistQuery = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks";
+
+      response = await fetch(playlistQuery, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": token
+        }
+      })
+      const songData = await response.json()
+
+      let randomSongIndex = Math.floor(Math.random() * songData.items.length);
+      let randomSong = songData.items[randomSongIndex].track;
+      // console.log(randomSong);
+      let newSong = {
+        _id: "",
+        songURI: randomSong.uri,
+        key: newPlaylist.songs.length,
+        title: randomSong.name,
+        artist: randomSong.artists[0].name,
+        album: randomSong.album.name,
+        albumPicture: randomSong.album.images[0].url,
+        genre: [],
+        year: randomSong.album.release_date ? parseInt(randomSong.album.release_date.substring(0, 4)) : null,
+        duration: Math.round(randomSong.duration_ms / 1000),
+        // __typename: "Song",
+      }
+      newPlaylist.songs.push(newSong);
+      newPlaylist.songURIs.push(newSong.songURI);
+    }
+    catch(err) {
+      console.error(err.message)
+    }
+      // console.log(data);
+    }
+    // console.log(newPlaylist);
+    // console.log(newPlaylist.songs.length);
+    for (let i = 0; i < newPlaylist.songs.length; i++) {
+      console.log("Test " + newPlaylist.songs[i]._id);
+      if (!newPlaylist.songs[i]._id)
+        newPlaylist.songs[i]._id = new ObjectId();
+    }
+    console.log(newPlaylist.songs);
+    // console.log(newPlaylist.songs.length);
+
+    const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
+    if (data.addPlaylist) {
+      // console.log(newPlaylist);
+      // console.log(props.user.username);
+      props.history.push({
+        pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
+        playlist: {
+          _id: data.addPlaylist,
+          ...newPlaylist
+        },
+        refreshList: refetch
+      })
+    }
+  }
+
+  const generateHistoricalPlaylist = async () => {
+    let numCountries = countryIDs.length;
+    let numDecades = decadeQuery.length;
+    console.log("num of countries: " + numCountries + " num of categories: " + numDecades)
+    let token = getSpotifyAccessToken();
+    token = "Bearer " + token;
+
+    let newPlaylist = {
+      key: playlists.length,
+      owner: props.user.username,
+      name: "Unnamed Playlist",
+      picture: "http://copywritingcourse.com/wp-content/uploads/blank-cd-icon.png",
+      description: "",
+      songs: [],
+      songURIs: [],
+      followers: 0,
+      visibility: props.user.defaultVisibility,
+      tags: [],
+      duration: 0
+    }
+
+    for (var i = 0; i < numSongs; i++) {
+      let country = "US";
+      let decade = "2020s";
+      if (numCountries > 0) {
+        country = countryIDs[Math.floor(Math.random() * numCountries)];
+      }
+      if (numDecades > 0) {
+        decade = categoryIDs[Math.floor(Math.random() * numDecades)];
+      }
+
+      let query = "https://api.spotify.com/v1/search?q=" + decade + "&type=playlist&market=" + country;
       fetch(query, {
         method: "GET",
         headers: {
@@ -237,32 +355,15 @@ const GenerateScreen = (props) => {
         });
     }
     // console.log(newPlaylist);
-    console.log(newPlaylist.songs.length);
+    // console.log(newPlaylist.songs.length);
     for (let i = 0; i < newPlaylist.songs.length; i++) {
       console.log("Test " + newPlaylist.songs[i]._id);
       if (!newPlaylist.songs[i]._id)
         newPlaylist.songs[i]._id = new ObjectId();
     }
+    console.log(newPlaylist);
+
     return newPlaylist;
-  }
-
-  const generatePlaylist = async () => {
-    let newPlaylist = await generatePlaylistHelper();
-    console.log(newPlaylist.songs.length);
-
-    const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
-    if (data.addPlaylist) {
-      console.log(newPlaylist);
-      // console.log(props.user.username);
-      props.history.push({
-        pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
-        playlist: {
-          _id: data.addPlaylist,
-          ...newPlaylist
-        },
-        refreshList: refetch
-      })
-    }
   }
 
   return (
@@ -273,8 +374,8 @@ const GenerateScreen = (props) => {
           <h3>Countries</h3>
           <div align="center" className="generateScreenBox">
             <div className="generateLeftContainer">
-            <div className="generateTopCountries">
-            </div>
+              <div className="generateTopCountries">
+              </div>
               <div className="ui input">
                 <input size="25" id="genreSearch" className="generateInput" onChange={(e) => setGenreInputState(e.target.value)}
                   style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
@@ -295,13 +396,14 @@ const GenerateScreen = (props) => {
                 {countryDisplay.map((row, index) =>
                   <div className="categoryTextContainer" onMouseEnter={() => setTextHoverState(row.country)}>
                     <p key={index} className="genreList"><i>{row.country}</i></p>
-                      <div className="removeCategoryIcon">
-                        <Icon className="large" style={{
-                          width: "3%", display: (row.country === textHoverState) ? "block" : "none"}}
-                          name="remove" onClick={() => removeCountry(row.country)}>
-                        </Icon>
-                      </div>
+                    <div className="removeCategoryIcon">
+                      <Icon className="large" style={{
+                        width: "3%", display: (row.country === textHoverState) ? "block" : "none"
+                      }}
+                        name="remove" onClick={() => removeCountry(row.country)}>
+                      </Icon>
                     </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -334,7 +436,8 @@ const GenerateScreen = (props) => {
                     <p className="genreList" key={index}><i>{row.genre}</i></p>
                     <div className="removeCategoryIcon">
                       <Icon className="large" style={{
-                        width: "3%", display: (row.genre === textHoverState) ? "block" : "none"}}
+                        width: "3%", display: (row.genre === textHoverState) ? "block" : "none"
+                      }}
                         name="remove" onClick={() => removeGenre(row.genre)}>
                       </Icon>
                     </div>

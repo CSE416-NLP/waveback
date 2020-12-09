@@ -18,29 +18,33 @@ import * as mutations from '../cache/mutations';
 const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-const PlaylistScreen = (props) => {
-    if (!props.location.playlist) {
-        console.log("no props");
-        props.history.push("/discover");
-    } else {
-
-    }
-    try {
-        const [test, setTest] = useState(props.location.playlist);
-    } catch {
-        props.history.push("/discover");
-    }
+const PlaylistScreen = (props) => {   
+    // console.log(props);
+    
+    useEffect(() => {
+        if (!props.location.playlist) {
+            console.log("no props");
+            props.history.push("/discover");
+        } else {
+            modifyPlaylist(props.location.playlist);
+        }
+        document.addEventListener("keydown", handleKeyPress);
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+            props.tps.clearAllTransactions();
+        }
+    }, [props.location.playlist]);
 
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
     const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
-    const [playlistName, setPlaylistName] = useState(props.location.playlist.name);
-    const [playlistDescription, setPlaylistDescription] = useState(props.location.playlist.description);
-    const [playlistPicture, setPlaylistPicture] = useState(props.location.playlist.picture ? props.location.playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
+    const [playlistName, setPlaylistName] = useState(playlist?.name);
+    const [playlistDescription, setPlaylistDescription] = useState(playlist?.description);
+    const [playlistPicture, setPlaylistPicture] = useState(playlist?.picture ? playlist?.picture : "https://i.imgur.com/ZRoNOEu.png");
     const [playlistPictureOpenState, setPlaylistPictureOpenState] = useState(false);
     const [deletePlaylistOpenState, setDeletePlaylistOpenState] = useState(false);
-    const [playlistSongs, setPlaylistSongs] = useState(props.location.playlist.songs);
-    const [playlistSongURIs, setPlaylistSongURIs] = useState(props.location.playlist.songURIs);
+    const [playlistSongs, setPlaylistSongs] = useState(playlist?.songs);
+    const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist?.songURIs);
     const [sortState, setSortState] = useState("normal");
     const [songHoverState, setSongHoverState] = useState(null);
     const [songInfoOpenState, setSongInfoOpenState] = useState(false);
@@ -49,21 +53,6 @@ const PlaylistScreen = (props) => {
     const [searchResults, setSearchResult] = useState([]);
     // Song Filtering
     const [filter, setFilter] = useState("");
-
-    useEffect(() => {
-        // async function loadPlaylists() {
-        //     setPlaylistSongs(props.location.playlist.songs);
-        // }
-        // loadPlaylists();
-        // console.log("useeffect")
-        // console.log(props);
-        // console.log(playlistSongs);
-        document.addEventListener("keydown", handleKeyPress);
-        return () => {
-            document.removeEventListener("keydown", handleKeyPress);
-            props.tps.clearAllTransactions();
-        }
-    }, [props]);
 
     const getPlaylistObject = (name, picture, description, songs, songURIs) => {
         let newPlaylist = {
@@ -422,6 +411,10 @@ const PlaylistScreen = (props) => {
         }
     };
 
+    
+    if (!props.location.playlist) {
+        return <></>;
+    }
     const copyPlaylist = async () => {
         console.log(currentUser);
         console.log(playlist);
@@ -444,6 +437,7 @@ const PlaylistScreen = (props) => {
             tags: playlist.tags,
             duration: playlist.duration,
         }
+        console.log(newPlaylist);
         // Add playlist to database
         const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
         if (data.addPlaylist) {

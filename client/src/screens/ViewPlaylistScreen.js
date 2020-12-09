@@ -19,20 +19,22 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const ViewPlaylistScreen = (props) => {
-    if (!props.location.playlist) {
-        console.log("no props");
-        props.history.push("/discover");
-    } else {
 
-    }
+    useEffect(() => {
+        if (!props.location.playlist) {
+            console.log("no props");
+            props.history.push("/discover");
+        }
+    }, [props]);
+
     const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
     const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
-    const [playlistName, setPlaylistName] = useState(playlist.name);
-    const [playlistDescription, setPlaylistDescription] = useState(playlist.description);
-    const [playlistPicture, setPlaylistPicture] = useState(playlist.picture ? playlist.picture : "https://i.imgur.com/ZRoNOEu.png");
-    const [playlistSongs, setPlaylistSongs] = useState(playlist.songs);
-    const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist.songURIs);
+    const [playlistName, setPlaylistName] = useState(playlist?.name);
+    const [playlistDescription, setPlaylistDescription] = useState(playlist?.description);
+    const [playlistPicture, setPlaylistPicture] = useState(playlist?.picture ? playlist?.picture : "https://i.imgur.com/ZRoNOEu.png");
+    const [playlistSongs, setPlaylistSongs] = useState(playlist?.songs);
+    const [playlistSongURIs, setPlaylistSongURIs] = useState(playlist?.songURIs);
     const [sortState, setSortState] = useState("normal");
     const [songHoverState, setSongHoverState] = useState(null);
     const [songInfoOpenState, setSongInfoOpenState] = useState(false);
@@ -41,15 +43,11 @@ const ViewPlaylistScreen = (props) => {
     const [searchResults, setSearchResult] = useState([]);
     // Song Filtering
     const [filter, setFilter] = useState("");
-
-    useEffect(() => {
-        console.log("useeffect")
-        console.log(props);
-        console.log(playlistSongs);
-        return () => {
-        }
-    }, [props]);
-
+    if (!props.location.playlist) {
+        return <></>
+    } 
+    
+    
     const getPlaylistObject = (name, picture, description, songs, songURIs) => {
         let newPlaylist = {
             _id: playlist._id,
