@@ -9,7 +9,7 @@ module.exports = {
         **/
         getAllPublicPlaylists: async (_, __) => {
             // const _id = new ObjectId(req.userId);
-            const playlists = await Playlist.find({ visibility: "public", });
+            const playlists = await Playlist.find({ visibility: "Public", });
             // const playlists = await Playlist.find({ owner: "q", });
             if (playlists) return playlists;
         }
@@ -81,7 +81,8 @@ module.exports = {
             @returns {boolean} successful update: true, failure: false
          **/
         updatePlaylist: async (_, args) => {
-            let { _id, name, picture, description, songs, songURIs, tags, duration } = args;
+            let { _id, name, picture, description, songs, songURIs, visibility, tags, duration } = args;
+            console.log(args);
             const objectId = new ObjectId(_id);
 
             // for (let i = 0; i < songs.length; i++) {
@@ -92,8 +93,8 @@ module.exports = {
             const saved = await Playlist.updateOne({ _id: objectId }, {
                 name: name, picture: picture,
                 description: description, songs: songs,
-                songURIs: songURIs, tags: tags,
-                duration: duration
+                songURIs: songURIs, visibility: visibility, tags: tags,
+                duration: duration,
             })
             if (saved) return true;
             else return false;
@@ -103,7 +104,7 @@ module.exports = {
              @param {object} req - the request object containing a user id
              @return {array} - an array of playlist objects on success, and an empty array on failure 
         **/
-      
+
         getUserPlaylists: async (_, args, { res }) => {
             const { owner } = args;
             if (!owner) { return ([]) };

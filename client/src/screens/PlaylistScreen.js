@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import "../styles/css/index.css"
 import { graphql } from '@apollo/react-hoc';
-import { flowRight as compose } from 'lodash';
+import { flowRight as compose, set } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
 import PrivacyPicker from "../UtilityComponents/PrivacyPicker.js";
@@ -18,9 +18,9 @@ import * as mutations from '../cache/mutations';
 const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-const PlaylistScreen = (props) => {   
+const PlaylistScreen = (props) => {
     // console.log(props);
-    
+
     useEffect(() => {
         if (!props.location.playlist) {
             console.log("no props");
@@ -48,13 +48,14 @@ const PlaylistScreen = (props) => {
     const [sortState, setSortState] = useState("normal");
     const [songHoverState, setSongHoverState] = useState(null);
     const [songInfoOpenState, setSongInfoOpenState] = useState(false);
+    const [playlistVisibility, setPlaylistVisibility] = useState(playlist?.visibility);
     // Spotify Song Searching
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResult] = useState([]);
     // Song Filtering
     const [filter, setFilter] = useState("");
 
-    const getPlaylistObject = (name, picture, description, songs, songURIs) => {
+    const getPlaylistObject = (name, picture, description, songs, songURIs, visibility) => {
         let newPlaylist = {
             _id: playlist._id,
             key: playlist.key,
@@ -65,25 +66,29 @@ const PlaylistScreen = (props) => {
             songs: songs,
             songURIs: songURIs,
             followers: playlist.followers,
-            visibility: playlist.visibility,
+            visibility: visibility,
             tags: playlist.tags,
             duration: parseInt(getAlbumTime(playlistSongs))
         }
         return newPlaylist;
     }
 
+
     const modifyPlaylist = (playlist) => {
+        console.log(playlist);
         setPlaylistName(playlist.name);
         setPlaylistPicture(playlist.picture);
         setPlaylistDescription(playlist.description);
         setPlaylistSongs(playlist.songs);
         setPlaylistSongURIs(playlist.songURIs);
+        setPlaylistVisibility(playlist.visibility);
         updateTracks(playlist.songURIs, props.currentSongIndex);
         setPlaylist(playlist);
     }
 
 
     const savePlaylist = async () => {
+        console.log(playlistVisibility);
         let songsCopy = [...playlistSongs];
         for (let i = 0; i < songsCopy.length; i++) {
             if (!songsCopy[i]._id) songsCopy[i]._id = ObjectId();
@@ -97,13 +102,36 @@ const PlaylistScreen = (props) => {
                 description: playlistDescription,
                 songs: songsCopy,
                 songURIs: playlistSongURIs,
+                visibility: playlistVisibility,
                 duration: parseInt(getAlbumTime(playlistSongs)),
-                tags: playlist.tags
+                tags: playlist.tags,
             }
         })
         if (data && data.updatePlaylist) console.log("Updated successfully");
         else console.log("Error in updating");
     }
+
+    const updatePlaylistVisibility = (newVisibility) => {
+        console.log("update visibility: "+ newVisibility)
+        setPlaylistVisibility(newVisibility);
+        let old_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs, playlist.visibility);
+        setPlaylist(old_playlist);
+        let new_playlist = getPlaylistObject(playlist.name, playlist.picture, playlist.description, playlist.songs, playlist.songURIs, newVisibility);
+        let transaction = new PlaylistTransaction(old_playlist, new_playlist, modifyPlaylist);
+        props.tps.addTransaction(transaction);
+        // const { data } = await props.updatePlaylist({
+        //     variables: {
+        //         _id: playlist._id,
+        //         name: props.location.playlist.name,
+        //         visibility: newVisibility
+        //     }
+        // });
+        // if (data && data.updatePlaylist) console.log("Playlist Visibility changed to", newVisibility);
+        // else console.log("Error in updating playlist visibility");
+        // setUpdateCheck(false);
+        // props.fetchUser();
+    }
+
 
     const deletePlaylist = async () => {
         setDeletePlaylistOpenState(false);
@@ -411,7 +439,7 @@ const PlaylistScreen = (props) => {
         }
     };
 
-    
+
     if (!props.location.playlist) {
         return <></>;
     }
@@ -477,7 +505,7 @@ const PlaylistScreen = (props) => {
                         </Modal>
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
-                                <input className="playlistTitle" 
+                                <input className="playlistTitle"
                                     maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => handleNameChange(e.target.value)}
                                 />
                             </div>
@@ -531,7 +559,7 @@ const PlaylistScreen = (props) => {
                             placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)}>
                         </textarea>
                     </div>
-                   
+
                 </div>
                 <div className="playlistScreenAddSongBox">
                     <div className="addSongEntireContainer">
@@ -574,7 +602,7 @@ const PlaylistScreen = (props) => {
                                     </button>
                                 </div>
                                 <div className="playlistFilterDivider"></div>
-                                <PrivacyPicker className="dropdownChangePlaylistPrivacy"></PrivacyPicker>
+                                <PrivacyPicker className="dropdownChangePlaylistPrivacy" displayText={playlistVisibility} onVisibilityChange={updatePlaylistVisibility}></PrivacyPicker>
                                 <div className="playlistFilterDivider"></div>
                             </div>
                             <div style={{ display: "flex" }}>

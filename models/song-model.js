@@ -33,7 +33,7 @@ const songSchema = new Schema(
         genre: [String],
         year: {
             type: Number,
-            required: true
+            required: false
         },
         duration: {
             type: Number,

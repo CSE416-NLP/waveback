@@ -107,7 +107,7 @@
                 "spotify:track:6MQAB3vorg90FA3tQpbYXK"
             ],
             "followers": 10,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Metal", "Rock", "Classical", "Jazz"],
             "duration": 1234,
             "createdAt": "10-10-20"
@@ -117,7 +117,7 @@
             "key": 1,
             "owner": "Joe Mama",
             "name": "Richard's Grading Bops",
-            "picture": "https://www.publicdomainpictures.net/pictures/70000/nahled/3d-a-square.jpg",
+            "picture": "https://www.Publicdomainpictures.net/pictures/70000/nahled/3d-a-square.jpg",
             "description": "ha ha yeah :)",
             "songs": [
                 {
@@ -150,7 +150,7 @@
                 "spotify:track:2RDeTDybENavg3R7X5AKOd"
             ],
             "followers": 2,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Rock", "Jazz", "Electronnic", "D&B"],
             "duration": 785,
             "createdAt": "1-13-2020"
@@ -206,7 +206,7 @@
                 "spotify:track:3lrLJzYlDMkpe2GelQqf5P"
             ],
             "followers": 74,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Metal"],
             "duration": 1111,
             "createdAt": "1-13-2009"
@@ -301,7 +301,7 @@
                 "spotify:track:4r7UvABK5z5EVgsrZgFENL"
             ],
             "followers": 999,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Electronic", "Pop"],
             "duration": 2164,
             "createdAt": "01-01-1970"
@@ -331,7 +331,7 @@
                 "spotify:track:3ZuVfQriS93y6ofwbIf7lp"
             ],
             "followers": 1,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Metal", "Rock"],
             "duration": 315,
             "createdAt": "3-30-2019"
@@ -374,7 +374,7 @@
                 "spotify:track:0r7rLeNXTRTRsyDjYp9tIq"
             ],
             "followers": 1,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Folk", "Rock", "Metal"],
             "duration": 609,
             "createdAt": "6-20-2012"
@@ -443,7 +443,7 @@
                 "spotify:track:2hKtLq0OFHoK7ftAqn456x"
             ],
             "followers": 80,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Electronic", "Rock", "Indie", "Alternative"],
             "duration": 799,
             "createdAt": "11-18-2020"
@@ -512,7 +512,7 @@
                 "spotify:track:2Z6uzO3wcOLCq5aInVQlcg"
             ],
             "followers": 999,
-            "visibility": "public",
+            "visibility": "Public",
             "tags": ["Electronic"],
             "duration": 743,
             "createdAt": "3-3-1969"

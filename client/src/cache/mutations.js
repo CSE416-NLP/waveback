@@ -124,8 +124,8 @@ export const ADD_PLAYLIST = gql`
 `;
 
 export const UPDATE_PLAYLIST = gql`
-    mutation UpdatePlaylist($_id: String!, $name: String, $picture: String, $description: String, $songs: [SongInput], $songURIs: [String], $tags: [String], $duration: Int){
-        updatePlaylist(_id: $_id, name: $name, picture: $picture, description: $description, songs: $songs, songURIs: $songURIs, tags: $tags, duration: $duration)
+    mutation UpdatePlaylist($_id: String!, $name: String, $picture: String, $description: String, $songs: [SongInput], $songURIs: [String], $visibility: String!, $tags: [String], $duration: Int){
+        updatePlaylist(_id: $_id, name: $name, picture: $picture, description: $description, songs: $songs, songURIs: $songURIs, visibility: $visibility, tags: $tags, duration: $duration)
     }
 `;
 export const DELETE_PLAYLIST = gql`
