@@ -217,7 +217,6 @@ const GenerateLocationPlaylist = (props) => {
 
                 let randomSongIndex = Math.floor(Math.random() * songData.items.length);
                 let randomSong = songData.items[randomSongIndex].track;
-                // console.log(randomSong);
                 let newSong = {
                     _id: "",
                     songURI: randomSong.uri,
@@ -229,7 +228,6 @@ const GenerateLocationPlaylist = (props) => {
                     genre: [],
                     year: randomSong.album.release_date ? parseInt(randomSong.album.release_date.substring(0, 4)) : null,
                     duration: Math.round(randomSong.duration_ms / 1000),
-                    // __typename: "Song",
                 }
                 newPlaylist.songs.push(newSong);
                 newPlaylist.songURIs.push(newSong.songURI);
@@ -237,22 +235,15 @@ const GenerateLocationPlaylist = (props) => {
             catch (err) {
                 console.error(err.message)
             }
-            // console.log(data);
         }
-        // console.log(newPlaylist);
-        // console.log(newPlaylist.songs.length);
         for (let i = 0; i < newPlaylist.songs.length; i++) {
-            // console.log("Test " + newPlaylist.songs[i]._id);
             if (!newPlaylist.songs[i]._id)
                 newPlaylist.songs[i]._id = new ObjectId();
         }
         console.log(newPlaylist);
-        // console.log(newPlaylist.songs.length);
 
         const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
         if (data.addPlaylist) {
-            // console.log(newPlaylist);
-            // console.log(props.user.username);
             props.history.push({
                 pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
                 playlist: {
