@@ -333,6 +333,11 @@ code {
 }
 
 /* GENERATE SCREEN */
+.generateTabPane {
+  background-color: var(--secondary);
+  padding: 1%;
+}
+
 .generateScreen {
   background-color: var(--background);
   display: flex;
@@ -341,7 +346,7 @@ code {
 }
 
 .generateScreenTitleText {
-  margin-top: 2.5%;
+  margin-top: 2%;
   margin-bottom: 3%;
   font-size: 40pt;
   font-weight: bolder;
@@ -358,7 +363,7 @@ code {
   justify-content: space-evenly;
 }
 
-.generateScreenTopInnerContainer {
+.generateScreenTopInnerContainerLocation, .generateScreenTopInnerContainerDate {
   vertical-align: top;
   display: flex;
   flex-direction: column;
@@ -366,10 +371,22 @@ code {
   width: 38%;
   padding: 0.5%;
   margin-bottom: 2%;
+  overflow: hidden;
+}
+
+.generateScreenTopInnerContainerLocation {
   border-style: double;
   border-width: 3px;
   border-color: var(--secondary);
-  overflow: hidden;
+}
+
+.generateScreenTopInnerContainerDate {
+  background-color: var(--background);
+  border-style: solid;
+  filter: drop-shadow(0px 0px 2px #333333);
+  border-width: 3px;
+  border-color: var(--secondary);
+  border-radius: 25px;
 }
 
 .generateInput { font-size: 18px; }
@@ -453,13 +470,22 @@ code {
   overflow-y: auto;
 }
 
-.generateDivider {
+.generateDividerDate, .generateDividerLocation {
   width: 88%;
   margin-bottom: -3%;
   margin-left: 6%;
-  border-style: double;
   border-width: 0 0 3px 0;
   border-color: var(--secondary);
+}
+
+.generateDividerDate {
+  border-style: solid;
+  border-radius: 5px;
+  filter: drop-shadow(0px 0px 2px #333333);
+}
+
+.generateDividerLocation {
+  border-style: double;
 }
 
 .maxSongInputArea {
@@ -480,7 +506,7 @@ code {
 }
 
 .generateButtonBox {
-  margin-top: 1.5%;
+  margin-top: 0.5%;
 }
 
 /* PLAYLISTS SCREEN */

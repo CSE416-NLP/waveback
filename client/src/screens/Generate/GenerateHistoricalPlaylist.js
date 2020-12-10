@@ -89,10 +89,8 @@ const GenerateHistoricalPlaylist = (props) => {
 
     const removeDecade = (decade) => {
         let decadeCopy = [...decadesQueried];
-
         for (let i = 0; i < decadeCopy.length; i++) {
             if (decadeCopy[i].decade === decade) {
-                decadeCopy.splice(i, 1);
                 decadeCopy.splice(i, 1);
             }
         }
@@ -231,12 +229,10 @@ const GenerateHistoricalPlaylist = (props) => {
         <div className="generateScreen" onMouseEnter={() => setTextHoverState(null)}>
             <div className="generateScreenTitleText">bring back the sounds of...</div>
             <div className="generateScreenTopContainer">
-                <div className="generateScreenTopInnerContainer">
+                <div className="generateScreenTopInnerContainerDate">
                     <h3>Countries</h3>
                     <div align="center" className="generateScreenBox">
                         <div className="generateLeftContainer">
-                            <div className="generateTopCountries">
-                            </div>
                             <div className="ui input">
                                 <input size="25" id="genreSearch" className="generateInput"
                                     style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
@@ -271,7 +267,7 @@ const GenerateHistoricalPlaylist = (props) => {
                     </div>
                 </div>
 
-                <div className="generateScreenTopInnerContainer">
+                <div className="generateScreenTopInnerContainerDate">
                     <h3>Decades</h3>
                     <div align="center" className="generateScreenBox">
                         <div className="generateLeftContainer">
@@ -310,7 +306,7 @@ const GenerateHistoricalPlaylist = (props) => {
                 </div>
             </div>
 
-            <div className="generateDivider"></div>
+            <div className="generateDividerDate"></div>
             <div className="generateBottomArea">
                 <h3>Playlist Size</h3>
                 <div className="ui input maxSongInputArea">

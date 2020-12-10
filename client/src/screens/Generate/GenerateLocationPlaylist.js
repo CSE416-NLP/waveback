@@ -260,12 +260,10 @@ const GenerateLocationPlaylist = (props) => {
         <div className="generateScreen" onMouseEnter={() => setTextHoverState(null)}>
             <div className="generateScreenTitleText">experience the sounds of...</div>
             <div className="generateScreenTopContainer">
-                <div className="generateScreenTopInnerContainer">
+                <div className="generateScreenTopInnerContainerLocation">
                     <h3>Countries</h3>
                     <div align="center" className="generateScreenBox">
                         <div className="generateLeftContainer">
-                            <div className="generateTopCountries">
-                            </div>
                             <div className="ui input">
                                 <input size="25" id="genreSearch" className="generateInput"
                                     style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
@@ -300,7 +298,7 @@ const GenerateLocationPlaylist = (props) => {
                     </div>
                 </div>
 
-                <div className="generateScreenTopInnerContainer">
+                <div className="generateScreenTopInnerContainerLocation">
                     <h3>Categories</h3>
                     <div align="center" className="generateScreenBox">
                         <div className="generateLeftContainer">
@@ -339,7 +337,7 @@ const GenerateLocationPlaylist = (props) => {
                 </div>
             </div>
 
-            <div className="generateDivider"></div>
+            <div className="generateDividerLocation"></div>
             <div className="generateBottomArea">
                 <h3>Playlist Size</h3>
                 <div className="ui input maxSongInputArea">
