@@ -302,11 +302,9 @@ const ViewPlaylistScreen = (props) => {
 
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
-                                <div className="viewPlaylistTitle" style={{ backgroundColor: "var(--secondary)" }} maxLength={35}>{playlistName ? playlistName : "Unnamed Playlist"}</div>
+                                <div className="viewPlaylistTitle" maxLength={35}>{playlistName ? playlistName : "Unnamed Playlist"}</div>
                             </div>
-                            <div className="viewPlaylistTitleDivider">
                                 <div className="ui divider"></div>
-                            </div>
                             <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
                                 <div className="viewPlaylistPlayAllButton">

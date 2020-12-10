@@ -454,7 +454,7 @@ const PlaylistScreen = (props) => {
 
     return (
         <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
-            <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
+            <div className="playlistScreenLeftBox" >
                 <div className="playlistScreenLeftContainer">
                     <div className="playlistScreenInfo">
                         <Modal
@@ -477,7 +477,7 @@ const PlaylistScreen = (props) => {
                         </Modal>
                         <div className="playlistMetadata">
                             <div className="playlistTitleHandling">
-                                <input className="playlistTitle" style={{ backgroundColor: "var(--secondary)" }}
+                                <input className="playlistTitle" 
                                     maxLength={35} placeholder="Playlist Title" value={playlistName} onChange={(e) => handleNameChange(e.target.value)}
                                 />
                             </div>
@@ -527,7 +527,7 @@ const PlaylistScreen = (props) => {
                         </div>
                     </div>
                     <div className="playlistDescriptionContainer">
-                        <textarea className="playlistDescription" rows={8}
+                        <textarea className="playlistDescription" rows={5}
                             placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)}>
                         </textarea>
                     </div>

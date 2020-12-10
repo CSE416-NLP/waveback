@@ -931,15 +931,16 @@ code {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 45%;
   user-select: none;
   user-select: none;
   background-color: var(--secondary);
   filter: drop-shadow(0px 0px 4px #333333);
+  overflow: hidden;
 }
 
 .playlistScreenAddSongBox {
   width: 100%;
-  height: 100%;
   user-select: none;
   overflow: hidden;
   user-select: none;
@@ -986,19 +987,17 @@ code {
 .playlistTitleHandling {
   display: flex;
   align-items: center;
-  width: 120%;
 }
 
 .playlistTitle {
   margin-top: 3%;
   font-size: 20px;
   border-style: none;
-  width: 100%;
+  background-color: transparent;
 }
 
 .playlistTitleDivider {
   margin-top: -4%;
-  width: 110%;
 }
 
 .playlistAddSongDivider {
@@ -1073,7 +1072,6 @@ code {
   padding: 1%;
   margin-bottom: 0.75%;
   width: 75%;
-  height: 110%;
 }
 
 .playlistSearchResultOptions {
@@ -1533,13 +1531,10 @@ code {
 }
 
 .viewPlaylistTitle {
+  word-wrap: normal;
   margin-top: 3%;
   font-size: 20px;
   border-style: none;
-}
-
-.viewPlaylistTitleDivider {
-  width: 100%;
 }
 
 .viewPlaylistFilterDivider {
@@ -1556,11 +1551,11 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
   user-select: none;
   user-select: none;
   background-color: var(--secondary);
   filter: drop-shadow(0px 0px 4px #333333);
+  overflow-x: hidden;
 }
 
 .viewPlaylistPlayAllButton {
