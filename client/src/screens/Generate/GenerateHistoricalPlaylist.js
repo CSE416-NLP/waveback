@@ -56,7 +56,7 @@ const GenerateHistoricalPlaylist = (props) => {
         let updateThis = true;
         let decadeCopy = [...decadesQueried];
         for (let i = 0; i < decadeCopy.length; i++) {
-            if (decadeCopy[i] === decade) { updateThis = false; }
+            if (decadeCopy[i].decade === decade) { updateThis = false; }
         }
         if (updateThis) {
             decadeCopy.push({ decade });
@@ -70,8 +70,10 @@ const GenerateHistoricalPlaylist = (props) => {
     const addCountry = (country, id) => {
         let updateThis = true;
         let countryCopy = [...countriesDisplayed];
+        console.log(countryCopy);
         for (let i = 0; i < countryCopy.length; i++) {
-            if (countryCopy[i] === country) { updateThis = false; }
+            console.log(countryCopy[i] + " " + country);
+            if (countryCopy[i].country === country) { updateThis = false; }
         }
         if (updateThis) {
             countryCopy.push({ country });
@@ -89,7 +91,7 @@ const GenerateHistoricalPlaylist = (props) => {
         let decadeCopy = [...decadesQueried];
 
         for (let i = 0; i < decadeCopy.length; i++) {
-            if (decadeCopy[i] === decade) {
+            if (decadeCopy[i].decade === decade) {
                 decadeCopy.splice(i, 1);
                 decadeCopy.splice(i, 1);
             }

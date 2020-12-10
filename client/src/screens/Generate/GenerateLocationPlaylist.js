@@ -81,7 +81,7 @@ const GenerateLocationPlaylist = (props) => {
         let updateThis = true;
         let categoriesCopy = [...categoriesDisplayed];
         for (let i = 0; i < categoriesCopy.length; i++) {
-            if (categoriesCopy[i] === categoryName) { updateThis = false; }
+            if (categoriesCopy[i].category === categoryName) { updateThis = false; }
         }
         if (updateThis) {
             categoriesCopy.push({ category: categoryName });
@@ -99,7 +99,7 @@ const GenerateLocationPlaylist = (props) => {
         let updateThis = true;
         let countryCopy = [...countriesDisplayed];
         for (let i = 0; i < countryCopy.length; i++) {
-            if (countryCopy[i] === country) { updateThis = false; }
+            if (countryCopy[i].country === country) { updateThis = false; }
         }
         if (updateThis) {
             countryCopy.push({ country });
