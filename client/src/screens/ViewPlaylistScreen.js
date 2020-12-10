@@ -322,11 +322,14 @@ const ViewPlaylistScreen = (props) => {
                                         </button>
                                     </Link>
                                 </div>
-                               
                             </div>
                         </div>
                     </div>
-                    <div rows={4} className="viewPlaylistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}>{playlistDescription ? playlistDescription : ""}</div>
+                    <div className="viewPlaylistDescriptionContainer">
+                        <textarea className="viewPlaylistDescription" rows={12}
+                            disabled placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""}>
+                        </textarea>
+                    </div>
                 </div>
             </div>
 

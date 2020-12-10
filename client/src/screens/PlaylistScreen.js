@@ -522,17 +522,16 @@ const PlaylistScreen = (props) => {
                                             <Button inverted color='red' onClick={(e) => setDeletePlaylistOpenState(false)}><Icon name='remove' />No</Button>
                                         </Modal.Actions>
                                     </Modal>
-
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-                    <textarea rows={4} className="playlistDescriptionText" style={{ backgroundColor: "var(--secondary)" }}
-                        placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)}>
-                    </textarea>
+                    <div className="playlistDescriptionContainer">
+                        <textarea className="playlistDescription" rows={8}
+                            placeholder="Playlist Description" value={playlistDescription ? playlistDescription : ""} onChange={(e) => handleDescriptionChange(e.target.value)}>
+                        </textarea>
+                    </div>
+                   
                 </div>
                 <div className="playlistScreenAddSongBox">
                     <div className="addSongEntireContainer">

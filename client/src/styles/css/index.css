@@ -642,7 +642,6 @@ code {
   flex-direction: column;
   justify-content: center;
   width: 80%;
-  height: 80%;
   margin-left: 10%;
   margin-top: 10%;
   user-select: none;
@@ -669,7 +668,6 @@ code {
   display: flex;
   justify-content: center;
   margin-right: -0.25em;
-  margin-top: 5%;
   margin-bottom: 20%;
 }
 
@@ -932,9 +930,7 @@ code {
 .playlistScreenLeftContainer {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   width: 100%;
-  height: 100%;
   user-select: none;
   user-select: none;
   background-color: var(--secondary);
@@ -1149,20 +1145,22 @@ code {
   margin-top: -4%;
 }
 
-.playlistDescriptionText {
+.playlistDescriptionContainer {
+  display: flex;
   font-size: 16px;
-  padding: 1%;
   margin: 3%;
   margin-left: 4%;
   margin-right: 4%;
+}
+
+.playlistDescription {
+  width: 100%;
+  padding: 1%;
   text-align: left;
   font-style: italic;
   word-wrap: break-word;
-  height: 35%;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #999999;
   resize: none !important;
+  border-color: #999999;
 }
 
 .playlistSongsContainer {
@@ -1558,9 +1556,7 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-wrap: wrap;
   width: 100%;
-  height: 60%;
   user-select: none;
   user-select: none;
   background-color: var(--secondary);
@@ -1574,19 +1570,21 @@ code {
   margin-bottom: 1.75%;
 }
 
-.viewPlaylistDescriptionText {
+.viewPlaylistDescriptionContainer {
   font-size: 16px;
-  padding: 1%;
   margin: 3%;
   margin-left: 4%;
-  margin-right: 6%;
+  margin-right: 4%;
+}
+
+.viewPlaylistDescription {
+  width: 100%;
+  padding: 1%;
   text-align: left;
   font-style: italic;
   word-wrap: break-word;
-  height: 45%;
-  border-style: solid;
-  border-width: 1px;
   border-color: #999999;
+  resize: none !important;
 }
 
 /* ANIMATIONS */
