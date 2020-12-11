@@ -31,7 +31,7 @@ const DiscoverScreen = (props) => {
   for (let i = 0; i < filteredPlaylists.length; i += columns) {
     renderPlaylists[renderPlaylists.length] = filteredPlaylists.slice(i, i + columns);
   }
-  console.log(renderPlaylists)
+  // console.log(renderPlaylists)
 
   return (
     <div className="discoverScreen" style={{ backgroundColor: "var(--background)" }}>

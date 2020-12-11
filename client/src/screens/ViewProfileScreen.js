@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import "../styles/css/index.css"
 import { Link } from "react-router-dom";
-import jsonData from "../data/TestData.json"
+// import jsonData from "../data/TestData.json"
 import { getAlbumTime } from "../UtilityComponents/Playlist";
+import { GET_USER_PLAYLISTS } from '../cache/mutations';
+import { GET_DB_PLAYLISTS } from '../cache/queries';
+import { useQuery } from '@apollo/react-hooks';
+import { flowRight as compose } from 'lodash';
+import { graphql } from '@apollo/react-hoc';
 
 const arrayToString = (array) => {
     let str = "";
@@ -15,9 +20,20 @@ const arrayToString = (array) => {
 }
 
 const ViewProfileScreen = (props) => {
-    console.log(props);
+    const { refetch } = useQuery(GET_DB_PLAYLISTS);
+
+    const [playlists, setPlaylists] = useState([]);
     const user = props.location.user;
-    const playlists = jsonData.Playlists;
+
+    console.log(props);
+    useEffect(() => {
+        async function loadPlaylists() {
+            const { data } = await props.getUserPlaylists({ variables: { owner: user.username } });
+            // console.log(data);
+            setPlaylists(data.getUserPlaylists);
+        }
+        loadPlaylists();
+    }, [refetch]);
 
     const invalidImage = (e) => {
         e.target.src = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=";
@@ -51,7 +67,7 @@ const ViewProfileScreen = (props) => {
                         <Grid.Row>
                             {playlists.map((playlist, index) => (
                                 <Grid.Column key={index}>
-                                    <Link to={{ pathname: "/playlist/" + playlist.id, playlist: playlist }}>
+                                    <Link to={{ pathname: "/viewplaylist/" + playlist.owner + '/' + playlist.id, playlist: playlist }}>
                                         <div className='viewProfilePlaylists'>
                                             <img className="viewProfilePlaylistPic" src={playlist.picture} alt="" />
                                             <div className='viewProfilePlaylistInfo'>
@@ -65,9 +81,12 @@ const ViewProfileScreen = (props) => {
                         </Grid.Row>
                     </Grid>
                 </div>
-            </div>   
+            </div>
         </div>
     );
 };
 
-export default ViewProfileScreen;
+export default compose(
+    graphql(GET_USER_PLAYLISTS, { name: 'getUserPlaylists' }),
+    graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" })
+)(ViewProfileScreen);
