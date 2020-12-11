@@ -627,7 +627,7 @@ const PlaylistScreen = (props) => {
                                                 { backgroundColor: "var(--primary)", fontWeight: "bold", color: "white" }
                                                 : { backgroundColor: "var(--secondary)" }
                                             }
-                                                onMouseEnter={() => setSongHoverState(song.title)}
+                                                onMouseEnter={() => setSongHoverState(song.songURI)}
                                             >
                                                 <div className="playlistSongTitle">{song.title}</div>
                                                 <div className="playlistSongArtist">{song.artist}</div>
@@ -641,7 +641,7 @@ const PlaylistScreen = (props) => {
                                                 size='small'
                                                 trigger={
                                                     <Icon className="removeSongIcon large" style={{
-                                                        width: "3%", display: (song.title === songHoverState) ? "block" : "none"
+                                                        width: "3%", display: (song.songURI === songHoverState) ? "block" : "none"
                                                     }}
                                                         name="info circle" >
                                                     </Icon>}>
@@ -667,7 +667,7 @@ const PlaylistScreen = (props) => {
                                                 </Modal.Actions>
                                             </Modal>
                                             <Icon className="removeSongIcon large" style={{
-                                                width: "3%", display: (song.title === songHoverState) ? "block" : "none"
+                                                width: "3%", display: (song.songURI === songHoverState) ? "block" : "none"
                                             }}
                                                 name="remove" onClick={() => removeSong(song)}>
                                             </Icon>
