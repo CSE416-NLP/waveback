@@ -67,7 +67,6 @@ const LockedScreen = (props) => {
     const deleteUser = async (user) => {
         console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
         props.deleteUser({ variables: { _id: user._id } })
-        // refetch();
         setDeleteUserOpenState(false);
         const { data } = await props.getuserbyusername({ variables: { username: "" } })
         if (data && data.getUserByUsername) {
@@ -103,8 +102,8 @@ const LockedScreen = (props) => {
                                         <Modal
                                             basic
                                             onClose={() => setDeleteUserOpenState(false)}
-                                            onOpen={() => setDeleteUserOpenState(true)}
-                                            open={deleteUserOpenState}
+                                            onOpen={() => setDeleteUserOpenState(user)}
+                                            open={Boolean(deleteUserOpenState)}
                                             size='small'
                                             trigger={<Icon className="removeSongIcon big" name="trash"></Icon>}>
                                             <Header icon><Icon className='large trash' />
@@ -113,8 +112,8 @@ const LockedScreen = (props) => {
                                                 <div className="irreversible">THIS IS NOT REVERSIBLE!</div>
                                             </Header>
                                             <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                                <Button className="ui primary button" onClick={() => deleteUser(user)}><Icon name='checkmark' />Yes</Button>
-                                                <Button inverted color='red' onClick={(e) => setDeleteUserOpenState(false)}><Icon name='remove' />No</Button>
+                                                <Button className="ui primary button" onClick={() => deleteUser(deleteUserOpenState)}><Icon name='checkmark' />Yes</Button>
+                                                <Button inverted color='red' onClick={() => setDeleteUserOpenState(false)}><Icon name='remove' />No</Button>
                                             </Modal.Actions>
                                         </Modal>
                                     </div>

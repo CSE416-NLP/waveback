@@ -1411,7 +1411,7 @@ code {
 
 .adminScreenScrollContainer {
   background-color: var(--background);
-  height: 71%;
+  height: 90%;
   margin-top: 1%;
   margin-bottom: -3%;
   overflow-y: auto;
