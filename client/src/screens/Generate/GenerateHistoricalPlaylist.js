@@ -42,6 +42,7 @@ const GenerateHistoricalPlaylist = (props) => {
         { name: "New Zealand", id: "NZ" },
         { name: "Finland", id: "FI" },
         { name: "Poland", id: "PL" },]);
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         async function loadPlaylists() {
@@ -65,6 +66,7 @@ const GenerateHistoricalPlaylist = (props) => {
         else {
             return;
         }
+        setErrorMsg("");
     }
 
     const addCountry = (country, id) => {
@@ -85,6 +87,7 @@ const GenerateHistoricalPlaylist = (props) => {
         else {
             return;
         }
+        setErrorMsg("");
     }
 
     const removeDecade = (decade) => {
@@ -95,6 +98,7 @@ const GenerateHistoricalPlaylist = (props) => {
             }
         }
         setDecadesQueried(decadeCopy);
+        setErrorMsg("");
     }
 
     const removeCountry = (country) => {
@@ -110,6 +114,7 @@ const GenerateHistoricalPlaylist = (props) => {
         }
         setCountriesDisplayed(countriesDisplayedCopy);
         setCountriesQueried(countriesQueriedCopy);
+        setErrorMsg("");
     }
 
     const changeNumSongs = (num) => {
@@ -124,6 +129,7 @@ const GenerateHistoricalPlaylist = (props) => {
         else {
             setLastSongInputValid(false)
         }
+        setErrorMsg("");
     }
 
     const generatePlaylist = async () => {
@@ -210,17 +216,21 @@ const GenerateHistoricalPlaylist = (props) => {
                 newPlaylist.songs[i]._id = new ObjectId();
         }
         console.log(newPlaylist);
-
-        const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
-        if (data.addPlaylist) {
-            props.history.push({
-                pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
-                playlist: {
-                    _id: data.addPlaylist,
-                    ...newPlaylist
-                },
-                refreshList: refetch
-            })
+        if (newPlaylist.songs.length > 0) {
+            const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
+            if (data.addPlaylist) {
+                props.history.push({
+                    pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
+                    playlist: {
+                        _id: data.addPlaylist,
+                        ...newPlaylist
+                    },
+                    refreshList: refetch
+                })
+            }
+        }
+        else {
+            setErrorMsg("Could not generate a playlist with the specified parameters");
         }
     }
 
@@ -322,6 +332,7 @@ const GenerateHistoricalPlaylist = (props) => {
                 </div>
                 <div className="generateButtonBox">
                     <button className="clickButton ui button massive generateButton" onClick={generatePlaylist}>GENERATE!</button>
+                    {errorMsg && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorMsg}</div>}
                 </div>
             </div>
 

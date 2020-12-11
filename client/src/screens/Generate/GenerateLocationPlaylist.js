@@ -43,6 +43,7 @@ const GenerateLocationPlaylist = (props) => {
     const [countriesDisplayed, setCountriesDisplayed] = useState([]);
     const [categoriesQueried, setCategoriesQueried] = useState([]);
     const [categoriesDisplayed, setCategoriesDisplayed] = useState([]);
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         async function loadPlaylists() {
@@ -93,6 +94,7 @@ const GenerateLocationPlaylist = (props) => {
         else {
             return;
         }
+        setErrorMsg("");
     }
 
     const addCountry = (country, id) => {
@@ -111,6 +113,7 @@ const GenerateLocationPlaylist = (props) => {
         else {
             return;
         }
+        setErrorMsg("");
     }
 
     const removeCategory = (category) => {
@@ -126,6 +129,7 @@ const GenerateLocationPlaylist = (props) => {
         }
         setCategoriesDisplayed(categoriesDisplayedCopy);
         setCategoriesQueried(categoriesQueriedCopy);
+        setErrorMsg("");
     }
 
     const removeCountry = (country) => {
@@ -142,6 +146,7 @@ const GenerateLocationPlaylist = (props) => {
         }
         setCountriesDisplayed(countriesDisplayedCopy);
         setCountriesQueried(countriesQueriedCopy);
+        setErrorMsg("");
     }
 
     const changeNumSongs = (num) => {
@@ -156,6 +161,7 @@ const GenerateLocationPlaylist = (props) => {
         else {
             setLastSongInputValid(false)
         }
+        setErrorMsg("");
     }
     const generatePlaylist = async () => {
         let numCountries = countriesQueried.length;
@@ -242,16 +248,21 @@ const GenerateLocationPlaylist = (props) => {
         }
         console.log(newPlaylist);
 
-        const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
-        if (data.addPlaylist) {
-            props.history.push({
-                pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
-                playlist: {
-                    _id: data.addPlaylist,
-                    ...newPlaylist
-                },
-                refreshList: refetch
-            })
+        if (newPlaylist.songs.length > 0) {
+            const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
+            if (data.addPlaylist) {
+                props.history.push({
+                    pathname: '/playlist/' + newPlaylist.owner + "/" + data.addPlaylist,
+                    playlist: {
+                        _id: data.addPlaylist,
+                        ...newPlaylist
+                    },
+                    refreshList: refetch
+                })
+            }
+        }
+        else {
+            setErrorMsg("Could not generate a playlist with the specified parameters");
         }
     }
 
@@ -353,6 +364,7 @@ const GenerateLocationPlaylist = (props) => {
                 </div>
                 <div className="generateButtonBox">
                     <button className="clickButton ui button massive generateButton" onClick={generatePlaylist}>GENERATE!</button>
+                    {errorMsg && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorMsg}</div>}
                 </div>
             </div>
 
