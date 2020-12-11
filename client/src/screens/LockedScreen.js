@@ -65,6 +65,7 @@ const LockedScreen = (props) => {
     }
 
     const deleteUser = async (user) => {
+        console.log(user);
         console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
         props.deleteUser({ variables: { _id: user._id } })
         setDeleteUserOpenState(false);
@@ -77,6 +78,7 @@ const LockedScreen = (props) => {
                 setUsers(data.getUserByUsername);
             }
         }
+        setUsers(data.getUserByUsername);
     }
 
     return (

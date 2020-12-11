@@ -16,11 +16,6 @@ const PrivacyPicker = (props) => {
                             text="Public"
                         />
                         <Dropdown.Item
-                            label={{ color: 'yellow', empty: true, circular: true }}
-                            onClick={() => onVisibilityChange("Followers-Only")}
-                            text="Followers-Only"
-                        />
-                        <Dropdown.Item
                             label={{ color: 'red', empty: true, circular: true }}
                             onClick={() => onVisibilityChange("Private")}
                             text="Private"
