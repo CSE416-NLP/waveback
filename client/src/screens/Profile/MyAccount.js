@@ -92,7 +92,7 @@ const MyAccount = (props) => {
                     name={passwordFieldType === "password" ? 'eye' : 'eye slash'} onClick={() => toggleShowPassword(!passwordFieldType)} />
             </div>
             {errorText && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorText}</div>}
-            <p className="profileScreenSubText">User Account Privacy</p>
+            <p className="profileScreenSubText">Default Playlist Visibility</p>
             <div className="accountPrivacyPicker">
                 <PrivacyPicker className="dropdownChangeUserPrivacy" displayText={currentUser.defaultVisibility} onVisibilityChange={updateUserDefaultVisibility} />
             </div>

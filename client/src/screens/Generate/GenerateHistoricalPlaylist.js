@@ -176,7 +176,7 @@ const GenerateHistoricalPlaylist = (props) => {
                 })
                 const data = await response.json()
                 let playlists = data.playlists.items;
-                let randomPlaylist = playlists[Math.floor(Math.random() * playlists.length)];
+                let randomPlaylist = playlists[playlists.length < 3 ? playlists.length : Math.floor(Math.random() * 3)];
                 let playlistID = randomPlaylist.id;
                 let playlistQuery = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks";
 
