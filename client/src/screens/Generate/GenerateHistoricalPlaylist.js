@@ -142,7 +142,7 @@ const GenerateHistoricalPlaylist = (props) => {
             songs: [],
             songURIs: [],
             followers: 0,
-            visibility: props.user.defaultVisibility,
+            visibility: props.user ? props.user.defaultVisibility : "Public",
             tags: [],
             duration: 0
         }
