@@ -44,6 +44,8 @@ const GenerateLocationPlaylist = (props) => {
     const [categoriesQueried, setCategoriesQueried] = useState([]);
     const [categoriesDisplayed, setCategoriesDisplayed] = useState([]);
     const [errorMsg, setErrorMsg] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState("");
+    const [countryFilter, setCountryFilter] = useState("");
 
     useEffect(() => {
         async function loadPlaylists() {
@@ -278,10 +280,11 @@ const GenerateLocationPlaylist = (props) => {
                             <div className="ui input">
                                 <input size="25" id="genreSearch" className="generateInput"
                                     style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
+                                    value={countryFilter} onChange={(e) => setCountryFilter(e.target.value)}
                                 />
                             </div>
                             <div className="generateScreenButtonContainer">
-                                {countries.map((country, index) => (
+                                {countries.filter(country => country.name.toLowerCase().substring(0, countryFilter.length).includes(countryFilter.toLowerCase())).map((country, index) => (
                                     <div className="genreButton">
                                         <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)} onMouseEnter={() => setTextHoverState(null)}>
                                             {country.name}
@@ -316,10 +319,11 @@ const GenerateLocationPlaylist = (props) => {
                             <div className="ui input">
                                 <input size="25" id="genreSearch" className="generateInput"
                                     style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter categories..."
+                                    value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}
                                 />
                             </div>
                             <div className="generateScreenButtonContainer">
-                                {categories.map((genre, index) => (
+                                {categories.filter(category => category.name.toLowerCase().substring(0, categoryFilter.length).includes(categoryFilter.toLowerCase())).map((genre, index) => (
                                     <div className="genreButton">
                                         <button className="clickButton ui button large" onClick={() => addCategory(genre.name, genre.id)} onMouseEnter={() => setTextHoverState(null)}>
                                             {genre.name}

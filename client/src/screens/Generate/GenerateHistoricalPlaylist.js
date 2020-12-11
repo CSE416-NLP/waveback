@@ -17,11 +17,11 @@ const GenerateHistoricalPlaylist = (props) => {
     const [textHoverState, setTextHoverState] = useState(null);
     const [numSongs, setNumSongs] = useState(1);
     const [lastSongInputValid, setLastSongInputValid] = useState(true);
-    const [decades, setDecades] = useState(["1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"]);
+    const decades = ["1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"];
     const [countriesQueried, setCountriesQueried] = useState([]);
     const [countriesDisplayed, setCountriesDisplayed] = useState([]);
     const [decadesQueried, setDecadesQueried] = useState([]);
-    const [countries, setCountries] = useState([
+    const countries = [
         { name: "United States", id: "US" },
         { name: "United Kingdom", id: "GB" },
         { name: "Mexico", id: "MO" },
@@ -41,8 +41,11 @@ const GenerateHistoricalPlaylist = (props) => {
         { name: "Denmark", id: "DK" },
         { name: "New Zealand", id: "NZ" },
         { name: "Finland", id: "FI" },
-        { name: "Poland", id: "PL" },]);
+        { name: "Poland", id: "PL" },];
     const [errorMsg, setErrorMsg] = useState("");
+    const [decadeFilter, setDecadeFilter] = useState("");
+    const [countryFilter, setCountryFilter] = useState("");
+    console.log(countries)
 
     useEffect(() => {
         async function loadPlaylists() {
@@ -246,10 +249,11 @@ const GenerateHistoricalPlaylist = (props) => {
                             <div className="ui input">
                                 <input size="25" id="genreSearch" className="generateInput"
                                     style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter countries..."
+                                    value={countryFilter} onChange={(e) => setCountryFilter(e.target.value)}
                                 />
                             </div>
                             <div className="generateScreenButtonContainer">
-                                {countries.map((country, index) => (
+                                {countries.filter(country => country.name.toLowerCase().substring(0, countryFilter.length).includes(countryFilter.toLowerCase())).map((country, index) => (
                                     <div className="genreButton">
                                         <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)} onMouseEnter={() => setTextHoverState(null)}>
                                             {country.name}
@@ -284,10 +288,11 @@ const GenerateHistoricalPlaylist = (props) => {
                             <div className="ui input">
                                 <input size="25" id="genreSearch" className="generateInput"
                                     style={{ backgroundColor: "var(--secondary)" }} placeholder="Filter decades..."
+                                    value={decadeFilter} onChange={(e) => setDecadeFilter(e.target.value)}
                                 />
                             </div>
                             <div className="generateScreenButtonContainer">
-                                {decades.map((decade, index) => (
+                                {decades.filter(decade => decade.toLowerCase().substring(0, decadeFilter.length).includes(decadeFilter.toLowerCase())).map((decade, index) => (
                                     <div className="genreButton">
                                         <button className="clickButton ui button large" onClick={() => addDecade(decade)} onMouseEnter={() => setTextHoverState(null)}>
                                             {decade}

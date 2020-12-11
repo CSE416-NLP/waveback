@@ -23,14 +23,15 @@ const DiscoverScreen = (props) => {
 
   window.addEventListener("storage", props.authorizeSpotifyFromStorage);
   let token = props.spotifyToken;
-  const [filterTextState, changeFilterText] = useState("playlists");
+  const [filter, setFilter] = useState("");
   const columns = 2;
 
-  // const changeFilterButtonText = () => {
-  //   let filterTextStateCopy = filterTextState;
-  //   (filterTextStateCopy === "playlists") ? filterTextStateCopy = "songs" : filterTextStateCopy = "playlists";
-  //   changeFilterText(filterTextStateCopy);
-  // }
+  let filteredPlaylists = playlists.filter(playlist => playlist.name.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase()));
+  let renderPlaylists = [];
+  for (let i = 0; i < filteredPlaylists.length; i += columns) {
+    renderPlaylists[renderPlaylists.length] = filteredPlaylists.slice(i, i + columns);
+  }
+  console.log(renderPlaylists)
 
   return (
     <div className="discoverScreen" style={{ backgroundColor: "var(--background)" }}>
@@ -38,7 +39,8 @@ const DiscoverScreen = (props) => {
       <div className="discoverSearchContainer">
         <p className="discoverTitleText">explore other users' creations</p>
         <div className="ui input">
-          <input placeholder="Search..." size="40" className="discoverSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
+          <input placeholder="Filter Playlists..." size="40" className="discoverSearch" style={{ backgroundColor: "var(--secondary)" }}
+            value={filter} onChange={(e) => setFilter(e.target.value)} />
           <button type="submit" className="clickButton fluid ui icon big button">
             <i className="search icon"></i>
           </button>
@@ -47,19 +49,27 @@ const DiscoverScreen = (props) => {
 
       <div className="discoverPlaylistGrid">
         <Grid columns={columns} divided>
-          {playlists.map((playlist, index) => (
-            <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              {user === playlist.owner ? 
-              <Link to={{ pathname: "/playlist/" + playlist.owner + '/' + playlist._id, playlist: playlist }}>
-                <Playlist playlist={playlist} />
-              </Link> :
-              <Link to={{ pathname: "/viewplaylist/" + playlist.owner + '/' + playlist._id, playlist: playlist }}>
-                <Playlist playlist={playlist} />
-              </Link>}
-              {/* <Link to={{ user === playlist.owner ? pathname: "/playlist/" + playlist._id, playlist: playlist }}>
-                <Playlist playlist={playlist} />
-              </Link> */}
+          {/* <Grid.Row>
+            <Grid.Column width={16}>
+              {playlists.length > 0 &&
+              <Playlist playlist={playlists[0]} />
+              }
             </Grid.Column>
+          </Grid.Row> */}
+          {renderPlaylists.map((row, i) => (
+            <Grid.Row stretched key={i}>
+              {row.map((playlist, index) => (
+                <Grid.Column width={i != renderPlaylists.length ? Math.floor(16 / columns) : 16} key={index}>
+                  {user === playlist.owner ?
+                    <Link to={{ pathname: "/playlist/" + playlist.owner + '/' + playlist._id, playlist: playlist }}>
+                      <Playlist playlist={playlist} />
+                    </Link> :
+                    <Link to={{ pathname: "/viewplaylist/" + playlist.owner + '/' + playlist._id, playlist: playlist }}>
+                      <Playlist playlist={playlist} />
+                    </Link>}
+                </Grid.Column>
+              ))}
+            </Grid.Row>
           ))}
         </Grid>
       </div>

@@ -8,7 +8,7 @@ import GenerateHistoricalPlaylist from './Generate/GenerateHistoricalPlaylist';
 
 const GenerateScreen = (props) => {
   const panes = [
-    { menuItem: "Location-Based Playlist Generator", render: () => <Tab.Pane>
+    { menuItem: "Categorical Playlist Generator", render: () => <Tab.Pane>
       <GenerateLocationPlaylist user={props.user} fetchUser={props.fetchUser} history={props.history} />
     </Tab.Pane> },
     { menuItem: "Historical Playlist Generator", render: () => <Tab.Pane>
