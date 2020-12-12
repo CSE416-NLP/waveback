@@ -24,30 +24,18 @@ const ViewProfileScreen = (props) => {
     console.log(props);
     const { refetch } = useQuery(GET_DB_PLAYLISTS);
 
-    // useEffect(() => {
-    //     if (!props.location.user) {
-    //         console.log("no props");
-    //         props.history.push("/discover");
-    //     }
-    // }, [props.location.user]);
 
     useEffect(() => {
         async function loadPlaylists() {
             if (!props.location.user) {
                 console.log("no props");
-                props.history.push("/discover");
+                props.history.push("/profile");
             } else {
-                const { data } = await props.getUserPlaylists({ variables: { owner: props.location.user.username } });
+                const { data } = await propvs.getUserPlaylists({ variables: { owner: props.location.user.username } });
                 // console.log(data);
                 setPlaylists(data.getUserPlaylists);
             }
         }
-        
-        // async function loadPlaylists() {
-        //     const { data } = await props.getUserPlaylists({ variables: { owner: props.location.user.username } });
-        //     // console.log(data);
-        //     setPlaylists(data.getUserPlaylists);
-        // }
         loadPlaylists();
     }, [props.location.user]);
 
