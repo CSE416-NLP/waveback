@@ -7,11 +7,9 @@ import { graphql } from '@apollo/react-hoc';
 import * as mutations from '../cache/mutations';
 import { Link } from 'react-router-dom';
 import { Grid, Modal, Icon, Header, Button } from 'semantic-ui-react';
-import { useMutation } from '@apollo/react-hooks';
 import { GET_DB_USER } from '../cache/queries';
 import { useQuery } from '@apollo/react-hooks';
 import { getCurrentUser } from "../data/LocalStorage";
-
 
 
 const ObjectId = require("mongoose").Types.ObjectId;
@@ -30,30 +28,18 @@ const LockedScreen = (props) => {
         }
     }
 
-    console.log(user);
     const columns = 3;
     const playlists = jsonData.Playlists;
     const [users, setUsers] = useState([]);
     const [deleteUserOpenState, setDeleteUserOpenState] = useState(false);
-    // const { data, refetch } = useMutation(GETUSERBYUSERNAME);
 
     useEffect(() => {
         let user = getCurrentUser();
-        // console.log(JSON.parse(user));
         user = JSON.parse(user);
         console.log(user.admin);
         if (!user.admin) {
             props.history.push("/discover");
         }
-        // if (!props.location.playlist) {
-        //     console.log("no props");
-        //     props.history.push("/discover");
-        // } else {
-        //     modifyPlaylist(props.location.playlist);
-        // }
-        // return () => {
-        // }
-        // if (props) console.log(props);
     }, []);
 
     const showAllUsers = async (searchTerm) => {
@@ -105,11 +91,8 @@ const LockedScreen = (props) => {
     const deleteUser = async (user) => {
         let currentUser = getCurrentUser();
         currentUser = JSON.parse(currentUser);
-        console.log(currentUser);
-        console.log(user);
 
         if (user._id !== currentUser._id) {
-            console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
             props.deleteUser({ variables: { _id: user._id } })
             setDeleteUserOpenState(false);
             const { data } = await props.getuserbyusername({ variables: { username: "" } })
@@ -123,7 +106,6 @@ const LockedScreen = (props) => {
             }
             setUsers(data.getUserByUsername);
         } else {
-            console.log("ERROR: Can't delete yourself!");
             setMessage("ERROR: Can't delete yourself!");
         }
     }
