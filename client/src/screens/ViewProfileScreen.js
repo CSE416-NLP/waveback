@@ -9,6 +9,7 @@ import { GET_DB_PLAYLISTS } from '../cache/queries';
 import { useQuery } from '@apollo/react-hooks';
 import { flowRight as compose } from 'lodash';
 import { graphql } from '@apollo/react-hoc';
+import { FOLLOWUSER, UNFOLLOWUSER, GETUSERBYUSERNAME } from '../cache/mutations';
 
 const arrayToString = (array) => {
     let str = "";
@@ -20,19 +21,49 @@ const arrayToString = (array) => {
 }
 
 const ViewProfileScreen = (props) => {
+    console.log(props);
+    let user = props.location.user;
+    const currentUser = props.location.currentUser;
+    // const [following, setFollowing] = ([]);
+    const [following, setFollowing] = useState(currentUser.following);
+    const [follow, setFollow] = useState(following.includes(props.location.user._id) ? "Unfollow" : "Follow");
+    // const [follow, setFollow] = useState(following.includes)
     const { refetch } = useQuery(GET_DB_PLAYLISTS);
-
     const [playlists, setPlaylists] = useState([]);
-    const user = props.location.user;
+    // const user = props.location.user;
 
     console.log(props);
     useEffect(() => {
+        if (!props) {
+            console.log("no props");
+            props.history.push("/discover");
+        }
         async function loadPlaylists() {
             const { data } = await props.getUserPlaylists({ variables: { owner: user.username } });
             setPlaylists(data.getUserPlaylists);
         }
         loadPlaylists();
     }, [refetch]);
+
+    const followUser = async (otherUser) => {
+        setFollowing(prevFollowing => [...prevFollowing, otherUser._id]);
+        console.log("About to follow", otherUser.username);
+        const { data } = await props.followuser({ variables: { _id: currentUser._id, _otherID: otherUser._id } })
+        if (data) console.log("successfully added", otherUser.username)
+        else console.log("couldn't add", otherUser.username)
+        props.fetchUser()
+        setFollow("Unfollow");
+    }
+
+    const unfollowUser = async (otherUser) => {
+        setFollowing(following.filter(id => id !== otherUser._id));
+        console.log("About to unfollow", otherUser.username);
+        const { data } = await props.unfollowuser({ variables: { _id: currentUser._id, _otherID: otherUser._id } })
+        if (data) console.log("successfully removed", otherUser.username)
+        else console.log("couldn't remove", otherUser.username)
+        props.fetchUser()
+        setFollow("Follow");
+    }
 
     const invalidImage = (e) => {
         e.target.src = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=";
@@ -55,7 +86,15 @@ const ViewProfileScreen = (props) => {
                     <p className="viewProfileScreenLabel">Favorite Artists</p>
                     <div className="viewProfileTextArea" >{arrayToString(user.favoriteArtists)}</div>
                     <div className="followButtonContainer">
-                        <button className="clickButton ui button massive">Follow</button>
+                    {following.includes(user._id) ? 
+                            <button className="userFollowButton clickButton ui icon big button" onClick={() => unfollowUser(user)}>
+                                {follow}
+                            </button> :
+                            <button className="userFollowButton clickButton ui icon big button" onClick={() => followUser(user)}>
+                                {follow}
+                                {/* follow */}
+                            </button>}
+                        {/* <button className="clickButton ui button massive" onClick>{follow}</button> */}
                     </div>
                 </div>
             </div>
@@ -87,5 +126,7 @@ const ViewProfileScreen = (props) => {
 
 export default compose(
     graphql(GET_USER_PLAYLISTS, { name: 'getUserPlaylists' }),
-    graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" })
+    graphql(GET_DB_PLAYLISTS, { name: "getDBPlaylists" }),
+    (graphql(FOLLOWUSER, { name: 'followuser' })),
+    (graphql(UNFOLLOWUSER, { name: 'unfollowuser' })),
 )(ViewProfileScreen);
