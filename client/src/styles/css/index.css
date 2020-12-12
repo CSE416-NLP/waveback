@@ -673,7 +673,8 @@ code {
   padding-top: 15%;
   padding-bottom: 15%;
   border-style: inset;
-  border-color: var(--primary);
+  border-radius: 0px;
+  border-color: var(--buttonColor);
 }
 
 .profileOptionsText:hover {
