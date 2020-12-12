@@ -15,10 +15,10 @@ const GenerateLocationPlaylist = (props) => {
     const { refetch } = useQuery(GET_DB_PLAYLISTS);
     const [playlists, setPlaylists] = useState([]);
     const [textHoverState, setTextHoverState] = useState(null);
-    const [numSongs, setNumSongs] = useState(1);
+    const [numSongs, setNumSongs] = useState(10);
     const [lastSongInputValid, setLastSongInputValid] = useState(true);
     const [categories, setCategories] = useState([]);
-    const [countries, setCountries] = useState([
+    const countries = [
         { name: "United States", id: "US" },
         { name: "United Kingdom", id: "GB" },
         { name: "Mexico", id: "MO" },
@@ -38,7 +38,7 @@ const GenerateLocationPlaylist = (props) => {
         { name: "Denmark", id: "DK" },
         { name: "New Zealand", id: "NZ" },
         { name: "Finland", id: "FI" },
-        { name: "Poland", id: "PL" },]);
+        { name: "Poland", id: "PL" },];
     const [countriesQueried, setCountriesQueried] = useState([]);
     const [countriesDisplayed, setCountriesDisplayed] = useState([]);
     const [categoriesQueried, setCategoriesQueried] = useState([]);
@@ -46,6 +46,7 @@ const GenerateLocationPlaylist = (props) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
     const [countryFilter, setCountryFilter] = useState("");
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function loadPlaylists() {
@@ -166,6 +167,7 @@ const GenerateLocationPlaylist = (props) => {
         setErrorMsg("");
     }
     const generatePlaylist = async () => {
+        setLoading(true);
         let numCountries = countriesQueried.length;
         let numCategories = categoriesQueried.length;
         console.log("num of countries: " + numCountries + " num of categories: " + numCategories)
@@ -266,11 +268,12 @@ const GenerateLocationPlaylist = (props) => {
         else {
             setErrorMsg("Could not generate a playlist with the specified parameters");
         }
+        setLoading(false);
     }
 
 
     return (
-        <div className="generateScreen" onMouseEnter={() => setTextHoverState(null)}>
+        <div className="generateScreen">
             <div className="generateScreenTitleText">experience the sounds of...</div>
             <div className="generateScreenTopContainer">
                 <div className="generateScreenTopInnerContainerLocation">
@@ -285,8 +288,8 @@ const GenerateLocationPlaylist = (props) => {
                             </div>
                             <div className="generateScreenButtonContainer">
                                 {countries.filter(country => country.name.toLowerCase().substring(0, countryFilter.length).includes(countryFilter.toLowerCase())).map((country, index) => (
-                                    <div className="genreButton">
-                                        <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)} onMouseEnter={() => setTextHoverState(null)}>
+                                    <div className="genreButton" key={index}>
+                                        <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => addCountry(country.name, country.id)}>
                                             {country.name}
                                         </button>
                                     </div>
@@ -294,10 +297,10 @@ const GenerateLocationPlaylist = (props) => {
                             </div>
                         </div>
                         <div className="genreRightContainer">
-                            <div className="genreRightContainerInner" onMouseEnter={() => setTextHoverState(null)}>
+                            <div className="genreRightContainerInner">
                                 {countriesDisplayed.map((row, index) =>
-                                    <div className="categoryTextContainer" onMouseEnter={() => setTextHoverState(row.country)}>
-                                        <p key={index} className="genreList"><i>{row.country}</i></p>
+                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => {if(!loading) setTextHoverState(row.country)}} onMouseLeave={() => setTextHoverState(null)}>
+                                        <p className="genreList"><i>{row.country}</i></p>
                                         <div className="removeCategoryIcon">
                                             <Icon className="large" style={{
                                                 width: "3%", display: (row.country === textHoverState) ? "block" : "none"
@@ -324,8 +327,8 @@ const GenerateLocationPlaylist = (props) => {
                             </div>
                             <div className="generateScreenButtonContainer">
                                 {categories.filter(category => category.name.toLowerCase().substring(0, categoryFilter.length).includes(categoryFilter.toLowerCase())).map((genre, index) => (
-                                    <div className="genreButton">
-                                        <button className="clickButton ui button large" onClick={() => addCategory(genre.name, genre.id)} onMouseEnter={() => setTextHoverState(null)}>
+                                    <div className="genreButton" key={index}>
+                                        <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => addCategory(genre.name, genre.id)}>
                                             {genre.name}
                                         </button>
                                     </div>
@@ -333,9 +336,9 @@ const GenerateLocationPlaylist = (props) => {
                             </div>
                         </div>
                         <div className="genreRightContainer">
-                            <div className="genreRightContainerInner" onMouseEnter={() => setTextHoverState(null)}>
+                            <div className="genreRightContainerInner">
                                 {categoriesDisplayed.map((row, index) =>
-                                    <div className="categoryTextContainer" onMouseEnter={() => setTextHoverState(row.category)}>
+                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => {if(!loading) setTextHoverState(row.category)}} onMouseLeave={() => setTextHoverState(null)}>
                                         <p className="genreList" key={index}><i>{row.category}</i></p>
                                         <div className="removeCategoryIcon">
                                             <Icon className="large" style={{
@@ -356,18 +359,18 @@ const GenerateLocationPlaylist = (props) => {
             <div className="generateBottomArea">
                 <h3>Playlist Size</h3>
                 <div className="ui input maxSongInputArea">
-                    <button className="ui button clickButton icon" onClick={() => changeNumSongs(numSongs - 1)}>
+                    <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => changeNumSongs(numSongs - 1)}>
                         <i className="angle left icon" />
                     </button>
                     {!lastSongInputValid && <Label style={{ position: "absolute", marginTop: "4em" }} pointing='above'>Please enter a value between 1-50</Label>}
-                    <input id="songNumberInput" size="1" maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
-                        onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
-                    <button className="clickButton ui button icon" onClick={() => changeNumSongs(numSongs + 1)}>
+                    <input id="songNumberInput" disabled={loading ? true : false} size="1" maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
+                        onChange={(e) => changeNumSongs(parseInt(e.target.value))} />
+                    <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => changeNumSongs(numSongs + 1)}>
                         <i className="angle right icon" />
                     </button>
                 </div>
                 <div className="generateButtonBox">
-                    <button className="clickButton ui button massive generateButton" onClick={generatePlaylist}>GENERATE!</button>
+                    <button className={loading ? "clickButton ui button massive generateButton loading disabled" : "clickButton ui button massive generateButton"} onClick={generatePlaylist}>GENERATE!</button>
                     {errorMsg && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorMsg}</div>}
                 </div>
             </div>

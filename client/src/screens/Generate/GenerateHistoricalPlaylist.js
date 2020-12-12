@@ -15,7 +15,7 @@ const GenerateHistoricalPlaylist = (props) => {
     const { refetch } = useQuery(GET_DB_PLAYLISTS);
     const [playlists, setPlaylists] = useState([]);
     const [textHoverState, setTextHoverState] = useState(null);
-    const [numSongs, setNumSongs] = useState(1);
+    const [numSongs, setNumSongs] = useState(10);
     const [lastSongInputValid, setLastSongInputValid] = useState(true);
     const decades = ["1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"];
     const [countriesQueried, setCountriesQueried] = useState([]);
@@ -45,7 +45,7 @@ const GenerateHistoricalPlaylist = (props) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [decadeFilter, setDecadeFilter] = useState("");
     const [countryFilter, setCountryFilter] = useState("");
-    console.log(countries)
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function loadPlaylists() {
@@ -136,6 +136,7 @@ const GenerateHistoricalPlaylist = (props) => {
     }
 
     const generatePlaylist = async () => {
+        setLoading(true);
         let numCountries = countriesQueried.length;
         let numDecades = decadesQueried.length;
         console.log("num of countries: " + numCountries + " num of decades: " + numDecades)
@@ -235,11 +236,12 @@ const GenerateHistoricalPlaylist = (props) => {
         else {
             setErrorMsg("Could not generate a playlist with the specified parameters");
         }
+        setLoading(false);
     }
 
 
     return (
-        <div className="generateScreen" onMouseEnter={() => setTextHoverState(null)}>
+        <div className="generateScreen">
             <div className="generateScreenTitleText">bring back the sounds of...</div>
             <div className="generateScreenTopContainer">
                 <div className="generateScreenTopInnerContainerDate">
@@ -254,8 +256,8 @@ const GenerateHistoricalPlaylist = (props) => {
                             </div>
                             <div className="generateScreenButtonContainer">
                                 {countries.filter(country => country.name.toLowerCase().substring(0, countryFilter.length).includes(countryFilter.toLowerCase())).map((country, index) => (
-                                    <div className="genreButton">
-                                        <button className="clickButton ui button large" onClick={() => addCountry(country.name, country.id)} onMouseEnter={() => setTextHoverState(null)}>
+                                    <div className="genreButton" key={index}>
+                                        <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => addCountry(country.name, country.id)}>
                                             {country.name}
                                         </button>
                                     </div>
@@ -263,10 +265,10 @@ const GenerateHistoricalPlaylist = (props) => {
                             </div>
                         </div>
                         <div className="genreRightContainer">
-                            <div className="genreRightContainerInner" onMouseEnter={() => setTextHoverState(null)}>
+                            <div className="genreRightContainerInner">
                                 {countriesDisplayed.map((row, index) =>
-                                    <div className="categoryTextContainer" onMouseEnter={() => setTextHoverState(row.country)}>
-                                        <p key={index} className="genreList"><i>{row.country}</i></p>
+                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => {if (!loading) setTextHoverState(row.country)}} onMouseLeave={() => setTextHoverState(null)}>
+                                        <p className="genreList"><i>{row.country}</i></p>
                                         <div className="removeCategoryIcon">
                                             <Icon className="large" style={{
                                                 width: "3%", display: (row.country === textHoverState) ? "block" : "none"
@@ -293,8 +295,8 @@ const GenerateHistoricalPlaylist = (props) => {
                             </div>
                             <div className="generateScreenButtonContainer">
                                 {decades.filter(decade => decade.toLowerCase().substring(0, decadeFilter.length).includes(decadeFilter.toLowerCase())).map((decade, index) => (
-                                    <div className="genreButton">
-                                        <button className="clickButton ui button large" onClick={() => addDecade(decade)} onMouseEnter={() => setTextHoverState(null)}>
+                                    <div className="genreButton" key={index}>
+                                        <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => addDecade(decade)}>
                                             {decade}
                                         </button>
                                     </div>
@@ -302,9 +304,9 @@ const GenerateHistoricalPlaylist = (props) => {
                             </div>
                         </div>
                         <div className="genreRightContainer">
-                            <div className="genreRightContainerInner" onMouseEnter={() => setTextHoverState(null)}>
+                            <div className="genreRightContainerInner">
                                 {decadesQueried.map((row, index) =>
-                                    <div className="categoryTextContainer" onMouseEnter={() => setTextHoverState(row.decade)}>
+                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => {if (!loading) setTextHoverState(row.decade)}} onMouseLeave={() => setTextHoverState(null)}>
                                         <p className="genreList" key={index}><i>{row.decade}</i></p>
                                         <div className="removeCategoryIcon">
                                             <Icon className="large" style={{
@@ -321,22 +323,22 @@ const GenerateHistoricalPlaylist = (props) => {
                 </div>
             </div>
 
-            <div className="generateDividerDate"></div>
+            {/* <div className="generateDividerDate"></div> */}
             <div className="generateBottomArea">
                 <h3>Playlist Size</h3>
                 <div className="ui input maxSongInputArea">
-                    <button className="ui button clickButton icon" onClick={() => changeNumSongs(numSongs - 1)}>
+                    <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => changeNumSongs(numSongs - 1)}>
                         <i className="angle left icon" />
                     </button>
                     {!lastSongInputValid && <Label style={{ position: "absolute", marginTop: "4em" }} pointing='above'>Please enter a value between 1-50</Label>}
-                    <input id="songNumberInput" size="1" maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
-                        onChange={(e) => { changeNumSongs(parseInt(e.target.value)) }} />
-                    <button className="clickButton ui button icon" onClick={() => changeNumSongs(numSongs + 1)}>
+                    <input id="songNumberInput" disabled={loading ? true : false} size="1"  maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
+                        onChange={(e) => changeNumSongs(parseInt(e.target.value))} />
+                    <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => changeNumSongs(numSongs + 1)}>
                         <i className="angle right icon" />
                     </button>
                 </div>
                 <div className="generateButtonBox">
-                    <button className="clickButton ui button massive generateButton" onClick={generatePlaylist}>GENERATE!</button>
+                    <button className={loading ? "clickButton ui button massive generateButton loading disabled" : "clickButton ui button massive generateButton"} onClick={generatePlaylist}>GENERATE!</button>
                     {errorMsg && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{errorMsg}</div>}
                 </div>
             </div>
