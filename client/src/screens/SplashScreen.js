@@ -7,15 +7,10 @@ import ThemePicker from '../UtilityComponents/ThemePicker';
 import { REGISTER, LOGIN } from '../cache/mutations';
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
-// import { Link } from 'react-router-dom';
 import { setCurrentUser } from "../data/LocalStorage";
 
 
-
-
 const SplashScreen = (props) => {
-    const [passwordOpenState, setPasswordModalOpenState] = useState(false);
-
     // Login hooks
     const [loginInput, setLoginInput] = useState({ username: "", password: "" });
     const [passwordFieldType, setPasswordFieldType] = useState("password");
@@ -40,7 +35,6 @@ const SplashScreen = (props) => {
             setLoginError(data.login.username);
         }
         else if (data) {
-            // console.log(data)
             setCurrentUser(JSON.stringify(data.login));
             props.fetchUser();
         };
@@ -74,21 +68,21 @@ const SplashScreen = (props) => {
 
     return (
         <div className="App">
-            <header className="App-header" style={{ backgroundColor: "var(--background)" }}>
-                <p className="app_logo_container">
-                    <img src={wavebackTextBG} className="appLogoBG" alt="" />
-                    <img src={wavebackTextFG} className="appLogoFG" alt="" style={{ filter: "hue-rotate(var(--hue))" }} />
+            <header className="splashScreenBackground">
+                <p className="splashLogoContainer">
+                    <img src={wavebackTextBG} className="appLogoBG" alt="e" />
+                    <img src={wavebackTextFG} className="appLogoFG" alt="e" />
                 </p>
                 <div className="splashLoginContainer" >
-                    <p className="splashTextSubtitle" style={{ color: "var(--accent)" }}>
-                        waveback is a simple, yet powerful, playlist creation tool.<br />relive the sounds of the past like never before.
+                    <p className="splashTextSubtitle">
+                        waveback is a simple, yet powerful, playlist creation tool.<br />explore the sounds of the past like never before.
                     </p>
-                    <div className="splashLoginBox" style={{ backgroundColor: "var(--primary)" }}>
-                        <div className="splashText" style={{ color: "var(--accent)" }}>Sign In</div>
+                    <div className="splashLoginBox">
+                        <div className="splashText">Sign In</div>
                         <form style={{ maxWidth: "min-content " }} onSubmit={(e) => {
-                            e.preventDefault()
-                            login()
-                            return false
+                            e.preventDefault();
+                            login();
+                            return false;
                         }}>
                             <div className="ui input splashInputContainer">
                                 <input size="25" className="splashInput" placeholder="Username"
@@ -103,25 +97,8 @@ const SplashScreen = (props) => {
                                     trigger={<Icon style={{ marginLeft: "10px", marginTop: "5px" }} onClick={() => toggleShowPassword()} name={passwordFieldType === "password" ? 'eye' : 'eye slash'} />}
                                 />
                             </div>
-                            {loginError && <div style={{ color: "red", marginTop: "10px", fontSize: "12pt", fontWeight: "bold" }}>{loginError}</div>}
-                            <Modal
-                                basic
-                                onClose={() => setPasswordModalOpenState(false)}
-                                onOpen={() => setPasswordModalOpenState(true)}
-                                open={passwordOpenState}
-                                size='small' trigger={<div className="splashTextSmall">Forgot Password?</div>}>
-                                <Header icon><Icon name='question circle' />Password Recovery</Header>
-                                <Modal.Content>
-                                    <div className="ui input recoverPasswordTextfield">
-                                        <input size="50" placeholder="Email" style={{ backgroundColor: "var(--secondary)" }} />
-                                    </div>
-                                </Modal.Content>
-                                <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                    <Button inverted color='red' onClick={() => setPasswordModalOpenState(false)}><Icon name='remove' />Close</Button>
-                                    <Button className="ui primary button"><Icon name='checkmark' />Send Recovery Email</Button>
-                                </Modal.Actions>
-                            </Modal>
-                            <div>
+                            <div className="loginErrorMessage">{loginError ? loginError : <br></br>}</div>
+                            <div className="loginButton">
                                 <Button type="submit" className="clickButton ui huge button" onClick={login}>Log In</Button>
                             </div>
                         </form>
@@ -139,7 +116,7 @@ const SplashScreen = (props) => {
                                 <div className="ui input registerTextfield">
                                     <input size="50" placeholder="Email" style={{ backgroundColor: "var(--secondary)" }} name="email" onChange={updateRegisterInput} />
                                 </div>
-                                <div className="ui input registerTextfield" style={{ alignContent: "baseline" }}>
+                                <div className="ui input registerTextfield">
                                     <input size="50" placeholder="Password" style={{ backgroundColor: "var(--secondary)" }}
                                         type={passwordFieldType} name="password" onChange={updateRegisterInput} />
                                     <Icon style={{ marginLeft: "10px", marginTop: "5px", color: "white", fontSize: "15pt" }} onClick={() => toggleShowPassword()}
@@ -155,9 +132,7 @@ const SplashScreen = (props) => {
                         </Modal>
                     </div>
                 </div>
-
                 <ThemePicker />
-
             </header>
         </div>
     );

@@ -44,7 +44,7 @@ code {
   text-align: center;
 }
 
-.app_logo_container {
+.splashLogoContainer {
   padding-top: 3%;
   display: flex;
   align-items: center;
@@ -52,7 +52,6 @@ code {
 }
 
 .appLogoBG {
-  position: relative;
   pointer-events: none;
   animation: appLogoWaveIntro 1.5s linear;
 }
@@ -62,15 +61,16 @@ code {
   pointer-events: none;
   margin-top: -0.5%;
   transform: scale(0.87);
+  filter: hue-rotate(var(--hue));
 }
 
-.App-header {
+.splashScreenBackground {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  background-image: linear-gradient(var(--background), var(--primary));
 }
 
 .App-link {
@@ -90,6 +90,7 @@ code {
   margin-right: 3%;
   font-style: italic;
   user-select: none;
+  color: var(--accent);
 }
 
 .splashLoginBox {
@@ -101,6 +102,15 @@ code {
   justify-content: center;
   align-items: center;
   filter: drop-shadow(7px 7px 2px #222222);
+  background-color: var(--primary);
+}
+
+.loginErrorMessage {
+  color: red;
+  margin-top: 0.6%;
+  margin-bottom: 0.4%;
+  font-size: 12pt;
+  font-weight: bold;
 }
 
 .splashInputContainer {
@@ -119,6 +129,7 @@ code {
   margin: 5%;
   text-decoration: none;
   user-select: none;
+  color: var(--accent);
 }
 
 .splashTextSmall {
@@ -166,6 +177,7 @@ code {
   left: 22%;
   margin-top: 1%;
   margin-bottom: 1%;
+  align-content: baseline;
 }
 
 .signOutText {
@@ -336,13 +348,14 @@ code {
 .generateTabPane {
   background-color: var(--secondary);
   padding: 1%;
+  overflow: auto;
 }
 
 .generateScreen {
   background-color: var(--background);
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: space-around;
 }
 
 .generateScreenTitleText {
@@ -403,22 +416,21 @@ code {
 
 .genreRightContainer {
   background-color: none;
-  height: 30vmin;
   width: 40%;
   user-select: none;
   margin-top: -2%;
 }
 
 .genreRightContainerInner {
+  height: 44vmin;
   border-style: solid;
   border-width: 1px;
   border-color: var(--secondary);
-  height: 43vmin;
   overflow-y: auto;
 }
 
 .generateLeftContainer {
-  overflow-y: auto;
+  overflow-y: hidden;
   float: left;
   width: 50%;
   margin-top: -1%;
@@ -465,12 +477,11 @@ code {
   justify-content: center;
   margin-top: 4%;
   height: 37vmin;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .genreButton {
   margin-bottom: 2%;
-  overflow-y: auto;
 }
 
 .generateDividerDate, .generateDividerLocation {
@@ -493,7 +504,10 @@ code {
 
 .maxSongInputArea {
   margin: 0 auto;
-  width: 9%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
 }
 
 #songNumberInput {
@@ -502,7 +516,7 @@ code {
 }
 
 .generateBottomArea {
-  margin-top: 4%;
+  /* margin-top: 4%; */
   display: flex;
   flex-direction: column;
   text-align: center;

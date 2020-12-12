@@ -352,7 +352,7 @@ const GenerateLocationPlaylist = (props) => {
                 </div>
             </div>
 
-            <div className="generateDividerLocation"></div>
+            {/* <div className="generateDividerLocation"></div> */}
             <div className="generateBottomArea">
                 <h3>Playlist Size</h3>
                 <div className="ui input maxSongInputArea">
