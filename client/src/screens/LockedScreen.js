@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import { GETUSERBYUSERNAME, DELETE_USER } from '../cache/mutations';
 import jsonData from "../data/TestData.json";
@@ -8,15 +8,52 @@ import * as mutations from '../cache/mutations';
 import { Link } from 'react-router-dom';
 import { Grid, Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
+import { GET_DB_USER } from '../cache/queries';
+import { useQuery } from '@apollo/react-hooks';
+import { getCurrentUser } from "../data/LocalStorage";
+
+
 
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const LockedScreen = (props) => {
+    let user = null;
+    const { loading, error, data2 } = useQuery(GET_DB_USER);
+    console.log(data2);
+    if (error) { console.log("ERROR:\n", error); }
+    if (loading) { console.log("Loading...") }
+    if (data2) {
+        let { getCurrentUser } = data2;
+        if (getCurrentUser !== null) {
+            user = getCurrentUser;
+        }
+    }
+
+    console.log(user);
     const columns = 3;
     const playlists = jsonData.Playlists;
     const [users, setUsers] = useState([]);
     const [deleteUserOpenState, setDeleteUserOpenState] = useState(false);
-    const { data, refetch } = useMutation(GETUSERBYUSERNAME);
+    // const { data, refetch } = useMutation(GETUSERBYUSERNAME);
+
+    useEffect(() => {
+        let user = getCurrentUser();
+        // console.log(JSON.parse(user));
+        user = JSON.parse(user);
+        console.log(user.admin);
+        if (!user.admin){
+            props.history.push("/discover");
+        }
+        // if (!props.location.playlist) {
+        //     console.log("no props");
+        //     props.history.push("/discover");
+        // } else {
+        //     modifyPlaylist(props.location.playlist);
+        // }
+        // return () => {
+        // }
+        // if (props) console.log(props);
+    }, []);
 
     const showAllUsers = async (searchTerm) => {
         const { data } = await props.getuserbyusername({ variables: { username: searchTerm } })
@@ -91,38 +128,38 @@ const LockedScreen = (props) => {
                 <button className="clickButton ui button" onClick={() => showAllUsers("zzwer6bcm/uilbvmx9bvx-81v")}>Hide List of All Users</button>
             </div>
             <div className="adminScreenScrollContainer">
-                    <Grid columns={columns} divided>
-                        {users.map((user, index) => (
-                            <Grid.Column width={Math.floor(16 / columns)} key={index}>
-                                <div className="adminUserList" >
-                                    <img className="profilePicture" src={user.profilePicture} alt="" />
-                                    <div className='profileFollowingInfo'>
-                                        <h2>{user.username}</h2>
-                                        <Link to={{ pathname: "/profile/" + user._id, user: user }}>
-                                            <Icon className="big" name="user" ></Icon>
-                                        </Link>
-                                        <Modal
-                                            basic
-                                            onClose={() => setDeleteUserOpenState(false)}
-                                            onOpen={() => setDeleteUserOpenState(user)}
-                                            open={Boolean(deleteUserOpenState)}
-                                            size='small'
-                                            trigger={<Icon className="removeSongIcon big" name="trash"></Icon>}>
-                                            <Header icon><Icon className='large trash' />
+                <Grid columns={columns} divided>
+                    {users.map((user, index) => (
+                        <Grid.Column width={Math.floor(16 / columns)} key={index}>
+                            <div className="adminUserList" >
+                                <img className="profilePicture" src={user.profilePicture} alt="" />
+                                <div className='profileFollowingInfo'>
+                                    <h2>{user.username}</h2>
+                                    <Link to={{ pathname: "/profile/" + user._id, user: user }}>
+                                        <Icon className="big" name="user" ></Icon>
+                                    </Link>
+                                    <Modal
+                                        basic
+                                        onClose={() => setDeleteUserOpenState(false)}
+                                        onOpen={() => setDeleteUserOpenState(user)}
+                                        open={Boolean(deleteUserOpenState)}
+                                        size='small'
+                                        trigger={<Icon className="removeSongIcon big" name="trash"></Icon>}>
+                                        <Header icon><Icon className='large trash' />
                                                 Are you sure you want to delete this user?
                                                 <br></br>
-                                                <div className="irreversible">THIS IS NOT REVERSIBLE!</div>
-                                            </Header>
-                                            <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                                <Button className="ui primary button" onClick={() => deleteUser(deleteUserOpenState)}><Icon name='checkmark' />Yes</Button>
-                                                <Button inverted color='red' onClick={() => setDeleteUserOpenState(false)}><Icon name='remove' />No</Button>
-                                            </Modal.Actions>
-                                        </Modal>
-                                    </div>
+                                            <div className="irreversible">THIS IS NOT REVERSIBLE!</div>
+                                        </Header>
+                                        <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                            <Button className="ui primary button" onClick={() => deleteUser(deleteUserOpenState)}><Icon name='checkmark' />Yes</Button>
+                                            <Button inverted color='red' onClick={() => setDeleteUserOpenState(false)}><Icon name='remove' />No</Button>
+                                        </Modal.Actions>
+                                    </Modal>
                                 </div>
-                            </Grid.Column>
-                        ))}
-                    </Grid>
+                            </div>
+                        </Grid.Column>
+                    ))}
+                </Grid>
             </div>
 
         </div>

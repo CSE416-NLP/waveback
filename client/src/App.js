@@ -17,7 +17,7 @@ import Navbar from './UtilityComponents/Navbar';
 import { getSpotifyAccess, getSpotifyAccessToken, getSpotifyTokenExpirationTime } from "./data/LocalStorage";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import { jsTPS } from './utils/jsTPS';
-
+import { setCurrentUser, getCurrentUser } from "./data/LocalStorage";
 
 const App = (props) => {
   let user = null;

@@ -1,6 +1,7 @@
 const SPOTIFY_AUTH_TOKEN = "spotifyAuthToken";
 const SPOTIFY_ACCESS = "spotifyAccess";
 const SPOTIFY_TOKEN_EXPIRATION_TIME = "spotifyTokenExpirationTime";
+const CURRENT_USER = "user";
 
 export function getSpotifyAccess() {
     if (localStorage.getItem(SPOTIFY_ACCESS) === null) {
@@ -42,4 +43,12 @@ export function setSpotifyTokenExpirationTime(time) {
 
 export function getSpotifyTokenExpirationTime() {
     return Number(localStorage.getItem(SPOTIFY_TOKEN_EXPIRATION_TIME));
+}
+
+export function setCurrentUser(user) {
+    localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+}
+
+export function getCurrentUser(user) {
+    return JSON.parse(localStorage.getItem(CURRENT_USER));
 }

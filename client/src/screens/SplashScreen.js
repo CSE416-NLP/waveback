@@ -8,6 +8,8 @@ import { REGISTER, LOGIN } from '../cache/mutations';
 import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 // import { Link } from 'react-router-dom';
+import { setCurrentUser } from "../data/LocalStorage";
+
 
 
 
@@ -38,6 +40,8 @@ const SplashScreen = (props) => {
             setLoginError(data.login.username);
         }
         else if (data) {
+            // console.log(data)
+            setCurrentUser(JSON.stringify(data.login));
             props.fetchUser();
         };
     };
@@ -56,6 +60,7 @@ const SplashScreen = (props) => {
             setRegisterError(data.register.username);
         }
         else if (data) {
+            setCurrentUser(JSON.stringify(data.register));
             props.fetchUser();
         };
     }
