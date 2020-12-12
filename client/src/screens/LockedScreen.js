@@ -17,6 +17,7 @@ import { getCurrentUser } from "../data/LocalStorage";
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const LockedScreen = (props) => {
+    const [message, setMessage] = useState("THIS IS IRREVERSIBLE!");
     let user = null;
     const { loading, error, data2 } = useQuery(GET_DB_USER);
     console.log(data2);
@@ -41,7 +42,7 @@ const LockedScreen = (props) => {
         // console.log(JSON.parse(user));
         user = JSON.parse(user);
         console.log(user.admin);
-        if (!user.admin){
+        if (!user.admin) {
             props.history.push("/discover");
         }
         // if (!props.location.playlist) {
@@ -102,20 +103,29 @@ const LockedScreen = (props) => {
     }
 
     const deleteUser = async (user) => {
+        let currentUser = getCurrentUser();
+        currentUser = JSON.parse(currentUser);
+        console.log(currentUser);
         console.log(user);
-        console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
-        props.deleteUser({ variables: { _id: user._id } })
-        setDeleteUserOpenState(false);
-        const { data } = await props.getuserbyusername({ variables: { username: "" } })
-        if (data && data.getUserByUsername) {
-            if (data.getUserByUsername.length === 0) {
-                setUsers([]);
+
+        if (user._id !== currentUser._id) {
+            console.log("DELETE USER: " + user.username + " WITH ID: " + user._id);
+            props.deleteUser({ variables: { _id: user._id } })
+            setDeleteUserOpenState(false);
+            const { data } = await props.getuserbyusername({ variables: { username: "" } })
+            if (data && data.getUserByUsername) {
+                if (data.getUserByUsername.length === 0) {
+                    setUsers([]);
+                }
+                else {
+                    setUsers(data.getUserByUsername);
+                }
             }
-            else {
-                setUsers(data.getUserByUsername);
-            }
+            setUsers(data.getUserByUsername);
+        } else {
+            console.log("ERROR: Can't delete yourself!");
+            setMessage("ERROR: Can't delete yourself!");
         }
-        setUsers(data.getUserByUsername);
     }
 
     return (
@@ -144,11 +154,11 @@ const LockedScreen = (props) => {
                                         onOpen={() => setDeleteUserOpenState(user)}
                                         open={Boolean(deleteUserOpenState)}
                                         size='small'
-                                        trigger={<Icon className="removeSongIcon big" name="trash"></Icon>}>
+                                        trigger={<Icon className="removeSongIcon big" name="trash" onClick={() => setMessage("THIS IS IRREVERSIBLE!")}></Icon>}>
                                         <Header icon><Icon className='large trash' />
                                                 Are you sure you want to delete this user?
                                                 <br></br>
-                                            <div className="irreversible">THIS IS NOT REVERSIBLE!</div>
+                                            <div className="irreversible">{message}</div>
                                         </Header>
                                         <Modal.Actions className="recoverPasswordModalButtonContainer">
                                             <Button className="ui primary button" onClick={() => deleteUser(deleteUserOpenState)}><Icon name='checkmark' />Yes</Button>
