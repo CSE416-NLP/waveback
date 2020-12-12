@@ -23,7 +23,8 @@ const Following = (props) => {
       setFollowing(data.getFollowing)
     }
   }, [data, error, loading])
-
+  
+ 
   return (
     <div className="profileScreenMainContainerFollowing">
       <div className="followingSearchContainer ui input">

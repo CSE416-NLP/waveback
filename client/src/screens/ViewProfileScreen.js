@@ -22,28 +22,49 @@ const arrayToString = (array) => {
 
 const ViewProfileScreen = (props) => {
     console.log(props);
+    const { refetch } = useQuery(GET_DB_PLAYLISTS);
+
+    // useEffect(() => {
+    //     if (!props.location.user) {
+    //         console.log("no props");
+    //         props.history.push("/discover");
+    //     }
+    // }, [props.location.user]);
+
+    useEffect(() => {
+        async function loadPlaylists() {
+            if (!props.location.user) {
+                console.log("no props");
+                props.history.push("/discover");
+            } else {
+                const { data } = await props.getUserPlaylists({ variables: { owner: props.location.user.username } });
+                // console.log(data);
+                setPlaylists(data.getUserPlaylists);
+            }
+        }
+        
+        // async function loadPlaylists() {
+        //     const { data } = await props.getUserPlaylists({ variables: { owner: props.location.user.username } });
+        //     // console.log(data);
+        //     setPlaylists(data.getUserPlaylists);
+        // }
+        loadPlaylists();
+    }, [props.location.user]);
+
+    console.log(props);
     let user = props.location.user;
+    const [playlists, setPlaylists] = useState([]);
+
+
     const currentUser = props.location.currentUser;
     // const [following, setFollowing] = ([]);
-    const [following, setFollowing] = useState(currentUser.following);
-    const [follow, setFollow] = useState(following.includes(props.location.user._id) ? "Unfollow" : "Follow");
+    const [following, setFollowing] = useState(currentUser?.following);
+    const [follow, setFollow] = useState(following?.includes(props.location.user._id) ? "Unfollow" : "Follow");
     // const [follow, setFollow] = useState(following.includes)
-    const { refetch } = useQuery(GET_DB_PLAYLISTS);
-    const [playlists, setPlaylists] = useState([]);
     // const user = props.location.user;
 
     console.log(props);
-    useEffect(() => {
-        if (!props) {
-            console.log("no props");
-            props.history.push("/discover");
-        }
-        async function loadPlaylists() {
-            const { data } = await props.getUserPlaylists({ variables: { owner: user.username } });
-            setPlaylists(data.getUserPlaylists);
-        }
-        loadPlaylists();
-    }, [refetch]);
+
 
     const followUser = async (otherUser) => {
         setFollowing(prevFollowing => [...prevFollowing, otherUser._id]);
@@ -68,7 +89,9 @@ const ViewProfileScreen = (props) => {
     const invalidImage = (e) => {
         e.target.src = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=";
     }
-
+    if (!props.location.user) {
+        return <></>;
+    }
     return (
         <div className="viewProfileScreenOutermost">
             <div className="profileContainerLeft">
@@ -86,7 +109,7 @@ const ViewProfileScreen = (props) => {
                     <p className="viewProfileScreenLabel">Favorite Artists</p>
                     <div className="viewProfileTextArea" >{(arrayToString(user.favoriteArtists) === "") ? "None" : arrayToString(user.favoriteArtists)}</div>
                     <div className="followButtonContainer">
-                    {following.includes(user._id) ? 
+                        {following.includes(user._id) ?
                             <button className="userFollowButton clickButton ui icon big button" onClick={() => unfollowUser(user)}>
                                 {follow}
                             </button> :
