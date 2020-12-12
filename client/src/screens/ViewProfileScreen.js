@@ -31,7 +31,7 @@ const ViewProfileScreen = (props) => {
                 console.log("no props");
                 props.history.push("/profile");
             } else {
-                const { data } = await propvs.getUserPlaylists({ variables: { owner: props.location.user.username } });
+                const { data } = await props.getUserPlaylists({ variables: { owner: props.location.user.username } });
                 // console.log(data);
                 setPlaylists(data.getUserPlaylists);
             }
