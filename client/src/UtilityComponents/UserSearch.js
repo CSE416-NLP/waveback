@@ -7,6 +7,7 @@ import "../styles/css/index.css";
 
 // Widget that displays all public users.
 const UserSearch = (props) => {
+    // console.log(props);
     const currentUser = props.user;
     const [following, setFollowing] = useState(currentUser.following);
     const [searchTerm, setSearchTerm] = useState("");
@@ -35,6 +36,7 @@ const UserSearch = (props) => {
         if (data) console.log("successfully added", otherUser.username)
         else console.log("couldn't add", otherUser.username)
         props.fetchUser()
+        // setNumFollowers(numFollowers + 1);
     }
 
     const unfollowUser = async (otherUser) => {
@@ -44,6 +46,7 @@ const UserSearch = (props) => {
         if (data) console.log("successfully removed", otherUser.username)
         else console.log("couldn't remove", otherUser.username)
         props.fetchUser()
+        // setNumFollowers(numFollowers - 1);
     }
     const handleSearchInput = (event) => {
         setSearchTerm(event.target.value);
@@ -66,7 +69,7 @@ const UserSearch = (props) => {
                 {(userResults.length > 0) ? userResults.map((user, index) => (
 
                     <div className="userResultContainer2" key={index}>
-                        <Link className="userResultsFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
+                        <Link className="userResultsFollowing" to={{ pathname: "/profile/" + user._id, user: user, currentUser: currentUser }}>
                             <div className="userResultContainer">
                                 <div className="userResultProfilePicture">
                                     <img className="userResultPfpImg" src={user.profilePicture} alt="" />
@@ -81,7 +84,7 @@ const UserSearch = (props) => {
                         </Link>
                         <div className="userResultFollowInfo">
                             <div className="userResultFollowerInfo">
-                                {(user.followers.length !== 1) ? (user.followers.length + " followers") : (user.followers.length + " follower")}
+                                {/* {(user.followers.length !== 1) ? (user.followers.length + " followers") : (user.followers.length + " follower")} */}
                             </div>
                             {following.includes(user._id) ? 
                             <button className="userFollowButton clickButton ui icon big button" onClick={() => unfollowUser(user)}>

@@ -8,6 +8,7 @@ import UserSearch from "../../UtilityComponents/UserSearch";
 
 const Following = (props) => {
   const user = props.user;
+  const currentUser = user;
   const [following, setFollowing] = useState([]);
   const { loading, error, data } = useQuery(GET_FOLLOWING, { variables: { following: props.user.following } }); // Can add refetch
   const [filter, setFilter] = useState("");
@@ -33,7 +34,7 @@ const Following = (props) => {
         <Grid columns={columns} divided>
           {following.filter(user => user.username.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase())).map((user, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
+              <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user, currentUser: currentUser}}>
                 <img className="profilePicture" src={user.profilePicture} alt="" />
                 <div className='profileFollowingInfo'>
                   <h2>{user.username}</h2>
