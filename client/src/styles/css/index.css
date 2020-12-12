@@ -389,7 +389,10 @@ code {
   border-radius: 25px;
 }
 
-.generateInput { font-size: 18px; }
+.generateInput { 
+  font-size: 18px; 
+  color: var(--secondary);
+}
 
 .generateScreenBox {
   width: 100%;
@@ -808,8 +811,6 @@ code {
 .profileContainerLeft {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  width: 25%;
   background-color: var(--secondary);
   padding: 1%;
   filter: drop-shadow(0px 0px 4px #333333);
@@ -821,12 +822,10 @@ code {
   flex-direction: column;
   background-color: var(--background);
   padding: 1%;
-
 }
 
 .viewProfileScreenLabel {
   margin-top: 2%;
-  margin-bottom: 3%;
   font-weight: bold;
   font-size: 20px;
   color: var(--accent);
@@ -1261,6 +1260,7 @@ code {
 
 .playlistFilter {
   height: 90%;
+  background-color: var(--secondary);
 }
 
 .playlistFilterDivider {

@@ -29,7 +29,6 @@ const ViewProfileScreen = (props) => {
     useEffect(() => {
         async function loadPlaylists() {
             const { data } = await props.getUserPlaylists({ variables: { owner: user.username } });
-            // console.log(data);
             setPlaylists(data.getUserPlaylists);
         }
         loadPlaylists();
@@ -51,12 +50,12 @@ const ViewProfileScreen = (props) => {
                     <div className="viewProfileTextArea" >{user.bio}</div>
                     <p className="viewProfileScreenLabel">Location</p>
                     <div className="viewProfileTextArea" >{user.location}</div>
-                    <p className="viewProfileScreenLabel">Favorite Genres</p>
-                    <div className="viewProfileTextArea" >{arrayToString(user.favoriteGenres)}</div>
+                    {/* <p className="viewProfileScreenLabel">Favorite Genres</p> */}
+                    {/* <div className="viewProfileTextArea" >{arrayToString(user.favoriteGenres)}</div> */}
                     <p className="viewProfileScreenLabel">Favorite Artists</p>
                     <div className="viewProfileTextArea" >{arrayToString(user.favoriteArtists)}</div>
                     <div className="followButtonContainer">
-                        <button className="clickButton ui button massive followButton">Follow</button>
+                        <button className="clickButton ui button massive">Follow</button>
                     </div>
                 </div>
             </div>

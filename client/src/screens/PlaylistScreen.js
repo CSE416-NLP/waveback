@@ -597,7 +597,7 @@ const PlaylistScreen = (props) => {
                                 <div className="ui input">
 
                                     <input placeholder="Filter..." size="40" className="playlistFilter"
-                                        style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => setFilter(e.target.value)}>
+                                         onKeyUp={(e) => setFilter(e.target.value)}>
                                     </input>
                                     <button type="submit" className="clickButton fluid ui icon button">
                                         <i className="search icon"></i>
