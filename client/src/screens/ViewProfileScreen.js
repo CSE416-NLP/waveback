@@ -78,13 +78,13 @@ const ViewProfileScreen = (props) => {
                 </div>
                 <div className="viewProfileInfoBackground">
                     <p className="viewProfileScreenLabel">Bio</p>
-                    <div className="viewProfileTextArea" >{user.bio}</div>
+                    <div className="viewProfileTextArea" >{user.bio ? user.bio : "None"}</div>
                     <p className="viewProfileScreenLabel">Location</p>
-                    <div className="viewProfileTextArea" >{user.location}</div>
+                    <div className="viewProfileTextArea" >{user.location ? user.location : "None"}</div>
                     <p className="viewProfileScreenLabel">Favorite Genres</p>
-                    <div className="viewProfileTextArea" >{arrayToString(user.favoriteGenres)}</div>
+                    <div className="viewProfileTextArea" >{(arrayToString(user.favoriteGenres) === "") ? "None" : arrayToString(user.favoriteGenres)}</div>
                     <p className="viewProfileScreenLabel">Favorite Artists</p>
-                    <div className="viewProfileTextArea" >{arrayToString(user.favoriteArtists)}</div>
+                    <div className="viewProfileTextArea" >{(arrayToString(user.favoriteArtists) === "") ? "None" : arrayToString(user.favoriteArtists)}</div>
                     <div className="followButtonContainer">
                     {following.includes(user._id) ? 
                             <button className="userFollowButton clickButton ui icon big button" onClick={() => unfollowUser(user)}>

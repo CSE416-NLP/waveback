@@ -62,7 +62,7 @@ const ProfileScreen = (props) => {
               borderWidth: currentTab === "Profile" ? "8px" : "0px",
               backgroundColor: currentTab === "Profile" ? "var(--primary)" : "var(--secondary)",
             }}
-            onClick={(e) => setCurrentTab("Profile")}>My Profile
+            onClick={(e) => setCurrentTab("Profile")}>My Profile <Icon name="user circle"></Icon>
           </p>
           <p className="profileOptionsText"
             style={{
@@ -71,7 +71,7 @@ const ProfileScreen = (props) => {
               borderWidth: currentTab === "Followers" ? "8px" : "0px",
               backgroundColor: currentTab === "Followers" ? "var(--primary)" : "var(--secondary)",
             }}
-            onClick={(e) => setCurrentTab("Followers")}>Followers
+            onClick={(e) => setCurrentTab("Followers")}>Followers <Icon name="users"></Icon>
           </p>
           <p className="profileOptionsText"
             style={{
@@ -80,7 +80,7 @@ const ProfileScreen = (props) => {
               borderWidth: currentTab === "Following" ? "8px" : "0px",
               backgroundColor: currentTab === "Following" ? "var(--primary)" : "var(--secondary)",
             }}
-            onClick={(e) => setCurrentTab("Following")}>Following
+            onClick={(e) => setCurrentTab("Following")}>Following <Icon name="user plus"></Icon>
           </p>
           <p className="profileOptionsText"
             style={{
@@ -89,7 +89,7 @@ const ProfileScreen = (props) => {
               borderWidth: currentTab === "Settings" ? "8px" : "0px",
               backgroundColor: currentTab === "Settings" ? "var(--primary)" : "var(--secondary)",
             }}
-            onClick={(e) => setCurrentTab("Settings")}>My Account
+            onClick={(e) => setCurrentTab("Settings")}>My Account <Icon name="settings"></Icon>
           </p>
           <Modal basic size='small' open={signOutOpenState}
             onClose={() => setSignOutModalOpenState(false)} onOpen={() => setSignOutModalOpenState(true)}
