@@ -338,8 +338,7 @@ const ViewPlaylistScreen = (props) => {
                             <div className="playlistFilterContainer">
                                 <div className="viewPlaylistFilterDivider"></div>
                                 <div className="ui input">
-                                    <input placeholder="Filter..." size="40" className="playlistFilter"
-                                        style={{ backgroundColor: "var(--secondary)" }} onKeyUp={(e) => setFilter(e.target.value)}>
+                                    <input placeholder="Filter..." size="40" className="playlistFilter" onKeyUp={(e) => setFilter(e.target.value)}>
                                     </input>
                                     <button type="submit" className="clickButton fluid ui icon button">
                                         <i className="search icon"></i>
