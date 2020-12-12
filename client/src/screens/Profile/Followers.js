@@ -9,6 +9,7 @@ import "../../styles/css/index.css";
 
 
 const Followers = (props) => {
+  const currentUser = props.user;
   const [filter, setFilter] = useState("");
   const [followers, setFollowers] = useState([]);
   const columns = 2;
@@ -36,7 +37,7 @@ const Followers = (props) => {
         <Grid columns={columns} divided>
           {followers.filter(user => user.username.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase())).map((user, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
-              <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user }}>
+              <Link className="profileScreenFollowing" to={{ pathname: "/profile/" + user._id, user: user, currentUser: currentUser }}>
                 <img className="profilePicture" src={user.profilePicture} alt="" />
                 <div className='profileFollowingInfo'>
                   <h2>{user.username}</h2>
