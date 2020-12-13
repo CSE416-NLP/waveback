@@ -201,8 +201,8 @@ code {
 
 .dropdownChangeTheme {
   position: absolute;
-  left: 91%;
-  top: 91.5%;
+  left: 87%;
+  top: 87.5%;
 }
 
 .dropdownMenu {
@@ -804,7 +804,7 @@ code {
 }
 
 .accountPrivacyPicker {
-  margin-bottom: 12.5%;
+  margin-bottom: 7.5%;
 }
 
 /* VIEW PROFILE SCREEN */

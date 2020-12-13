@@ -9,11 +9,8 @@ import { graphql } from '@apollo/react-hoc';
 import { flowRight as compose } from 'lodash';
 import { DELETE_PLAYLIST, UPDATE_PLAYLIST } from '../cache/mutations';
 import { getSongTime, getAlbumTime } from "../UtilityComponents/Playlist";
-import PrivacyPicker from "../UtilityComponents/PrivacyPicker.js";
-import SongSearch from "../UtilityComponents/SongSearch";
 import { Link } from "react-router-dom"
 import * as mutations from '../cache/mutations';
-import { withRouter } from "react-router-dom";
 
 const ObjectId = require("mongoose").Types.ObjectId;
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -38,16 +35,13 @@ const ViewPlaylistScreen = (props) => {
     const [sortState, setSortState] = useState("normal");
     const [songHoverState, setSongHoverState] = useState(null);
     const [songInfoOpenState, setSongInfoOpenState] = useState(false);
-    // Spotify Song Searching
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResult] = useState([]);
     // Song Filtering
     const [filter, setFilter] = useState("");
     if (!props.location.playlist) {
         return <></>
-    } 
-    
-    
+    }
+
+
     const getPlaylistObject = (name, picture, description, songs, songURIs) => {
         let newPlaylist = {
             _id: playlist._id,
@@ -74,42 +68,6 @@ const ViewPlaylistScreen = (props) => {
         setPlaylistSongURIs(playlist.songURIs);
         updateTracks(playlist.songURIs, props.currentSongIndex);
         setPlaylist(playlist);
-    }
-
-    const searchSpotify = (term) => { // Default is all fields, playlist generation may only use song search
-        console.log(term);
-        if (term === "") return;
-        let token = getSpotifyAccessToken();
-        token = "Bearer " + token;
-        let query = "https://api.spotify.com/v1/search?q=" + term + "&type=track%2Cartist%2Calbum&market=US"
-        fetch(query, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setSearchResult(data.tracks.items)
-            })
-    }
-
-    const handleSearchInput = (event) => {
-        setSearchTerm(event.target.value);
-        if (event.key === 'Enter') {
-            searchSpotify(event.target.value);
-        }
-    }
-
-    const getRandomSong = () => {
-        let randomString = "";
-        for (let i = 0; i < 3; i++) {
-            randomString += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        searchSpotify(randomString);
     }
 
     const updateTracks = (newURIs, offset) => {
@@ -294,7 +252,7 @@ const ViewPlaylistScreen = (props) => {
     }
 
     return (
-        <div className="viewPlaylistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
+        <div className="viewPlaylistScreen" style={{ backgroundColor: "var(--background)" }}>
             <div className="playlistScreenLeftBox" style={{ backgroundColor: "var(--background)" }}>
                 <div className="viewPlaylistScreenLeftContainer">
                     <div className="playlistScreenInfo">
@@ -304,7 +262,7 @@ const ViewPlaylistScreen = (props) => {
                             <div className="playlistTitleHandling">
                                 <div className="viewPlaylistTitle" maxLength={35}>{playlistName ? playlistName : "Unnamed Playlist"}</div>
                             </div>
-                                <div className="ui divider"></div>
+                            <div className="ui divider"></div>
                             <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
                                 <div className="viewPlaylistPlayAllButton">
@@ -338,8 +296,8 @@ const ViewPlaylistScreen = (props) => {
                             <div className="playlistFilterContainer">
                                 <div className="viewPlaylistFilterDivider"></div>
                                 <div className="ui input">
-                                    <input placeholder="Filter..." size="40" className="playlistFilter" 
-                                        onKeyUp={(e) => setFilter(e.target.value)} style={{backgroundColor: "var(--secondary)"}}>
+                                    <input placeholder="Filter..." size="40" className="playlistFilter"
+                                        onKeyUp={(e) => setFilter(e.target.value)} style={{ backgroundColor: "var(--secondary)" }}>
                                     </input>
                                     <button type="submit" className="clickButton fluid ui icon button">
                                         <i className="search icon"></i>
@@ -357,55 +315,53 @@ const ViewPlaylistScreen = (props) => {
                                 </div>
                             </div>
                             {playlistSongs.filter(song => song.title.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase())).map((song, index) => (
-                           
-                                        <div className="playlistSongBox" ref={provided.innerRef}  >
-                                            <div className="playlistSongIcon" style={{ display: "flex", flexDirection: "row", width: "7%" }}>
-                                                <Icon className="big" name="play circle outline" onClick={() => playSong(index)}></Icon>
+                                <div className="playlistSongBox" ref={provided.innerRef}
+                                    onMouseEnter={() => setSongHoverState(song.title)} onMouseLeave={() => setSongHoverState(null)} >
+                                    <div className="playlistSongIcon" style={{ display: "flex", flexDirection: "row", width: "7%" }}>
+                                        <Icon className="big" name="play circle outline" onClick={() => playSong(index)}></Icon>
+                                    </div>
+                                    <div className="playlistSongBar" style={((props.currentPlaylistID === playlist._id && index === props.currentSongIndex) || snapshot.isDragging) ?
+                                        { backgroundColor: "var(--primary)", fontWeight: "bold", color: "white" }
+                                        : { backgroundColor: "var(--secondary)" }
+                                    }>
+                                        <div className="playlistSongTitle">{song.title}</div>
+                                        <div className="playlistSongArtist">{song.artist}</div>
+                                        <div className="playlistSongAlbum">{song.album}</div>
+                                        <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
+                                    </div>
+                                    <Modal
+                                        onClose={() => setSongInfoOpenState(false)}
+                                        onOpen={() => setSongInfoOpenState(song)}
+                                        open={Boolean(songInfoOpenState)}
+                                        size='small'
+                                        trigger={
+                                            <Icon className="removeSongIcon large" style={{
+                                                width: "3%", display: (song.title === songHoverState) ? "block" : "none"
+                                            }}
+                                                name="info circle" >
+                                            </Icon>}>
+                                        <Header icon>Song Info</Header>
+                                        <Modal.Content>
+                                            <div className="moreInfoContainer">
+                                                <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.albumPicture : ""} alt="" />
+                                                <div>
+                                                    <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.title : ""}</div>
+                                                    <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artist : ""}</div>
+                                                    <div className="playlistSRRAlbum">{
+                                                        songInfoOpenState ? songInfoOpenState.album + ", " + songInfoOpenState.year : ""
+                                                    }</div>
+                                                    <br></br>
+                                                    <div className="playlistSRRDuration">{
+                                                        songInfoOpenState ? "Duration: " + getSongTime(Math.round(songInfoOpenState.duration)) : ""
+                                                    }</div>
+                                                </div>
                                             </div>
-                                            <div className="playlistSongBar" style={((props.currentPlaylistID === playlist._id && index === props.currentSongIndex) || snapshot.isDragging) ?
-                                                { backgroundColor: "var(--primary)", fontWeight: "bold", color: "white" }
-                                                : { backgroundColor: "var(--secondary)" }
-                                            }
-                                                onMouseEnter={() => setSongHoverState(song.title)}
-                                            >
-                                                <div className="playlistSongTitle">{song.title}</div>
-                                                <div className="playlistSongArtist">{song.artist}</div>
-                                                <div className="playlistSongAlbum">{song.album}</div>
-                                                <div className="playlistSongDuration">{getSongTime(song.duration)}</div>
-                                            </div>
-                                            <Modal
-                                                onClose={() => setSongInfoOpenState(false)}
-                                                onOpen={() => setSongInfoOpenState(song)}
-                                                open={Boolean(songInfoOpenState)}
-                                                size='small'
-                                                trigger={
-                                                    <Icon className="removeSongIcon large" style={{
-                                                        width: "3%", display: (song.title === songHoverState) ? "block" : "none"
-                                                    }}
-                                                        name="info circle" >
-                                                    </Icon>}>
-                                                <Header icon>Song Info</Header>
-                                                <Modal.Content>
-                                                    <div className="moreInfoContainer">
-                                                        <img className="playlistSRRArt" src={songInfoOpenState ? songInfoOpenState.albumPicture : ""} alt="" />
-                                                        <div>
-                                                            <div className="playlistSRRTitle">{songInfoOpenState ? songInfoOpenState.title : ""}</div>
-                                                            <div className="playlistSRRArtist">{songInfoOpenState ? songInfoOpenState.artist : ""}</div>
-                                                            <div className="playlistSRRAlbum">{
-                                                                songInfoOpenState ? songInfoOpenState.album + ", " + songInfoOpenState.year : ""
-                                                            }</div>
-                                                            <br></br>
-                                                            <div className="playlistSRRDuration">{
-                                                                songInfoOpenState ? "Duration: " + getSongTime(Math.round(songInfoOpenState.duration)) : ""
-                                                            }</div>
-                                                        </div>
-                                                    </div>
-                                                </Modal.Content>
-                                                <Modal.Actions className="recoverPasswordModalButtonContainer">
-                                                    <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
-                                                </Modal.Actions>
-                                            </Modal>
-                                        </div>
+                                        </Modal.Content>
+                                        <Modal.Actions className="recoverPasswordModalButtonContainer">
+                                            <Button inverted color='red' onClick={(e) => setSongInfoOpenState(false)}><Icon name='close' />Close</Button>
+                                        </Modal.Actions>
+                                    </Modal>
+                                </div>
                             ))}
                             {provided.placeholder}
                         </div>
