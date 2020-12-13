@@ -483,7 +483,7 @@ const PlaylistScreen = (props) => {
     }
 
     return (
-        <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }} onMouseEnter={() => setSongHoverState(null)}>
+        <div className="playlistScreen" style={{ backgroundColor: "var(--background)" }}>
             <div className="playlistScreenLeftBox" >
                 <div className="playlistScreenLeftContainer">
                     <div className="playlistScreenInfo">
@@ -619,16 +619,15 @@ const PlaylistScreen = (props) => {
                             {playlistSongs.filter(song => song.title.toLowerCase().substring(0, filter.length).includes(filter.toLowerCase())).map((song, index) => (
                                 <Draggable key={song.key.toString()} draggableId={song.key.toString()} index={index}>
                                     {(provided, snapshot) => (
-                                        <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
+                                        <div className="playlistSongBox" style={{ backgroundColor: snapshot.isDragging ? "red" : "blue" }} 
+                                            ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
+                                            onMouseEnter={() => setSongHoverState(song.songURI)} onMouseLeave={() => setSongHoverState(null)} >
                                             <div className="playlistSongIcon" style={{ display: "flex", flexDirection: "row", width: "7%" }}>
                                                 <Icon className="big" name="play circle outline" onClick={() => playSong(index)}></Icon>
                                             </div>
                                             <div className="playlistSongBar" style={((props.currentPlaylistID === playlist._id && index === props.currentSongIndex) || snapshot.isDragging) ?
                                                 { backgroundColor: "var(--primary)", fontWeight: "bold", color: "white" }
-                                                : { backgroundColor: "var(--secondary)" }
-                                            }
-                                                onMouseEnter={() => setSongHoverState(song.songURI)}
-                                            >
+                                                : { backgroundColor: "var(--secondary)" }}>
                                                 <div className="playlistSongTitle">{song.title}</div>
                                                 <div className="playlistSongArtist">{song.artist}</div>
                                                 <div className="playlistSongAlbum">{song.album}</div>
