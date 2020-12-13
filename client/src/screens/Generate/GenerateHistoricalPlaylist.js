@@ -17,7 +17,7 @@ const GenerateHistoricalPlaylist = (props) => {
     const [textHoverState, setTextHoverState] = useState(null);
     const [numSongs, setNumSongs] = useState(10);
     const [lastSongInputValid, setLastSongInputValid] = useState(true);
-    const decades = ["1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"];
+    const decades = ["1920s", "1930s", "1940s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s"];
     const [countriesQueried, setCountriesQueried] = useState([]);
     const [countriesDisplayed, setCountriesDisplayed] = useState([]);
     const [decadesQueried, setDecadesQueried] = useState([]);
