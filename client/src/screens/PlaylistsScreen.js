@@ -16,6 +16,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 
 const PlaylistsScreen = props => {
   const [playlists, setPlaylists] = useState([]);
+  const [filter, setFilter] = useState("");
   const { refetch } = useQuery(GET_DB_PLAYLISTS);
 
   useEffect(() => {
@@ -63,7 +64,8 @@ const PlaylistsScreen = props => {
       <div className="playlistsSearchContainer ui input">
         <p className="discoverTitleText">my playlists</p>
         <div className="ui input">
-          <input placeholder="Search.." size="40" className="playlistsSearch" style={{ backgroundColor: "var(--secondary)" }}></input>
+          <input placeholder="Filter playlists" size="40" className="playlistsSearch" style={{ backgroundColor: "var(--secondary)" }}
+            value={filter} onChange={(e) => setFilter(e.target.value)}/>
           <button type="submit" className="clickButton fluid ui icon big button">
             <i className="search icon"></i>
           </button>
@@ -72,7 +74,7 @@ const PlaylistsScreen = props => {
 
       <div className="playlists_container">
         <Grid columns={columns} divided>
-          {playlists.map((playlist, index) => (
+          {playlists.filter(playlist => playlist.name.substring(0, filter.length).toLowerCase().includes(filter.toLowerCase())).map((playlist, index) => (
             <Grid.Column width={Math.floor(16 / columns)} key={index}>
               <Link to={{ pathname: "/playlist/" + playlist.owner + '/' + playlist._id, playlist: playlist }}>
                 <Playlist playlist={playlist} />
