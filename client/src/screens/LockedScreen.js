@@ -15,6 +15,7 @@ import { getCurrentUser } from "../data/LocalStorage";
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const LockedScreen = (props) => {
+    let admin = true;
     const [message, setMessage] = useState("THIS IS IRREVERSIBLE!");
     let user = null;
     const { loading, error, data2 } = useQuery(GET_DB_USER);
@@ -28,6 +29,7 @@ const LockedScreen = (props) => {
         }
     }
 
+    // let currentUser = user;
     const columns = 3;
     const playlists = jsonData.Playlists;
     const [users, setUsers] = useState([]);
@@ -109,7 +111,8 @@ const LockedScreen = (props) => {
             setMessage("ERROR: Can't delete yourself!");
         }
     }
-
+    let currentUser = getCurrentUser();
+    currentUser = JSON.parse(currentUser);
     return (
         <div className="adminScreen" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
             <br></br>
@@ -127,7 +130,7 @@ const LockedScreen = (props) => {
                                 <img className="profilePicture" src={user.profilePicture} alt="" />
                                 <div className='profileFollowingInfo'>
                                     <h2>{user.username}</h2>
-                                    <Link to={{ pathname: "/profile/" + user._id, user: user }}>
+                                    <Link to={{ pathname: "/profile/" + user._id, user: user, currentUser: currentUser, admin: admin }}>
                                         <Icon className="big" name="user" ></Icon>
                                     </Link>
                                     <Modal

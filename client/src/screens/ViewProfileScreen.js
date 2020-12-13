@@ -22,8 +22,10 @@ const arrayToString = (array) => {
 
 const ViewProfileScreen = (props) => {
     console.log(props);
-    const { refetch } = useQuery(GET_DB_PLAYLISTS);
+    
 
+    const { refetch } = useQuery(GET_DB_PLAYLISTS);
+    const [admin, setAdmin] = useState(false);
 
     useEffect(() => {
         async function loadPlaylists() {
@@ -34,6 +36,10 @@ const ViewProfileScreen = (props) => {
                 const { data } = await props.getUserPlaylists({ variables: { owner: props.location.user.username } });
                 // console.log(data);
                 setPlaylists(data.getUserPlaylists);
+            }
+
+            if (props.location.admin){
+                setAdmin(true);
             }
         }
         loadPlaylists();
@@ -80,6 +86,7 @@ const ViewProfileScreen = (props) => {
     if (!props.location.user) {
         return <></>;
     }
+    console.log(admin);
     return (
         <div className="viewProfileScreenOutermost">
             <div className="profileContainerLeft">
@@ -97,14 +104,15 @@ const ViewProfileScreen = (props) => {
                     <p className="viewProfileScreenLabel">Favorite Artists</p>
                     <div className="viewProfileTextArea" >{(arrayToString(user.favoriteArtists) === "") ? "None" : arrayToString(user.favoriteArtists)}</div>
                     <div className="followButtonContainer">
-                        {following.includes(user._id) ?
+                        {!admin ? following.includes(user._id) ?
                             <button className="userFollowButton clickButton ui icon big button" onClick={() => unfollowUser(user)}>
                                 {follow}
                             </button> :
                             <button className="userFollowButton clickButton ui icon big button" onClick={() => followUser(user)}>
                                 {follow}
                                 {/* follow */}
-                            </button>}
+                            </button>
+                            : <div />}
                         {/* <button className="clickButton ui button massive" onClick>{follow}</button> */}
                     </div>
                 </div>
