@@ -11,7 +11,7 @@ require('dotenv').config();
 
 const serverOptions = (app) => {
 	app.use(helmet());
-	app.use(express.json({ limit: '10kb' }));
+	app.use(express.json({ limit: '100mb' }));
 	app.use(express.urlencoded({ extended: false }));
 	app.use(mongoSanitize());
 	app.use(xssClean());

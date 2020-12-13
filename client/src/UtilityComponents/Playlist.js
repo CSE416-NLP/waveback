@@ -37,7 +37,7 @@ const Playlist = (props) => {
                     <div className="playlistSubText">by {playlist.owner}</div>
                     <div className="playlistSubText">{playlist.songs.length} song{playlist.songs.length === 1 ? "" : "s"}  -  {getAlbumTime(playlist.songs)}</div>
                     <div className="playlistSubText">{playlist.tags.map((tag, i) => i === (playlist.tags.length - 1) ? tag : tag + ", ")}</div>
-                    <div className="playlistSubText">Followers: {playlist.followers}</div>
+                    {/* <div className="playlistSubText">Followers: {playlist.followers}</div> */}
                 </div>
             </div>
         </div>

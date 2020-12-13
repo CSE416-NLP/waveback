@@ -494,7 +494,7 @@ const PlaylistScreen = (props) => {
                             open={playlistPictureOpenState}
                             size='small'
                             trigger={<img onError={invalidImage} className="playlistArt" src={playlistPicture} alt="" />}>
-                            <Header icon><Icon name='user circle' />Update Playlist Picture</Header>
+                            <Header icon><Icon name='user circle'/>Update Playlist Picture</Header>
                             <Modal.Content>
                                 <div className="ui input changeAvatarTextField">
                                     <input size="50" onChange={(e) => setPlaylistPicture(e.target.value)} placeholder="URL" style={{ backgroundColor: "var(--secondary)" }} />
