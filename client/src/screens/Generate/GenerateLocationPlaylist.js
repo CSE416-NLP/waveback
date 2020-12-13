@@ -166,6 +166,17 @@ const GenerateLocationPlaylist = (props) => {
         }
         setErrorMsg("");
     }
+    const containsSong = (playlist, song) => {
+        // console.log(playlist, song);
+        for (let i = 0; i < playlist.length; i++){
+            // console.log(playlist + " " + song);
+            if (playlist[i].songURI === song.songURI){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     const generatePlaylist = async () => {
         setLoading(true);
         let numCountries = countriesQueried.length;
@@ -238,6 +249,24 @@ const GenerateLocationPlaylist = (props) => {
                     genre: [],
                     year: randomSong.album.release_date ? parseInt(randomSong.album.release_date.substring(0, 4)) : null,
                     duration: Math.round(randomSong.duration_ms / 1000),
+                }
+
+                while (containsSong(newPlaylist.songs, newSong)) {
+                    console.log("playlist has this song already!");
+                    let randomSongIndex = Math.floor(Math.random() * songData.items.length);
+                    let randomSong = songData.items[randomSongIndex].track;
+                    newSong = {
+                        _id: "",
+                        songURI: randomSong.uri,
+                        key: newPlaylist.songs.length,
+                        title: randomSong.name,
+                        artist: randomSong.artists[0].name,
+                        album: randomSong.album.name,
+                        albumPicture: randomSong.album.images[0].url,
+                        genre: [],
+                        year: randomSong.album.release_date ? parseInt(randomSong.album.release_date.substring(0, 4)) : null,
+                        duration: Math.round(randomSong.duration_ms / 1000),
+                    }
                 }
                 newPlaylist.songs.push(newSong);
                 newPlaylist.songURIs.push(newSong.songURI);

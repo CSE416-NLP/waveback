@@ -135,6 +135,17 @@ const GenerateHistoricalPlaylist = (props) => {
         setErrorMsg("");
     }
 
+    const containsSong = (playlist, song) => {
+        // console.log(playlist, song);
+        for (let i = 0; i < playlist.length; i++){
+            // console.log(playlist + " " + song);
+            if (playlist[i].songURI === song.songURI){
+                return true;
+            }
+        }
+        return false;
+    }
+
     const generatePlaylist = async () => {
         setLoading(true);
         let numCountries = countriesQueried.length;
@@ -208,7 +219,28 @@ const GenerateHistoricalPlaylist = (props) => {
                     year: randomSong.album.release_date ? parseInt(randomSong.album.release_date.substring(0, 4)) : null,
                     duration: Math.round(randomSong.duration_ms / 1000),
                 }
+
+                while (containsSong(newPlaylist.songs, newSong)) {
+                    console.log("playlist has this song already!");
+
+                    let randomSongIndex = Math.floor(Math.random() * songData.items.length);
+                    let randomSong = songData.items[randomSongIndex].track;
+                    newSong = {
+                        _id: "",
+                        songURI: randomSong.uri,
+                        key: newPlaylist.songs.length,
+                        title: randomSong.name,
+                        artist: randomSong.artists[0].name,
+                        album: randomSong.album.name,
+                        albumPicture: randomSong.album.images[0].url,
+                        genre: [],
+                        year: randomSong.album.release_date ? parseInt(randomSong.album.release_date.substring(0, 4)) : null,
+                        duration: Math.round(randomSong.duration_ms / 1000),
+                    }
+                }
+
                 newPlaylist.songs.push(newSong);
+                // console.log(newPlaylist.songs.includes(newSong));
                 newPlaylist.songURIs.push(newSong.songURI);
             }
             catch (err) {
@@ -219,7 +251,7 @@ const GenerateHistoricalPlaylist = (props) => {
             if (!newPlaylist.songs[i]._id)
                 newPlaylist.songs[i]._id = new ObjectId();
         }
-        console.log(newPlaylist);
+        // console.log(newPlaylist);
         if (newPlaylist.songs.length > 0) {
             const { data } = await props.addPlaylist({ variables: { playlist: newPlaylist }, refetchQueries: [{ query: GET_DB_PLAYLISTS }] });
             if (data.addPlaylist) {
@@ -267,7 +299,7 @@ const GenerateHistoricalPlaylist = (props) => {
                         <div className="genreRightContainer">
                             <div className="genreRightContainerInner">
                                 {countriesDisplayed.map((row, index) =>
-                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => {if (!loading) setTextHoverState(row.country)}} onMouseLeave={() => setTextHoverState(null)}>
+                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => { if (!loading) setTextHoverState(row.country) }} onMouseLeave={() => setTextHoverState(null)}>
                                         <p className="genreList"><i>{row.country}</i></p>
                                         <div className="removeCategoryIcon">
                                             <Icon className="large" style={{
@@ -306,7 +338,7 @@ const GenerateHistoricalPlaylist = (props) => {
                         <div className="genreRightContainer">
                             <div className="genreRightContainerInner">
                                 {decadesQueried.map((row, index) =>
-                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => {if (!loading) setTextHoverState(row.decade)}} onMouseLeave={() => setTextHoverState(null)}>
+                                    <div className="categoryTextContainer" key={index} onMouseEnter={() => { if (!loading) setTextHoverState(row.decade) }} onMouseLeave={() => setTextHoverState(null)}>
                                         <p className="genreList" key={index}><i>{row.decade}</i></p>
                                         <div className="removeCategoryIcon">
                                             <Icon className="large" style={{
@@ -331,7 +363,7 @@ const GenerateHistoricalPlaylist = (props) => {
                         <i className="angle left icon" />
                     </button>
                     {!lastSongInputValid && <Label style={{ position: "absolute", marginTop: "4em" }} pointing='above'>Please enter a value between 1-50</Label>}
-                    <input id="songNumberInput" disabled={loading ? true : false} size="1"  maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
+                    <input id="songNumberInput" disabled={loading ? true : false} size="1" maxLength="3" value={numSongs} style={{ backgroundColor: "var(--secondary)" }}
                         onChange={(e) => changeNumSongs(parseInt(e.target.value))} />
                     <button className={loading ? "clickButton ui button icon disabled" : "clickButton ui button icon"} onClick={() => changeNumSongs(numSongs + 1)}>
                         <i className="angle right icon" />
