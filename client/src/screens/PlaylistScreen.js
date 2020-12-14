@@ -77,7 +77,7 @@ const PlaylistScreen = (props) => {
 
 
     const modifyPlaylist = (playlist) => {
-        console.log(playlist);
+        // console.log(playlist);
         setPlaylistName(playlist.name);
         setPlaylistPicture(playlist.picture);
         setPlaylistDescription(playlist.description);
@@ -157,7 +157,7 @@ const PlaylistScreen = (props) => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setSearchResult(data.tracks.items)
             })
     }
@@ -235,7 +235,7 @@ const PlaylistScreen = (props) => {
     }
 
     const addSong = (song) => {
-        console.log(song);
+        // console.log(song);
         let newSong = {
             _id: "",
             songURI: song.uri,
