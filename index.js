@@ -6,7 +6,8 @@ const resolvers = require('./resolvers/root-resolver');
 const { typeDefs }  = require('./typedefs/root-def');
 const serverOptions = require('./server-config');
 require('dotenv').config();
-const { MONGO_URI, PORT , CLIENT_ORIGIN , CLIENT_LOCAL_ORIGIN , SERVER_LOCAL_DOMAIN } = process.env;
+const { MONGO_URI, CLIENT_ORIGIN , CLIENT_LOCAL_ORIGIN , SERVER_LOCAL_DOMAIN } = process.env;
+const PORT = process.env.PORT || 3001;
 
 // create express server handling our middleware 
 const app = express();

@@ -34,7 +34,7 @@ const SERVER_LOCAL_DOMAIN = 'http://localhost:3001/graphql';
 const SERVER_DOMAIN = 'https://waveback416.herokuapp.com/graphql'
 
 const client = new ApolloClient({
-  uri: SERVER_LOCAL_DOMAIN,
+  uri: SERVER_DOMAIN,
   credentials: 'include',
   cache: cache,
   resolvers
