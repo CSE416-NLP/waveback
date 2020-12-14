@@ -595,8 +595,9 @@ code {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  justify-content: center;
+  justify-content: flex-start;
   margin-left: 5%;
+  margin-top: 6%;
 }
 
 .playlist_art { 
@@ -979,6 +980,7 @@ code {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  margin-top: -2%;
 }
 
 .playlistArt {
@@ -1152,6 +1154,13 @@ code {
 .searchResultOptionButton {
   width: 40%;
   text-align: center;
+}
+
+.playlistOwner {
+  font-size: 17px;
+  margin-left: 2%;
+  margin-top: -5%;
+  margin-bottom: 5%;
 }
 
 .playlistNumSongs {

@@ -250,6 +250,7 @@ const ViewPlaylistScreen = (props) => {
                                 <div className="viewPlaylistTitle" maxLength={35}>{playlistName ? playlistName : "Unnamed Playlist"}</div>
                             </div>
                             <div className="ui divider"></div>
+                            <p className="playlistOwner">by {playlist.owner}</p>
                             <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
                                 <div className="viewPlaylistPlayAllButton">

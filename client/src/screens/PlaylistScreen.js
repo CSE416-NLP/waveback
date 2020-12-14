@@ -514,6 +514,7 @@ const PlaylistScreen = (props) => {
                             <div className="playlistTitleDivider ">
                                 <div className="ui divider"></div>
                             </div>
+                            <p className="playlistOwner">by {playlist.owner}</p>
                             <p className="playlistNumSongs">{playlistSongs.length} song{playlistSongs.length === 1 ? "" : "s"}, {getAlbumTime(playlistSongs)}</p>
                             <div className="playlistSideButtons">
                                 <div className="playlistPlayAllButton">
