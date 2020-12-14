@@ -123,7 +123,6 @@ const GenerateLocationPlaylist = (props) => {
         let categoriesDisplayedCopy = [...categoriesDisplayed];
         let categoriesQueriedCopy = [...categoriesQueried];
 
-        let index = 0;
         for (let i = 0; i < categoriesDisplayedCopy.length; i++) {
             if (categoriesDisplayedCopy[i].category === category) {
                 categoriesDisplayedCopy.splice(i, 1);
@@ -139,7 +138,6 @@ const GenerateLocationPlaylist = (props) => {
         let countriesDisplayedCopy = [...countriesDisplayed];
         let countriesQueriedCopy = [...countriesQueried];
 
-        let index = 0;
         for (let i = 0; i < countriesDisplayedCopy.length; i++) {
             console.log(countriesDisplayed[i]);
             if (countriesDisplayedCopy[i].country === country) {

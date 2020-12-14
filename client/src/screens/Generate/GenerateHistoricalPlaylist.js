@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../../styles/css/index.css"
-import { Label, Icon, StepDescription } from 'semantic-ui-react'
+import { Label, Icon } from 'semantic-ui-react'
 import { getSpotifyAccessToken } from "../../data/LocalStorage.js";
 import { GET_DB_PLAYLISTS } from '../../cache/queries';
 import * as mutations from '../../cache/mutations';

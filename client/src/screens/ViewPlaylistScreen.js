@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Icon, Header, Button, Popup } from 'semantic-ui-react';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { getSpotifyAccessToken } from "../data/LocalStorage.js";
+import { Modal, Icon, Header, Button } from 'semantic-ui-react';
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
 import "../styles/css/index.css"
@@ -13,7 +12,6 @@ import { Link } from "react-router-dom"
 import * as mutations from '../cache/mutations';
 
 const ObjectId = require("mongoose").Types.ObjectId;
-const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const ViewPlaylistScreen = (props) => {
 
@@ -24,7 +22,7 @@ const ViewPlaylistScreen = (props) => {
         }
     }, [props]);
 
-    const { data, refetch } = useQuery(GET_DB_PLAYLISTS);
+    const { refetch } = useQuery(GET_DB_PLAYLISTS);
     const currentUser = props.user
     const [playlist, setPlaylist] = useState(props.location.playlist);
     const [playlistName, setPlaylistName] = useState(playlist?.name);
@@ -104,17 +102,6 @@ const ViewPlaylistScreen = (props) => {
             uris: playlistSongURIs
         })
         props.setPlayStatus(true);
-    }
-
-    const playSongByURI = (uri) => {
-        checkPlayerStatus();
-        props.setPlayStatus(false);
-        props.setTracks({
-            offset: 0,
-            uris: [uri]
-        })
-        props.setPlayStatus(true);
-        console.log(uri);
     }
 
     const playRandom = () => {

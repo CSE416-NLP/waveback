@@ -82,7 +82,7 @@ module.exports = {
          **/
         updatePlaylist: async (_, args) => {
             let { _id, name, picture, description, songs, songURIs, visibility, tags, duration } = args;
-            console.log(args);
+            // console.log(args);
             const objectId = new ObjectId(_id);
 
             // for (let i = 0; i < songs.length; i++) {

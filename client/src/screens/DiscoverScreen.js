@@ -59,7 +59,7 @@ const DiscoverScreen = (props) => {
           {renderPlaylists.map((row, i) => (
             <Grid.Row stretched key={i}>
               {row.map((playlist, index) => (
-                <Grid.Column width={i != renderPlaylists.length ? Math.floor(16 / columns) : 16} key={index}>
+                <Grid.Column width={i !== renderPlaylists.length ? Math.floor(16 / columns) : 16} key={index}>
                   {user === playlist.owner ?
                     <Link to={{ pathname: "/playlist/" + playlist.owner + '/' + playlist._id, playlist: playlist }}>
                       <Playlist playlist={playlist} />

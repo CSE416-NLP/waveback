@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 import { getAlbumTime } from "../UtilityComponents/Playlist";
 import { GET_USER_PLAYLISTS } from '../cache/mutations';
 import { GET_DB_PLAYLISTS } from '../cache/queries';
-import { useQuery } from '@apollo/react-hooks';
 import { flowRight as compose } from 'lodash';
 import { graphql } from '@apollo/react-hoc';
-import { FOLLOWUSER, UNFOLLOWUSER, GETUSERBYUSERNAME } from '../cache/mutations';
+import { FOLLOWUSER, UNFOLLOWUSER } from '../cache/mutations';
 
 const arrayToString = (array) => {
     let str = "";
@@ -24,7 +23,7 @@ const ViewProfileScreen = (props) => {
     console.log(props);
     
 
-    const { refetch } = useQuery(GET_DB_PLAYLISTS);
+    // const { refetch } = useQuery(GET_DB_PLAYLISTS);
     const [admin, setAdmin] = useState(false);
 
     useEffect(() => {
