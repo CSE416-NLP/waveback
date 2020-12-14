@@ -17,17 +17,6 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const LockedScreen = (props) => {
     let admin = true;
     const [message, setMessage] = useState("THIS IS IRREVERSIBLE!");
-    let user = null;
-    const { loading, error, data2 } = useQuery(GET_DB_USER);
-    console.log(data2);
-    if (error) { console.log("ERROR:\n", error); }
-    if (loading) { console.log("Loading...") }
-    if (data2) {
-        let { getCurrentUser } = data2;
-        if (getCurrentUser !== null) {
-            user = getCurrentUser;
-        }
-    }
 
     // let currentUser = user;
     const columns = 3;
