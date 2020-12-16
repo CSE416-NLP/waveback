@@ -3,7 +3,7 @@
 *waveback* is a simple to use, yet powerful playlist creation tool that enables 
 you to relive the sounds of the past in a unique way.
 
-To try our Waveback, first npm install in both the root and client directories, and then go back to the root to run npm start.
+To try out Waveback, first npm install in both the root and client directories, and then go back to the root to run npm start.
 
 
 Harness the power of nostalgia to dynamically generate playlists based on dates, 
